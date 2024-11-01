@@ -12,11 +12,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
         :root {
-            --green: #27ae60;
-            --black: #192a56;
+            --black: black;
             --light-color: grey;
             --white: #F6F2F2;
-            --box-shadow: 0.5rem 1.5rem rgba(0,0,0,.1)
+            --blue: #4169E1;
+            --red: #FF0000;
+            --yellow: #FFFF00;
         }
 
         * {
@@ -32,12 +33,13 @@
         body {
             font-family: 'Nunito', sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: black;
             background-color: #F6F2F2;
         }
 
         .cont {
             padding: 0 7%;
+            margin-bottom: 50px;
             
         }
 
@@ -71,9 +73,9 @@
             margin-top: 1rem;
             display: inline-block;
             align-self: center;
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             color: #fff;
-            background: var(--black);
+            background: var(--blue);
             cursor: pointer;
             padding: .7rem;
             border-radius: 5px;
@@ -81,7 +83,8 @@
         }
 
         .btn:hover {
-            background: var(--green);
+            background: var(--yellow);
+            color: black;
             letter-spacing: .1rem;
         }
 

@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
 :root {
-    --green: #27ae60;
-    --black: #192a56;
+    --black: black;
     --light-color: grey;
     --white: #F6F2F2;
-    --box-shadow: 0.5rem 1.5rem rgba(0,0,0,.1)
+    --blue: #4169E1;
+    --red: #FF0000;
+    --yellow: #FFFF00;
 }
 
 * {
@@ -30,19 +31,6 @@ body {
     background-color: #eee;
 }
 
-header {
-    padding: 1rem 7%;
-    background-color: white;
-    color: var(--black);
-    width: 100%;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-header img {
-    width: 70px;
-    height: 70px;
-}
-
 .heading {
     text-align: center;
     color: var(--black);
@@ -53,26 +41,8 @@ header img {
 
 .sub-heading {
     text-align: center;
-    color: var(--green);
     font-size: 2rem;
     padding-top: 1rem;
-}
-
-.btn {
-    margin-top: 1rem;
-    display: inline-block;
-    font-size: 1.7rem;
-    color: #fff;
-    background: var(--black);
-    cursor: pointer;
-    padding: 1rem 3rem;
-    border-radius: 5px;
-    text-transform: capitalize;
-}
-
-.btn:hover {
-    background: var(--green);
-    letter-spacing: .1rem;
 }
 
 .container-all {
@@ -125,14 +95,14 @@ h1 {
 
 .filters button {
     padding: 10px 20px;
-    background-color: var(--black);
+    background-color: var(--blue);
     color: white;
     border: none;
     cursor: pointer;
 }
 
 .filters button:hover {
-    background-color: var(--green);
+    background-color: var(--yellow);
 }
 
 table {
@@ -167,6 +137,12 @@ td img {
 @media (max-width: 1200px) {
     .container-all {
         width: 90%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .search-container {
+        margin-top: 30px;
     }
 }
 

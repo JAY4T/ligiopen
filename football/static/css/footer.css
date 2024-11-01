@@ -1,8 +1,8 @@
 .footer {
     display: block;
     padding: 2rem 9%;
-    margin-top: 50px;
-    background-color: white;
+    margin-top: 0;
+    background-color: var(--red);
 }
 
 .footer .box-container {
@@ -14,18 +14,19 @@
 .footer .box-container .box h3 {
     padding: .5rem 0;
     font-size: 2.5rem;
-    color: var(--black);
+    color: white;
+    font-weight: 700;
 }
 
 .footer .box-container .box a {
     display: block;
     padding: .5rem 0;
     font-size: 1.5rem;
-    color: var(--light-color);
+    color: white;
 }
 
 .footer .box-container .box a:hover {
-    color: var(--green);
+    color: var(--blue);
     text-decoration: underline;
 }
 

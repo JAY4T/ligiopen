@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
 :root {
-    --green: #27ae60;
-    --black: #192a56;
+    --black: black;
     --light-color: grey;
     --white: #F6F2F2;
-    --box-shadow: 0.5rem 1.5rem rgba(0,0,0,.1)
+    --blue: #4169E1;
+    --red: #FF0000;
+    --yellow: #FFFF00;
 }
 
 * {
@@ -24,24 +25,19 @@ html {
     overflow-x: hidden;
     scroll-padding-top: 5.5rem;
     scroll-behavior: smooth;
+    color: black;
 }
-
-section.live {
-    display: block;
-}
-
 
 .sub-heading {
     text-align: center;
-    color: var(--green);
     font-size: 2rem;
     padding-top: 1rem;
 }
 
 .heading {
     text-align: center;
-    color: var(--black);
     font-size: 3rem;
+    font-weight: 700;
     padding-bottom: 2rem;
     text-transform: uppercase;
 }
@@ -51,7 +47,7 @@ section.live {
     display: inline-block;
     font-size: 1.7rem;
     color: #fff;
-    background: var(--black);
+    background: var(--blue);
     cursor: pointer;
     padding: 1rem 3rem;
     border-radius: 5px;
@@ -59,27 +55,28 @@ section.live {
 }
 
 .btn:hover {
-    background: var(--green);
+    background: var(--yellow);
+    color: black;
     letter-spacing: .1rem;
 }
 
-.navbar2, .navbar3 {
+.navbar2 {
     padding: 10px 0;
 }
 
-.navbar2 a, .navbar3 a{
+.navbar2 a {
+    color: black;
     font-size: 1.7rem;
     border-radius: .5rem;
     padding: .5rem 1.5rem;
-    color: var(--light-color);
 }
 
-.fixtures .navbar2 a.active, .fixtures .navbar2 a:hover, .highlights .navbar3 a.active, .highlights .navbar3 a:hover {
-    color: #fff;
-    background: var(--green);
+.fixtures .navbar2 a.active, .fixtures .navbar2 a:hover {
+    font-weight: 700;
+    background: var(--yellow);
 }
 
-/*Home section*/
+/*Home page styles*/
 section .home {
     position: absolute;
 }
@@ -155,6 +152,7 @@ section .home {
 
 .home .poster .team img {
     max-width: 200px;
+    max-height: 100px;
     border-radius: 10px;
 }
 
@@ -241,88 +239,13 @@ section .home {
     display: flex;
 }
 
-.holding {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 5% 7%;
-    background-color: #eee;
-}
-
-.wrapper-div {
-    background: #fff;
-    width: 800px;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.4);
-}
-
-.wrapper-div h2{
-    text-align: center;
-}
-
-.wrapper-div .members{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.wrapper-div .team-mem{
-    margin: 8px;
-    text-align: center;
-}
-
-.wrapper-div img{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin: 10px;
-}
-
-.wrapper-div h4, .wrapper-div p{
-    text-align: center;
-    font-size: 12px;
-    margin: 7px;
-}
-
-.player-view {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.player-view .more-info {
-    font-size: 2rem;
-    text-align: center;
-}
-
-.ticket {
-    margin-top: 20px;
-    color: var(--green);
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    font-style: italic;
-}
-
-.ticket:hover {
-    letter-spacing: .1rem;
-}
-
-.ticket i {
-    margin-left: 20px;
-}
-
 #features {
     background-color: white;
     width: 100%;
+    height: 50vh;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 5% 9%;
     font-size: 2rem;
 }
@@ -332,14 +255,35 @@ section .home {
 }
 
 .icon {
-    color: var(--green);
+    color: var(--blue);
     margin-bottom: 1rem;
 }
 
 .icon:hover {
     color: var(--black);
 }
+/* End Homepage styles*/
 
+/*Ticket button style*/
+.ticket {
+    margin-top: 20px;
+    color: var(--blue);
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+.ticket:hover {
+    color: var(--yellow);
+    letter-spacing: .1rem;
+}
+
+.ticket i {
+    margin-left: 20px;
+}
+/*End Ticket button style*/
+
+/*Clubs page styles*/
 .teams {
     padding: 5% 0%;
     background-color: #eee;
@@ -374,15 +318,18 @@ section .home {
     opacity: 0.8;
 }
 
-/* Placeholder styles for images and icons */
+.team-member {
+    display: flex;
+    flex-direction: column;
+}
+
 .teams img {
     width: 100%;
-    height: auto;
+    height: 200px;
 }
 
 .inner-div {
-    display: flex;
-    justify-content: space-between;
+    text-align: center;
 }
 
 .inner-div h3 {
@@ -390,24 +337,29 @@ section .home {
     padding: 10px;
 }
 
-.underline-button {
-    text-decoration: underline;
-    color: var(--black);
+.player-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
 }
 
-.underline-button:hover {
-    color: var(--green);
-    cursor: pointer;
+.player-view .more-info {
+    font-size: 2rem;
+    text-align: center;
 }
+/* End club page styles*/
 
-/*Financing section*/
-#dashboard, #transparency {
+/*Finance page styles*/
+.dashboard, #transparency {
     text-align: center;
     font-size: 2rem;
-    padding: 3% 0;
+    padding: 50px 0;
 }
 
-#hero {
+/* #hero {
     background: url('../images/pexels-pixabay-46798.jpg') no-repeat center center/cover;
     height: 100vh;
     background-size: cover;
@@ -417,19 +369,34 @@ section .home {
     justify-content: center;
     align-items: center;
     padding: 4rem 2rem;
+} */
+
+#hero {
+    height: fit-content;
+    height: 100vh;
+    gap: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3% 7%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='540' height='450' viewBox='0 0 1080 900'%3E%3Crect fill='%2300b7ff' width='1080' height='900'/%3E%3Cg fill-opacity='.1'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: cover;
 }
 
-#hero .heading {
-    color: white;
+#hero div {
+    text-align: center;
+}
+
+#hero img {
+    width: 50%;
+    height: 50%;
 }
 
 #hero p {
     font-size: 2rem;
     margin-bottom: 2rem;
     padding: 5px;
-    color: white;
-    -webkit-backdrop-filter: blur(20px); /* For Safari 9+ */
-    backdrop-filter: blur(20px);
+    color: black;
 }
 
 #hero .btn {
@@ -439,7 +406,8 @@ section .home {
 .dashboard {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .header {
@@ -485,12 +453,10 @@ section .home {
     margin-bottom: 50px;
 }
 
-
 #transparency {
     background-color: #eee;
-    color: #333;
     line-height: 1.6;
-    padding: 20px;
+    padding: 50px;
 }
 
 #transparency .top {
@@ -504,13 +470,8 @@ section .home {
     padding: 0 7%;
 }
 
-#transparency ul {
-    
+#transparency ul {    
     margin-left: 30px;
-}
-
-#transparency strong, #transparency .commitment-accountability h3  {
-    color: var(--black);
 }
 
 #transparency .commitment-accountability {
@@ -558,8 +519,9 @@ section .home {
     color: var(--green);
     font-weight: bold;
 }
+/*End Finance Page styles*/
 
-/*Fixtures section*/
+/*Fixtures page styles*/
 
 .fixtures {
     font-size: 2rem;
@@ -732,173 +694,6 @@ section .home {
 
 .results-section .demo {
     text-align: center;
-}
-
-/*Highlights*/
-/*News Section*/
-.highlights {
-    background-color: #eee;
-    padding: 3% 9%;
-}
-
-.highlights img {
-    width: 100%;
-    height: 30vh;
-    object-fit: cover;
-}
-
-.highlights .container {
-    width: 100%;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 1em;
-}
-
-.highlights .news-card {
-    display: grid;
-    position: relative;
-    grid-template-rows: auto 1fr;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    margin: 1em 0;
-    border-radius: 15px;
-    background-color: white;
-}
-
-.news-card img {
-    border-radius: 15px 15px 0 0;
-}
-
-.news-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1em;
-    font-size: 15px;
-}
-
-.news-title {
-    font-weight: 600;
-    color: #0b0028;
-}
-
-.news-description {
-    color: #6f6f6f;
-    text-align: justify;
-    margin: 0.8em 0 1em 0;
-}
-
-.highlights .btn {
-    text-align: center;
-}
-
-/*Contact us*/
-.order {
-    text-transform: capitalize;
-    height: 100vh;
-    padding-top: 2%;
-    background-color: #eee;
-}
-
-.order form {
-    max-width: 50rem;
-    border-radius: .5rem;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    border: .1rem solid rgba(0, 0, 0, 0.2);
-    background: #fff;
-    padding: 1.5rem;
-    margin: 0 auto;
-    font-size: 2.0rem;
-}
-
-.order form .inputBox {
-    display: block;
-}
-
-.order form .inputBox .input {
-    width: 100%;
-}
-
-.order form .inputBox .input span {
-    display: block;
-    padding: .5rem 0;
-    font-size: 1.5rem;
-    color: var(--black);
-    font-weight: bold;
-}
-
-.order form .inputBox .input input, .order form .inputBox .input textarea {
-    background: #eee;
-    border-radius: .5rem;
-    padding: 1rem;
-    font-size: 1.6rem;
-    color: var(--black);
-    text-transform: none;
-    margin-bottom: 1rem;
-    width: 100%;
-}
-
-.order form .inputBox .input input:focus, .order form .inputBox .input textarea:focus {
-    border: .1rem solid var(--green);
-}
-
-.order form .inputBox .input textarea {
-    height: 20rem;
-    resize: none;
-}
-
-.order form .btn {
-    margin-top: 0;
-}
-
-#name-invalid, #email-invalid, #issue-invalid {
-    display: none;
-    color: hsl(4, 100%, 67%);
-}
-
-/*Footer section*/
-.footer {
-    display: block;
-    padding: 2rem 9%;
-    margin-top: 50px;
-}
-
-.footer .box-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-    gap: 1.5rem;
-}
-
-.footer .box-container .box h3 {
-    padding: .5rem 0;
-    font-size: 2.5rem;
-    color: var(--black);
-}
-
-.footer .box-container .box a {
-    display: block;
-    padding: .5rem 0;
-    font-size: 1.5rem;
-    color: var(--light-color);
-}
-
-.footer .box-container .box a:hover {
-    color: var(--green);
-    text-decoration: underline;
-}
-
-.footer .credit {
-    text-align: center;
-    border-top: .1rem solid rgba(0,0,0,.1);
-    font-size: 2rem;
-    color: var(--black);
-    padding: .5rem;
-    padding-top: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-.footer .credit span {
-    color: var(--green);
 }
 
 /*Media queries*/
@@ -1079,24 +874,6 @@ section .home {
     .teams .col-lg-3 {
         flex: 0 0 calc(50% - 30px);
         max-width: calc(50% - 30px);
-    }
-}
-
-@media (max-width: 570px){
-    .footer .box-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .footer .box-container > * {
-        width: 100%; 
-    }
-
-    .footer .box-container .box a {
-        font-size: 2rem; 
     }
 }
 

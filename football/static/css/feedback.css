@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
 :root {
-    --green: #27ae60;
-    --black: #192a56;
-    --light-color: grey;
-    --white: #F6F2F2;
-    --box-shadow: 0.5rem 1.5rem rgba(0,0,0,.1)
+  --black: black;
+  --light-color: grey;
+  --white: #F6F2F2;
+  --blue: #4169E1;
+  --red: #FF0000;
+  --yellow: #FFFF00;
 }
 
 * {
@@ -35,15 +36,16 @@ html, body {
 
 .sub-heading {
     text-align: center;
-    color: var(--green);
     font-size: 2rem;
+
 }
 
 .heading {
-    text-align: center;
-    color: var(--black);
-    font-size: 3rem;
-    text-transform: uppercase;
+  margin-top: 50px;
+  text-align: center;
+  color: var(--black);
+  font-size: 3rem;
+  text-transform: uppercase;
 }
 
 .container{
@@ -57,6 +59,7 @@ html, body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-bottom: 50px;
 }
 
 .container .post{
@@ -66,7 +69,7 @@ html, body {
 .container .text{
   font-size: 25px;
   color: var(--black);
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .container .star-widget input{
@@ -166,20 +169,23 @@ form .btn{
   margin: 15px 0;
 }
 
-form .btn button{
+form .btn {
   height: 100%;
   width: 100%;
   outline: none;
   color: white;
-  background-color: var(--black);
+  background-color: var(--blue);
   font-size: 17px;
   font-weight: 500;
+  padding: 10px;
   text-transform: uppercase;
   cursor: pointer;
 }
   
-form .btn button:hover{
-  background: var(--green);
+form .btn:hover{
+  background: var(--yellow);
+  color: black;
+  font-weight: bold;
 }
 
 @media (max-width: 991px) {

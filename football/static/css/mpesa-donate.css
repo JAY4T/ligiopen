@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
 :root {
-    --green: #27ae60;
-    --black: #192a56;
+    --black: black;
     --light-color: grey;
     --white: #F6F2F2;
-    --box-shadow: 0.5rem 1.5rem rgba(0,0,0,.1)
+    --blue: #4169E1;
+    --red: #FF0000;
+    --yellow: #FFFF00;
 }
 
 /* Basic Reset */
@@ -36,50 +37,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 80vh;
-}
-
-.btn {
-    margin-top: 1rem;
-    display: inline-block;
-    font-size: 1.7rem;
-    color: #fff;
-    background: var(--black);
-    cursor: pointer;
-    padding: 1rem 3rem;
-    border-radius: 5px;
-    text-transform: capitalize;
-}
-
-.btn:hover {
-    background: var(--green);
-    letter-spacing: .1rem;
-}
-
-.sub-heading {
-    text-align: center;
-    color: var(--green);
-    font-size: 2rem;
-    padding-top: 1rem;
-}
-
-.heading {
-    text-align: center;
-    color: var(--black);
-    font-size: 3rem;
-    padding-bottom: 2rem;
-    text-transform: uppercase;
-}
-
-.navbar2 a{
-    font-size: 1.7rem;
-    border-radius: .5rem;
-    padding: .5rem 1.5rem;
-    color: var(--light-color);
-}
-
-.navbar2 a.active, .navbar2 a:hover {
-    color: #fff;
-    background: var(--green);
 }
 
 .donation-container {

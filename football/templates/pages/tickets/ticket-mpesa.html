@@ -13,12 +13,8 @@
     <link rel="stylesheet" href="{% static 'css/ticket-card.css' %}">
 </head>
 <body>
-    <!--Header section-->
-    <header>
-        <a href="{% url 'home' %}">
-            <img src="{% static 'images/li__1_-removebg-preview.png' %}" alt="logo">
-        </a>
-    </header>
+    {% include 'navbar.html' %}
+
 
     <div class="container container2">
         <div class="payment-form">
