@@ -45,39 +45,21 @@ def fixtures_view(request):
         'fixtures_results': fixtures_results, 'fixtures':fixtures
     })
 
-
-
-def club_staff_view(request, club_id):
-    club = get_object_or_404(Club, id=club_id)
+def club_staff_view(request, club_name):
+    club = get_object_or_404(Club, name=club_name)  # or use 'slug' if you're using slugs
     coaching_staff = Staff.objects.filter(club=club, staff_type='Coaching Staff')
     other_staff = Staff.objects.filter(club=club, staff_type='Other Staff')
     club_match_staff = Staff.objects.filter(club=club, staff_type='Club Match Staff')
     players = Player.objects.filter(club=club)
-    staff=Staff.objects.filter()
-    
+
     context = {
         'club': club,
         'coaching_staff': coaching_staff,
         'other_staff': other_staff,
         'club_match_staff': club_match_staff,
         'players': players,
-        'staff':staff,
     }
-    
-    
     return render(request, 'pages/club-staff.html', context)
-    
-    
-def player_detail_view(request, slug):
-     club = get_object_or_404(Club, slug=slug)
-     players = Player.objects.filter(club=club)
-
-     context = {
-         'club': club,
-         'players': players,
-     }
-     
-     return render(request, 'pages/club-staff.html', context)
 
 
 def player_stats_view(request):

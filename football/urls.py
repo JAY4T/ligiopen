@@ -15,8 +15,9 @@ urlpatterns = [
     path('pages/success.html', views.success_view, name='success'),
 
     path('club', views.club_list_view, name='club_list'),
-    path('club/<int:club_id>/', views.club_detail_view, name='club_detail'),
-    path('club/<int:club_id>', views.club_staff_view, name='club_staff_view'),
+    path('club/<int:club_name>/', views.club_detail_view, name='club_detail'),
+    path('clubs/<str:club_name>/staff/', views.club_staff_view, name='club_staff_view'),
+
     path('pages/all-players', views.player_list, name='player_list'),
     path('pages/blog', views.blog_list, name='blog_list'),
     path('highlights/', views.highlight_list, name='highlight_list'),
