@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
 :root {
-    --green: #27ae60;
-    --black: #192a56;
+    --black: black;
     --light-color: grey;
     --white: #F6F2F2;
-    --box-shadow: 0.5rem 1.5rem rgba(0,0,0,.1)
+    --blue: #4169E1;
+    --red: #FF0000;
+    --yellow: #FFFF00;
 }
 
 * {
@@ -37,7 +38,6 @@ section.live {
 
 .sub-heading {
     text-align: center;
-    color: var(--green);
     font-size: 2rem;
     padding-top: 1rem;
 }
@@ -48,23 +48,6 @@ section.live {
     font-size: 3rem;
     padding-bottom: 2rem;
     text-transform: uppercase;
-}
-
-.btn {
-    margin-top: 1rem;
-    display: inline-block;
-    font-size: 1.7rem;
-    color: #fff;
-    background: var(--black);
-    cursor: pointer;
-    padding: 1rem 3rem;
-    border-radius: 5px;
-    text-transform: capitalize;
-}
-
-.btn:hover, .results-section .match-centre:hover {
-    background: var(--green);
-    letter-spacing: .1rem;
 }
 
 /*Header section */
@@ -91,13 +74,13 @@ header .navbar, .navbar2 {
 header .navbar a , .navbar2 a{
     font-size: 1.7rem;
     border-radius: .5rem;
+    color: black;
     padding: .5rem 1.5rem;
-    color: var(--light-color);
 }
 
 header .navbar a.active, .matches .navbar2 a.active, .matches .navbar2 a:hover, header .navbar a:hover {
-    color: #fff;
-    background: var(--green);
+    font-weight: bold;
+    background: var(--yellow);
 }
 
 header .icons i {
@@ -120,7 +103,7 @@ header img {
 
 header .icons i:hover {
     color: #fff;
-    background: var(--green);
+    background: var(--blue);
     transform: rotate(360deg);
 }
 
@@ -220,7 +203,7 @@ section {
 }
 
 .fixture .team-comp {
-    color: var(--green);
+    font-weight: bold;
 }
   
 .fixture-date {
@@ -425,8 +408,8 @@ section {
 .footer {
     display: block;
     padding: 2rem 9%;
-    margin-top: 50px;
-    background-color: white;
+    background-color: var(--red);
+    color: white;
 }
 
 .footer .box-container {
@@ -444,18 +427,18 @@ section {
 .footer .box-container .box h3 {
     padding: .5rem 0;
     font-size: 2.5rem;
-    color: var(--black);
+    font-weight: bold;
 }
 
 .footer .box-container .box a {
     display: block;
     padding: .5rem 0;
+    color: white;
     font-size: 1.5rem;
-    color: var(--light-color);
 }
 
 .footer .box-container .box a:hover {
-    color: var(--green);
+    color: var(--blue);
     text-decoration: underline;
 }
 

@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
 :root {
-    --green: #27ae60;
-    --black: #192a56;
+    --black: black;
     --light-color: grey;
     --white: #F6F2F2;
-    --box-shadow: 0.5rem 1.5rem rgba(0,0,0,.1)
+    --blue: #4169E1;
+    --red: #FF0000;
+    --yellow: #FFFF00;
 }
 
 * {
@@ -43,17 +44,17 @@ body {
     align-items: center;
     text-align: center;
     padding: 10px;
-    border: 2px solid black;
 }
 
 .top-text h1 {
     color: var(--black);
+    font-weight: bold;
     font-size: 3rem;
     text-transform: uppercase;
 }
 
 .top-text p {
-    color: var(--green);
+    color: var(--black);
     font-size: 2rem;
     padding-top: 1rem;
 }
@@ -75,14 +76,16 @@ body {
 .faq-section li {
     margin: 1rem 0;
     padding: 1rem;
-    background-color: #192a56c7;
+    background-color: var(--blue);
     cursor: pointer;
     border-radius: 8px;
     transition: background-color 0.3s;
 }
 
 .faq-section li:hover {
-    background-color: var(--black);
+    background-color: var(--yellow);
+    color: black;
+    font-weight: bold;
 }
 
 @media (max-width: 991px) {

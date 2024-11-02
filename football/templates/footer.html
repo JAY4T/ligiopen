@@ -15,8 +15,7 @@
             <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
             <a href="{% url 'finance' %}" class="{% if 'finance' in request.path %}active{% endif %}">Finance</a>
             <a href="{% url 'fixtures' %}" class="{% if 'fixture' in request.path %}active{% endif %}">Fixtures</a>
-            <a href="{% url 'blogs' %}" class="{% if 'blog' in request.path %}active{% endif %}">Blogs</a>
-            <a href="{% url 'contact_us' %}" class="{% if 'contact' in request.path %}active{% endif %}">Contact us</a>
+            <a href="{% url 'clubs' %}" class="{% if 'club' in request.path %}active{% endif %}">Clubs</a>
         </div>
 
         <div class="box">
