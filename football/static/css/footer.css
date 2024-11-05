@@ -2,7 +2,8 @@
     display: block;
     padding: 2rem 9%;
     margin-top: 0;
-    background-color: var(--red);
+    background-color: #4F7942; 
+
 }
 
 .footer .box-container {
