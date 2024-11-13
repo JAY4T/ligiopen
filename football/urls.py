@@ -29,6 +29,8 @@ urlpatterns = [
 
     path('team/<int:team_id>/fixtures/', views.team_fixtures, name='team_fixtures'),
     path('team/<int:team_id>/results/', views.team_results, name='team_results'),
+    
+
 
 
 
