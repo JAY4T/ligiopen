@@ -33,7 +33,9 @@ html {
     font-size: 2rem;
     padding-top: 1rem;
 }
-
+.blue-text {
+    color: blue;
+}
 .heading {
     text-align: center;
     font-size: 3rem;

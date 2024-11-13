@@ -69,8 +69,17 @@ def player_stats_view(request):
     return render(request, 'pages/club-staff.html', {'stats': stats, 'players': players})
 
 
+def admin_signup_view(request):
+    # Your view logic here
+    return render(request, 'adminsignup.html')
 
 
+
+
+
+def admin_login_view(request):
+    # Your view logic here
+    return render(request, 'admminlogin.html')
 
 
 def contact_us_view(request):
@@ -111,6 +120,29 @@ def contact_us_view(request):
         form = ContactForm()
 
     return render(request, 'contact.html', {'form': form})
+
+
+
+
+def create_payment_link(amount, description):
+    api_url = "https://api.darajara.com/v1/payment/initiate"  # Replace with actual endpoint
+    headers = {
+        'Authorization': f'Bearer {settings.DARAJARA_API_KEY}',
+        'Content-Type': 'application/json',
+    }
+    payload = {
+        'amount': amount,
+        'currency': 'USD',  # Adjust to the currency you're using
+        'description': description,
+        'redirect_url': 'https://yourdomain.com/payment/response/',
+    }
+    response = requests.post(api_url, json=payload, headers=headers)
+
+    if response.status_code == 200:
+        payment_data = response.json()
+        return payment_data  # Return payment link or reference to proceed
+    else:
+        raise Exception('Payment initiation failed')
 
 def success_view(request):
     email = request.GET.get('email', '')
@@ -400,3 +432,6 @@ def ligiopen(request):
     staffs = Staff.objects.all()  # Fetch all staff members
 
     return render(request, 'pages/ligiopen.html', {'staffs':staffs})
+
+
+

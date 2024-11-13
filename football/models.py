@@ -235,3 +235,16 @@ class ResultTeam(models.Model):
     away_goal_scorers = models.TextField()  
     def __str__(self):
         return f'{self.fixture_team.team.name} {self.home_score} - {self.away_score} {self.fixture_team.opponent}'
+
+# class Ticket(models.Model):
+#     event_name = models.CharField(max_length=255)
+#     price = models.DecimalField(max_digits=10, decimal_places=2)
+#     quantity_available = models.IntegerField()
+
+# class Payment(models.Model):
+#     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)  
+#     payment_status = models.CharField(max_length=50) 
+#     payment_reference = models.CharField(max_length=255, blank=True, null=True)
+#     amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
+#     date_paid = models.DateTimeField(blank=True, null=True)
