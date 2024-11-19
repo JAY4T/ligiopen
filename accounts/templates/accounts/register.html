@@ -1,0 +1,46 @@
+<!-- accounts/templates/accounts/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register</title>
+</head>
+<body>
+    <h2>Register</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Username field -->
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+        
+        <!-- Password field -->
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        
+        <!-- Password confirmation field -->
+        <label for="password_confirm">Confirm Password:</label>
+        <input type="password" name="password_confirm" id="password_confirm" required>
+        
+        <!-- User type field with 'required' attribute -->
+        <label for="user_type">User Type:</label>
+        <select name="user_type" id="user_type" required>
+            <option value="">Select user type</option>
+            <option value="player">Player</option>
+            <option value="coach">Coach</option>
+            <option value="admin">Admin</option>
+            <!-- Add other user types if needed -->
+        </select>
+        
+        <!-- Submit button -->
+        <button type="submit">Register</button>
+    </form>
+    <a href="{% url 'login' %}">Already have an account? Login here</a>
+</body>
+</html>

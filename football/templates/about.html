@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/li__1_-removebg-preview.ico' %}">
+    <title>Ligi Open About</title>
+    <link rel="stylesheet" href="{% static 'css/ligiopen.css' %}">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <section>
+        <div class="container">
+            <h3 class="heading">LigiOpen</h3>
+            <div class="info-content">
+                <div class="mini">
+                    <img src="{% static 'images/mission.jpg' %}" alt="Soccer" class="soccer-img"/>
+                    <div>
+                        <h3 class="sub-heading">Mission</h3>
+                        <p>Our mission is to revolutionize the support and funding of football in Kenya to create employment opportunities for the youths in Kenya.</p>
+                    </div>
+                </div>
+                <div class="mini">
+                    <img src="{% static 'images/vision.jpg' %}" alt="Soccer" class="soccer-img"/>
+                    <div>
+                        <h3 class="sub-heading">Vision</h3>
+                        <p>Our vision is to see Kenyan football having the same reception as the UK football. More entrepreneurship opportunities for the youth and a solid Kenyan football fanbase.</p>
+                    </div>
+                </div>
+                <div class="mini">
+                    <img src="{% static 'images/funding.jpg' %}" alt="Soccer" class="soccer-img"/>
+                    <div>
+                        <h3 class="sub-heading">Funding</h3>
+                        <p>Our source of funding is through donations, ticket sales and sponsorship opportunities. We are open about our financial operations and we will always account for the funds upto the last coin.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="holding">
+                <h1 class="heading">Our Staff</h1>
+    
+                <div class="wrapper-div">
+                    <div class="members">
+                        {% for staff in staffs %}
+                            <div class="team-mem">
+                                <img src="{{ staff.image.url }}" alt="Ligi Open staff">
+                                <h4>{{ staff.name }}</h4>
+                                <p>{{ staff.role }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    
+  {% include 'footer.html' %}
+</body>
+</html>

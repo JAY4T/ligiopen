@@ -12,9 +12,21 @@
     <img src="{% static 'images/li__1_-removebg-preview.png' %}" alt="logo">
     <nav class="navbar">
         <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% elif 'home' in request.path %}active{% endif %}">Home</a>
-        <a href="{% url 'finance' %}" class="{% if 'finance' in request.path %}active{% endif %}">Finance</a>
+        <!-- <a href="{% url 'finance' %}" class="{% if 'finance' in request.path %}active{% endif %}">Finance</a> -->
+        <a href="{% url 'about' %}" class="{% if 'finance' in request.path %}active{% endif %}">About</a>
+
         <a href="{% url 'fixtures' %}" class="{% if 'fixture' in request.path %}active{% endif %}">Fixtures</a>
-        <a href="{% url 'clubs' %}" class="{% if 'club' in request.path %}active{% endif %}">Clubs</a>
+        <a href="{% url 'teams' %}" class="{% if 'team' in request.path %}active{% endif %}">Teams</a>
+        <a href="{% url 'news' %}" class="{% if 'new' in request.path %}active{% endif %}">News</a>
+        <a href="{% url 'getinvolved' %}" class="{% if 'club' in request.path %}active{% endif %}">Get Involved</a>
+        <a href="{% url 'shop' %}" class="{% if 'shop' in request.path %}active{% endif %}">Shop</a>
+
+
+
+        <a href="{% url 'register' %}" class="{% if 'register' in request.path %}active{% endif %}">Register</a>
+        <a href="{% url 'login' %}" class="{% if 'register' in request.path %}active{% endif %}">Login</a>
+
+
 
 
 

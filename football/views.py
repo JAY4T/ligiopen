@@ -19,14 +19,14 @@ import base64
 
 
 def home(request):
-    clubs = Club.objects.all()
+    teams = Team.objects.all()
     matchdays = Matchday.objects.all()
     staffs = Staff.objects.all()  # Fetch all staff members
     fixtures = Fixture.objects.all()
 
 
     return render(request, 'index.html', {
-        'clubs': clubs,
+        'teams': teams,
         'matchdays': matchdays,
         'staffs': staffs,
         'fixtures': fixtures
@@ -148,16 +148,20 @@ def success_view(request):
     email = request.GET.get('email', '')
     return render(request, 'pages/success.html', {'email': email})
 
+def about_view(request):
+    return render(request, 'about.html') 
 
+def news_view(request):
+    return render(request, 'news.html') 
 
 def results_view(request):
     results = Result.objects.all()
     return render(request, 'pages/club-staff.html', {'results': results})
 
 
-def club_list_view(request):
-    clubs = Club.objects.all()
-    return render(request, 'index.html', {'clubs': clubs})
+def team_list_view(request):
+    teams = Team.objects.all()
+    return render(request, 'index.html', {'teams': teams})
 
 
 def club_detail_view(request, club_id):
@@ -434,4 +438,15 @@ def ligiopen(request):
     return render(request, 'pages/ligiopen.html', {'staffs':staffs})
 
 
+def getinvolved_view(request):
+    return render(request, 'getinvolved.html') 
 
+
+# def work_with_us_view(request):
+#     return render(request, 'work_with_us.html')
+
+def shop_view(request):
+    return render(request, 'shop.html') 
+
+def faqs_view(request):
+    return render(request, 'faqs.html')  #

@@ -102,7 +102,7 @@ h1 {
 }
 
 .filters button:hover {
-    background-color: var(--yellow);
+    background-color: var(--black);
 }
 
 table {
