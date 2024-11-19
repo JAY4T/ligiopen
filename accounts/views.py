@@ -70,3 +70,11 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'You have been logged out.')
     return redirect('login')
+
+
+
+
+
+def player_dashboard(request):
+    # Your logic for player dashboard goes here
+    return render(request, 'accounts/player_dashboard.html')

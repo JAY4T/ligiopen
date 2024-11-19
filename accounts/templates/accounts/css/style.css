@@ -1,0 +1,119 @@
+/* General body styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #222; /* Black background */
+    color: #fff; /* White text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container styling */
+.container {
+    background-color: #4f7942; /* Fern green */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Title styling */
+.title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #fff; /* White text */
+}
+
+/* Messages styling */
+.messages {
+    margin-bottom: 20px;
+}
+
+.message {
+    background-color: #fff;
+    color: #4f7942;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Form styling */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Form group styling */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* Label styling */
+.form-group label {
+    font-size: 0.9rem;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+/* Input field styling */
+.input-field {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Focus styling */
+.input-field:focus {
+    outline: none;
+    border-color: #fff;
+}
+
+/* Dropdown styling */
+select.input-field {
+    background-color: #fff;
+}
+
+/* Button styling */
+.btn {
+    padding: 10px 15px;
+    background-color: #fff; /* White button */
+    color: #4f7942; /* Fern green text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #4f7942; /* Fern green hover */
+    color: #fff; /* White text on hover */
+}
+
+/* Footer link styling */
+.footer-link {
+    margin-top: 20px;
+}
+
+.footer-link a {
+    color: #fff; /* White link */
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-link a:hover {
+    color: #ccc; /* Light gray on hover */
+}
