@@ -23,10 +23,11 @@
 
 
 
-        <a href="{% url 'register' %}" class="{% if 'register' in request.path %}active{% endif %}">Register</a>
-        <a href="{% url 'login' %}" class="{% if 'register' in request.path %}active{% endif %}">Login</a>
-
-
+        
+            <a href="{% url 'register' %}" style="padding: 10px 20px; background-color: #4F7942; color: white; text-decoration: none; margin-right: 10px;">Register</a>
+            <a href="{% url 'login' %}" style="padding: 10px 20px; background-color: gray; color: white; text-decoration: none; margin-right: 0;">Login</a>
+       
+        
 
 
 

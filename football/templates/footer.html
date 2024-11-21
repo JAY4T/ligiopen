@@ -17,6 +17,8 @@
             <a href="{% url 'fixtures' %}" class="{% if 'fixture' in request.path %}active{% endif %}">Fixtures</a>
             <a href="{% url 'teams' %}" class="{% if 'team' in request.path %}active{% endif %}">Teams</a>
             <a href="{% url 'faqs' %}" class="{% if 'fag' in request.path %}active{% endif %}">FAQS</a> 
+            <a href="{% url 'work_with_us' %}" class="{% if 'work_with_us' in request.path %}active{% endif %}">Work With Us</a> 
+
 
 
 
@@ -28,13 +30,19 @@
             <a href="mailto:info@ligiopen.com">info@ligiopen.com</a>
             <a href="#">Kisumu, Kenya</a>
         </div>
+        
 
         <div class="box">
-          <h3>More</h3>
-          <a href="{% url 'faq_page' %}" target="_blank">Frequently Asked Questions</a>
+          <h3>Legal</h3>
+          <!-- <a href="{% url 'faq_page' %}" target="_blank">Frequently Asked Questions</a>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBRTji7N9EilFp3lmqjbNjSRPIIM_VwjiSYg6IcADWdSyOTQ/viewform?usp=sharing" target="_blank">Register Club</a>
           <a href="{% url 'finance-sponsor' %}" target="_blank">Sponsorship</a>
-          <a href="{% url 'feedback' %}" target="_blank">Feedback</a>
+          <a href="{% url 'feedback' %}" target="_blank">Feedback</a> -->
+
+
+          <a href="{% url 'privacy_policy' %}" target="_blank">Privacy Policy</a>
+          <a href="{% url 'terms_conditions' %}" target="_blank">Terms $ Conditions</a>
+          <a href="{% url 'feedback' %}" target="_blank">Code Of Conduct</a>
         </div>
 
         <div class="box">
@@ -48,9 +56,13 @@
             <a href="https://www.facebook.com/ligiopen" target="_blank">
                 <i class="fab fa-facebook"></i> Facebook
             </a>
+
             <a href="https://www.twitter.com/ligiopen" target="_blank">
-                <i class="fab fa-twitter"></i> Twitter
+                <i class="fab fa-x-twitter" style="font-size: 20px;"></i> -Space
             </a>
+            
+            
+             
             
         </div>
     </div>

@@ -53,7 +53,7 @@ def club_staff_view(request, club_name):
     players = Player.objects.filter(club=club)
 
     context = {
-        'club': club,
+        'team': team,
         'coaching_staff': coaching_staff,
         'other_staff': other_staff,
         'club_match_staff': club_match_staff,
@@ -450,3 +450,16 @@ def shop_view(request):
 
 def faqs_view(request):
     return render(request, 'faqs.html')  #
+
+
+def work_with_us_view(request):
+    return render(request, 'work_with_us.html')
+
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
+
+def terms_conditions(request):
+    return render(request, 'terms_conditions.html')
+
+ 

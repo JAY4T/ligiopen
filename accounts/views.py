@@ -57,7 +57,7 @@ def login_view(request):
             if user_type == 'club':
                 return redirect('club_dashboard')
             elif user_type == 'fan':
-                return redirect('fan_dashboard')
+                 return redirect('fan_dashboard')
             elif user_type == 'player':
                 return redirect('player_dashboard')
         else:

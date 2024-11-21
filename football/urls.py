@@ -35,7 +35,10 @@ urlpatterns = [
     path('getinvolved/', views.getinvolved_view, name='getinvolved'), 
     path('shop/', views.shop_view, name='shop'), 
     path('faqs/', views.faqs_view, name='faqs'),
-    # path('work-with-us/', views.work_with_us_view, name='work_with_us'),  
+    path('work-with-us/', views.work_with_us_view, name='work_with_us'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+    path('terms-conditions/', views.terms_conditions, name='terms_conditions'),
+
 
 
     
