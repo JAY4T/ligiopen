@@ -133,7 +133,7 @@ Ctrl + C
 
     and rerun your server to confirm that the error is resolved
 
-    ### MYSQL Error
+### MYSQL Error
 
     If the last message on your terminal is something like "Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)", we will need a workaround because XAMPP has a different installation directory(/opt/lampp):
 
