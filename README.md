@@ -57,9 +57,9 @@ $ yum install git
 
 3. Clone the repository to your working environment,prefferably to a new folder:
 
-```bash
+   ```bash
    $ git clone https://github.com/JAY4T/ligiopen.git
-```
+   ```
 
 4. Navigate to the folder(e.g ligiopen)
    ```bash
@@ -131,36 +131,32 @@ Press
 Ctrl + C
 ```
 
-and rerun your server to confirm that the error is resolved
+    and rerun your server to confirm that the error is resolved
 
-### MYSQL Error
+    ### MYSQL Error
 
-If the last message on your terminal is something like "Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)", we will need a workaround because XAMPP has a different installation directory(/opt/lampp):
+    If the last message on your terminal is something like "Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)", we will need a workaround because XAMPP has a different installation directory(/opt/lampp):
 
-1.  Navigate to /var/run:
+    1.  Navigate to /var/run:
 
-    ```bash
-    $ cd /var/run
-    ```
+        ```bash
+        $ cd /var/run
+        ```
 
-2.  Create a folder mysqld:
+    2.  Create a folder mysqld:
 
-    ```bash
-    $ sudo mkdir mysqld
-    ```
+        ```bash
+        $ sudo mkdir mysqld
+        ```
 
-3.  Create a soft link to the mysql.sock file from xampp:
-    ```bash
-    $ ln -s /opt/lampp/var/mysql/mysql.sock mysqld.sock
-    ```
+    3.  Create a soft link to the mysql.sock file from xampp:
+        ```bash
+        $ ln -s /opt/lampp/var/mysql/mysql.sock mysqld.sock
+        ```
 
-```
+    4.  Halt and rerun your server.
 
-4.  Halt and rerun your server.
-
-The server should now run successfully as shown above.
-
-
+        The server should now run successfully as shown above.
 
 # Contributing
 
@@ -169,5 +165,7 @@ The server should now run successfully as shown above.
 # License
 
 # Keeping in touch
+
+```
 
 ```
