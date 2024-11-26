@@ -137,21 +137,21 @@ Ctrl + C
 
     If the last message on your terminal is something like "Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)", we will need a workaround because XAMPP has a different installation directory(/opt/lampp):
 
-    1.  Navigate to /var/run:
+    1.  Navigate to the root of the project(ligiopen) or whatever name your directory is:
 
         ```bash
-        $ cd /var/run
+        $ cd ligiopen
         ```
 
-    2.  Create a folder mysqld:
+    2.  Create a .env file. You can create it with your code editor or with terminal:
 
         ```bash
-        $ sudo mkdir mysqld
+        $  touch .env
         ```
 
-    3.  Create a soft link to the mysql.sock file from xampp:
+    3.  Create your variables here. Create one named DATABASE_HOST:
         ```bash
-        $ ln -s /opt/lampp/var/mysql/mysql.sock mysqld.sock
+        DATABASE_HOST = '/opt/lampp/var/mysql/mysql.sock'
         ```
 
     4.  Halt and rerun your server.
