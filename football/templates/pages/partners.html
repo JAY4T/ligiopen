@@ -1,0 +1,21 @@
+{% load static %}
+<head>
+  <!-- Owl carousel -->
+  <link rel="stylesheet" href="owlcarousel/owl.carousel.min.css" />
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/partners.css' %}" />
+</head>
+
+<div class="owl-carousel">
+  <div><img src="{% static 'images/partners/jabulani_logo.png' %}" /></div>
+  <div><img src="{% static 'images/partners/st-john_ambulance.png' %}" /></div>
+</div>
+
+<script src="jquery.min.js"></script>
+<script src="owlcarousel/owl.carousel.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".owl-carousel").owlCarousel();
+  });
+</script>

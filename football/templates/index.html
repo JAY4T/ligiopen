@@ -2,28 +2,36 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{% static 'images/li__1_-removebg-preview.ico' %}">
-    <title>Ligi Open </title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'images/li__1_-removebg-preview.ico' %}"
+    />
+
+    <title>Ligi Open</title>
 
     <!-- Font awesome -->
-    <script src="https://kit.fontawesome.com/456d64337e.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/456d64337e.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    {% include 'navbar.html' %}   
-        <section class="home live" id="home">
-            <div class="background-image">
-                <div>
-                    <h1 class="heading">Welcome to LigiOpen!</h1>
-                    <!-- <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBRTji7N9EilFp3lmqjbNjSRPIIM_VwjiSYg6IcADWdSyOTQ/viewform?usp=sharing" target="_blank" class="btn">Register Club</a> -->
-                </div>
-            </div>
-<!--         
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <section class="home live" id="home">
+      <div class="background-image">
+        <div>
+          <h1 class="heading">Welcome to LigiOpen!</h1>
+          <!-- <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBRTji7N9EilFp3lmqjbNjSRPIIM_VwjiSYg6IcADWdSyOTQ/viewform?usp=sharing" target="_blank" class="btn">Register Club</a> -->
+        </div>
+      </div>
+      <!--         
             <div class="poster">
                 <div class="header">
                     <h1 class="heading">Ligi Open Matchday</h1>
@@ -64,65 +72,81 @@
                 </div>                               
             </div>
          -->
-        
 
-        <div class="about-section" id="about-section">
-            <h1 class="heading">About Ligi Open</h1>
-            <div class="container">
-                <div class="whole">
-                    <img src="{% static 'images/socer-removebg-preview.png' %}" alt="Soccer" class="soccer-img"/>
+      <!-- ABOUT start -->
+      <!--<div class="about-section" id="about-section">
+         <h1 class="heading">About Ligi Open</h1>
+        <div class="container">
+          <div class="whole">
+            <img
+              src="{% static 'images/socer-removebg-preview.png' %}"
+              alt="Soccer"
+              class="soccer-img"
+            />
 
-                  <div class="text">
-                    <div class="top">
-                      <div class="para">
-                        <p> 
-                            LigiOpen supports small sports clubs in organising leagues, managing revenue and resourcing equipment and facilities to improve the income of youth footballers and their families and create entrepreneurship opportunities for more young people.
-                        </p>        
-                    </div>
-                    </div>
-                    <!-- <a href="{% url 'ligiopen' %}" target="_blank" class="btn">Read More</a> -->
-                  </div>
-                </div>  
+            <div class="text">
+              <div class="top">
+                <div class="para">
+                  <p>
+                    LigiOpen supports small sports clubs in organising leagues,
+                    managing revenue and resourcing equipment and facilities to
+                    improve the income of youth footballers and their families
+                    and create entrepreneurship opportunities for more young
+                    people.
+                  </p>
+                </div>
+              </div>
+              //Commented out <a href="{% url 'ligiopen' %}" target="_blank" class="btn">Read More</a> --commented out
             </div>
+          </div>
+        </div> -->
+      <div class="tournament-section">
+        <div class="tournament-main-content-left">
+          <div class="tournament-left-title">
+            <h2>Be part of the action</h2>
+          </div>
+          <div>
+            <p class="tournament-left-caption">
+              Experience LigiOpen's live tournaments in person by booking your
+              seat today
+            </p>
+          </div>
+          <div>
+            <button class="tournament-left-tickets">Find Tickets</button>
+          </div>
         </div>
+        <div class="tournament-main-content-right"></div>
+      </div>
 
-        <div id="features">
-          <div class="feature-box">
-              <i class="icon fas fa-check-circle fa-4x"></i>
-              <h3>Transparency.</h3>
-              <p>Gain access to our financial operations.</p>
-          </div>
-          <div class="feature-box">
-              <i class="icon fas fa-solid fa-people-group fa-4x"></i>
-              <h3>Community Engagement.</h3>
-              <p>Be part of a thriving football community.</p>
-          </div>
-          <div class="feature-box">
-              <i class="icon fas fa-bullseye fa-4x"></i>
-              <h3>Financial Opportunities.</h3>
-              <p>Unlock a world of financial opportunities.</p>
-          </div>
+      <!-- Mission/Vision start -->
+      <!-- <div id="features">
+        <div class="feature-box">
+          <i class="icon fas fa-check-circle fa-4x"></i>
+          <h3>Transparency.</h3>
+          <p>Gain access to our financial operations.</p>
         </div>
+        <div class="feature-box">
+          <i class="icon fas fa-solid fa-people-group fa-4x"></i>
+          <h3>Community Engagement.</h3>
+          <p>Be part of a thriving football community.</p>
+        </div>
+        <div class="feature-box">
+          <i class="icon fas fa-bullseye fa-4x"></i>
+          <h3>Financial Opportunities.</h3>
+          <p>Unlock a world of financial opportunities.</p>
+        </div>
+      </div> -->
 
-        <div class="holding">
-            
-        </div>
-     <!-- Partners Section -->
-     <div class="partners-section" id="partners">
+      <div class="holding"></div>
+      <!-- Partners Section -->
+      <div class="partners-section" id="partners">
         <h1 class="heading">Our Partners</h1>
-        <div class="partners-logos">
-            
-        </div>
-    </div>
-
-
-
-
-  </section>
- <!--Footer section-->
- {% include 'footer.html' %}
+        <div class="partners-logos">{% include 'partners.html' %}</div>
+      </div>
+    </section>
+    <!--Footer section-->
+    {% include 'footer.html' %}
 
     <script src="{% static 'js/index.js' %}"></script>
-
-</body>
+  </body>
 </html>

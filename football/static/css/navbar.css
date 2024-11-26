@@ -24,9 +24,35 @@ html {
     scroll-padding-top: 5.5rem;
     scroll-behavior: smooth;
 }
+.navbar{
+    width: 100%;
+}
+.navbar-item{
+    text-decoration: none;
+    margin-right: 10px;
+    color: black;
+}
+.navbar-item:hover{
+    color: #fff;
+    transition: ease-in-out;
+    transition-duration: 2ms;
+}
 
 body {
     padding-top: 90px; 
+}
+
+.btn-register,.btn-login{
+        background-color: var(--blue);
+        color: var(--black);
+        text-decoration: none;
+        margin-right: 10px;
+}
+.btn-register:hover,.btn-login:hover{
+    background: var(--blue);
+    color: var(--white);
+    text-decoration: none;
+    margin-right: 10px;
 }
 
 /*Header section */
@@ -55,10 +81,9 @@ header .navbar a {
     font-size: 1.7rem;
     border-radius: .5rem;
     padding: .5rem 1.5rem;
-    color: black;
 }
 
-header .navbar a.active, header .navbar a:hover {
+header  a.active, header  a:hover {
     font-weight: bold;
     background: var(--fern-green); 
 }

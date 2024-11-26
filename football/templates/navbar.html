@@ -2,94 +2,128 @@
 
 <!-- navbar.html -->
 <head>
-    <!-- Font awesome -->
-    <script src="https://kit.fontawesome.com/456d64337e.js" crossorigin="anonymous"></script>
+  <!-- Font awesome -->
+  <script
+    src="https://kit.fontawesome.com/456d64337e.js"
+    crossorigin="anonymous"
+  ></script>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+  <!-- Bootstrap 5.02 -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  />
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
 </head>
 <header>
-    <img src="{% static 'images/li__1_-removebg-preview.png' %}" alt="logo">
-    <nav class="navbar">
-        <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% elif 'home' in request.path %}active{% endif %}">Home</a>
-        <!-- <a href="{% url 'finance' %}" class="{% if 'finance' in request.path %}active{% endif %}">Finance</a> -->
-        <a href="{% url 'about' %}" class="{% if 'finance' in request.path %}active{% endif %}">About</a>
+  <img src="{% static 'images/li__1_-removebg-preview.png' %}" alt="logo" />
+  <nav class="navbar">
+    <a
+      href="{% url 'home' %}"
+      class="navbar-item {% if request.path == '/' %}active{% endif %}"
+      >Home</a
+    >
+    <!-- <a href="{% url 'finance' %}" class="{% if 'finance' in request.path %}active{% endif %}">Finance</a> -->
+    <a
+      href="{% url 'about' %}"
+      class="navbar-item {% if 'about' in request.path %}active{% endif %}"
+      >About</a
+    >
 
-        <a href="{% url 'fixtures' %}" class="{% if 'fixture' in request.path %}active{% endif %}">Fixtures</a>
-        <a href="{% url 'teams' %}" class="{% if 'team' in request.path %}active{% endif %}">Teams</a>
-        <a href="{% url 'news' %}" class="{% if 'new' in request.path %}active{% endif %}">News</a>
-        <a href="{% url 'getinvolved' %}" class="{% if 'club' in request.path %}active{% endif %}">Get Involved</a>
-        <a href="{% url 'shop' %}" class="{% if 'shop' in request.path %}active{% endif %}">Shop</a>
+    <a
+      href="{% url 'fixtures' %}"
+      class="navbar-item {% if 'fixture' in request.path %}active{% endif %}"
+      >Fixtures</a
+    >
+    <a
+      href="{% url 'teams' %}"
+      class="navbar-item {% if 'team' in request.path %}active{% endif %}"
+      >Teams</a
+    >
+    <a
+      href="{% url 'news' %}"
+      class="navbar-item {% if 'news' in request.path %}active{% endif %}"
+      >News</a
+    >
+    <a
+      href="{% url 'getinvolved' %}"
+      class="navbar-item {% if 'getinvolved' in request.path %}active{% endif %}"
+      >Get Involved</a
+    >
+    <a
+      href="{% url 'shop' %}"
+      class="navbar-item {% if 'shop' in request.path %}active{% endif %}"
+      >Shop</a
+    >
 
+    <a href="{% url 'register' %}" class="btn-register">Register</a>
+    <a href="{% url 'login' %}" class="btn-login">Login</a>
 
-
-        
-            <a href="{% url 'register' %}" style="padding: 10px 20px; background-color: #4F7942; color: white; text-decoration: none; margin-right: 10px;">Register</a>
-            <a href="{% url 'login' %}" style="padding: 10px 20px; background-color: gray; color: white; text-decoration: none; margin-right: 0;">Login</a>
-       
-        
-
-
-
-        <!-- <a href="{% url 'contact_us' %}" class="{% if 'contact' in request.path %}active{% endif %}">Contact us</a> -->
-
-
-    </nav>
-    <div class="icons">
-        <!-- <a href="pages/login.html">Login</a> -->
-        <i class="fas fa-bars" id="menu-bars"></i>
-    </div>
+    <!-- <a href="{% url 'contact_us' %}" class="{% if 'contact' in request.path %}active{% endif %}">Contact us</a> -->
+  </nav>
+  <div class="icons">
+    <!-- <a href="pages/login.html">Login</a> -->
+    <i class="fas fa-bars" id="menu-bars"></i>
+  </div>
 </header>
 
-
 <script>
-    /**
-     * Handles the toggling of the navigation menu and link activation behavior.
-     *
-     * This script controls the interaction between the menu icon and the navigation links. It:
-     * - Toggles the visibility of the navbar by adding or removing the 'active' class.
-     * - Adds the 'active' class to the selected link while removing it from others.
-     * - Implements smooth scrolling to the top of the page when a link is clicked.
-     * - Closes the menu once a link is selected.
-     */
-    let menu = document.querySelector('#menu-bars');
-    let navbar = document.querySelector('.navbar');
-    var links = document.querySelectorAll('.navbar a');
-    var sections = document.querySelectorAll('section');
+  /**
+   * Handles the toggling of the navigation menu and link activation behavior.
+   *
+   * This script controls the interaction between the menu icon and the navigation links. It:
+   * - Toggles the visibility of the navbar by adding or removing the 'active' class.
+   * - Adds the 'active' class to the selected link while removing it from others.
+   * - Implements smooth scrolling to the top of the page when a link is clicked.
+   * - Closes the menu once a link is selected.
+   */
+  let menu = document.querySelector("#menu-bars");
+  let navbar = document.querySelector(".navbar");
+  var links = document.querySelectorAll(".navbar a");
+  var sections = document.querySelectorAll("section");
 
-    /**
-     * Toggles the 'fa-times' class on the menu icon and the 'active' class on the navbar.
-     * This function is triggered by clicking the menu icon to open or close the navbar.
-     */
-    menu.onclick = () => {
-        menu.classList.toggle('fa-times');
-        navbar.classList.toggle('active');
-    }
+  /**
+   * Toggles the 'fa-times' class on the menu icon and the 'active' class on the navbar.
+   * This function is triggered by clicking the menu icon to open or close the navbar.
+   */
+  menu.onclick = () => {
+    menu.classList.toggle("fa-times");
+    navbar.classList.toggle("active");
+  };
 
-    /**
-     * Adds click event listeners to each navbar link.
-     * When a link is clicked:
-     * - The 'active' class is removed from all links and applied to the clicked link.
-     * - The page scrolls to the top smoothly.
-     * - The navbar closes and the menu icon is reverted to the default state.
-     */
-    links.forEach(function(link) {
-        link.addEventListener('click', function(event) {
-            //event.preventDefault(); 
+  /**
+   * Adds click event listeners to each navbar link.
+   * When a link is clicked:
+   * - The 'active' class is removed from all links and applied to the clicked link.
+   * - The page scrolls to the top smoothly.
+   * - The navbar closes and the menu icon is reverted to the default state.
+   */
+  links.forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      //event.preventDefault();
 
-            links.forEach(function(link) {
-                link.classList.remove('active');
-            });
+      links.forEach(function (link) {
+        link.classList.remove("active");
+      });
 
-            this.classList.add('active');
-            
-            // Scroll to the top of the page
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+      this.classList.add("active");
 
-            // Close the navbar after a link is clicked
-            menu.classList.remove('fa-times');
-            navbar.classList.remove('active');
-        });
+      // Scroll to the top of the page
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // Close the navbar after a link is clicked
+      menu.classList.remove("fa-times");
+      navbar.classList.remove("active");
     });
+  });
 </script>
-

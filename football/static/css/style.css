@@ -177,6 +177,102 @@ section .home {
     max-width: 80px;
     margin: 10px;
 }
+/* --Tournament section start-- */
+.tournament-section{
+    display: flex; 
+    flex-direction: row; 
+    width: 100%; 
+    background-color: #F87171; 
+    height: 400px;
+    margin-top: 1px;
+}
+
+.tournament-main-content-left{
+    width: 33.33333%; 
+    background-color:  #4F7942 ;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tournament-left-title{
+    color: #f6fa00;
+}
+
+.tournament-left-caption{
+    margin: 20px 0px 20px 0px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.tournament-left-tickets{
+    border-radius: 4rem; 
+    font-size: 16px;
+    background-color: var(--blue);
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 20px 5px 20px
+}
+.tournament-left-tickets:hover{
+    transform: scale(1.1);
+    transition: ease-in;
+    
+}
+
+.tournament-main-content-right{
+    width: 66.666667%; 
+    background-color: #1E40AF; 
+}
+
+@media (max-width: 600px) {
+    .tournament-section{
+        display: flex; 
+        flex-direction: column-reverse; 
+        width: 100%; 
+        margin-top: 1px;
+    }
+    .tournament-main-content-left{
+        width: 100%; 
+        background-color:  #4F7942 ;
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1px;
+        padding-bottom: 10px;
+    }
+    .tournament-left-title{
+        color: #f6fa00;
+    }
+    
+    .tournament-left-caption{
+        margin: 20px 0px 20px 0px;
+        font-size: 16px;
+        text-align: center;
+    }
+    
+    .tournament-left-tickets{
+        border-radius: 4rem; 
+        font-size: 16px;
+        background-color: var(--blue);
+        color: #fff;
+        text-decoration: none;
+        padding: 5px 20px 5px 20px
+    }
+    .tournament-left-tickets:hover{
+        transform: scale(1.1);
+        transition: ease-in;
+        
+    }
+    
+    .tournament-main-content-right{
+        width: 100%; 
+        background-color: #1E40AF; 
+    }
+}
+
+/* --Tournament section End-- */
 
 /* Slider styles */
 .home .poster .slider {
