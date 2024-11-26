@@ -4,9 +4,9 @@
     --black: black;
     --light-color: grey;
     --white: #F6F2F2;
-    --blue: #4169E1;
+    --fern-green: #4F7942;
     --red: #FF0000;
-    --yellow: #FFFF00;
+    --fern-green: #4F7942;
 }
 
 * {
@@ -49,7 +49,7 @@ html {
     display: inline-block;
     font-size: 1.7rem;
     color: #fff;
-    background: var(--blue);
+    background: var(--fern-green);
     cursor: pointer;
     padding: 1rem 3rem;
     border-radius: 5px;
@@ -75,7 +75,7 @@ html {
 
 .fixtures .navbar2 a.active, .fixtures .navbar2 a:hover {
     font-weight: 700;
-    background: var(--yellow);
+    /* background: var(--black); */
 }
 
 /*Home page styles*/
@@ -276,7 +276,7 @@ section .home {
 }
 
 .ticket:hover {
-    color: var(--yellow);
+    /* color: var(--yellow); */
     letter-spacing: .1rem;
 }
 

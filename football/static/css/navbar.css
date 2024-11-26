@@ -4,7 +4,7 @@
     --light-color: grey;
     --blue: #4169E1;
     --red: #FF0000;
-    --yellow: #FFFF00;
+      --fern-green:#4F7942 ;  
 }
 
 * {
@@ -60,7 +60,7 @@ header .navbar a {
 
 header .navbar a.active, header .navbar a:hover {
     font-weight: bold;
-    background: var(--yellow);
+    background: var(--fern-green); 
 }
 
 header .icons i {
@@ -87,7 +87,7 @@ header .icons a {
 
 header .icons a:hover {
     color: #fff;
-    background: var(--green);
+    background: var(--fern-green);
 }
 
 header .icons i:hover {

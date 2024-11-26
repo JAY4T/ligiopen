@@ -28,8 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'widget_tweaks',
      'football',
+     'accounts',
 ]
 
 MIDDLEWARE = [
@@ -115,6 +115,12 @@ APPEND_SLASH = False
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/admin/dashboard/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_REDIRECT_URL = 'player_dashboard'
+
+
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends..EmailBackend'
