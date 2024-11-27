@@ -6,7 +6,8 @@
     --white: #F6F2F2;
     --fern-green: #4F7942;
     --red: #FF0000;
-    --fern-green: #4F7942;
+    --russian-green: #679267;
+    --pacific-blue: #1ca9c9
 }
 
 * {
@@ -33,9 +34,11 @@ html {
     font-size: 2rem;
     padding-top: 1rem;
 }
+
 .blue-text {
     color: blue;
 }
+
 .heading {
     text-align: center;
     font-size: 3rem;
@@ -73,7 +76,8 @@ html {
     padding: .5rem 1.5rem;
 }
 
-.fixtures .navbar2 a.active, .fixtures .navbar2 a:hover {
+.fixtures .navbar2 a.active,
+.fixtures .navbar2 a:hover {
     font-weight: 700;
     /* background: var(--black); */
 }
@@ -83,7 +87,7 @@ section .home {
     position: absolute;
 }
 
-.home .background-image {    
+.home .background-image {
     left: 0;
     width: 100%;
     height: 100vh;
@@ -98,7 +102,8 @@ section .home {
 
 .home .background-image .heading {
     color: var(--white);
-    -webkit-backdrop-filter: blur(50px); /* For Safari 9+ */
+    -webkit-backdrop-filter: blur(50px);
+    /* For Safari 9+ */
     backdrop-filter: blur(50px);
     font-weight: bold;
     padding: 0 5px;
@@ -177,98 +182,111 @@ section .home {
     max-width: 80px;
     margin: 10px;
 }
+
 /* --Tournament section start-- */
-.tournament-section{
-    display: flex; 
-    flex-direction: row; 
-    width: 100%; 
-    background-color: #F87171; 
+.tournament-section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #F87171;
     height: 400px;
     margin-top: 1px;
 }
 
-.tournament-main-content-left{
-    width: 33.33333%; 
-    background-color:  #4F7942 ;
-    display: flex; 
+.tournament-main-content-left {
+    width: 33.33333%;
+    background-color: var(--fern-green);
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-position: center;
+    background-size: cover;
 }
 
-.tournament-left-title{
+.tournament-left-title {
     color: #f6fa00;
 }
 
-.tournament-left-caption{
+.tournament-left-caption {
     margin: 20px 0px 20px 0px;
     font-size: 16px;
     text-align: center;
 }
 
-.tournament-left-tickets{
-    border-radius: 4rem; 
+.tournament-left-tickets {
+    border-radius: 4rem;
     font-size: 16px;
-    background-color: var(--blue);
-    color: #fff;
+    background-color: var(--pacific-blue);
     text-decoration: none;
-    padding: 5px 20px 5px 20px
-}
-.tournament-left-tickets:hover{
-    transform: scale(1.1);
-    transition: ease-in;
-    
+    padding: 5px 20px 5px 20px;
+
+    color: var(--white);
+    padding: 5px 10px 5px 10px;
+    text-align: center;
+    border: 1px solid var(--pacific-blue);
+    border-radius: 2rem;
 }
 
-.tournament-main-content-right{
-    width: 66.666667%; 
-    background-color: #1E40AF; 
+.tournament-left-tickets:hover {
+    background: var(--blue);
+    color: var(--white);
+    text-decoration: none;
+    transform: scale(1.1);
+}
+
+.tournament-main-content-right {
+    width: 66.666667%;
+    background-color: #1E40AF;
 }
 
 @media (max-width: 600px) {
-    .tournament-section{
-        display: flex; 
-        flex-direction: column-reverse; 
-        width: 100%; 
+    .tournament-section {
+        display: flex;
+        flex-direction: column-reverse;
+        width: 100%;
         margin-top: 1px;
     }
-    .tournament-main-content-left{
-        width: 100%; 
-        background-color:  #4F7942 ;
-        display: flex; 
+
+    .tournament-main-content-left {
+        width: 100%;
+        background-color: #4F7942;
+        display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         margin-top: 1px;
         padding-bottom: 10px;
     }
-    .tournament-left-title{
+
+    .tournament-left-title {
         color: #f6fa00;
     }
-    
-    .tournament-left-caption{
+
+    .tournament-left-caption {
         margin: 20px 0px 20px 0px;
         font-size: 16px;
         text-align: center;
     }
-    
-    .tournament-left-tickets{
-        border-radius: 4rem; 
+
+    .tournament-left-tickets {
+        border-radius: 4rem;
         font-size: 16px;
         background-color: var(--blue);
         color: #fff;
         text-decoration: none;
         padding: 5px 20px 5px 20px
     }
-    .tournament-left-tickets:hover{
+
+    .tournament-left-tickets:hover {
         transform: scale(1.1);
         transition: ease-in;
-        
+
     }
-    
-    .tournament-main-content-right{
-        width: 100%; 
-        background-color: #1E40AF; 
+
+    .tournament-main-content-right {
+        width: 100%;
+        background-color: #1E40AF;
     }
 }
 
@@ -305,13 +323,14 @@ section .home {
     display: inline-block;
 }
 
-.home .poster .active, .dot:hover {
+.home .poster .active,
+.dot:hover {
     background-color: #717171;
 }
 
-.home .about-section {    
-    text-align: center; 
-    padding: 5% 9%; 
+.home .about-section {
+    text-align: center;
+    padding: 5% 9%;
     background-color: #eee;
 }
 
@@ -360,6 +379,7 @@ section .home {
 .icon:hover {
     color: var(--black);
 }
+
 /* End Homepage styles*/
 
 /*Ticket button style*/
@@ -379,6 +399,7 @@ section .home {
 .ticket i {
     margin-left: 20px;
 }
+
 /*End Ticket button style*/
 
 /*Clubs page styles*/
@@ -404,8 +425,8 @@ section .home {
     max-width: calc(25% - 30px);
     margin: 15px;
     background-image: url('../images/alternating-arrowhead.svg');
-    background-repeat: repeat; 
-    background-size: contain; 
+    background-repeat: repeat;
+    background-size: contain;
     background-position: center;
     border: .1rem solid var(--light-color);
 }
@@ -448,10 +469,12 @@ section .home {
     font-size: 2rem;
     text-align: center;
 }
+
 /* End club page styles*/
 
 /*Finance page styles*/
-.dashboard, #transparency {
+.dashboard,
+#transparency {
     text-align: center;
     font-size: 2rem;
     padding: 50px 0;
@@ -564,11 +587,12 @@ section .home {
     text-align: left;
 }
 
-#transparency .data-collection-verification, #transparency .commitment-accountability {
+#transparency .data-collection-verification,
+#transparency .commitment-accountability {
     padding: 0 7%;
 }
 
-#transparency ul {    
+#transparency ul {
     margin-left: 30px;
 }
 
@@ -589,7 +613,7 @@ section .home {
     width: 30%;
     height: auto;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #transparency ul {
@@ -617,6 +641,7 @@ section .home {
     color: var(--green);
     font-weight: bold;
 }
+
 /*End Finance Page styles*/
 
 /*Fixtures page styles*/
@@ -632,7 +657,7 @@ section .home {
     padding: 20px 0;
 }
 
-.fixtures  h2 {
+.fixtures h2 {
     text-align: center;
     margin-bottom: 20px;
 }
@@ -656,7 +681,7 @@ section .home {
     width: 50%;
 }
 
-.fixtures  .team {
+.fixtures .team {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -670,13 +695,13 @@ section .home {
     margin-top: 10px;
 }
 
-.fixtures  .team img {
+.fixtures .team img {
     width: 100px;
     height: 100px;
     margin-right: 10px;
 }
 
-.fixtures  .team-name {
+.fixtures .team-name {
     font-weight: bold;
     margin-right: 10px;
 }
@@ -692,7 +717,8 @@ section .home {
     font-size: 14px;
 }
 
-.date .date-fix, .venue {
+.date .date-fix,
+.venue {
     font-weight: bold;
 }
 
@@ -729,7 +755,7 @@ section .home {
     width: 100%;
 }
 
-.results-section  .team {
+.results-section .team {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -743,13 +769,13 @@ section .home {
     margin-top: 10px;
 }
 
-.results-section  .team img {
+.results-section .team img {
     width: 70px;
     height: 70px;
     margin-right: 10px;
 }
 
-.results-section  .team-name {
+.results-section .team-name {
     font-weight: bold;
     margin-right: 10px;
 }
@@ -766,21 +792,22 @@ section .home {
     font-size: 14px;
 }
 
-.results-section .date .date-fix, .venue {
+.results-section .date .date-fix,
+.venue {
     font-weight: bold;
     margin-top: 5px;
 }
 
 .results-section .date .comp {
     color: var(--light-color);
-}  
+}
 
 .results-section .goal-details {
     width: 100%;
     display: flex;
     justify-content: space-between;
     font-size: 1.4rem;
-    padding: 0 ;
+    padding: 0;
     margin-top: 20px;
     color: var(--light-color);
     font-weight: bold;
@@ -803,17 +830,19 @@ section .home {
 
 @media (max-width: 1100px) {
 
-    .order, .fixtures {
+    .order,
+    .fixtures {
         padding-top: 5%;
     }
 }
 
 @media (max-width: 1050px) {
-    
+
     #transparency .trans {
         float: right;
 
     }
+
     #transparency .top-text {
         padding: 0 1rem;
     }
@@ -823,7 +852,7 @@ section .home {
     .highlights .heading {
         margin-top: 5%;
     }
-    
+
     .teams .row {
         padding: 3%;
     }
@@ -835,9 +864,9 @@ section .home {
         font-size: 55%;
     }
 
-    header {
+    /* header {
         padding: 2rem;
-    }
+    } */
 
     .home .about-section .container .whole {
         display: flex;
@@ -847,13 +876,13 @@ section .home {
     .home .about-section .container .whole .para {
         text-align: justify;
     }
-    
+
     .home .about-section .container .whole img {
         width: 100%;
         height: 30%;
         margin-right: 5rem;
-    }    
-    
+    }
+
 }
 
 @media (max-width: 930px) {
@@ -865,7 +894,7 @@ section .home {
 @media (max-width: 880px) {
     .highlights .heading {
         margin-top: 10%;
-    }    
+    }
 
     #transparency .trans {
         width: 40%;
@@ -893,9 +922,9 @@ section .home {
         left: 0;
         right: 0;
         background: #fff;
-        border-top: .1rem solid rgba(0,0,0,.2);
-        border-bottom: .1rem solid rgba(0,0,0,.2);
-        padding: 1rem;
+        border-top: .1rem solid rgba(0, 0, 0, .2);
+        border-bottom: .1rem solid rgba(0, 0, 0, .2);
+        /* padding: 1rem; */
         clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     }
 
@@ -905,8 +934,8 @@ section .home {
 
     header .navbar a {
         display: block;
-        padding: 1.5rem;
-        margin: 1rem;
+        /* padding: 1.5rem; */
+        /* margin: 1rem; */
         font-size: 2rem;
         background: #eee;
     }
@@ -919,7 +948,8 @@ section .home {
         width: 100%;
     }
 
-    .results-section .date .date-fix, .venue {
+    .results-section .date .date-fix,
+    .venue {
         font-size: 1.3rem;
     }
 
@@ -957,7 +987,7 @@ section .home {
     }
 }
 
-@media (max-width: 620px){
+@media (max-width: 620px) {
 
     .fixtures .date {
         font-size: 1rem;
@@ -988,16 +1018,19 @@ section .home {
 
 @media (max-width: 520px) {
 
-    #transparency .data-collection-verification, #transparency .commitment-accountability {
+    #transparency .data-collection-verification,
+    #transparency .commitment-accountability {
         padding: 0;
     }
 
     #transparency ul {
-    
+
         margin-left: 10px;
     }
 
-    .order, .fixtures, .teams {
+    .order,
+    .fixtures,
+    .teams {
         padding-top: 10%;
     }
 }
@@ -1023,7 +1056,8 @@ section .home {
         font-size: 1.2rem;
     }
 
-    .results-section .date .date-fix, .venue {
+    .results-section .date .date-fix,
+    .venue {
         font-size: 1.1rem;
     }
 
@@ -1046,7 +1080,7 @@ section .home {
     #hero div {
         text-align: center;
     }
-    
+
 }
 
 @media (max-width: 400px) {
@@ -1055,12 +1089,13 @@ section .home {
         margin-top: 30%;
     }
 
-    .fixtures  .team img {
+    .fixtures .team img {
         width: 40px;
         height: 40px;
     }
 
-    .results-section .date .date-fix, .venue {
+    .results-section .date .date-fix,
+    .venue {
         font-size: 0.9rem;
     }
 

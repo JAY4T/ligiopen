@@ -16,7 +16,7 @@ load_dotenv(env_path)
 SECRET_KEY = config('SECRET_KEY', default='default_secret_key')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'ligiopen.com', 'www.ligiopen.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost', 'ligiopen.com', 'www.ligiopen.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -103,7 +103,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+#STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [BASE_DIR / 'football'/'static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 

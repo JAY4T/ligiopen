@@ -26,54 +26,66 @@
   <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
 </head>
 <header>
-  <img src="{% static 'images/li__1_-removebg-preview.png' %}" alt="logo" />
-  <nav class="navbar">
-    <a
-      href="{% url 'home' %}"
-      class="navbar-item {% if request.path == '/' %}active{% endif %}"
-      >Home</a
-    >
-    <!-- <a href="{% url 'finance' %}" class="{% if 'finance' in request.path %}active{% endif %}">Finance</a> -->
-    <a
-      href="{% url 'about' %}"
-      class="navbar-item {% if 'about' in request.path %}active{% endif %}"
-      >About</a
-    >
+  <div class="navbar-main">
+    <div class="navbar-logo-left">
+      <p class="pre-logo-text">Play</p>
+      <img
+        src="{% static 'images/li__1_-removebg-preview.ico' %}"
+        alt="logo"
+        class="ligiopen-logo"
+      />
+      <p class="post-logo-text">Better</p>
+    </div>
+    <!-- <nav class="navbar"> -->
+    <div class="navbar navbar-main-navigation">
+      <a
+        href="{% url 'home' %}"
+        class="navbar-item {% if request.path == '/' %}active{% endif %}"
+        >Home</a
+      >
+      <!-- <a href="{% url 'finance' %}" class="{% if 'finance' in request.path %}active{% endif %}">Finance</a> -->
+      <a
+        href="{% url 'about' %}"
+        class="navbar-item {% if 'about' in request.path %}active{% endif %}"
+        >About</a
+      >
 
-    <a
-      href="{% url 'fixtures' %}"
-      class="navbar-item {% if 'fixture' in request.path %}active{% endif %}"
-      >Fixtures</a
-    >
-    <a
-      href="{% url 'teams' %}"
-      class="navbar-item {% if 'team' in request.path %}active{% endif %}"
-      >Teams</a
-    >
-    <a
-      href="{% url 'news' %}"
-      class="navbar-item {% if 'news' in request.path %}active{% endif %}"
-      >News</a
-    >
-    <a
-      href="{% url 'getinvolved' %}"
-      class="navbar-item {% if 'getinvolved' in request.path %}active{% endif %}"
-      >Get Involved</a
-    >
-    <a
-      href="{% url 'shop' %}"
-      class="navbar-item {% if 'shop' in request.path %}active{% endif %}"
-      >Shop</a
-    >
+      <a
+        href="{% url 'fixtures' %}"
+        class="navbar-item {% if 'fixture' in request.path %}active{% endif %}"
+        >Fixtures</a
+      >
+      <a
+        href="{% url 'teams' %}"
+        class="navbar-item {% if 'team' in request.path %}active{% endif %}"
+        >Teams</a
+      >
+      <a
+        href="{% url 'news' %}"
+        class="navbar-item {% if 'news' in request.path %}active{% endif %}"
+        >News</a
+      >
+      <a
+        href="{% url 'getinvolved' %}"
+        class="navbar-item {% if 'getinvolved' in request.path %}active{% endif %}"
+        >Get Involved</a
+      >
+      <a
+        href="{% url 'shop' %}"
+        class="navbar-item {% if 'shop' in request.path %}active{% endif %}"
+        >Shop</a
+      >
+    </div>
+    <div class="navbar-account-buttons">
+      <a href="{% url 'register' %}" class="btn-register">Register</a>
+      <a href="{% url 'login' %}" class="btn-login">Login</a>
 
-    <a href="{% url 'register' %}" class="btn-register">Register</a>
-    <a href="{% url 'login' %}" class="btn-login">Login</a>
-
-    <!-- <a href="{% url 'contact_us' %}" class="{% if 'contact' in request.path %}active{% endif %}">Contact us</a> -->
-  </nav>
-  <div class="icons">
-    <!-- <a href="pages/login.html">Login</a> -->
-    <i class="fas fa-bars" id="menu-bars"></i>
+      <!-- <a href="{% url 'contact_us' %}" class="{% if 'contact' in request.path %}active{% endif %}">Contact us</a> -->
+    </div>
+    <div class="icons">
+      <!-- <a href="pages/login.html">Login</a> -->
+      <i class="fas fa-bars" id="menu-bars"></i>
+    </div>
   </div>
 </header>
 
