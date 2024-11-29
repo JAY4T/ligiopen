@@ -22,6 +22,8 @@
     crossorigin="anonymous"
   ></script>
 
+  <script src="../static/js/navbar.js"></script>
+
   <!-- CSS -->
   <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
 </head>
@@ -76,7 +78,7 @@
         >Shop</a
       >
     </div>
-    <div class="navbar-account-buttons">
+    <div class="navbar navbar-main-navigation navbar-account-buttons">
       <a href="{% url 'register' %}" class="btn-register">Register</a>
       <a href="{% url 'login' %}" class="btn-login">Login</a>
 

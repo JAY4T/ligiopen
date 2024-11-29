@@ -12,8 +12,6 @@
 
 * {
     font-family: 'Nunito', sans-serif;
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
     text-decoration: none;
     outline: none;
@@ -27,6 +25,7 @@ html {
     scroll-padding-top: 5.5rem;
     scroll-behavior: smooth;
     color: black;
+    margin: 0.5px;
 }
 
 .sub-heading {
@@ -188,9 +187,11 @@ section .home {
     display: flex;
     flex-direction: row;
     width: 100%;
-    background-color: #F87171;
+    background-color: var(--fern-green);
     height: 400px;
     margin-top: 1px;
+    box-shadow: 10px 5px 5px rgba(78, 76, 76, 0.568);
+    color: var(--white);
 }
 
 .tournament-main-content-left {
@@ -202,10 +203,6 @@ section .home {
     justify-content: center;
     background-position: center;
     background-size: cover;
-}
-
-.tournament-left-title {
-    color: #f6fa00;
 }
 
 .tournament-left-caption {
@@ -237,8 +234,27 @@ section .home {
 
 .tournament-main-content-right {
     width: 66.666667%;
-    background-color: #1E40AF;
+    display: flex;
 }
+
+.tournament-image-right {
+    width: 100%;
+    background-image: url('../images/football-field.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.tournament-details {
+    margin-bottom: 6rem;
+    padding-left: 1.5rem;
+}
+
+
 
 @media (max-width: 600px) {
     .tournament-section {
