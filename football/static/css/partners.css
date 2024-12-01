@@ -1,0 +1,27 @@
+.partners-section {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    padding-bottom: 2rem;
+    text-transform: uppercase;
+
+}
+
+.owl-carousel {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.partners {
+    width: 15%;
+    padding: 0px 20px 0px 20px;
+    box-shadow: 0 10px 15px -3px rgba(9, 85, 21, 0.623), 0 4px 6px -2px rgba(16, 112, 32, 0.63);
+    border-radius: 0.5rem;
+    padding: 5px;
+    margin-right: 10px;
+
+}
