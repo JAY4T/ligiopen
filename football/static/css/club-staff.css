@@ -6,7 +6,7 @@
     --white: #F6F2F2;
     --blue: #4169E1;
     --fern-green:#4F7942;
-    --yellow: #FFFF00;
+    --black: #0a0a0a;
 }
 
 * {
@@ -80,7 +80,7 @@ header .navbar a , .navbar2 a{
 
 header .navbar a.active, .matches .navbar2 a.active, .matches .navbar2 a:hover, header .navbar a:hover {
     font-weight: bold;
-    background: var(--yellow);
+    background: var(--black);
 }
 
 header .icons i {

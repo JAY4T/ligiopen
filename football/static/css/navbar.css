@@ -2,11 +2,15 @@
 
 :root {
     --light-color: grey;
-    --blue: #4169E1;
+    --blue: #1ca9c9;
     --red: #FF0000;
-    --yellow: #FFFF00;
+    --fern-green: #4F7942;
+    --russian-green: #679267;
+    --pacific-blue: #1ca9c9;
+    --white: #fff;
 }
 
+/* Keeping your existing base styles */
 * {
     font-family: 'Nunito', sans-serif;
     margin: 0;
@@ -25,47 +29,112 @@ html {
     scroll-behavior: smooth;
 }
 
-body {
-    padding-top: 90px; 
+/* Navbar styles */
+.navbar {
+    width: 100%;
 }
 
-/*Header section */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin-bottom: 10px;
-    background: #fff;
-    padding: 1rem 7%;
+.navbar-main {
+    width: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: space-between;
-    z-index: 1000;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    text-transform: capitalize;
+    align-items: center;
+    padding: 10px;
+    background: var(--white);
+    position: relative;
 }
 
-header img {
-    width: 70px;
-    height: 70px;
+/* Logo section */
+.navbar-logo-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
-header .navbar a {
-    font-size: 1.7rem;
-    border-radius: .5rem;
+.pre-logo-text {
+    justify-self: end;
+    margin-right: -8px;
+}
+
+.post-logo-text {
+    justify-self: start;
+    margin-left: -10px;
+}
+
+.ligiopen-logo {
+    height: 45px;
+    width: 45px;
+}
+
+/* Navigation section */
+.navbar-main-navigation {
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-left: 10px;
+    font-size: 18px;
+}
+
+.navbar-item {
+    text-decoration: none;
+    margin-right: 10px;
+    color: var(--black);
     padding: .5rem 1.5rem;
-    color: black;
+    border-radius: .5rem;
 }
 
-header .navbar a.active, header .navbar a:hover {
-    font-weight: bold;
-    background: var(--yellow);
+a.navbar-item:hover {
+    color: var(--white);
+    background-color: var(--fern-green);
+    transition: ease-in-out;
+    transition-duration: 2ms;
 }
 
-header .icons i {
+a.navbar-item.active {
+    background-color: var(--russian-green);
+    color: var(--white);
+    cursor: default;
+}
+
+/* Account buttons */
+.navbar-account-buttons {
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btn-register,
+.btn-login {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    text-align: center;
+    border: 1px solid var(--pacific-blue);
+    background-color: var(--pacific-blue);
+    border-radius: 1.25rem;
+}
+
+.btn-register:hover,
+.btn-login:hover {
+    background: var(--russian-green);
+    color: var(--white);
+    text-decoration: none;
+    transform: scale(1);
+    border-width: 0;
+}
+
+/* Menu icon */
+.icons {
+    display: none;
+}
+
+.icons #menu-bars {
     cursor: pointer;
-    margin-left: 5rem;
     height: 4.5rem;
     line-height: 4.5rem;
     width: 4.5rem;
@@ -76,68 +145,68 @@ header .icons i {
     background: #eee;
 }
 
-header .icons a {
+.icons #menu-bars:hover {
     color: var(--white);
-    background-color: var(--black);
-    font-size: 1.7rem;
-    padding: 10px;
-    border-radius: 5px;
-    width: 200px;
-}
-
-header .icons a:hover {
-    color: #fff;
-    background: var(--green);
-}
-
-header .icons i:hover {
-    color: #fff;
-    background: var(--green);
+    background: var(--fern-green);
     transform: rotate(360deg);
 }
 
-header .icons #menu-bars {
-    display: none;
-}
-
-@media (max-width: 991px) {
-
-    html {
-        font-size: 55%;
-    }
-
-    header {
-        padding: 2rem;
-    }
-}
-
+/* Responsive styles */
 @media (max-width: 768px) {
-
-    header .icons #menu-bars {
-        display: inline-block;
+    .icons {
+        display: block;
     }
 
-    header .navbar {
+    .navbar-main-navigation,
+    .navbar-account-buttons {
+        display: none;
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: #fff;
-        border-top: .1rem solid rgba(0,0,0,.2);
-        border-bottom: .1rem solid rgba(0,0,0,.2);
+        background: var(--white);
+        border-top: .1rem solid rgba(0, 0, 0, .2);
         padding: 1rem;
-        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        flex-direction: column;
+        align-items: stretch;
+        z-index: 1000;
     }
 
-    header .navbar.active {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    .navbar-main-navigation.active,
+    .navbar-account-buttons.active {
+        display: flex;
     }
 
-    header .navbar a {
+    .navbar-main-navigation {
+        width: 100%;
+        padding: 0;
         display: block;
-        padding: 1.5rem;
-        margin: 1rem;
-        font-size: 2rem;
+    }
+
+    .navbar-item {
+        display: block;
+        margin: 5px 0;
+        padding: 10px;
+        text-align: center;
         background: #eee;
+        font-size: 1.7rem;
+    }
+
+    .navbar-account-buttons {
+        width: 100%;
+        border-top: .1rem solid rgba(0, 0, 0, .2);
+    }
+
+    .btn-register,
+    .btn-login {
+        width: 100%;
+        padding: 1.5rem;
+        font-size: 1.7rem;
+    }
+}
+
+@media (max-width: 991px) {
+    html {
+        font-size: 55%;
     }
 }

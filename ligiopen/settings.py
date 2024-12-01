@@ -16,7 +16,7 @@ load_dotenv(env_path)
 SECRET_KEY = config('SECRET_KEY', default='default_secret_key')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'ligiopen.com', 'www.ligiopen.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost', 'ligiopen.com', 'www.ligiopen.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -28,8 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'widget_tweaks',
      'football',
+     'accounts',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +103,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+#STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [BASE_DIR / 'football'/'static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
@@ -115,6 +116,12 @@ APPEND_SLASH = False
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/admin/dashboard/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_REDIRECT_URL = 'player_dashboard'
+
+
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends..EmailBackend'

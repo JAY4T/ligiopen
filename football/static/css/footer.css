@@ -6,6 +6,10 @@
 
 }
 
+.footer-link{
+    text-decoration: none;
+}
+
 .footer .box-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
@@ -30,6 +34,12 @@
     color: var(--blue);
     text-decoration: underline;
 }
+.financial-opportunity-section {
+    padding-bottom: 3rem; /* Adjust as necessary */
+}
+.footer {
+    margin-top: 2rem; /* Adjust the value */
+}
 
 .footer .credit {
     text-align: center;
@@ -44,6 +54,13 @@
 .footer .credit span {
     color: var(--green);
 }
+
+@media (max-width: 570px) {
+    .footer {
+        margin-top: 2rem; /* Ensure sufficient spacing */
+    }
+}
+
 
 @media (max-width: 570px){
     .footer .box-container {
