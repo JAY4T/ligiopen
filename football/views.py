@@ -165,7 +165,7 @@ def results_view(request):
 
 def team_list_view(request):
     teams = Team.objects.all()
-    return render(request, 'index.html', {'teams': teams})
+    return render(request, 'team.html', {'teams': teams})
 
 
 def club_detail_view(request, club_id):
