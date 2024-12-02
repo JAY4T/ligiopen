@@ -9,6 +9,10 @@ from django.contrib import messages
 from django.urls import reverse
 from .models import Matchday
 from .models import Team, Fixture
+from .models import SportsItem
+from .models import SportsItem, Cart, CartItem
+from .utils import get_or_create_cart
+
 
 # from .models import Blog
 # from .models import BlogPost
@@ -447,6 +451,55 @@ def getinvolved_view(request):
 
 def shop_view(request):
     return render(request, 'shop.html') 
+
+
+
+def add_to_cart(request, item_id):
+    item = get_object_or_404(SportsItem, id=item_id)
+    # Handle cart logic (e.g., save to session or database)
+    # Example: Store item in the session
+    cart = request.session.get('cart', {})
+    cart[item_id] = cart.get(item_id, 0) + 1  # Increment quantity
+    request.session['cart'] = cart
+    return redirect('shop')
+
+
+
+def shop_view(request):
+    items = SportsItem.objects.all()  # Fetch all items from the database
+    return render(request, 'shop.html', {'items': items})
+
+
+
+def add_to_cart(request, item_id):
+    # Get the item from the database
+    item = SportsItem.objects.get(id=item_id)
+    cart = get_or_create_cart(request.user)  # Get or create the cart for the logged-in user
+
+    # Check if the item is already in the cart
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, item=item)
+
+    # If the item is already in the cart, just increase the quantity
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return redirect('shop')  # Redirect to the shop page or wherever you want
+
+
+
+# views.py (Add this function)
+def cart_view(request):
+    cart = get_or_create_cart(request.user)
+    return render(request, 'cart.html', {'cart': cart})
+
+
+def cart_view(request):
+    cart = request.session.get('cart', {})
+    return render(request, 'cart.html', {'cart': cart})
+
+
+
 
 def faqs_view(request):
     return render(request, 'faqs.html')  #
