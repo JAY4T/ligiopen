@@ -25,7 +25,6 @@ html {
     scroll-padding-top: 5.5rem;
     scroll-behavior: smooth;
     color: black;
-    margin: 0.5px;
 }
 
 .sub-heading {
@@ -196,7 +195,7 @@ section .home {
 
 .tournament-main-content-left {
     width: 33.33333%;
-    background-color: var(--fern-green);
+    background-color: #4C9A2A;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -275,7 +274,7 @@ section .home {
         padding-bottom: 10px;
     }
 
-    .tournament-left-title {
+    .h2 {
         color: #f6fa00;
     }
 
