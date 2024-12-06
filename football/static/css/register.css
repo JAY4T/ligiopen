@@ -1,0 +1,178 @@
+:root {
+    --black: #000;
+    --white: #fff;
+    --yellow: #ffde21;
+    --pacific-blue: #1ca9c9;
+    --fern-green: #4f7942;
+}
+
+/* Base Styles */
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Layout */
+.main-content {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+}
+
+.image {
+    background-image: url('../images/signup.jpg');
+    width: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Typography */
+.logo {
+    color: var(--fern-green);
+    text-align: center;
+    margin: 0;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--pacific-blue);
+    margin: 0;
+    margin-bottom: 30px;
+    font-weight: normal;
+}
+
+/* Form Elements */
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-container {
+    position: relative;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    padding-right: 40px;
+    border: none;
+    background: #f5f5f5;
+    border-radius: 8px;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--yellow);
+    padding: 5px;
+    border-radius: 4px;
+    color: black;
+    pointer-events: none;
+}
+
+/* Buttons */
+.signup-btn {
+    width: 80%;
+    padding: 12px;
+    background: var(--yellow);
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.signup-btn:hover {
+    background: color-mix(in srgb, var(--yellow) 85%, black);
+}
+
+/* Login Link */
+.login-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-link span {
+    color: var(--black);
+}
+
+.login-link a {
+    color: var(--pacific-blue);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.error-border {
+    border: 1px solid red !important;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        min-width: 370px;
+    }
+
+    .image {
+        display: none;
+    }
+
+    .login-container {
+        width: 100%;
+        min-width: 370px;
+        height: 100vh;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-group,
+    .signup-btn {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
