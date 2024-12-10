@@ -1,78 +1,52 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="{% static 'images/li__1_-removebg-preview.ico' %}"
-    />
-    <title>Ligi Open</title>
+<html>
+<head>
+    <title>News</title>
+    <style>
+        .news-item {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .news-title {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+        .news-meta {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .news-content {
+            font-size: 16px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+  {% include 'navbar.html' %}
 
-    <!-- Font awesome -->
-    <script
-      src="https://kit.fontawesome.com/456d64337e.js"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/news.css' %}" />
-  </head>
-  <body>
-    {% include 'navbar.html' %}
-    <div class="teams">
-      <div class="container">
-        <h2 class="heading text-center mb-4">Our Teams</h2>
-        <p
-          class="text-center mb-5 desc"
-          style="font-size: 2rem; text-align: center"
-        >
-          Click on any club to get latest news.
-        </p>
-        <br />
-        <br />
-        <div class="row">
-          {% for club in clubs %}
-          <div class="col-lg-3">
-            <a
-              href="{% url 'club_staff_view' club.name %}"
-              target="_blank"
-              class="club-link"
-            >
-              <div class="team-member">
-                {% if club.photo %}
-                <img src="{{ club.photo.url }}" alt="{{ club.name }} Logo" />
-                {% else %}
-                <img
-                  src="{% static 'defaults/club_placeholder.png' %}"
-                  alt="Placeholder image"
-                />
-                {% endif %}
-                <div>
-                  <div class="inner-div">
-                    <h3>{{ club.name }}</h3>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          {% endfor %}
+    {% for news in news_items %}
+    <div class="news-item">
+        <h2 class="news-title">{{ news.title }}</h2>
+        <div class="news-meta">
+            <p>By: {{ news.author }}</p>
+            <p>Published on: {{ news.date }}</p>
+            <p>Categories: {{ news.categories|join:", " }}</p>
+            <p>Archives: {{ news.archives }}</p>
         </div>
-
-        <div class="player-view">
-          <p class="more-info">
-            Want to check out registered players in the league?
-          </p>
-          <a href="{% url 'all_players' %}" target="_blank" class="btn"
-            >Click here</a
-          >
+        <div class="news-content">
+            {{ news.content|safe }}
         </div>
-      </div>
     </div>
+    {% endfor %}
 
-    {% include 'footer.html' %}
-  </body>
+  {% include 'footer.html' %}
+
+</body>
 </html>

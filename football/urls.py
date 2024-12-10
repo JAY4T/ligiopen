@@ -33,12 +33,19 @@ urlpatterns = [
     path('team/<int:team_id>/results/', views.team_results, name='team_results'),
     path('about/', views.about_view, name='about'),
     path('teams/', views.team_list_view, name='teams'),  
-    path('news/', views.news_view, name='news'), 
     path('getinvolved/', views.getinvolved_view, name='getinvolved'), 
     path('shop/', views.shop_view, name='shop'), 
     path('shop/add_to_cart/<int:item_id>/', views.add_to_cart, name='add_to_cart'),
     path('add-to-cart/<int:item_id>/', views.add_to_cart, name='add_to_cart'),
     path('cart/', cart_view, name='cart'),
+    path('news/', views.news_list, name='news_list'),
+    path('news/', views.news_list, name='news'), 
+    path('apply/trainer/', views.apply_trainer, name='apply_trainer'),
+    path('apply/mentor/', views.apply_mentor, name='apply_mentor'),
+    path('hire-talent/', views.hire_talent, name='hire_talent'),
+    path('become-sponsor/', views.become_sponsor, name='become_sponsor'),
+
+
 
 
     path('faqs/', views.faqs_view, name='faqs'),

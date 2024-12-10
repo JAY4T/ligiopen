@@ -12,10 +12,10 @@ from .models import Team, Fixture
 from .models import SportsItem
 from .models import SportsItem, Cart, CartItem
 from .utils import get_or_create_cart
-
-
-# from .models import Blog
-# from .models import BlogPost
+from .utils import load_news_items
+import os
+import markdown2
+import yaml
 from .models import Club
 import qrcode
 import io
@@ -155,8 +155,7 @@ def success_view(request):
 def about_view(request):
     return render(request, 'about.html') 
 
-def news_view(request):
-    return render(request, 'news.html') 
+
 
 def results_view(request):
     results = Result.objects.all()
@@ -515,4 +514,48 @@ def privacy_policy(request):
 def terms_conditions(request):
     return render(request, 'terms_conditions.html')
 
- 
+def news_list(request):
+    news_items = load_news_items()
+    return render(request, 'news.html', {'news_items': news_items})
+
+
+
+
+
+def load_news_items():
+    news_items = []
+    news_dir = os.path.join(settings.BASE_DIR, "football", "news")  # Path to your news directory
+
+    # Check if the directory exists
+    if not os.path.exists(news_dir):
+        return news_items  # Return an empty list if the directory does not exist
+
+    # Read all Markdown files in the directory
+    for filename in os.listdir(news_dir):
+        if filename.endswith(".md"):
+            with open(os.path.join(news_dir, filename), 'r') as file:
+                content = file.read()
+                # Split metadata and content
+                metadata, body = content.split('---', 2)[1:]
+                metadata_dict = yaml.safe_load(metadata)
+                html_content = markdown2.markdown(body)  # Convert Markdown to HTML
+                news_items.append({**metadata_dict, "content": html_content})
+
+    # Sort the items by date, latest first
+    return sorted(news_items, key=lambda x: x['date'], reverse=True)
+
+def news_list(request):
+    news_items = load_news_items()  # Fetch news items
+    return render(request, 'news.html', {'news_items': news_items})  # Pass them to the template
+
+def apply_trainer(request):
+    return render(request, 'apply_trainer.html')
+
+def apply_mentor(request):
+    return render(request, 'apply_mentor.html')
+
+def hire_talent(request):
+    return render(request, 'hire_talent.html')
+
+def become_sponsor(request):
+    return render(request, 'become_sponsor.html')
