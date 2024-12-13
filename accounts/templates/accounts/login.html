@@ -17,16 +17,15 @@
       <div class="login-container">
         <h1 class="logo">Ligiopen</h1>
         <h5 class="subtitle">Log in to your account</h5>
-        <form id="loginForm" action="#" method="POST">
+        <form id="loginForm" action="{% url 'login' %}" method="POST">
           {% csrf_token %}
           <div class="form-group">
-            <label>Email id :</label>
-            <!-- For the email input -->
+            <label>Username:</label>
             <div class="input-container">
               <input
-                type="email"
-                name="email"
-                placeholder="info@provistechnologies.com"
+                type="text"
+                name="username"
+                placeholder="Enter your username"
               />
               <svg
                 class="icon"
@@ -47,8 +46,7 @@
           </div>
 
           <div class="form-group">
-            <label>Password :</label>
-            <!-- For the password input -->
+            <label>Password:</label>
             <div class="input-container">
               <input
                 type="password"
@@ -78,7 +76,7 @@
         <div class="divider">
           <span>OR</span>
         </div>
-        <form action="{% url 'signup' %}" method="GET">
+        <form action="{% url 'register' %}" method="GET">
           <button type="submit" class="signup-btn">Sign up</button>
         </form>
       </div>
