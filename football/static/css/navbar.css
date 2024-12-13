@@ -30,9 +30,9 @@ html {
 }
 
 /* Navbar styles */
-.navbar {
+/* .navbar {
     width: 100%;
-}
+} */
 
 .navbar-main {
     width: 100%;
@@ -43,6 +43,7 @@ html {
     padding: 10px;
     background: var(--white);
     position: relative;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, .2);
 }
 
 /* Logo section */
@@ -56,16 +57,18 @@ html {
 .pre-logo-text {
     justify-self: end;
     margin-right: -8px;
+    font-size: 16px;
 }
 
 .post-logo-text {
     justify-self: start;
     margin-left: -10px;
+    font-size: 16px;
 }
 
 .ligiopen-logo {
-    height: 45px;
-    width: 45px;
+    height: 50px;
+    width: 50px;
 }
 
 /* Navigation section */
@@ -73,17 +76,17 @@ html {
     width: 75%;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    padding-left: 10px;
+    justify-content: center;
     font-size: 18px;
 }
 
 .navbar-item {
     text-decoration: none;
-    margin-right: 10px;
+    margin-right: 0px;
     color: var(--black);
     padding: .5rem 1.5rem;
     border-radius: .5rem;
+    margin-right: 1rem;
 }
 
 a.navbar-item:hover {

@@ -1,0 +1,176 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #e9f7e1; /* Light green background */
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 150px; /* Reduced sidebar width */
+            background-color: #27ae60; /* Green background */
+            color: #fff;
+            padding-top: 20px; /* Added padding-top */
+            padding-bottom: 20px; /* Added padding-bottom */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: auto; /* Adjust height based on content */
+            position: relative; /* Changed position to relative */
+        }
+
+        .sidebar .logo {
+            font-size: 20px; /* Slightly smaller font size */
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .sidebar p {
+            font-size: 16px; /* Increased font size for better visibility */
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px; /* Reduced font size */
+            border-bottom: 1px solid #1e824c; /* Darker green for hover effect */
+            display: block;
+            margin-bottom: 5px; /* Added spacing between links */
+        }
+
+        .sidebar a:hover {
+            background-color: #1e824c; /* Darker green on hover */
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: 150px; /* Reduced margin to fit the smaller sidebar */
+            padding: 20px;
+            width: 100%;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 24px;
+            color: #27ae60; /* Green text color */
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            background-color: #27ae60; /* Green button */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            margin: 10px 0;
+        }
+
+        .btn:hover {
+            background-color: #1e824c; /* Darker green on button hover */
+        }
+
+        /* Form Section */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="#" onclick="showGraph()">Team</a> <!-- Use JavaScript to show graph -->
+        <a href="{% url 'team_list' %}">View Your Teams</a>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+    </div>
+
+    <div class="main-content">
+        {% include 'navbar.html' %}
+        <div class="container">
+            <h2 class="title">Team Registration</h2>
+
+            <!-- Team Registration Form -->
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="team_name">Team Name</label>
+                    <input type="text" id="team_name" name="team_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="coach">Coach Name</label>
+                    <input type="text" id="coach" name="coach" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="captain">Captain Name</label>
+                    <input type="text" id="captain" name="captain" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="captain_email">Captain Email</label>
+                    <input type="email" id="captain_email" name="captain_email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="num_players">Number of Players</label>
+                    <input type="number" id="num_players" name="num_players" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="home_ground">Home Ground</label>
+                    <input type="text" id="home_ground" name="home_ground" required>
+                </div>
+
+                <button type="submit" class="btn">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

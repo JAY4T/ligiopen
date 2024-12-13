@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News</title>
+    <style>
+        .news-item {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .news-title {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+        .news-meta {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .news-content {
+            font-size: 16px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+  {% include 'navbar.html' %}
+
+    {% for news in news_items %}
+    <div class="news-item">
+        <h2 class="news-title">{{ news.title }}</h2>
+        <div class="news-meta">
+            <p>By: {{ news.author }}</p>
+            <p>Published on: {{ news.date }}</p>
+            <p>Categories: {{ news.categories|join:", " }}</p>
+            <p>Archives: {{ news.archives }}</p>
+        </div>
+        <div class="news-content">
+            {{ news.content|safe }}
+        </div>
+    </div>
+    {% endfor %}
+
+  {% include 'footer.html' %}
+
+</body>
+</html>

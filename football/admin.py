@@ -4,6 +4,8 @@ from .models import Team, FixtureResult, Fixture, Matchday, Stadium, TeamIndivid
 # from .models import Blog
 # from .models import BlogPost
 from .models import Feedback
+from .models import SportsItem
+
 
 
 
@@ -20,6 +22,8 @@ admin.site.register(Stadium)
 admin.site.register(TeamIndividual)
 admin.site.register(FixtureTeam)
 admin.site.register(ResultTeam)
+admin.site.register(SportsItem)
+
 
 
 

@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Involved | Football Club</title>
+    <link href="{% static 'css/get_involved.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <section id="get-involved" class="get-involved-section">
+        <div class="container">
+            <h1>Get Involved</h1>
+            <p>
+                
+
+
+Our primary objective is to transform the lives of young people, especially those from underprivileged backgrounds, through the power of football. We aim to create opportunities for skill development, teamwork, and personal growth.
+
+By working alongside individuals, institutions, and organizations at all levels, we strive to foster a thriving community that nurtures talent and builds brighter futures.
+            </p>
+            <div class="options">
+                <div class="option">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <h3>Trainers</h3>
+                    <p>Join as a trainer and help young talents develop their skills.</p>
+                    <a href="{% url 'apply_trainer' %}" class="btn">Apply Now</a>
+                </div>
+                <div class="option">
+                    <i class="fa-solid fa-people-arrows"></i>
+                    <h3>Mentor</h3>
+                    <p>Become a mentor and guide young players in their journey to success.</p>
+                    <a href="{% url 'apply_mentor' %}" class="btn">Get Started</a>
+                </div>
+                <div class="option">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <h3>Hire a Talent</h3>
+                    <p>Looking for exceptional talent? Hire our skilled players today!</p>
+                    <a href="{% url 'hire_talent' %}" class="btn">Learn More</a>
+                </div>
+                <div class="option">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                    <h3>Sponsor</h3>
+                    <p>Support our mission and sponsor a life-changing opportunity.</p>
+                    <a href="{% url 'become_sponsor' %}" class="btn">Become a Sponsor</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include 'footer.html' %}
+</body>
+</html>

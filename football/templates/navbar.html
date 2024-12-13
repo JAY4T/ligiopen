@@ -22,7 +22,7 @@
     crossorigin="anonymous"
   ></script>
 
-  <script src="../static/js/navbar.js"></script>
+  <script src="{% static 'js/navbar.js' %}"></script>
 
   <!-- CSS -->
   <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
@@ -39,7 +39,7 @@
       <p class="post-logo-text">Better</p>
     </div>
     <!-- <nav class="navbar"> -->
-    <div class="navbar navbar-main-navigation">
+    <div class="navbar-main-navigation">
       <a
         href="{% url 'home' %}"
         class="navbar-item {% if request.path == '/' %}active{% endif %}"
