@@ -9,9 +9,13 @@ from django.contrib import messages
 from django.urls import reverse
 from .models import Matchday
 from .models import Team, Fixture
-
-# from .models import Blog
-# from .models import BlogPost
+from .models import SportsItem
+from .models import SportsItem, Cart, CartItem
+from .utils import get_or_create_cart
+from .utils import load_news_items
+import os
+import markdown2
+import yaml
 from .models import Club
 import qrcode
 import io
@@ -151,8 +155,7 @@ def success_view(request):
 def about_view(request):
     return render(request, 'about.html') 
 
-def news_view(request):
-    return render(request, 'news.html') 
+
 
 def results_view(request):
     results = Result.objects.all()
@@ -448,6 +451,55 @@ def getinvolved_view(request):
 def shop_view(request):
     return render(request, 'shop.html') 
 
+
+
+def add_to_cart(request, item_id):
+    item = get_object_or_404(SportsItem, id=item_id)
+    # Handle cart logic (e.g., save to session or database)
+    # Example: Store item in the session
+    cart = request.session.get('cart', {})
+    cart[item_id] = cart.get(item_id, 0) + 1  # Increment quantity
+    request.session['cart'] = cart
+    return redirect('shop')
+
+
+
+def shop_view(request):
+    items = SportsItem.objects.all()  # Fetch all items from the database
+    return render(request, 'shop.html', {'items': items})
+
+
+
+def add_to_cart(request, item_id):
+    # Get the item from the database
+    item = SportsItem.objects.get(id=item_id)
+    cart = get_or_create_cart(request.user)  # Get or create the cart for the logged-in user
+
+    # Check if the item is already in the cart
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, item=item)
+
+    # If the item is already in the cart, just increase the quantity
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return redirect('shop')  # Redirect to the shop page or wherever you want
+
+
+
+# views.py (Add this function)
+def cart_view(request):
+    cart = get_or_create_cart(request.user)
+    return render(request, 'cart.html', {'cart': cart})
+
+
+def cart_view(request):
+    cart = request.session.get('cart', {})
+    return render(request, 'cart.html', {'cart': cart})
+
+
+
+
 def faqs_view(request):
     return render(request, 'faqs.html')  #
 
@@ -462,4 +514,48 @@ def privacy_policy(request):
 def terms_conditions(request):
     return render(request, 'terms_conditions.html')
 
- 
+def news_list(request):
+    news_items = load_news_items()
+    return render(request, 'news.html', {'news_items': news_items})
+
+
+
+
+
+def load_news_items():
+    news_items = []
+    news_dir = os.path.join(settings.BASE_DIR, "football", "news")  # Path to your news directory
+
+    # Check if the directory exists
+    if not os.path.exists(news_dir):
+        return news_items  # Return an empty list if the directory does not exist
+
+    # Read all Markdown files in the directory
+    for filename in os.listdir(news_dir):
+        if filename.endswith(".md"):
+            with open(os.path.join(news_dir, filename), 'r') as file:
+                content = file.read()
+                # Split metadata and content
+                metadata, body = content.split('---', 2)[1:]
+                metadata_dict = yaml.safe_load(metadata)
+                html_content = markdown2.markdown(body)  # Convert Markdown to HTML
+                news_items.append({**metadata_dict, "content": html_content})
+
+    # Sort the items by date, latest first
+    return sorted(news_items, key=lambda x: x['date'], reverse=True)
+
+def news_list(request):
+    news_items = load_news_items()  # Fetch news items
+    return render(request, 'news.html', {'news_items': news_items})  # Pass them to the template
+
+def apply_trainer(request):
+    return render(request, 'apply_trainer.html')
+
+def apply_mentor(request):
+    return render(request, 'apply_mentor.html')
+
+def hire_talent(request):
+    return render(request, 'hire_talent.html')
+
+def become_sponsor(request):
+    return render(request, 'become_sponsor.html')
