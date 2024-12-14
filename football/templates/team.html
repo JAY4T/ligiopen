@@ -20,11 +20,9 @@
   <div class="teams">
     <div class="container">
       <h2 class="heading text-center mb-4">Our Teams</h2>
-      <p class="text-center mb-5 desc" style="font-size: 2rem; text-align: center;">
+      <p class="text-center mb-5 desc" style="font-size: 2rem;">
         Click on any club to learn more about their history, players, and achievements.
       </p>
-      <br>
-      <br>
       <div class="row">
         {% for club in clubs %}
         <div class="col-lg-3">
@@ -35,23 +33,20 @@
                     {% else %}
                         <img src="{% static 'defaults/club_placeholder.png' %}" alt="Placeholder image"/>
                     {% endif %}
-                    <div>
-                        <div class="inner-div">
-                            <h3>{{ club.name }}</h3>
-                        </div>
+                    <div class="inner-div">
+                        <h3>{{ club.name }}</h3>
                     </div>
                 </div>
             </a>
         </div>
         {% endfor %}
-    </div>
-    
-    <div class="player-view">
+      </div>
+      
+      <div class="player-view">
         <p class="more-info">Want to check out registered players in the league?</p>
         <a href="{% url 'all_players' %}" target="_blank" class="btn">Click here</a>
+      </div>
     </div>
-  </div>
-  
   </div>
 
   {% include 'footer.html' %}

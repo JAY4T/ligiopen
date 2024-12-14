@@ -25,20 +25,22 @@ import base64
 def home(request):
     teams = Team.objects.all()
     matchdays = Matchday.objects.all()
-    staffs = Staff.objects.all()  # Fetch all staff members
     fixtures = Fixture.objects.all()
 
 
     return render(request, 'index.html', {
         'teams': teams,
         'matchdays': matchdays,
-        'staffs': staffs,
         'fixtures': fixtures
 
     })
 
 
- 
+def about_view(request):
+    staffs = Staff.objects.all() 
+    for staff in staffs:
+        print(staff.name, staff.role, staff.image)# Fetch all staff members
+    return render(request, 'about.html', {'staffs': staffs})
 
 def fixtures_view(request):
     fixtures_results = FixtureResult.objects.all() 
@@ -152,8 +154,7 @@ def success_view(request):
     email = request.GET.get('email', '')
     return render(request, 'pages/success.html', {'email': email})
 
-def about_view(request):
-    return render(request, 'about.html') 
+
 
 
 
