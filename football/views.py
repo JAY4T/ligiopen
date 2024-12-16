@@ -23,13 +23,13 @@ import base64
 
 
 def home(request):
-    teams = Team.objects.all()
+    clubs = Club.objects.all()
     matchdays = Matchday.objects.all()
     fixtures = Fixture.objects.all()
 
 
     return render(request, 'index.html', {
-        'teams': teams,
+        'clubs': clubs,
         'matchdays': matchdays,
         'fixtures': fixtures
 
@@ -59,7 +59,7 @@ def club_staff_view(request, club_name):
     players = Player.objects.filter(club=club)
 
     context = {
-        'team': team,
+        'club': club,
         'coaching_staff': coaching_staff,
         'other_staff': other_staff,
         'club_match_staff': club_match_staff,
@@ -163,9 +163,6 @@ def results_view(request):
     return render(request, 'pages/club-staff.html', {'results': results})
 
 
-def team_list_view(request):
-    teams = Team.objects.all()
-    return render(request, 'team.html', {'teams': teams})
 
 
 def club_detail_view(request, club_id):
@@ -431,7 +428,7 @@ def contact(request):
 
 def clubs(request):
     clubs = Club.objects.all()
-    return render(request, 'clubs.html', {'clubs': clubs})
+    return render(request, 'club.html', {'clubs': clubs})
 
 def feedback(request):
     return render(request, 'pages/feedback/feedback.html')
