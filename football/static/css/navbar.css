@@ -40,7 +40,7 @@ html {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 1rem;
     background: var(--white);
     position: relative;
     box-shadow: 10px 5px 5px rgba(0, 0, 0, .2);
@@ -77,14 +77,13 @@ html {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    font-size: 18px;
+    font-size: 1.75rem;
 }
 
 .navbar-item {
     text-decoration: none;
-    margin-right: 0px;
     color: var(--black);
-    padding: .5rem 1.5rem;
+    padding: .5rem .5rem;
     border-radius: .5rem;
     margin-right: 1rem;
 }
@@ -114,8 +113,8 @@ a.navbar-item.active {
 .btn-login {
     color: var(--white);
     text-decoration: none;
-    font-size: 18px;
-    padding: 5px 10px;
+    font-size: 1.75rem;
+    padding: .5rem;
     text-align: center;
     border: 1px solid var(--pacific-blue);
     background-color: var(--pacific-blue);
@@ -168,8 +167,6 @@ a.navbar-item.active {
         left: 0;
         right: 0;
         background: var(--white);
-        border-top: .1rem solid rgba(0, 0, 0, .2);
-        padding: 1rem;
         flex-direction: column;
         align-items: stretch;
         z-index: 1000;
