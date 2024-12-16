@@ -196,14 +196,12 @@ section .home {
 }
 
 .tournament-main-content-left {
-    width: 33.33333%;
+    flex: 1;
     background-color: #4C9A2A;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-position: center;
-    background-size: cover;
     border-top-left-radius: 3%;
     border-bottom-left-radius: 3%;
 }
@@ -211,6 +209,7 @@ section .home {
 .tournament-left-title h2 {
     color: var(--yellow);
     font-size: 30px;
+    text-align: center;
 }
 
 .tournament-left-subtitle {
@@ -255,13 +254,14 @@ section .home {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    border-top-right-radius: 2%;
     margin-right: 2px;
 }
 
 .tournament-details {
-    margin-bottom: 6rem;
     padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 }
 
 .tournament-details h2 {
@@ -274,12 +274,6 @@ section .home {
 }
 
 /* Add responsive adjustments for smaller screens */
-@media (max-width: 768px) {
-    .tournament-left-title {
-        font-size: 36px;
-        /* Slightly smaller on mobile devices */
-    }
-}
 
 @media (max-width: 480px) {
     .tournament-left-title {
@@ -296,34 +290,24 @@ section .home {
         margin-top: 1px;
     }
 
-    .tournament-main-content-left {
-        width: 100%;
-        background-color: #4F7942;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-top: 1px;
-        padding-bottom: 10px;
-    }
-
     .h2 {
         color: #f6fa00;
     }
 
     .tournament-left-caption {
-        margin: 20px 0px 20px 0px;
+        margin: 20px 0px 20px 5px;
         font-size: 16px;
         text-align: center;
+        flex-wrap: wrap;
     }
 
     .tournament-left-tickets {
-        border-radius: 4rem;
         font-size: 16px;
         background-color: var(--blue);
         color: #fff;
         text-decoration: none;
-        padding: 5px 20px 5px 20px
+        padding: 5px 20px 5px 20px;
+        margin-bottom: 5px;
     }
 
     .tournament-left-tickets:hover {
@@ -333,8 +317,8 @@ section .home {
     }
 
     .tournament-main-content-right {
+        flex: 2;
         width: 100%;
-        background-color: #1E40AF;
     }
 }
 
@@ -1007,6 +991,27 @@ section .home {
     .results-section .date .date-fix,
     .venue {
         font-size: 1.3rem;
+    }
+
+    .tournament-left-title {
+        font-size: 36px;
+        /* Slightly smaller on mobile devices */
+    }
+
+    .tournament-main-content-left {
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .tournament-image-right {
+        display: flex;
+        flex-direction: column;
+        justify-items: flex-end;
+        min-height: 220px;
+    }
+
+    .tournament-main-content-left {
+        width: 100%;
     }
 
 }
