@@ -19,7 +19,8 @@
       <div class="login-container">
         <h1 class="logo">Ligiopen</h1>
         <h5 class="subtitle">Sign up into your account</h5>
-        <form id="signupForm" action="#" method="POST">
+        <form id="signupForm" action="{% url 'register' %}" method="POST">
+
           {% csrf_token %}
           <!-- Username field -->
           <div class="form-group">
