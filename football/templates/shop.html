@@ -1,53 +1,12 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sports Shop</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .items-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Centers the items */
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .item {
-            border: 1px solid #ccc;
-            padding: 10px; /* Reduced padding */
-            border-radius: 5px;
-            width: 200px; /* Reduced width */
-            text-align: center;
-            background-color: #f9f9f9;
-        }
-        .item img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-        .sort-container {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .latest-products {
-            margin: 40px 0;
-            text-align: center;
-        }
-        button {
-            background-color: #28a745; /* Green color */
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838; /* Darker green for hover effect */
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/li__1_-removebg-preview.ico' %}">
+    <title>Ligi Open Shop</title>
+    <link rel="stylesheet" href="{% static 'css/shop.css' %}">
 </head>
 <body>
     {% include 'navbar.html' %}
@@ -55,16 +14,17 @@
     <!-- Sorting Options -->
     <div class="sort-container">
         <form method="get" action="">
-            
-                
+            <select name="sort" onchange="this.form.submit()">
+                <option value="price_asc">Price (Low to High)</option>
+                <option value="price_desc">Price (High to Low)</option>
+                <option value="name">Name</option>
             </select>
-            
         </form>
     </div>
 
     <!-- Latest Products Section -->
     <div class="latest-products">
-        <h2>Ligiopen mechadize</h2>
+        <h2>LigiOpen Merchandise</h2>
         <div class="items-container">
             {% for item in latest_items %}
             <div class="item">
