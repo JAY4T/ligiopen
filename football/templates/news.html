@@ -1,33 +1,16 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>News</title>
-    <style>
-        .news-item {
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-            padding: 15px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .news-title {
-            font-size: 24px;
-            color: #333;
-            text-align: center;
-        }
-        .news-meta {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        .news-content {
-            font-size: 16px;
-            color: #444;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/li__1_-removebg-preview.ico' %}">
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+
+    <title>Ligi Open News</title>
+    <link rel="stylesheet" href="{% static 'css/news.css' %}">
 </head>
+   
 <body>
   {% include 'navbar.html' %}
 
