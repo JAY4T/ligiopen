@@ -83,7 +83,7 @@ html {
 .navbar-item {
     text-decoration: none;
     color: var(--black);
-    padding: .5rem .5rem;
+    padding: .5rem 1rem;
     border-radius: .5rem;
     margin-right: 1rem;
 }
@@ -153,56 +153,110 @@ a.navbar-item.active {
     transform: rotate(360deg);
 }
 
+.navbar-main-navigation-active {
+    width: 40%;
+    margin-top: .1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.842);
+    position: absolute;
+    top: 7.5rem;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1rem;
+}
+
+.navbar-main-navigation-active .navbar-item:hover {
+    background-color: var(--fern-green);
+}
+
+@media (min-width:769px) {
+    .icons {
+        display: none !important;
+
+    }
+
+    .navbar-main-navigation {
+        display: flex !important;
+    }
+
+    .navbar-main-navigation-active {
+        display: none !important;
+    }
+
+
+}
+
+
 /* Responsive styles */
 @media (max-width: 768px) {
+    html {
+        font-size: 50%;
+    }
+
     .icons {
         display: block;
     }
 
-    .navbar-main-navigation,
-    .navbar-account-buttons {
+    .navbar-main-navigation {
         display: none;
+    }
+
+    /* Mobile Menu Classes with Fixed Hover States */
+    .navbar-main-navigation-active {
+        width: 40%;
+        margin-top: .1rem;
+        padding: 1rem;
+        background-color: rgba(255, 255, 255, 0.9);
         position: absolute;
-        top: 100%;
-        left: 0;
+        top: 7.5rem;
         right: 0;
-        background: var(--white);
+        display: flex !important;
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
+        border-radius: 1rem;
         z-index: 1000;
     }
 
-    .navbar-main-navigation.active,
-    .navbar-account-buttons.active {
-        display: flex;
-    }
-
-    .navbar-main-navigation {
+    .navbar-main-navigation-active .navbar-item {
         width: 100%;
-        padding: 0;
-        display: block;
-    }
-
-    .navbar-item {
-        display: block;
-        margin: 5px 0;
-        padding: 10px;
         text-align: center;
-        background: #eee;
-        font-size: 1.7rem;
+        padding: 0.5rem 1rem;
+        margin: 0.2rem 0;
+        color: var(--black);
+        transition: all 0.2s ease-in-out;
     }
 
-    .navbar-account-buttons {
-        width: 100%;
-        border-top: .1rem solid rgba(0, 0, 0, .2);
+    .navbar-main-navigation-active .navbar-item.active,
+    .navbar-item.active {
+        background-color: var(--russian-green);
+        color: var(--white);
+        cursor: default;
+    }
+}
+
+@media (max-width: 600px) {
+    .icons {
+        display: block;
     }
 
-    .btn-register,
-    .btn-login {
+    /* Mobile Menu Classes with Fixed Hover States */
+    .navbar-main-navigation-active {
         width: 100%;
-        padding: 1.5rem;
-        font-size: 1.7rem;
+        margin-top: .1rem;
+        padding: 1rem;
+        background-color: rgba(255, 255, 255, 0.9);
+        position: absolute;
+        top: 7.5rem;
+        right: 0;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 1rem;
+        z-index: 1000;
     }
+
 }
 
 @media (max-width: 991px) {
