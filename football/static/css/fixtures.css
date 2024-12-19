@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+:root {
+    --black: black;
+    --light-color: grey;
+    --white: #F6F2F2;
+    --fern-green: #4F7942;
+    --red: #FF0000;
+    --russian-green: #679267;
+    --pacific-blue: #1ca9c9;
+    --yellow: yellow;
+}
+
+* {
+    transition: ease;
+    transition-duration: 300ms;
+}
+
+.fixtures {
+    font-size: 2rem;
+    padding: 2% 9%;
+    background-color: #eee;
+}
+
+.heading {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    padding-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.navbar2 {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: center;
+
+}
+
+.navbar2 li a {
+    margin: 0rem 1rem;
+    padding: .5rem 1rem;
+    text-decoration: none;
+    border-radius: 1rem;
+    color: var(--black);
+}
+
+.navbar2 li a .active {
+    background-color: var(--russian-green) !important;
+    color: var(--white) !important;
+}
+
+.navbar2 li a:hover {
+    background-color: var(--fern-green) !important;
+    color: var(--white) !important;
+}
+
+#fixtures-link.active,
+#results-link.active {
+    background-color: var(--russian-green) !important;
+    color: var(--white) !important;
+}
+
+.fixtures-section {
+    /* No direct matching rules in the provided CSS */
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.fixture {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.date {
+    text-align: center;
+    font-size: 14px;
+}
+
+.date-fix {
+    font-weight: bold;
+}
+
+.venue {
+    font-weight: bold;
+}
+
+.comp {
+    color: var(--light-color);
+}
+
+.inner-team {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.vs {
+    font-size: 1.6rem;
+    margin-right: 10px;
+    border: 1px solid var(--light-color);
+    padding: 10px;
+}
+
+.ticket {
+    margin-top: 20px;
+    color: var(--blue);
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+.results-section {
+    font-size: 2rem;
+}
+
+.time {
+    /* No direct matching rules in the provided CSS */
+}
+
+.demo {
+    text-align: center;
+}
