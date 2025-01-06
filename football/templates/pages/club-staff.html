@@ -41,7 +41,7 @@
       <h1 class="sub-heading">{{ club.name }}</h1>
       <div class="teams">
         <div class="container">
-          <h2 class="heading">Coaching Staff</h2>
+          <!-- <h2 class="heading">Coaching Staff</h2> -->
           <div class="row">
             {% for staff in coaching_staff %}
             <div class="col-lg-3">
@@ -79,7 +79,7 @@
     </div>
 
         <div class="container other">
-          <h2 class="heading">Other Staff</h2>
+          <!-- <h2 class="heading">Other Staff</h2> -->
           <div class="row">
             {% for staff in other_staff %}
             <div class="col-lg-3">
@@ -112,11 +112,16 @@
                 <div class="team-fixtures">
                     <div class="fixture" data-competition="Competition Name">
                         <div class="fixture-date">
-                            <span class="team-comp">Competition Name - </span>01/01/2024 20:00
+                            <span class="team-comp">Competition Name - </span>TUE 05 JUN 2025, 12:30pm
                         </div>
                         <div class="fixture-opponent">Opponent Name</div>
                         <div class="fixture-venue">Venue Name</div>
                     </div>
+                    <div class="fixture">
+                      <div class="fixture-date"><span class="team-comp">Competition Name - </span>SUN 05 MAY 2025, 10:30am</div>
+                      <div class="fixture-opponent">Team X</div>
+                      <div class="fixture-venue">Stadium A</div>
+                  </div>
                 </div>
                 <!-- Repeat the above block for additional fixtures -->
             </div>
@@ -126,32 +131,30 @@
             <div class="container">
                 <div class="fixture">
                     <div class="date">
-                        <p class="date-fix">01/01/2024</p>
-                        <p class="comp">Competition Name</p>
+                      <p class="date-fix">Thu January 1 2025</p>
+                      <p class="comp">Competition Name</p>
                     </div>
                     <div class="inner-team">
                         <div class="team">
-                            <a href="team_fixtures_link">
-                                <img src="team_logo_url" alt="Team Name Logo">
-                                <span class="team_individual-name">Team Name</span>
-                            </a>
+                          <img src="{% static 'images/logo-1-removebg-preview.png' %}" alt="Team Name Logo">
+                          <span class="team-name">Team A</span>
                         </div>
                         <div class="demo">
-                            <div class="vs">2 - 1</div>
-                            <p class="venue">Venue Name</p>
+                          <div class="vs">2 - 1</div>
+                          <p class="venue">Venue</p>
                         </div>
                         <div class="team">
-                            <span class="team-name">Opponent Name</span>
+                          <img src="{% static 'images/logo-2-removebg-preview.png' %}" alt="Team Name Logo">
+                          <span class="team-name">Team B</span>
                         </div>
                     </div>
                     <div class="goal-details">
                         <div class="home">
-                            <p>Scorer Name <i class="fa-solid fa-futbol"></i></p>
-                            <!-- Repeat for additional scorers -->
+                          <p>M. Cucurella 4' <i class="fa-solid fa-futbol"></i></p>
+                          <p>Rogers 42' <i class="fa-solid fa-futbol"></i></p>
                         </div>
                         <div class="away">
-                            <p>Scorer Name <i class="fa-solid fa-futbol"></i></p>
-                            <!-- Repeat for additional scorers -->
+                          <p>Ogbona 52' <i class="fa-solid fa-futbol"></i></p>
                         </div>
                     </div>
                 </div>
@@ -159,18 +162,10 @@
             </div>
         </div>
     </section>
-    
-     
-      
 
-
-
-    <div class="teams">
-
-      <div class="teams">
         <!-- stats -->
         <section class="stats" id="stats">
-            <h2 class="heading">Overall Stats for {{ club.name }}</h2>
+            <h2 class="heading">Overall {{ club.name }} Player Stats</h2>
             <div class="table-wrapper">
                 <table id="player-stats">
                     <thead>
@@ -214,7 +209,6 @@
                 </table>
             </div>
         </section>
-    </div>
   
 
     <section class="footer">
@@ -234,8 +228,12 @@
     
         <div class="box">
           <h3>Follow us</h3>
-          <a href="#" target="_blank">Twitter</a>
-          <a href="#" target="_blank">Facebook</a>
+          <a href="https://www.facebook.com/ligiopen" target="_blank">
+            <i class="fab fa-facebook"></i> Facebook
+        </a>
+        <a href="https://www.twitter.com/ligiopen" target="_blank">
+          <i class="fab fa-twitter"></i> Twitter
+      </a>
         </div>
       </div>
     

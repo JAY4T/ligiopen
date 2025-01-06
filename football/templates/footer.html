@@ -2,45 +2,151 @@
 
 <!-- navbar.html -->
 <head>
-    <!-- Font awesome -->
-    <script src="https://kit.fontawesome.com/456d64337e.js" crossorigin="anonymous"></script>
+  <!-- Font awesome -->
+  <script
+    src="https://kit.fontawesome.com/456d64337e.js"
+    crossorigin="anonymous"
+  ></script>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
 </head>
 <div class="footer">
-    <div class="box-container">
-        <div class="box bottom-nav">
-            <h3>Quick Links</h3>
-            <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
-            <a href="{% url 'finance' %}" class="{% if 'finance' in request.path %}active{% endif %}">Finance</a>
-            <a href="{% url 'fixtures' %}" class="{% if 'fixture' in request.path %}active{% endif %}">Fixtures</a>
-            <a href="{% url 'clubs' %}" class="{% if 'club' in request.path %}active{% endif %}">Clubs</a>
-            <a href="{% url 'contact_us' %}" class="{% if 'contact' in request.path %}active{% endif %}">Contact us</a>
-        </div>
-
-        <div class="box">
-            <h3>Contact Info</h3>
-            <a href="mailto:info@ligiopen.com">info@ligiopen.com</a>
-            <a href="#">Kisumu, Kenya</a>
-        </div>
-
-        <div class="box">
-          <h3>More</h3>
-          <a href="{% url 'faq_page' %}" target="_blank">Frequently Asked Questions</a>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBRTji7N9EilFp3lmqjbNjSRPIIM_VwjiSYg6IcADWdSyOTQ/viewform?usp=sharing" target="_blank">Register Club</a>
-          <a href="{% url 'finance-sponsor' %}" target="_blank">Sponsorship</a>
-          <a href="{% url 'feedback' %}" target="_blank">Feedback</a>
-        </div>
-
-        <div class="box">
-            <h3>Follow us</h3>
-            <a href="https://www.instagram.com/ligiopen" target="_blank">Instagram</a>
-            <a href="https://www.linkedin.com/company/ligiopen/" target="_blank">LinkedIn</a>
-           #<a href="https://www.facebook.com/ligiopen" target="_blank">Facebook</a>
-            <a href="https://www.twitter.com/ligiopen" target="_blank">X</a>
-        </div>
+  <div class="box-container">
+    <div class="box bottom-nav">
+      <h3>Quick Links</h3>
+      <a
+        href="{% url 'home' %}"
+        class="footer-link {% if request.path == '/' %}active{% endif %}"
+        >Home</a
+      >
+      <a
+        href="{% url 'finance' %}"
+        class="footer-link {% if 'finance' in request.path %}active{% endif %}"
+        >Finance</a
+      >
+      <a
+        href="{% url 'fixtures' %}"
+        class="footer-link {% if 'fixture' in request.path %}active{% endif %}"
+        >Fixtures</a
+      >
+      <a
+        href="{% url 'teams' %}"
+        class="footer-link {% if 'team' in request.path %}active{% endif %}"
+        >Teams</a
+      >
+      <a
+        href="{% url 'faqs' %}"
+        class="footer-link {% if 'fag' in request.path %}active{% endif %}"
+        >FAQS</a
+      >
+      <a
+        href="{% url 'work_with_us' %}"
+        class="footer-link {% if 'work_with_us' in request.path %}active{% endif %}"
+        >Work With Us</a
+      >
     </div>
 
-    <div class="credit">copyright &copy; 2024 by <span>LigiOpen</span></div>
+    <div class="box">
+      <h3>Contact Info</h3>
+      <a href="mailto:info@ligiopen.com" class="footer-link"
+        >info@ligiopen.com</a
+      >
+      <a href="#" class="footer-link">Kisumu, Kenya</a>
+    </div>
+
+    <div class="box footer-link">
+      <h3>Legal</h3>
+      <!-- <a href="{% url 'faq_page' %}" target="_blank">Frequently Asked Questions</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBRTji7N9EilFp3lmqjbNjSRPIIM_VwjiSYg6IcADWdSyOTQ/viewform?usp=sharing" target="_blank">Register Club</a>
+          <a href="{% url 'finance-sponsor' %}" target="_blank">Sponsorship</a>
+          <a href="{% url 'feedback' %}" target="_blank">Feedback</a> -->
+
+      <a href="{% url 'privacy_policy' %}" target="_blank" class="footer-link"
+        >Privacy Policy</a
+      >
+      <a href="{% url 'terms_conditions' %}" target="_blank" class="footer-link"
+        >Terms $ Conditions</a
+      >
+      <a href="{% url 'feedback' %}" target="_blank" class="footer-link"
+        >Code Of Conduct</a
+      >
+    </div>
+
+    <div class="box">
+      <h3>Follow us</h3>
+      <a
+        href="https://www.instagram.com/ligiopen"
+        target="_blank"
+        class="footer-link"
+      >
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+      <a
+        href="https://www.linkedin.com/company/ligiopen/"
+        target="_blank"
+        class="footer-link"
+      >
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+      <a
+        href="https://www.facebook.com/ligiopen"
+        target="_blank"
+        class="footer-link"
+      >
+        <i class="fab fa-facebook"></i> Facebook
+      </a>
+
+      <a
+        href="https://www.twitter.com/ligiopen"
+        target="_blank"
+        class="footer-link"
+      >
+        <i class="fab fa-x-twitter" style="font-size: 20px"></i> -Space
+      </a>
+    </div>
+  </div>
+
+  <div class="credit">copyright &copy; 2024 by <span>LigiOpen</span></div>
 </div>
+
+<script>
+  let menu = document.querySelector("#menu-bars");
+  let navbar = document.querySelector(".navbar");
+  var links = document.querySelectorAll(".navbar a");
+
+  menu.onclick = () => {
+    menu.classList.toggle("fa-times");
+    navbar.classList.toggle("active");
+  };
+
+  links.forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      //event.preventDefault();
+
+      links.forEach(function (link) {
+        link.classList.remove("active");
+      });
+      // sections.forEach(function(section) {
+      //     section.classList.remove('live');
+      // });
+
+      this.classList.add("active");
+
+      // Extract the section ID from href
+      // var targetSectionId = this.getAttribute('href').split('#')[1];
+      // var targetSection = document.querySelector('#' + targetSectionId);
+
+      // if (targetSection) {
+      //     targetSection.classList.add('live');
+      // }
+
+      // Scroll to the top of the page
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // Close the navbar after a link is clicked
+      menu.classList.remove("fa-times");
+      navbar.classList.remove("active");
+    });
+  });
+</script>

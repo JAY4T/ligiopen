@@ -14,9 +14,10 @@ urlpatterns = [
     path('contact/', contact_us_view, name='contact_us'),
     path('pages/success.html', views.success_view, name='success'),
 
-    path('club', views.club_list_view, name='club_list'),
-    path('club/<int:club_id>/', views.club_detail_view, name='club_detail'),
-    path('club/<int:club_id>', views.club_staff_view, name='club_staff_view'),
+    path('team', views.team_list_view, name='team_list'),
+    path('club/<int:club_name>/', views.club_detail_view, name='club_detail'),
+    path('clubs/<str:club_name>/staff/', views.club_staff_view, name='club_staff_view'),
+
     path('pages/all-players', views.player_list, name='player_list'),
     path('pages/blog', views.blog_list, name='blog_list'),
     path('highlights/', views.highlight_list, name='highlight_list'),
@@ -28,6 +29,20 @@ urlpatterns = [
 
     path('team/<int:team_id>/fixtures/', views.team_fixtures, name='team_fixtures'),
     path('team/<int:team_id>/results/', views.team_results, name='team_results'),
+    path('about/', views.about_view, name='about'),
+    path('teams/', views.team_list_view, name='teams'),  
+    path('news/', views.news_view, name='news'), 
+    path('getinvolved/', views.getinvolved_view, name='getinvolved'), 
+    path('shop/', views.shop_view, name='shop'), 
+    path('faqs/', views.faqs_view, name='faqs'),
+    path('work-with-us/', views.work_with_us_view, name='work_with_us'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+    path('terms-conditions/', views.terms_conditions, name='terms_conditions'),
+
+
+
+    
+
 
 
 

@@ -19,14 +19,14 @@ import base64
 
 
 def home(request):
-    clubs = Club.objects.all()
+    teams = Team.objects.all()
     matchdays = Matchday.objects.all()
     staffs = Staff.objects.all()  # Fetch all staff members
     fixtures = Fixture.objects.all()
 
 
     return render(request, 'index.html', {
-        'clubs': clubs,
+        'teams': teams,
         'matchdays': matchdays,
         'staffs': staffs,
         'fixtures': fixtures
@@ -45,39 +45,21 @@ def fixtures_view(request):
         'fixtures_results': fixtures_results, 'fixtures':fixtures
     })
 
-
-
-def club_staff_view(request, club_id):
-    club = get_object_or_404(Club, id=club_id)
+def club_staff_view(request, club_name):
+    club = get_object_or_404(Club, name=club_name)  # or use 'slug' if you're using slugs
     coaching_staff = Staff.objects.filter(club=club, staff_type='Coaching Staff')
     other_staff = Staff.objects.filter(club=club, staff_type='Other Staff')
     club_match_staff = Staff.objects.filter(club=club, staff_type='Club Match Staff')
     players = Player.objects.filter(club=club)
-    staff=Staff.objects.filter()
-    
+
     context = {
-        'club': club,
+        'team': team,
         'coaching_staff': coaching_staff,
         'other_staff': other_staff,
         'club_match_staff': club_match_staff,
         'players': players,
-        'staff':staff,
     }
-    
-    
     return render(request, 'pages/club-staff.html', context)
-    
-    
-def player_detail_view(request, slug):
-     club = get_object_or_404(Club, slug=slug)
-     players = Player.objects.filter(club=club)
-
-     context = {
-         'club': club,
-         'players': players,
-     }
-     
-     return render(request, 'pages/club-staff.html', context)
 
 
 def player_stats_view(request):
@@ -87,8 +69,17 @@ def player_stats_view(request):
     return render(request, 'pages/club-staff.html', {'stats': stats, 'players': players})
 
 
+def admin_signup_view(request):
+    # Your view logic here
+    return render(request, 'adminsignup.html')
 
 
+
+
+
+def admin_login_view(request):
+    # Your view logic here
+    return render(request, 'admminlogin.html')
 
 
 def contact_us_view(request):
@@ -130,20 +121,47 @@ def contact_us_view(request):
 
     return render(request, 'contact.html', {'form': form})
 
+
+
+
+def create_payment_link(amount, description):
+    api_url = "https://api.darajara.com/v1/payment/initiate"  # Replace with actual endpoint
+    headers = {
+        'Authorization': f'Bearer {settings.DARAJARA_API_KEY}',
+        'Content-Type': 'application/json',
+    }
+    payload = {
+        'amount': amount,
+        'currency': 'USD',  # Adjust to the currency you're using
+        'description': description,
+        'redirect_url': 'https://yourdomain.com/payment/response/',
+    }
+    response = requests.post(api_url, json=payload, headers=headers)
+
+    if response.status_code == 200:
+        payment_data = response.json()
+        return payment_data  # Return payment link or reference to proceed
+    else:
+        raise Exception('Payment initiation failed')
+
 def success_view(request):
     email = request.GET.get('email', '')
     return render(request, 'pages/success.html', {'email': email})
 
+def about_view(request):
+    return render(request, 'about.html') 
 
+def news_view(request):
+    return render(request, 'news.html') 
 
 def results_view(request):
     results = Result.objects.all()
     return render(request, 'pages/club-staff.html', {'results': results})
 
 
-def club_list_view(request):
-    clubs = Club.objects.all()
-    return render(request, 'index.html', {'clubs': clubs})
+def team_list_view(request):
+    teams = Team.objects.all()
+    return render(request, 'team.html', {'teams': teams})
 
 
 def club_detail_view(request, club_id):
@@ -418,3 +436,30 @@ def ligiopen(request):
     staffs = Staff.objects.all()  # Fetch all staff members
 
     return render(request, 'pages/ligiopen.html', {'staffs':staffs})
+
+
+def getinvolved_view(request):
+    return render(request, 'getinvolved.html') 
+
+
+# def work_with_us_view(request):
+#     return render(request, 'work_with_us.html')
+
+def shop_view(request):
+    return render(request, 'shop.html') 
+
+def faqs_view(request):
+    return render(request, 'faqs.html')  #
+
+
+def work_with_us_view(request):
+    return render(request, 'work_with_us.html')
+
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
+
+def terms_conditions(request):
+    return render(request, 'terms_conditions.html')
+
+ 
