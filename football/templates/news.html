@@ -14,22 +14,30 @@
 <body>
   {% include 'navbar.html' %}
 
-    {% for news in news_items %}
-    <div class="news-item">
-        <h2 class="news-title">{{ news.title }}</h2>
-        <div class="news-meta">
-            <p>By: {{ news.author }}</p>
-            <p>Published on: {{ news.date }}</p>
-            <p>Categories: {{ news.categories|join:", " }}</p>
-            <p>Archives: {{ news.archives }}</p>
-        </div>
-        <div class="news-content">
-            {{ news.content|safe }}
-        </div>
-    </div>
-    {% endfor %}
+  <div class="news-section">
+      <div class="news-item">
+          <h2 class="news-title">Exciting Updates in Sports</h2>
+          <div class="news-meta">
+              <p>By: John Doe</p>
+              <p>Published on: December 9, 2024</p>
+              <p>Categories: Sports, Updates</p>
+              <p>Archives: December 2024</p>
+          </div>
+          <div class="news-content">
+              <img src="{% static 'images/club_photos/pict_large.jpg/' %}" alt="Sports Highlight" class="news-image">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus varius urna a malesuada elementum.</p>
+
+              <h3>Highlights</h3>
+              <ul>
+                  <li>Major tournament schedules released.</li>
+                  <li>New player signings.</li>
+              </ul>
+
+              <p>Check out more updates on our <a href="https://www.globalgiving.org/projects/ligiopen-platform-for-youth-footballers-in-kenya/reports/?subid=257511">Ligiopen Current News</a>.</p>
+          </div>
+      </div>
+  </div>
 
   {% include 'footer.html' %}
-
 </body>
 </html>

@@ -15,3 +15,4 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus varius urna a
 ### Highlights
 - Major tournament schedules released.
 - New player signings.
+
