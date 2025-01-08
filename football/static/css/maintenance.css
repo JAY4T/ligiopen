@@ -1,0 +1,169 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(243 244 246);
+    min-height: 100vh;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.maintenance-icon {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin-bottom: 2rem;
+}
+
+.gear {
+    position: absolute;
+    fill: #D1D5DB;
+    /* Light gray color for the main gear */
+}
+
+.gear.primary {
+    width: 100px;
+    height: 100px;
+    left: 20px;
+    top: 40px;
+}
+
+.gear.secondary {
+    width: 70px;
+    height: 70px;
+    right: 30px;
+    top: 20px;
+    fill: #FDB813;
+    /* Yellow color for the smaller gear */
+}
+
+.gear-spin {
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spinReverse {
+        from {
+            transform: rotate(360deg);
+        }
+
+        to {
+            transform: rotate(0deg);
+        }
+    }
+
+    .gear-large {
+        transform-origin: 64px 68px;
+        animation: spin 10s linear infinite;
+    }
+
+    .gear-small {
+        transform-origin: 92.5px 38.75px;
+        animation: spinReverse 10s linear infinite;
+    }
+}
+
+h1 {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: rgb(55 65 81);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1.125rem;
+    color: rgb(107 114 128);
+    text-align: center;
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+.buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: rgb(31 41 55);
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: rgb(55 65 81);
+}
+
+a {
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: rgb(31 41 55);
+    border: 1px solid rgb(31 41 55);
+}
+
+.btn-secondary:hover {
+    background-color: rgb(243 244 246);
+}
+
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.gear.primary {
+    animation: spin 10s linear infinite;
+}
+
+.gear.secondary {
+    animation: spin 10s linear infinite reverse;
+}
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    p {
+        font-size: 1.25rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    h1 {
+        font-size: 3.75rem;
+    }
+
+    p {
+        font-size: 1.5rem;
+    }
+}
