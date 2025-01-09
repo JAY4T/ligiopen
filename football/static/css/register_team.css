@@ -1,0 +1,91 @@
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #4caf50; /* Fern Green */
+            color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #4caf50; /* Fern Green */
+            border-bottom: 2px solid #ffcc00; /* Yellow */
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 12px;
+            color: black; /* Fern Green */
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #fff;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            background-color: #ffcc00; /* Yellow */
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #e6b800; /* Slightly darker yellow */
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                padding: 15px;
+            }
+        }

@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/register_team.css' %}" rel="stylesheet" />
+    <title>Register Team</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <h1>Register a Team</h1>
+
+    {% if success %}
+        <h2>Registration Successful</h2>
+        <p>Thank you for registering your team. The organization has been notified.</p>
+    {% else %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            
+            <!-- Team Information -->
+            <label for="team_name">Team Name:</label>
+            <input type="text" id="team_name" name="team_name" required><br>
+            
+            <!-- Coach Information -->
+            <h2>Coach Information</h2>
+            <label for="coach_name">Coach Name:</label>
+            <input type="text" id="coach_name" name="coach_name" required><br>
+            
+            <label for="coach_phone">Coach Phone Number:</label>
+            <input type="text" id="coach_phone" name="coach_phone" required><br>
+            
+            <label for="coach_email">Coach Email Address:</label>
+            <input type="email" id="coach_email" name="coach_email" required><br>
+            
+            <!-- Team Manager Information -->
+            <h2>Team Manager Information</h2>
+            <label for="manager_name">Team Manager Name:</label>
+            <input type="text" id="manager_name" name="manager_name" required><br>
+            
+            <label for="manager_phone">Team Manager Phone Number:</label>
+            <input type="text" id="manager_phone" name="manager_phone" required><br>
+            
+            <label for="manager_email">Team Manager Email Address:</label>
+            <input type="email" id="manager_email" name="manager_email" required><br>
+            
+            <!-- Team Category -->
+            <h2>Team Category</h2>
+            <label for="team_category">Select Team Category:</label>
+            <select id="team_category" name="team_category" required>
+                <option value="">-- Select --</option>
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+                <option value="youth">Youth</option>
+            </select><br>
+            
+            <!-- Other Information -->
+            <h2>Additional Information</h2>
+            <label for="num_players">Number of Registered Players:</label>
+            <input type="number" id="num_players" name="num_players" required><br>
+            
+            <label for="home_ground">Home Ground:</label>
+            <input type="text" id="home_ground" name="home_ground" required><br>
+            
+            <label for="training_ground_needs">Training Ground Needs (Specify):</label>
+            <textarea id="training_ground_needs" name="training_ground_needs" rows="3" required></textarea><br>
+            
+            <label for="equipment_needed">Equipment Needed (Specify):</label>
+            <textarea id="equipment_needed" name="equipment_needed" rows="3" required></textarea><br>
+            
+            <!-- Declaration -->
+            <h2>Declaration</h2>
+            <p>
+                By signing this form, I confirm that all the information provided is accurate and true to the best of my knowledge. I also agree to abide by the rules and regulations of LigiOpen.
+            </p>
+            <input type="checkbox" id="declaration" name="declaration" required>
+            <label for="declaration">I agree to the declaration above.</label><br>
+            
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    {% endif %}
+</body>
+</html>

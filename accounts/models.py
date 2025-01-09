@@ -14,3 +14,23 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+
+class TeamRegistration(models.Model):
+    team_name = models.CharField(max_length=255)
+    coach_name = models.CharField(max_length=255)
+    coach_phone = models.CharField(max_length=15)
+    coach_email = models.EmailField()
+    manager_name = models.CharField(max_length=255)
+    manager_phone = models.CharField(max_length=15)
+    manager_email = models.EmailField()
+    team_category = models.CharField(max_length=50, choices=[('men', 'Men'), ('women', 'Women'), ('youth', 'Youth')])
+    num_players = models.PositiveIntegerField()
+    home_ground = models.CharField(max_length=255)
+    training_ground_needs = models.TextField()
+    equipment_needed = models.TextField()
+    registration_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.team_name

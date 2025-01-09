@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CustomLoginForm
 from django.contrib.auth.models import User  # <-- Import the User model
+from django.conf import settings
+from django.core.mail import send_mail
+from .models import TeamRegistration
+
+
 
 
 # Register view
@@ -48,14 +51,85 @@ def login_view(request):
         
         if user is not None:
             login(request, user)
-            return redirect('home')  # Redirect to homepage after successful login
+            return redirect('register_team')  # Use the URL pattern name
         else:
             messages.error(request, 'Invalid username or password.')
-            return redirect('login')
+            return redirect('login')  # Redirect back to login page on error
         
     return render(request, 'accounts/login.html')
 
 # Protected Home view that requires login
-@login_required
-def home(request):
-    return render(request, 'accounts/dashboard.html')  # Replace with your home template
+
+
+def register_team(request):
+    if request.method == 'POST':
+        # Handle form submission
+        pass
+    return render(request, 'accounts/register_team.html')
+
+
+
+
+
+
+def register_team(request):
+    if request.method == 'POST':
+        # Extract form data
+        team_name = request.POST['team_name']
+        coach_name = request.POST['coach_name']
+        coach_phone = request.POST['coach_phone']
+        coach_email = request.POST['coach_email']
+        manager_name = request.POST['manager_name']
+        manager_phone = request.POST['manager_phone']
+        manager_email = request.POST['manager_email']
+        team_category = request.POST['team_category']
+        num_players = request.POST['num_players']
+        home_ground = request.POST['home_ground']
+        training_needs = request.POST['training_ground_needs']
+        equipment_needed = request.POST['equipment_needed']
+
+        # Save data to the database
+        TeamRegistration.objects.create(
+            team_name=team_name,
+            coach_name=coach_name,
+            coach_phone=coach_phone,
+            coach_email=coach_email,
+            manager_name=manager_name,
+            manager_phone=manager_phone,
+            manager_email=manager_email,
+            team_category=team_category,
+            num_players=num_players,
+            home_ground=home_ground,
+            training_ground_needs=training_needs,
+            equipment_needed=equipment_needed,
+        )
+
+        # Send email to the organization
+        subject = f"New Team Registration: {team_name}"
+        message = f"""
+        A new team has been registered.
+
+        Team Name: {team_name}
+        Coach Name: {coach_name}
+        Coach Phone: {coach_phone}
+        Coach Email: {coach_email}
+        Manager Name: {manager_name}
+        Manager Phone: {manager_phone}
+        Manager Email: {manager_email}
+        Team Category: {team_category}
+        Number of Players: {num_players}
+        Home Ground: {home_ground}
+        Training Needs: {training_needs}
+        Equipment Needed: {equipment_needed}
+        """
+        recipient_list = ['dorothy@ligiopen.com']  # Replace with the organization's email
+        send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+
+        # Redirect to a success page
+        return redirect('success_page')  # Replace with your success page URL name
+
+    return render(request, 'accounts/register_team.html')
+
+
+def success_page(request):
+    return render(request, 'accounts/sucess.html')
