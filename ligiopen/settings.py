@@ -2,6 +2,10 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from decouple import config
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # This loads environment variables from the .env file
 
 
 
@@ -126,11 +130,10 @@ LOGOUT_REDIRECT_URL = '/login/'
 # Email settings
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.ligiopen.com'  # Correct SMTP server for your domain
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'dorothy@ligiopen.com'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'Dorothy@321$$$'  # Replace with your correct password
-
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD') 
 
 
