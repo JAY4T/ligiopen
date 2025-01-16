@@ -29,7 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Event listeners for toggling content sections
   fixturesLink.addEventListener("click", function (event) {
     event.preventDefault();
-    console.log("Clicking Fixtires");
+    if (fixturesLink.classList.contains("active")) {
+      return;
+    }
+    console.log("Clicking Fixtures");
     resultsLink.classList.remove("active");
     fixturesLink.classList.add("active");
     toggleSection(fixturesSection);
@@ -37,6 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   resultsLink.addEventListener("click", function (event) {
     event.preventDefault();
+    if (fixturesLink.classList.contains("active")) {
+      return;
+    }
+    console.log("Clicking Results");
     fixturesLink.classList.remove("active");
     resultsLink.classList.add("active");
     toggleSection(resultsSection);

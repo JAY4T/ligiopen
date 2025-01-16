@@ -61,6 +61,7 @@
 #results-link.active {
     background-color: var(--russian-green) !important;
     color: var(--white) !important;
+    cursor: default;
 }
 
 .fixtures-section {
