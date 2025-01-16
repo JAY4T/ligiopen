@@ -73,6 +73,9 @@ DATABASES = {
         'PASSWORD': config('DATABASE_PASSWORD', default=''),
         'HOST': config('DATABASE_HOST', default='localhost'),
         'PORT': config('DATABASE_PORT', default='3306'),
+        'OPTIONS':{
+            'unix_socket': config('DATABASE_SOCKET'),
+        }
     }
 }
 
