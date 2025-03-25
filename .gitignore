@@ -1,0 +1,10 @@
+  media/
+  .idea/
+  .env
+  delete
+__pycache__/
+migrations/	
+.vscode/
+backend/ngrok.yml
+venv/
+
