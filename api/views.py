@@ -1,4 +1,5 @@
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+
 from rest_framework import generics
 from .models import Fixture
 from .serializers import FixtureSerializer
@@ -12,6 +13,8 @@ from .serializers import NewsSerializer
 from .models import FeaturedPlayer
 from .serializers import FeaturedPlayerSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.permissions import IsAdminUser, AllowAny
+
 
 
 
@@ -26,16 +29,39 @@ class FixtureListView(ListCreateAPIView):
 class FixtureDetailView(RetrieveAPIView):
     queryset = Fixture.objects.all()
     serializer_class = FixtureSerializer
+    permission_classes = [AllowAny]  
+    
+    
+    
+    
+    
+    def get_permissions(self):
+        if self.request.method == "POST":
+            return [IsAdminUser()]  
+        return [AllowAny()]  
 
 
 
+# Allow only admins to update a fixture
+class FixtureUpdateView(UpdateAPIView):
+    queryset = Fixture.objects.all()
+    serializer_class = FixtureSerializer
+    permission_classes = [IsAdminUser]  # Only admins can update fixtures
+
+# Allow only admins to delete a fixture
+class FixtureDeleteView(DestroyAPIView):
+    queryset = Fixture.objects.all()
+    serializer_class = FixtureSerializer
+    permission_classes = [IsAdminUser]  # Only admins can delete fixtures
 
 @method_decorator(csrf_exempt, name='dispatch')
 class CustomTokenObtainPairView(TokenObtainPairView):
     pass
 
 
-# CRUD for Partners
+
+
+#  Partners
 class PartnerListCreateAPIView(generics.ListCreateAPIView):
     queryset = Partner.objects.all()
     serializer_class = PartnerSerializer
