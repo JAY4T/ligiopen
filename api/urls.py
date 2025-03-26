@@ -18,7 +18,7 @@ urlpatterns = [
 
     #Fixtures
     path('fixtures/', FixtureListView.as_view(), name='fixtures-list'),
-    path("fixtures/<int:pk>/", FixtureDetailView.as_view(), name="fixture-detail"),  # Get fixture by ID
+    path('fixtures/<int:pk>/', FixtureDetailView.as_view(), name="fixture-detail"),  # Get fixture by ID
     path('fixtures/<int:pk>/update/', FixtureUpdateView.as_view(), name='fixture-update'),
     path('fixtures/<int:pk>/delete/', FixtureDeleteView.as_view(), name='fixture-delete'),
 
