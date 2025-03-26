@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Security Settings
 SECRET_KEY = env("SECRET_KEY", default="fallback-secret-key")  # Use env variable for security
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = env.bool('DEBUG', default=True)
 
 ALLOWED_HOSTS = ["api-zyhf.onrender.com", "localhost"]
 
