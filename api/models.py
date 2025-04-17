@@ -25,7 +25,7 @@ class Partner(models.Model):
 class News(models.Model):
     team = models.CharField(max_length=255)
     headline = models.CharField(max_length=255)  # Added headline
-    video = models.URLField(null=True, blank=True)  # Video as a URL instead of a file
+    news_photo = models.ImageField(upload_to='news_photos/', null=True, blank=True)  # New image field for photo
     news = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -48,3 +48,33 @@ class FeaturedPlayer(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.club}"
+
+
+
+# clubs
+
+class Club(models.Model):
+    name = models.CharField(max_length=255)
+    logo = models.ImageField(upload_to="club_logos/", blank=True, null=True)
+    source_link = models.URLField(max_length=500, blank=True, null=True)  # New field added
+
+
+    def __str__(self):
+        return self.name
+
+class Highlight(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    imageUrl = models.URLField()  # Or use ImageField with MEDIA if you're uploading
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+class LiveMatch(models.Model):
+    stream_url = models.URLField()  # URL for the live stream (e.g., YouTube)
+    match_title = models.CharField(max_length=200)
+    is_live = models.BooleanField(default=False)  # Indicates if the match is live
+
+    def __str__(self):
+        return self.match_title
