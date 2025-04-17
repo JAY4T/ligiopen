@@ -8,6 +8,14 @@ from .views import PartnerListCreateAPIView, PartnerRetrieveUpdateDestroyAPIView
 from .views import NewsListCreateAPIView,NewsRetrieveUpdateDestroyAPIView  
 from .views import FeaturedPlayerListCreateView, FeaturedPlayerDetailView, FeaturedPlayersListView
 from .views import FixtureListView, FixtureDetailView, FixtureUpdateView, FixtureDeleteView
+from .views import ClubListView
+from .views import HighlightsListAPIView
+from .views import LiveMatchAPIView
+
+
+
+
+
 
 
 
@@ -39,7 +47,25 @@ urlpatterns = [
     path('players/', FeaturedPlayerListCreateView.as_view(), name='players-list-create'),
     path('players/<int:pk>/', FeaturedPlayerDetailView.as_view(), name='player-detail'),
     path('players/featured/', FeaturedPlayersListView.as_view(), name='featured-players'),
+
+
+
+    #Clubs
+    path('clubs/', ClubListView.as_view(), name='club-list'),
+
+
+    # NewsHighlight
+
+    path('highlights/', HighlightsListAPIView.as_view(), name='highlights-list'),
+
+
+    # LiveMatches
+    path('live-match/', LiveMatchAPIView.as_view(), name='live-match'),
+
 ]
+
+
+
 
 
 

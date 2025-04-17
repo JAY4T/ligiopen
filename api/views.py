@@ -1,6 +1,7 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 
 from rest_framework import generics
+from rest_framework.response import Response  
 from .models import Fixture
 from .serializers import FixtureSerializer
 from django.views.decorators.csrf import csrf_exempt
@@ -14,45 +15,41 @@ from .models import FeaturedPlayer
 from .serializers import FeaturedPlayerSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAdminUser, AllowAny
+from .models import Club
+from .serializers import ClubSerializer
+from rest_framework import status
+from .models import Highlight
+from .serializers import HighlightSerializer
+from rest_framework.views import APIView
+from .models import LiveMatch
+from .serializers import LiveMatchSerializer
+
+
+
+
 
 
 
 
 # get all fixtures
-
 class FixtureListView(ListCreateAPIView):
     queryset = Fixture.objects.all()
     serializer_class = FixtureSerializer
 
 # get only one fixture
-
 class FixtureDetailView(RetrieveAPIView):
     queryset = Fixture.objects.all()
     serializer_class = FixtureSerializer
-    permission_classes = [AllowAny]  
-    
-    
-    
-    
-    
-    def get_permissions(self):
-        if self.request.method == "POST":
-            return [IsAdminUser()]  
-        return [AllowAny()]  
 
-
-
-# Allow only admins to update a fixture
+# Allow updating a fixture (no permission restriction)
 class FixtureUpdateView(UpdateAPIView):
     queryset = Fixture.objects.all()
     serializer_class = FixtureSerializer
-    permission_classes = [IsAdminUser]  # Only admins can update fixtures
 
-# Allow only admins to delete a fixture
+# Allow deleting a fixture (no permission restriction)
 class FixtureDeleteView(DestroyAPIView):
     queryset = Fixture.objects.all()
     serializer_class = FixtureSerializer
-    permission_classes = [IsAdminUser]  # Only admins can delete fixtures
 
 @method_decorator(csrf_exempt, name='dispatch')
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -97,3 +94,44 @@ class FeaturedPlayersListView(generics.ListAPIView):
     serializer_class = FeaturedPlayerSerializer
 
 
+
+
+class ClubListView(ListCreateAPIView):
+    """
+    API view to list all clubs and create new ones.
+    """
+    queryset = Club.objects.all()
+    serializer_class = ClubSerializer
+
+    def perform_create(self, serializer):
+        """
+        Create a new club while ensuring the name field is provided.
+        """
+        club_name = self.request.data.get("name")
+        if not club_name:
+            raise ValueError("The 'name' field is required.")
+
+        serializer.save()
+
+class HighlightsListAPIView(APIView):
+    def get(self, request):
+        highlights = News.objects.order_by('-created_at')  # Use correct model and field
+        serializer = NewsSerializer(highlights, many=True)
+        return Response(serializer.data)
+
+
+
+class LiveMatchAPIView(APIView):
+    def get(self, request):
+        live_matches = LiveMatch.objects.filter(is_live=True)
+        if live_matches.exists():
+            serializer = LiveMatchSerializer(live_matches, many=True)
+            return Response(serializer.data)
+        return Response({"error": "No live match available."}, status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request):
+        serializer = LiveMatchSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()  # is_live can be True/False from input
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
