@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # Third-party apps
     'rest_framework_simplejwt',
     'rest_framework',
+    'django_filters',
 
     # Custom apps
     'api',
