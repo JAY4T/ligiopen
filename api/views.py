@@ -1,6 +1,6 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 
-from rest_framework import generics
+from rest_framework import generics, filters
 from rest_framework.response import Response  
 from .models import Fixture
 from .serializers import FixtureSerializer
@@ -23,6 +23,9 @@ from .serializers import HighlightSerializer
 from rest_framework.views import APIView
 from .models import LiveMatch
 from .serializers import LiveMatchSerializer
+from .models import PlayerProfile #Season
+from .serializers import PlayerProfileSerializer #SeasonSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 
@@ -135,3 +138,29 @@ class LiveMatchAPIView(APIView):
             serializer.save()  # is_live can be True/False from input
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+# Player Views
+class PlayerProfileListCreateView(generics.ListCreateAPIView):
+    queryset = PlayerProfile.objects.all()
+    serializer_class = PlayerProfileSerializer
+    search_fields = ['name', 'position', 'club__name']
+    filter_backends = [filters.SearchFilter]
+
+
+    # Optional: you can add filters for club or season if needed.
+
+class PlayerProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = PlayerProfile.objects.all()
+    serializer_class = PlayerProfileSerializer
+
+# # Season Views
+# class SeasonListCreateView(generics.ListCreateAPIView):
+#     queryset = Season.objects.all()
+#     serializer_class = SeasonSerializer
+#
+# class SeasonDetailView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Season.objects.all()
+#     serializer_class = SeasonSerializer
