@@ -8,4 +8,6 @@ migrations/
 backend/ngrok.yml
 venv/
 render.yml
+staticfiles/
+
 
