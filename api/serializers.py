@@ -6,6 +6,8 @@ from .models import FeaturedPlayer
 from .models import Club
 from .models import Highlight
 from .models import LiveMatch
+from .models import PlayerProfile, Season
+
 
 
 
@@ -86,3 +88,14 @@ class LiveMatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = LiveMatch
         fields = ['id', 'match_title', 'stream_url', 'is_live']
+
+
+class PlayerProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlayerProfile
+        fields = '__all__'
+
+class SeasonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Season
+        fields = '__all__'
