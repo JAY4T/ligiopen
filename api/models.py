@@ -11,8 +11,16 @@ class Fixture(models.Model):
     match_date = models.DateTimeField()
     venue = models.CharField(max_length=200)
 
+    # Result-tracking fields
+    is_completed = models.BooleanField(default=False)
+    home_score = models.PositiveIntegerField(blank=True, null=True)
+    away_score = models.PositiveIntegerField(blank=True, null=True)
+
     def __str__(self):
-        return f"{self.home_team} vs {self.away_team} on {self.match_day} at {self.match_time}, {self.match_date.strftime('%Y-%m-%d')}"
+        return f"{self.home_team} vs {self.away_team} at {self.venue} on {self.match_date.strftime('%Y-%m-%d %H:%M')}"
+
+    def has_result(self):
+        return self.is_completed and self.home_score is not None and self.away_score is not None
 
 
 class Partner(models.Model):
@@ -78,3 +86,36 @@ class LiveMatch(models.Model):
 
     def __str__(self):
         return self.match_title
+
+
+class Result(models.Model):
+    fixture = models.OneToOneField(Fixture, on_delete=models.CASCADE, related_name='result')
+    home_team_score = models.PositiveIntegerField()
+    away_team_score = models.PositiveIntegerField()
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+
+    def get_duration(self):
+        return self.end_time - self.start_time
+
+    def __str__(self):
+        return f"{self.fixture.home_team} {self.home_team_score} - {self.away_team_score} {self.fixture.away_team}"
+
+class Season(models.Model):
+    name = models.CharField(max_length=50)  # e.g. "2024/25"
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+    def __str__(self):
+        return self.name
+
+class PlayerProfile(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField()
+    position = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='player_photos/', blank=True, null=True)
+    club = models.ForeignKey('Club', on_delete=models.CASCADE, related_name='players')
+    #season = models.ForeignKey(Season, on_delete=models.CASCADE, related_name='players')
+
+    def __str__(self):
+        return f"{self.name} - {self.position} ({self.club.name})"
