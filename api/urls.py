@@ -11,6 +11,7 @@ from .views import FixtureListView, FixtureDetailView, FixtureUpdateView, Fixtur
 from .views import ClubListView
 from .views import HighlightsListAPIView
 from .views import LiveMatchAPIView
+from . import views
 
 
 
@@ -62,7 +63,16 @@ urlpatterns = [
     # LiveMatches
     path('live-match/', LiveMatchAPIView.as_view(), name='live-match'),
 
+
+    # PlayersProfile API
+    path('playersprofile/', views.PlayerProfileListCreateView.as_view(), name='playersprofile-list-create'),
+    path('playersprofile/<int:pk>/', views.PlayerProfileDetailView.as_view(), name='playersprofile-detail'),
+
+    # # Seasons API
+    # path('seasons/', views.SeasonListCreateView.as_view(), name='season-list-create'),
+    # path('seasons/<int:pk>/', views.SeasonDetailView.as_view(), name='season-detail'),
 ]
+
 
 
 
