@@ -141,3 +141,10 @@ MIT License © 2025 LigiOpen Team
 | fix   | Fix a bug or issue |  |
 | docs  | Update documentation |  |
 | chore | Routine tasks |  |
+## 📌 Commit Types and Contribution
+| Type  | Purpose | Contributor(s) |
+|-------|---------|----------------|
+| feat  | Add new feature |  |
+| fix   | Fix a bug or issue |  |
+| docs  | Update documentation |  |
+| chore | Routine tasks |  |
