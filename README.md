@@ -34,11 +34,11 @@ Create a virtual environment:
 python -m venv env
 Activate the environment:
 
-macOS/Linux:
+# macOS/Linux:
 
 
 source env/bin/activate
-Windows:
+# Windows:
 
 
 env\Scripts\activate
@@ -83,13 +83,13 @@ App available at: http://localhost:3000
 
 ## 🌐 Deployment
 
-Backend: Use ngrok to expose the API(We are currently using this free trial
+- Backend: Use ngrok to expose the API(We are currently using this free trial
 
-Frontend: Deploy on Netlify or Vercel
+- Frontend: Deploy on Netlify or Vercel
 
-Enable CORS in settings.py:
+- Enable CORS in settings.py:
 
-Add 'corsheaders' to INSTALLED_APPS and set:
+- Add 'corsheaders' to INSTALLED_APPS and set:
 
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -98,25 +98,24 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 ## 🤝 Contributing
 
-Fork the repo
+-  Fork the repo
 
-Create a new branch
+- Create a new branch
+-  Make changes
 
-## Make changes
-
-Submit a Pull Request
+- Submit a Pull Request
 
 ## 📌 Conventional Commit Types
 
 ## Type	  Purpose
 
-feat  :	Add a new feature
+feat  : 	Add a new feature
 
 fix	 :    Fix a bug or issue
 
-docs	:  Update documentation
+docs	:   Update documentation
 
-refactor : 	 Improve code without changing behavior
+refactor  :  Improve code without changing behavior
 
 test	 :  Add or update tests
 
@@ -124,7 +123,7 @@ chore	 :    Routine tasks (configs, dependencies)
 
 ci	:   CI setup or pipeline changes
 
-build	: Build tools or packaging changes
+build	:  Build tools or packaging changes
 
 
 ## 🪪 License
