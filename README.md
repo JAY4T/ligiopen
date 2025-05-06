@@ -46,12 +46,16 @@ Install dependencies:
 
 
 pip install -r requirements.txt
-Configure PostgreSQL in settings.py, then run the following commands:
+
+## Configure PostgreSQL in settings.py, then run the following commands:
 
 
 python manage.py makemigrations
+
 python manage.py migrate
+
 python manage.py createsuperuser
+
 Start the backend server:
 
 
@@ -59,21 +63,26 @@ python manage.py runserver
 API available at: http://127.0.0.1:8000/api/
 
 Frontend (React)
+
 Navigate to the frontend directory:
 
 
 cd ../frontend
+
 Install dependencies:
 
 
 npm install
+
 Start the frontend server:
 
 
 npm start
+
 App available at: http://localhost:3000
 
-🌐 Deployment
+## 🌐 Deployment
+
 Backend: Use ngrok to expose the API
 
 Frontend: Deploy on Netlify or Vercel
@@ -85,19 +94,10 @@ Add 'corsheaders' to INSTALLED_APPS and set:
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-🗂️ Project Structure
-
-
-ligiopenweb/
-├── backend/          # Django backend
-│   ├── manage.py
-│   └── api/
-└── frontend/         # React frontend
-    ├── package.json
-    └── src/
 ⚠️ Note: Frontend code is still under development.
 
-🤝 Contributing
+## 🤝 Contributing
+
 Fork the repo
 
 Create a new branch
@@ -106,17 +106,27 @@ Make changes
 
 Submit a Pull Request
 
-📌 Conventional Commit Types
+## 📌 Conventional Commit Types
+
 Type	Purpose
+
 feat	Add a new feature
-fix	Fix a bug or issue
+
+fix	    Fix a bug or issue
+
 docs	Update documentation
+
 refactor	Improve code without changing behavior
+
 test	Add or update tests
+
 chore	Routine tasks (configs, dependencies)
+
 ci	CI setup or pipeline changes
+
 build	Build tools or packaging changes
 
 
 🪪 License
+
 MIT License © 2025 LigiOpen Team
