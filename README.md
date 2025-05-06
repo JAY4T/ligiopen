@@ -84,6 +84,8 @@ ligiopenweb/
 └── frontend/         # React frontend
     ├── package.json
     └── src/
+
+## Note: Frontend code is yet to be provided
 🤝 Contributing
 Fork → Create a branch → Make changes → Submit PR
 
