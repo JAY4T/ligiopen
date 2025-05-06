@@ -31,10 +31,18 @@
 
 ---
 
+## 🛠️ Backend Installation (Django)
+
+###  Clone the Repository both linux And Windows OS
+
+```bash
+git clone https://github.com/yourusername/ligiopen.git
+cd ligiopen/backend
+
 ## 📁 Project Structure
 
 ```bash
-ligiopen/
+ligiopenweb/
 ├── backend/          # Django backend
 │   ├── manage.py
 │   ├── ligiopen/     # Main Django project
@@ -44,3 +52,5 @@ ligiopen/
 │   ├── package.json
 │   ├── src/
 │   └── public/
+
+
