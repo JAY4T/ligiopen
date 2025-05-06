@@ -36,8 +36,8 @@
 ###  Clone the Repository both  in linux And Windows OS
 
 ```bash
-git clone https://github.com/yourusername/ligiopen.git
-cd ligiopen/backend
+git https://github.com/JAY4T/ligiopenV2.git
+cd ligiopenweb/backend
 
 ## 📁 Project Structure
 
