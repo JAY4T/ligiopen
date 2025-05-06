@@ -10,7 +10,7 @@
 - 🏆 Fixtures & Results  
 - 👥 Player & Team Profiles  
 - 📝 Club Registration  
-- 📊 League Table  
+- 📊 Stats Table  
 - 📰 News & Updates  
 
 ---
