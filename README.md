@@ -42,6 +42,8 @@ source env/bin/activate
 
 
 env\Scripts\activate
+
+
 Install dependencies:
 
 
