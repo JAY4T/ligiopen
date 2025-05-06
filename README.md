@@ -134,7 +134,7 @@ build	:  Build tools or packaging changes
 
 ## Example of a commit
 
-- git commit -m feat: add a new feature
+- git commit -m "feat: add a new feature"
 
 
 ## 🪪 License
