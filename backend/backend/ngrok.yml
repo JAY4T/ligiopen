@@ -1,0 +1,5 @@
+authtoken: 2AIBzCYTxqlSn5gIaI03IIDId5P_2QNttPf5bMUtA8yJHHBqj  
+tunnels:
+  myapp:
+    addr: 8000  # Django's default port
+    proto: http  # HTTP protocol
