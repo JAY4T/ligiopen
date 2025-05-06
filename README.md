@@ -24,7 +24,7 @@ LigiOpen is a full-stack web app built with Django REST Framework and ReactJS fo
 
 ## Backend (Django)
 
-** Clone the repository:**
+## Clone the repository:
 
 git clone https://github.com/JAY4T/ligiopenV2.git
 
