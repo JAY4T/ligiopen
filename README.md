@@ -134,3 +134,10 @@ cd ../frontend
 
 
 MIT License © 2025 LigiOpen Team
+## 📌 Commit Types and Contribution
+| Type  | Purpose | Contributor(s) |
+|-------|---------|----------------|
+| feat  | Add new feature |  |
+| fix   | Fix a bug or issue |  |
+| docs  | Update documentation |  |
+| chore | Routine tasks |  |
