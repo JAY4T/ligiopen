@@ -83,7 +83,7 @@ App available at: http://localhost:3000
 
 ## 🌐 Deployment
 
-Backend: Use ngrok to expose the API
+Backend: Use ngrok to expose the API(We are currently using this free trial
 
 Frontend: Deploy on Netlify or Vercel
 
@@ -110,21 +110,21 @@ Submit a Pull Request
 
 ## Type	  Purpose
 
-feat	Add a new feature
+feat  :	Add a new feature
 
-fix	    Fix a bug or issue
+fix	 :    Fix a bug or issue
 
-docs	 Update documentation
+docs	:  Update documentation
 
-refactor	 Improve code without changing behavior
+refactor : 	 Improve code without changing behavior
 
-test	  Add or update tests
+test	 :  Add or update tests
 
-chore	   Routine tasks (configs, dependencies)
+chore	 :    Routine tasks (configs, dependencies)
 
-ci	    CI setup or pipeline changes
+ci	:   CI setup or pipeline changes
 
-build	Build tools or packaging changes
+build	: Build tools or packaging changes
 
 
 ## 🪪 License
