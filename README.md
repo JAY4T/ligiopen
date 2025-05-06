@@ -91,7 +91,7 @@ cd ../frontend
 
 ## 🌐 Deployment
 
-- Backend: Use ngrok to expose the API(We are currently using this free trial
+- Backend: Use ngrok to expose the API(We are currently using it (free trial)
 
 - Frontend: Deploy on Netlify or Vercel
 
@@ -100,7 +100,7 @@ cd ../frontend
 - Add 'corsheaders' to INSTALLED_APPS and set:
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+- CORS_ALLOW_ALL_ORIGINS = True
 
 ⚠️ Note: Frontend code is still under development.
 
@@ -136,5 +136,6 @@ build	:  Build tools or packaging changes
 
 
 ## 🪪 License
+
 
 MIT License © 2025 LigiOpen Team
