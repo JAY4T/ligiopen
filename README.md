@@ -108,25 +108,25 @@ Submit a Pull Request
 
 ## 📌 Conventional Commit Types
 
-Type	Purpose
+## Type	  Purpose
 
 feat	Add a new feature
 
 fix	    Fix a bug or issue
 
-docs	Update documentation
+docs	 Update documentation
 
-refactor	Improve code without changing behavior
+refactor	 Improve code without changing behavior
 
-test	Add or update tests
+test	  Add or update tests
 
-chore	Routine tasks (configs, dependencies)
+chore	   Routine tasks (configs, dependencies)
 
-ci	CI setup or pipeline changes
+ci	    CI setup or pipeline changes
 
 build	Build tools or packaging changes
 
 
-🪪 License
+## 🪪 License
 
 MIT License © 2025 LigiOpen Team
