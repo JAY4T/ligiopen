@@ -120,13 +120,7 @@ cd ../frontend
 
 - git commit -m "feat: add a new feature"
 
-  ## 📌 Commit Types and Contribution
-| Type  | Purpose | Contributor(s) |
-|-------|---------|----------------|
-| feat  | Add new feature | :added update-contributors yml file |
-| fix   | Fix a bug or issue | :added update-contributors yml file |
-| docs  | Update documentation | :added update-contributors yml file |
-| chore | Routine tasks | :added update-contributors yml file |
+
 
 
 
@@ -134,24 +128,4 @@ cd ../frontend
 
 
 MIT License © 2025 LigiOpen Team
-## 📌 Commit Types and Contribution
-| Type  | Purpose | Contributor(s) |
-|-------|---------|----------------|
-| feat  | Add new feature |  |
-| fix   | Fix a bug or issue |  |
-| docs  | Update documentation |  |
-| chore | Routine tasks |  |
-## 📌 Commit Types and Contribution
-| Type  | Purpose | Contributor(s) |
-|-------|---------|----------------|
-| feat  | Add new feature |  |
-| fix   | Fix a bug or issue |  |
-| docs  | Update documentation |  |
-| chore | Routine tasks |  |
-## 📌 Commit Types and Contribution
-| Type  | Purpose | Contributor(s) |
-|-------|---------|----------------|
-| feat  | Add new feature |  |
-| fix   | Fix a bug or issue |  |
-| docs  | Update documentation |  |
-| chore | Routine tasks |  |
+
