@@ -74,7 +74,7 @@ Install dependencies:
 
 npm install
 
-Start the frontend server:
+## Start the frontend server:
 
 
 npm start
@@ -102,7 +102,7 @@ Fork the repo
 
 Create a new branch
 
-Make changes
+## Make changes
 
 Submit a Pull Request
 
