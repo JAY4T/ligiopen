@@ -125,3 +125,10 @@ cd ../frontend
 
 
 MIT License © 2025 LigiOpen Team
+## 📌 Commit Types and Contribution
+| Type  | Purpose | Contributor(s) |
+|-------|---------|----------------|
+| feat  | Add new feature | :added update-contributors yml file |
+| fix   | Fix a bug or issue | :added update-contributors yml file |
+| docs  | Update documentation | :added update-contributors yml file |
+| chore | Routine tasks | :added update-contributors yml file |
