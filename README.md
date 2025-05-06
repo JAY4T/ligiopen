@@ -1,25 +1,30 @@
-⚽ LigiOpen Version2
-LigiOpen is a full-stack web app built with Django REST Framework and ReactJS for managing live scores, fixtures, player stats, and news.
+# ⚽ LigiOpen Version2
 
-🌟 Features
-🔴 Live Scores
+**LigiOpen** is a full-stack web app built with **Django REST Framework** and **ReactJS** for managing **live scores**, **fixtures**, **player stats**, and **news**.
 
-🏆 Fixtures & Results
+---
 
-👥 Player & Team Profiles
+## 🌟 Features
 
-📊 Stats Table
+- 🔴 Live Scores  
+- 🏆 Fixtures & Results  
+- 👥 Player & Team Profiles  
+- 📊 Stats Table  
 
-🚀 Tech Stack
-Backend: Django, DRF, PostgreSQL
+---
 
-Frontend: ReactJS, Axios, Bootstrap
+## 🚀 Tech Stack
 
-🛠️ Setup
-Backend (Django)
-bash
-Copy
-Edit
+- **Backend**: Django, DRF, PostgreSQL  
+- **Frontend**: ReactJS, Axios, Bootstrap  
+
+---
+
+## 🛠️ Setup
+
+### Backend (Django)
+
+```bash
 git clone https://github.com/JAY4T/ligiopenV2.git
 cd ligiopenweb/backend
 
@@ -35,8 +40,10 @@ pip install -r requirements.txt
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
+
+# Start the development server
 python manage.py runserver
-API: http://127.0.0.1:8000/api/
+API available at: http://127.0.0.1:8000/api/
 
 Frontend (React)
 bash
@@ -45,15 +52,14 @@ Edit
 cd ../frontend
 npm install
 npm start
-App: http://localhost:3000
+App available at: http://localhost:3000
 
 🌐 Deployment
 Backend: Use ngrok to expose the API
 
 Frontend: Deploy on Netlify or Vercel
 
-Make sure to enable CORS:
-
+Enable CORS in settings.py
 python
 Copy
 Edit
@@ -80,7 +86,7 @@ Type	Purpose
 feat	Add a new feature
 fix	Fix a bug or issue
 docs	Update documentation
-refactor	Improve code (no behavior change)
+refactor	Improve code without changing behavior
 test	Add or update tests
 chore	Routine tasks (configs, dependencies)
 ci	CI setup or pipeline changes
