@@ -33,7 +33,7 @@
 
 ## 🛠️ Backend Installation (Django)
 
-###  Clone the Repository both linux And Windows OS
+###  Clone the Repository both  in linux And Windows OS
 
 ```bash
 git clone https://github.com/yourusername/ligiopen.git
