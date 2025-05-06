@@ -27,13 +27,15 @@
    ```bash
    git clone https://github.com/JAY4T/ligiopenV2.git
    cd ligiopenweb/backend
-Create and activate virtual environment:
-
-
+   
+### Create and activate virtual environment:
+```bash
 python -m venv env
+
 source env/bin/activate  # Linux/macOS
+
 env\Scripts\activate  # Windows
-Install dependencies:
+
 
 
 pip install -r requirements.txt
