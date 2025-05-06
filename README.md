@@ -9,7 +9,6 @@
 - 🔴 **Live Scores**
 - 🏆 **Fixtures & Results**
 - 👥 **Player & Team Profiles**
-- 📝 **Club Registration**
 - 📊 **Stats Table**
 
 ---
