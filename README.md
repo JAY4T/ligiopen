@@ -52,9 +52,7 @@ Install dependencies:
 
 pip install -r requirements.txt
 
-## Configure PostgreSQL in settings.py, 
-
-# then run the following commands:
+## Configure PostgreSQL in settings.py, then run the following commands:
 
 
 python manage.py makemigrations
@@ -70,7 +68,7 @@ python manage.py runserver
 
 API available at: http://127.0.0.1:8000/api/
 
-Frontend (React)
+## Frontend (React)
 
 Navigate to the frontend directory:
 
