@@ -25,69 +25,51 @@ LigiOpen is a full-stack web app built with Django REST Framework and ReactJS fo
 ### Backend (Django)
 
 **Clone the repository:**
-```bash
+
 git clone https://github.com/JAY4T/ligiopenV2.git
 cd ligiopenweb/backend
 Create a virtual environment:
 
-bash
-Copy
-Edit
+
 python -m venv env
 Activate the environment:
 
 macOS/Linux:
 
-bash
-Copy
-Edit
+
 source env/bin/activate
 Windows:
 
-c
-Copy
-Edit
+
 env\Scripts\activate
 Install dependencies:
 
-bash
-Copy
-Edit
-pip install -r requirements.txt
-Configure PostgreSQL in settings.py, then run:
 
-bash
-Copy
-Edit
+pip install -r requirements.txt
+Configure PostgreSQL in settings.py, then run the following commands:
+
+
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 Start the backend server:
 
-bash
-Copy
-Edit
+
 python manage.py runserver
 API available at: http://127.0.0.1:8000/api/
 
 Frontend (React)
 Navigate to the frontend directory:
 
-bash
-Copy
-Edit
+
 cd ../frontend
 Install dependencies:
 
-bash
-Copy
-Edit
+
 npm install
 Start the frontend server:
 
-bash
-Copy
-Edit
+
 npm start
 App available at: http://localhost:3000
 
@@ -100,14 +82,12 @@ Enable CORS in settings.py:
 
 Add 'corsheaders' to INSTALLED_APPS and set:
 
-python
-Copy
-Edit
+
 CORS_ALLOW_ALL_ORIGINS = True
+
 🗂️ Project Structure
-bash
-Copy
-Edit
+
+
 ligiopenweb/
 ├── backend/          # Django backend
 │   ├── manage.py
@@ -137,12 +117,6 @@ chore	Routine tasks (configs, dependencies)
 ci	CI setup or pipeline changes
 build	Build tools or packaging changes
 
-💡 Why Use Them?
-📄 Auto-generate changelogs
-
-🤝 Easier collaboration
-
-🚀 CI/CD triggers and automation
 
 🪪 License
 MIT License © 2025 LigiOpen Team
