@@ -23,19 +23,16 @@
 ## 🛠️ Setup
 
 ### Backend (Django)
-1. Clone repo and navigate to the backend folder:
+1. Clone the repo and navigate to the backend folder:
    ```bash
    git clone https://github.com/JAY4T/ligiopenV2.git
    cd ligiopenweb/backend
-   
 Create and activate virtual environment:
 
 
 python -m venv env
 source env/bin/activate  # Linux/macOS
-
 env\Scripts\activate  # Windows
-
 Install dependencies:
 
 
@@ -46,18 +43,16 @@ Configure PostgreSQL in settings.py and run migrations:
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
-Start backend server:
+Start the backend server:
 
 
 python manage.py runserver
 API available at http://127.0.0.1:8000/api/
 
 Frontend (React)
-Navigate to frontend folder:
+Navigate to the frontend folder:
 
-bash
-Copy
-Edit
+
 cd ../frontend
 Install dependencies and start the server:
 
@@ -77,7 +72,7 @@ Ensure CORS is enabled in settings.py:
 INSTALLED_APPS += ['corsheaders']
 CORS_ALLOW_ALL_ORIGINS = True
 🗂️ Project Structure
-
+bash
 
 ligiopenweb/
 ├── backend/          # Django backend
