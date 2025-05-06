@@ -35,11 +35,11 @@
 
 ###  Clone the Repository both  in linux And Windows OS
 
-```bash
+
 git https://github.com/JAY4T/ligiopenV2.git
 cd ligiopenweb/backend
 
-```bash
+
 python -m venv env
 # For Linux/macOS
 source env/bin/activate
@@ -49,7 +49,7 @@ env\Scripts\activate
 
 ## 📁 Project Structure
 
-```bash
+
 ligiopenweb/
 ├── backend/          # Django backend
 │   ├── manage.py
