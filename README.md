@@ -1,57 +1,57 @@
-# ⚽ LigiOpen Version2
+ LigiOpen Version2
+LigiOpen is a full-stack web app built with Django REST Framework and ReactJS for managing live scores, fixtures, player stats, and news.
 
-**LigiOpen** is a full-stack web app built with **Django REST Framework** and **ReactJS** for managing **live scores**, **fixtures**, **player stats**, and **news**.
+🌟 Features
+Live Scores
 
----
+Fixtures & Results
 
-## 🌟 Features
+Player & Team Profiles
 
-- 🔴 Live Scores  
-- 🏆 Fixtures & Results  
-- 👥 Player & Team Profiles  
-- 📊 Stats Table  
+Stats Table
 
----
+🚀 Tech Stack
+Backend: Django, DRF, PostgreSQL
+Frontend: ReactJS, Axios, Bootstrap
 
-## 🚀 Tech Stack
-
-- **Backend**: Django, DRF, PostgreSQL  
-- **Frontend**: ReactJS, Axios, Bootstrap  
-
----
-
-## 🛠️ Setup
-
-### Backend (Django)
-
-```bash
+🛠️ Setup
+Backend (Django)
+Clone the repository:
 git clone https://github.com/JAY4T/ligiopenV2.git
 cd ligiopenweb/backend
 
-# Create virtual environment
+Create a virtual environment:
 python -m venv env
-source env/bin/activate  # macOS/Linux
-env\Scripts\activate     # Windows
 
-# Install dependencies
+Activate the environment:
+
+macOS/Linux: source env/bin/activate
+
+Windows: env\Scripts\activate
+
+Install dependencies:
 pip install -r requirements.txt
 
-# Configure PostgreSQL in settings.py, then run:
+Configure PostgreSQL in settings.py, then run the following commands:
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 
-# Start the development server
+Start the backend server:
 python manage.py runserver
+
 API available at: http://127.0.0.1:8000/api/
 
 Frontend (React)
-bash
-Copy
-Edit
+Navigate to the frontend directory:
 cd ../frontend
+
+Install dependencies:
 npm install
+
+Start the frontend server:
 npm start
+
 App available at: http://localhost:3000
 
 🌐 Deployment
@@ -59,23 +59,19 @@ Backend: Use ngrok to expose the API
 
 Frontend: Deploy on Netlify or Vercel
 
-Enable CORS in settings.py
-python
-Copy
-Edit
-INSTALLED_APPS += ['corsheaders']
+Enable CORS in settings.py:
+Add 'corsheaders' to INSTALLED_APPS and set:
 CORS_ALLOW_ALL_ORIGINS = True
+
 🗂️ Project Structure
-bash
-Copy
-Edit
 ligiopenweb/
-├── backend/          # Django backend
-│   ├── manage.py
-│   └── api/
-└── frontend/         # React frontend
-    ├── package.json
-    └── src/
+├── backend/ - Django backend
+│ ├── manage.py
+│ └── api/
+└── frontend/ - React frontend
+├── package.json
+└── src/
+
 ⚠️ Note: Frontend code is still under development.
 
 🤝 Contributing
@@ -93,11 +89,11 @@ ci	CI setup or pipeline changes
 build	Build tools or packaging changes
 
 💡 Why Use Them?
-📄 Auto-generate changelogs
+Auto-generate changelogs
 
-🤝 Easier collaboration
+Easier collaboration
 
-🚀 CI/CD triggers and automation
+CI/CD triggers and automation
 
 🪪 License
 MIT License © 2025 LigiOpen Team
