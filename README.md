@@ -52,7 +52,9 @@ Install dependencies:
 
 pip install -r requirements.txt
 
-## Configure PostgreSQL in settings.py, then run the following commands:
+## Configure PostgreSQL in settings.py, 
+
+# then run the following commands:
 
 
 python manage.py makemigrations
@@ -65,6 +67,7 @@ Start the backend server:
 
 
 python manage.py runserver
+
 API available at: http://127.0.0.1:8000/api/
 
 Frontend (React)
@@ -74,17 +77,17 @@ Navigate to the frontend directory:
 
 cd ../frontend
 
-Install dependencies:
+## Install dependencies:
 
 
-npm install
+- npm install
 
 ## Start the frontend server:
 
 
-npm start
+- npm start
 
-App available at: http://localhost:3000
+- App available at: http://localhost:3000
 
 ## 🌐 Deployment
 
@@ -106,6 +109,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 -  Fork the repo
 
 - Create a new branch
+  
 -  Make changes
 
 - Submit a Pull Request
