@@ -1,0 +1,35 @@
+name: Update Contributors
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-credits:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Generate Contributors Table
+      run: |
+        # Extract contributor information from commit logs
+        CONTRIBUTORS=$(git log --pretty=format:"%s" --author="^.*" | grep -oP '(?<=feat|fix|docs|chore)\s*.*' | sort | uniq)
+        # Format it into a markdown table format
+        echo "## 📌 Commit Types and Contribution" >> README.md
+        echo "| Type  | Purpose | Contributor(s) |" >> README.md
+        echo "|-------|---------|----------------|" >> README.md
+        echo "| feat  | Add new feature | $CONTRIBUTORS |" >> README.md
+        echo "| fix   | Fix a bug or issue | $CONTRIBUTORS |" >> README.md
+        echo "| docs  | Update documentation | $CONTRIBUTORS |" >> README.md
+        echo "| chore | Routine tasks | $CONTRIBUTORS |" >> README.md
+
+    - name: Commit and Push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add README.md
+        git commit -m "chore: update contributors section"
+        git push
