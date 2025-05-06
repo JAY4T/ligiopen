@@ -26,7 +26,7 @@
 ### Frontend
 - ReactJS
 - Axios (for API calls)
-- Bootstrap / Tailwind CSS (optional)
+- Bootstrap
 
 ---
 
