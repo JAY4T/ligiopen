@@ -71,6 +71,8 @@ Ensure CORS is enabled in settings.py:
 
 INSTALLED_APPS += ['corsheaders']
 CORS_ALLOW_ALL_ORIGINS = True
+
+
 🗂️ Project Structure
 bash
 
