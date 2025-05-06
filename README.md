@@ -39,6 +39,14 @@
 git https://github.com/JAY4T/ligiopenV2.git
 cd ligiopenweb/backend
 
+```bash
+python -m venv env
+# For Linux/macOS
+source env/bin/activate
+# For Windows
+env\Scripts\activate
+
+
 ## 📁 Project Structure
 
 ```bash
