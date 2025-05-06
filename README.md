@@ -20,8 +20,9 @@
 ### Backend (API)
 - Django
 - Django REST Framework
-- PostgreSQL / MySQL (or SQLite for development)
+- PostgreSQL
 - Django Admin Panel
+- Postman for testing development Apis
 
 ### Frontend
 - ReactJS
