@@ -116,7 +116,7 @@ cd ../frontend
 
 - Please see the rules   https://www.conventionalcommits.org/en/v1.0.0/
 
-## Example of a commit
+## Example of a commit message
 
 - git commit -m "feat: add a new feature"
 
