@@ -23,7 +23,7 @@ LigiOpen aims to empower community football by providing a centralized platform 
 ### Backend (Django REST Framework)
 - Django
 - Django REST Framework
-- PostgreSQL / SQLite
+- PostgreSQL 
 - djangorestframework-cors-headers
 
 ## 🚀 Getting Started
