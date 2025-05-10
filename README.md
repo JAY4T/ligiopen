@@ -51,7 +51,9 @@ cd backend
 python -m venv env
 source env/bin/activate
 
-# On Windows use `env\Scripts\activate`
+# On Windows use
+
+`env\Scripts\activate`
 
 # Install dependencies
 
