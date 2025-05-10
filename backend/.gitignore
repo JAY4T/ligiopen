@@ -7,8 +7,4 @@ migrations/
 .vscode/
 backend/ngrok.yml
 venv/
-render.yml
-staticfiles/
-.vs/
-
 
