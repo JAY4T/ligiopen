@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# 📦 LigiOpen v2
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**LigiOpen** is a grassroots football management platform built with **ReactJS** (frontend) and **Django REST Framework** (backend). It enables organizers, teams, and fans to actively engage with local football tournaments through real-time updates and data tracking.
 
-## Available Scripts
+## 🎯 Key Features
 
-In the project directory, you can run:
 
-### `npm start`
+- 📅 Match fixtures and live score updates  
+- ⚽ Player profiles with stats tracking  
+- 📊 Live match updates and result management  
+- 🌍 Public access to league data and highlights  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+LigiOpen aims to empower community football by providing a centralized platform for managing league activities, enhancing transparency, and improving the visibility of local talent.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🔧 Technologies Used
 
-### `npm test`
+### Frontend (ReactJS)
+- React
+- Axios
+- React Router DOM
+- Bootstrap
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Backend (Django REST Framework)
+- Django
+- Django REST Framework
+- PostgreSQL / SQLite
+- djangorestframework-cors-headers
 
-### `npm run build`
+## 🚀 Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🔹 Prerequisites
+Make sure you have installed:
+- Node.js & npm
+- Python 3.x & pip
+- PostgreSQL (if used)
+- Virtualenv (optional but recommended)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### 🔹 Backend Setup (Django REST Framework)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+# Clone the repo and navigate to backend
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+git clone https://github.com/JAY4T/ligiopenV2.git
+cd backend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Create virtual environment and activate
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+python -m venv env
+source env/bin/activate  # On Windows use `env\Scripts\activate`
 
-## Learn More
+# Install dependencies
+pip install -r requirements.txt
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Run migrations
+python manage.py migrate
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Start the server
+python manage.py runserver
+```
 
-### Code Splitting
+### 🔹 Frontend Setup (ReactJS)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+# Navigate to the frontend directory
+cd ../frontend
 
-### Analyzing the Bundle Size
+# Install dependencies
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Start the React development server
+npm start
+```
