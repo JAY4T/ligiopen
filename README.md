@@ -49,9 +49,12 @@ cd backend
 # Create virtual environment and activate
 
 python -m venv env
-source env/bin/activate  # On Windows use `env\Scripts\activate`
+source env/bin/activate
+
+# On Windows use `env\Scripts\activate`
 
 # Install dependencies
+
 pip install -r requirements.txt
 
 # Run migrations
