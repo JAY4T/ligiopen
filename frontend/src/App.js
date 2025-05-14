@@ -1,11 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
 import HomePage from "./components/HomePage";
 import NewsList from "./components/NewsList";
 import NewsDetails from "./components/NewsDetails";
-import Footer from "./components/Footer";
 import Players from "./components/Players";
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "./styles/styles.css"; // Ensure this matches your actual file path
@@ -18,7 +15,6 @@ import Club from "./components/clubs/Club";
 const App = () => {
   return (
     <Router>
-      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/players" element={<Players />} />
@@ -29,7 +25,6 @@ const App = () => {
         <Route path="/:gor-mahia" element={<Club />} />        
 
       </Routes>
-      <Footer />
     </Router>
   );
 };

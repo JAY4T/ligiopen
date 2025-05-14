@@ -3,6 +3,8 @@ import API from "../services/api";
 import LoadingSpinner from "./Loading";
 import Tabs from "./ReusableTab";
 import SearchBar from "./SearchBar";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 function Players() {
   const [players, setPlayers] = useState([]);
@@ -41,11 +43,11 @@ function Players() {
 
       {!loading && !error && players.length === 0 && (
         <div className="alert alert-warning text-center">
-          No Featured Players available.
+          No Players available.
         </div>
       )}
 
-      {!loading && !error && filteredPlayers && (
+      {!loading && !error && filteredPlayers.length !== 0 && (
         <div className="row">
           <div className="top-search d-flex flex-column justify-content-center align-items-center">
             <h2 className="my-heading-whit pla">Players</h2>
@@ -118,9 +120,13 @@ function Players() {
   ];
 
   return (
-    <div className="pb-5 web-section">
-      <Tabs tabs={tabs} />
-    </div>
+    <>
+      <Navbar />
+      <div className="pb-5 web-section">
+        <Tabs tabs={tabs} />
+      </div>
+      <Footer />
+    </>
   );
 }
 

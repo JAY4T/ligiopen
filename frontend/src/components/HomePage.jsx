@@ -7,6 +7,8 @@ import 'swiper/css/navigation';
 import News from "./News";
 import FeaturedPlayers from "./FeaturedPlayers";
 import LoadingSpinner from "./Loading";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 // Top Section (Upcoming Matches Card)
 const MatchList = () => {
@@ -105,6 +107,7 @@ const HomePage = () => {
 
   return (
     <>
+      <Navbar />
       <main>
         <MatchList />
         <News />
@@ -112,6 +115,7 @@ const HomePage = () => {
 
         {/* <ClubNewsSection /> */}
       </main>
+      <Footer />
     </>
   );
 };
