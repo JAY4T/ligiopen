@@ -33,6 +33,10 @@ h2 {
   font-weight: bolder;
 }
 
+.web-section {
+  min-height: 70vh;
+}
+
 .arrow-btn {
   color: #337418;
   font-weight: bolder;
@@ -276,6 +280,11 @@ h2 {
   animation: moveGIFs 20s linear infinite;
   position: relative;
   z-index: 0;
+}
+
+/* Clubs page */
+.custom-link {
+  color: black;
 }
 
 /* Fixtures page styles */

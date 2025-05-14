@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import API from "../services/api";
 import LoadingSpinner from "./Loading";
 import SearchBar from "./SearchBar";
+import { Link } from "react-router-dom";
 
 function Clubs() {
   const [clubs, setClubs] = useState([]);
@@ -27,7 +28,7 @@ function Clubs() {
   }, []);
 
   return (
-    <div className="container py-5">
+    <div className="container py-5 web-section">
       <h2 className="text-center mb-4">Clubs</h2>
 
       <div className="d-flex justify-content-center mb-4">
@@ -50,6 +51,12 @@ function Clubs() {
         <div className="alert alert-danger text-center">{error}</div>
       )}
 
+      {!loading && !error && filteredClubs.length === 0 && (
+        <div className="alert alert-warning text-center">
+          No clubs available.
+        </div>
+      )}
+
       {!loading && !error && filteredClubs.length === 0 && noMatch && (
         <div className="alert alert-warning text-center">
           No match found.
@@ -59,17 +66,19 @@ function Clubs() {
       {!loading && !error && (
         <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4">
           {filteredClubs.map((club) => (
-            <div className="col text-center" key={club.id}>
-              <div className="p-2">
-                <img
-                  src={club.logo}
-                  alt={club.name}
-                  className="img-fluid mb-2"
-                  style={{ maxHeight: "60px" }}
-                />
-                <p className="mb-0">{club.name}</p>
+            <Link to={`/${club.name}`} className="custom-link">
+              <div className="col text-center" key={club.id}>
+                <div className="p-2">
+                  <img
+                    src={club.logo}
+                    alt={club.name}
+                    className="img-fluid mb-2"
+                    style={{ maxHeight: "60px" }}
+                  />
+                  <p className="mb-0">{club.name}</p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

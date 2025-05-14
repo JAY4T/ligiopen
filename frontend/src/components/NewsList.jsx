@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../services/api"; // Adjust path to your actual API config
+import API from "../services/api"; 
 import LoadingSpinner from "./Loading";
 
 const NewsList = () => {
@@ -21,7 +21,7 @@ const NewsList = () => {
   }, []);
 
   return (
-    <main className="container my-5 d-flex flex-column min-vh-100">
+    <main className="container my-5 d-flex flex-column web-section">
       <h2 className="mb-4">All News</h2>
 
       {loading && <div className="alert alert-info"><LoadingSpinner /></div>}

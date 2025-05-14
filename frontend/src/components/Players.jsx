@@ -118,7 +118,7 @@ function Players() {
   ];
 
   return (
-    <div className="pb-5 animated-gradien">
+    <div className="pb-5 web-section">
       <Tabs tabs={tabs} />
     </div>
   );

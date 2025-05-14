@@ -23,7 +23,7 @@ function Fixtures() {
   }, []);
 
   return (
-    <div className="container py-5 fix-hol">
+    <div className="container py-5 fix-hol web-section">
       <h2 className="row fix-t">Fixtures</h2>
 
       {loading && (

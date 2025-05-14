@@ -13,6 +13,7 @@ import "./styles/App.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Clubs from "./components/Clubs";
 import Fixtures from "./components/Fixtures";
+import Club from "./components/clubs/Club";
 
 const App = () => {
   return (
@@ -24,7 +25,8 @@ const App = () => {
         <Route path="/clubs" element={<Clubs />} />
         <Route path="/fixtures" element={<Fixtures />} />
         <Route path="/news" element={<NewsList />} />
-        <Route path="/news/:id" element={<NewsDetails />} />        
+        <Route path="/news/:id" element={<NewsDetails />} />
+        <Route path="/:gor-mahia" element={<Club />} />        
 
       </Routes>
       <Footer />
