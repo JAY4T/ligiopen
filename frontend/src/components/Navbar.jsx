@@ -4,7 +4,7 @@ import logo from "../assets/ligiopen-icon.png";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-white sticky-top shadow-sm custom-navbar">
+    <nav className="navbar navbar-expand-lg bg-white sticky-top shadow-sm custom-navbar px-3">
       <NavLink className="navbar-brand" to="/">
         <img src={logo} alt="LigiOpen Logo" className="navbar-logo-img mx-2" />
       </NavLink>
@@ -20,7 +20,7 @@ const Navbar = () => {
         <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div className="collapse navbar-collapse" id="navbarNav">
+      <div className="collapse navbar-collapse col-nav" id="navbarNav">
         <ul className="navbar-nav mx-auto">
           <li className="nav-item">
             <NavLink

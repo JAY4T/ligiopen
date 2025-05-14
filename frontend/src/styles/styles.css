@@ -130,6 +130,14 @@ h2 {
   transition: all 0.3s ease;
 }
 
+.nav-link-club.active {
+  font-weight: 600;
+  color: #337418 !important; /* Use green or your preferred highlight */
+  border-bottom: 2px solid #28a745;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
 .navbar-logo-img {
   height: auto;
   width: 80px; 
@@ -322,6 +330,24 @@ h2 {
 
 .swiper-slide-active .card {
   animation: fadeInUp 0.8s ease-in-out;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nav-item {
+    text-align: center;
+    width: 100%;
+  }
+
+  .nav-link.active {
+    transform: scale(1);
+  }
 }
 
 @media (max-width: 450px) {
