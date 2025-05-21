@@ -11,6 +11,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Clubs from "./components/Clubs";
 import Fixtures from "./components/Fixtures";
 import Club from "./components/clubs/Club";
+import ClubFixtures from "./components/clubs/ClubFixtures";
+import ClubHistory from "./components/clubs/ClubHistory";
 
 const App = () => {
   return (
@@ -24,8 +26,8 @@ const App = () => {
         <Route path="/news/:id" element={<NewsDetails />} />
         <Route path="/:club-name" element={<Club />} />        
         <Route path="/:club-name" element={<Club />} />
-        <Route path="/:club-name/fixtures" element={<Fixtures />} />
-        <Route path="/:club-name/history" element={<Clubs />} />
+        <Route path="/:club-name/fixtures" element={<ClubFixtures />} />
+        <Route path="/:club-name/history" element={<ClubHistory />} />
 
       </Routes>
     </Router>

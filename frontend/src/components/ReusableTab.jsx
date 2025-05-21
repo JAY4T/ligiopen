@@ -6,7 +6,7 @@ function ReusableTab({ tabs }) {
 
   return (
     <>
-      <ul className="nav nav-tabs justify-content-center pt-4 mb-4 custom-nav">
+      <ul className="nav nav-tabs justify-content-center mb-4 custom-nav">
         {tabs.map((tab) => (
           <li className="nav-item" key={tab.id}>
             <a

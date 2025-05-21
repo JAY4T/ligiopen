@@ -310,6 +310,10 @@ h2 {
   height: 250px;
   object-fit: cover;
 }
+
+.table-img {
+  width: 50px;
+}
 /* Animation that moves the background */
 @keyframes gradientMove {
   0% {
