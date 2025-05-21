@@ -122,21 +122,17 @@ h2 {
   transform: scale(1.1);
 }
 
-.nav-link.active {
+.nav-link.active, .nav-link-2.active {
   font-weight: 600;
   color: #337418 !important; /* Use green or your preferred highlight */
-  border-bottom: 2px solid #28a745;
+  border-bottom: 7px solid #28a745;
   transform: scale(1.1);
   transition: all 0.3s ease;
 }
 
-.nav-link-club.active {
-  font-weight: 600;
-  color: #337418 !important; /* Use green or your preferred highlight */
-  border-bottom: 2px solid #28a745;
-  transform: scale(1.1);
-  transition: all 0.3s ease;
-}
+.nav-link-2.active {
+  transform: scale(1);
+} 
 
 .navbar-logo-img {
   height: auto;
@@ -303,6 +299,16 @@ h2 {
 
 .footer {
   background-color: white;
+}
+
+/* Individual clubs page */
+.top-club {
+  border: 2px solid black;
+}
+
+.club-player-img {
+  height: 250px;
+  object-fit: cover;
 }
 /* Animation that moves the background */
 @keyframes gradientMove {

@@ -11,7 +11,7 @@ function ReusableTab({ tabs }) {
           <li className="nav-item" key={tab.id}>
             <a
               href={`#${tab.id}`}
-              className={`nav-link ${activeTab === tab.id ? "active" : ""}`}
+              className={`nav-link nav-link-2 ${activeTab === tab.id ? "active" : ""}`}
               onClick={(e) => {
                 e.preventDefault();
                 setActiveTab(tab.id);
