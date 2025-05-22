@@ -190,9 +190,9 @@ h2 {
   transform: scale(1.1);
 }
 
-.news-content {
+.news-content, .hist-content {
   font-size: 1.1rem;
-  line-height: 1.7rem;
+  line-height: 1.8rem;
 }
 
 .sec-btn {
@@ -313,6 +313,18 @@ h2 {
 
 .table-img {
   width: 50px;
+}
+
+.club-hist {
+  height: 80vh;
+}
+
+.hist-top {
+  border-bottom: 2px solid white;
+}
+
+.bg-whit {
+  background-color: white;
 }
 /* Animation that moves the background */
 @keyframes gradientMove {
