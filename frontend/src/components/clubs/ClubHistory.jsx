@@ -1,6 +1,8 @@
 import React from "react";
 import ClubNavbar from "./ClubNav";
-import ClubStory from "./ClubStory";
+import ClubTrophy from "./ClubTrophy";
+import ClubKit from "./ClubKit";
+import ClubFooter from "./ClubFooter";
 
 function ClubHistory() {
   return (
@@ -44,8 +46,14 @@ function ClubHistory() {
       </div>
 
       <div className="bg-whit py-5">
-        <ClubStory />
+        <ClubTrophy />
       </div>
+
+      <div className="py-5">
+        <ClubKit />
+      </div>
+
+      <ClubFooter />
     </>
   );
 }

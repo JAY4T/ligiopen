@@ -4,6 +4,7 @@ import ClubNavbar from "./ClubNav";
 import Tabs from "../ReusableTab";
 import PositionSection from "./PositionSection";
 import TechnicalStaff from "./TechnicalStaff";
+import ClubFooter from "./ClubFooter";
 
 function Club() {
   const goalkeepers = [
@@ -59,6 +60,8 @@ function Club() {
           <Tabs tabs={tabs} />
             <div></div>
         </main>
+
+        <ClubFooter />
     </>
   );
 }

@@ -4,6 +4,7 @@ import Tabs from "../ReusableTab";
 import FixtureCard from "./ClubFixtureCard";
 import ResultCard from "./ClubResultsCard";
 import LeagueStandings from "./ClubTable";
+import ClubFooter from "./ClubFooter";
 
 function ClubFixtures() {
     const mockFixtures = [
@@ -165,6 +166,8 @@ function ClubFixtures() {
         <main>
             <Tabs tabs={tabs} />
         </main>
+
+        <ClubFooter />
         </>
     );
 }

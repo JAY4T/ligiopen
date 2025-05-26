@@ -33,6 +33,10 @@ h2 {
   font-weight: bolder;
 }
 
+.p-mine {
+  font-size: 1.3rem;
+}
+
 .web-section {
   min-height: 70vh;
 }
@@ -326,6 +330,18 @@ h2 {
 .bg-whit {
   background-color: white;
 }
+
+.kit {
+  width: 500px;
+  height: 500px;
+  border-radius: 10px;
+}
+
+.foot-img {
+  width: 70px;
+  height: 70px;
+}
+
 /* Animation that moves the background */
 @keyframes gradientMove {
   0% {
