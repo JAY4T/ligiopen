@@ -32,7 +32,7 @@ function Clubs() {
   return (
     <>
       <Navbar />
-      <div className="container py-5 web-section">
+      <div className="container py-5 web-section clubs">
         <h2 className="text-center mb-4">Clubs</h2>
 
         <div className="d-flex justify-content-center mb-4">
@@ -79,7 +79,7 @@ function Clubs() {
                       className="img-fluid mb-2"
                       style={{ maxHeight: "60px" }}
                     />
-                    <p className="mb-0">{club.name}</p>
+                    <p className="mb-0 fw-bold">{club.name}</p>
                   </div>
                 </div>
               </Link>
