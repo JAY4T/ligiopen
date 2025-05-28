@@ -49,9 +49,9 @@ function Fixtures() {
         {!loading && !error && (
           <div className="row">
             {fixtures.map((fixture) => (
-              <div className="card shadow-sm mb-5">
+              <div className="card shadow-sm mb-5 fixtures">
                 <div className="card-body text-center">
-                  <h5 className="text-uppercase fw-bold">
+                  <h5 className="text-uppercase fw-bold mt-2">
                     {new Date(fixture.match_date).toDateString()}
                   </h5>
                   <div className="d-flex justify-content-around align-items-center my-3">
@@ -62,7 +62,7 @@ function Fixtures() {
                         className="img-fluid"
                         style={{ height: 100 }}
                       />
-                      <p className="mt-1">{fixture.home_team}</p>
+                      <p className="mt-1 fw-bold">{fixture.home_team}</p>
                     </div>
                     <strong className="fix-time">{fixture.match_time}</strong>
                     <div>
@@ -72,7 +72,7 @@ function Fixtures() {
                         className="img-fluid"
                         style={{ height: 100 }}
                       />
-                      <p className="mt-1">{fixture.away_team}</p>
+                      <p className="mt-1 fw-bold">{fixture.away_team}</p>
                     </div>
                   </div>
                   <p className="text-muted">{fixture.venue}</p>

@@ -78,7 +78,7 @@ const MatchList = () => {
                       className="img-fluid"
                       style={{ height: 50 }}
                     />
-                    <p className="mt-1">{match.home_team}</p>
+                    <p className="mt-1 fw-bold">{match.home_team}</p>
                   </div>
                   <strong className="fix-time">{match.match_time}</strong>
                   <div>
@@ -88,7 +88,7 @@ const MatchList = () => {
                       className="img-fluid"
                       style={{ height: 50 }}
                     />
-                    <p className="mt-1">{match.away_team}</p>
+                    <p className="mt-1 fw-bold">{match.away_team}</p>
                   </div>
                 </div>
                 <p className="text-muted">{match.venue}</p>

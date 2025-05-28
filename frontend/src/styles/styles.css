@@ -388,6 +388,17 @@ h2 {
   }
 }
 
+@media (max-width: 500px) {
+  .fixtures img {
+    height: 50px !important;
+  }
+
+  .clubs {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 @media (max-width: 450px) {
   .upcoming, .news {
     padding: 10px !important;
