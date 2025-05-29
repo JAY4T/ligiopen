@@ -64,7 +64,10 @@ function Fixtures() {
                       />
                       <p className="mt-1 fw-bold">{fixture.home_team}</p>
                     </div>
-                    <strong className="fix-time">{fixture.match_time}</strong>
+                    <div>
+                      <strong className="fix-time">{fixture.match_time}</strong>
+                      <p className="text-muted mt-3">{fixture.venue}</p>
+                    </div>
                     <div>
                       <img
                         src={fixture.away_team_logo}
@@ -75,7 +78,6 @@ function Fixtures() {
                       <p className="mt-1 fw-bold">{fixture.away_team}</p>
                     </div>
                   </div>
-                  <p className="text-muted">{fixture.venue}</p>
                 </div>
               </div>
             ))}

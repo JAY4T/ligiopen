@@ -388,10 +388,28 @@ h2 {
   }
 }
 
-@media (max-width: 500px) {
-  .fixtures img {
-    height: 50px !important;
+@media (max-width: 768px) {
+  .fixtures p {
+    font-size: 0.9375rem; /* 15px */
   }
+}
+
+@media (max-width: 600px) {
+  .fixtures img {
+    height: 40px !important;
+  }
+
+  .fixtures .card-body {
+    padding: 0 !important;
+  }
+
+  .fixtures {
+    padding: 10px;
+  }
+
+}
+
+@media (max-width: 500px) {
 
   .clubs {
     padding-left: 10px;
@@ -407,5 +425,15 @@ h2 {
   .clubs {
     padding-left: 10px;
     padding-right: 10px;
+  }
+
+  .fix-time {
+    padding: 5px;
+  }
+}
+
+@media (max-width: 400px) {
+  .fixtures .card-body, .fixtures {
+    padding: 0;
   }
 }
