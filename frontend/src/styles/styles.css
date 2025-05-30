@@ -60,6 +60,10 @@ h2 {
   max-width: 100%;
 }
 
+.custom-nav-item {
+  color: white;
+}
+
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -126,12 +130,25 @@ h2 {
   transform: scale(1.1);
 }
 
+.nav-link-2:hover {
+  color: black;
+  background-color: white;
+  padding: 10px;
+  border-radius: 6px;
+}
+
 .nav-link.active, .nav-link-2.active {
   font-weight: 600;
   color: #337418 !important; /* Use green or your preferred highlight */
   border-bottom: 7px solid #28a745;
   transform: scale(1.1);
   transition: all 0.3s ease;
+}
+
+.nav-link-2.active {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .nav-link-2.active {

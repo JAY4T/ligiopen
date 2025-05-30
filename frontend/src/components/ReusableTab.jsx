@@ -6,9 +6,9 @@ function ReusableTab({ tabs }) {
 
   return (
     <>
-      <ul className="nav nav-tabs justify-content-center mb-4 custom-nav">
+      <ul className="d-flex align-items-center justify-content-center gap-4 mb-4 custom-nav">
         {tabs.map((tab) => (
-          <li className="nav-item" key={tab.id}>
+          <li className="custom-nav-item" key={tab.id}>
             <a
               href={`#${tab.id}`}
               className={`nav-link nav-link-2 ${activeTab === tab.id ? "active" : ""}`}
