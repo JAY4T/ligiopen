@@ -23,7 +23,7 @@ function ReusableTab({ tabs }) {
         ))}
       </ul>
 
-      <div className="tab-content px-5">
+      <div className="tab-content px-5 tab-small">
         {tabs.map((tab) => (
           <div
             key={tab.id}
