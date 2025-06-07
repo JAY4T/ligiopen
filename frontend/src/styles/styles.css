@@ -411,6 +411,12 @@ h2 {
   }
 }
 
+@media (max-width: 680px) {
+  .table-img {
+    width: 30px;
+  }
+}
+
 @media (max-width: 600px) {
   .fixtures img {
     height: 40px !important;
