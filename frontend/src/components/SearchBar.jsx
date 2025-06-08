@@ -45,7 +45,7 @@ function SearchBar({
         placeholder={placeholder}
       />
       <button type="button" className="btn btn-outline-secondary">
-        <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
+        <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" className="search-icon" />
       </button>
     </div>
   );

@@ -443,6 +443,10 @@ h2 {
     padding-left: 10px;
     padding-right: 10px;
   }
+
+  .fix-div {
+    width: 100px;
+  }
 }
 
 @media (max-width: 450px) {
@@ -457,6 +461,10 @@ h2 {
 
   .fix-time {
     padding: 5px;
+  }
+
+  .search-icon {
+    font-size: 16px !important;
   }
 }
 
