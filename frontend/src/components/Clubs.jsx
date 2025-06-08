@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import API from "../services/api";
+// import API from "../services/api";
+import axios from "axios";
 import LoadingSpinner from "./Loading";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
@@ -14,19 +15,38 @@ function Clubs() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    API.get("clubs/")
-      .then((res) => {
-        setClubs(res.data);
-        setFilteredClubs(res.data);
-        setError(null);
-      })
-      .catch((err) => {
-        console.error(err);
-        setError("Failed to load clubs. Please try again later.");
-      })
-      .finally(() => {
+
+    // axios.get("https://www.thesportsdb.com/api/v1/json/123/search_all_teams.php?l=Kenyan_Premier_League")
+    //   .then((res) => {
+    //     setClubs(res.data.teams || []);
+    //     setFilteredClubs(res.data.table || []);
+    //     setError(null);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     setError("Failed to load clubs. Please try again later.");
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
+    
+    const fetchClubs = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const clubRes = await axios.get("https://www.thesportsdb.com/api/v1/json/123/search_all_teams.php?l=Kenyan Premier League");
+        setClubs(clubRes.data.teams);
+        setFilteredClubs(clubRes.data.teams || []);
+      } catch (err) {
+        console.error("Club error:", err);
+        setError("Failed to load league Clubs. Please try again later.");
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchClubs();
+
   }, []);
 
   return (
@@ -38,7 +58,7 @@ function Clubs() {
         <div className="d-flex justify-content-center mb-4">
           <SearchBar
             data={clubs}
-            filterKeys={["name"]}
+            filterKeys={["strTeam"]}
             onFilter={setFilteredClubs}
             setNoMatch={setNoMatch}
             placeholder="Search clubs..."
@@ -55,13 +75,13 @@ function Clubs() {
           <div className="alert alert-danger text-center">{error}</div>
         )}
 
-        {!loading && !error && filteredClubs.length === 0 && (
+        {!loading && !error && clubs.length === 0 && (
           <div className="alert alert-warning text-center">
             No clubs available.
           </div>
         )}
 
-        {!loading && !error && filteredClubs.length === 0 && noMatch && (
+        {!loading && !error && clubs.length > 0 && filteredClubs.length === 0 && noMatch && (
           <div className="alert alert-warning text-center">
             No match found.
           </div>
@@ -70,16 +90,16 @@ function Clubs() {
         {!loading && !error && (
           <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4">
             {filteredClubs.map((club) => (
-              <Link to={`/${club.name}`} className="custom-link">
-                <div className="col text-center" key={club.id}>
+              <Link to={`/${club.strTeam}`} className="custom-link">
+                <div className="col text-center" key={club.idTeam}>
                   <div className="p-2">
                     <img
-                      src={club.logo}
-                      alt={club.name}
+                      src={club.strBadge}
+                      alt={club.strTeam}
                       className="img-fluid mb-2"
                       style={{ maxHeight: "60px" }}
                     />
-                    <p className="mb-0 fw-bold">{club.name}</p>
+                    <p className="mb-0 fw-bold">{club.strTeam}</p>
                   </div>
                 </div>
               </Link>
