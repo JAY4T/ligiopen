@@ -5,11 +5,15 @@ import LoadingSpinner from "./Loading";
 import Tabs from "./ReusableTab";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import SearchBar from "./SearchBar";
 
 function Fixtures() {
   const [fixtures, setFixtures] = useState([]);
   const [results, setResults] = useState([]);
   const [table, setTable] = useState([]);
+
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [noMatchRes, setNoMatchRes] = useState(false);
 
   const [loadingFixtures, setLoadingFixtures] = useState(true);
   const [loadingTable, setLoadingTable] = useState(true);
@@ -23,12 +27,13 @@ function Fixtures() {
       setLoadingFixtures(true);
       setErrorFixtures(null);
       try {
-        const fixturesRes = await API.get("fixtures/");
-        const allFixtures = fixturesRes.data;
-        const today = new Date();
+        const fixturesRes = await API.get("https://www.thesportsdb.com/api/v1/json/123/eventsseason.php?id=4745&s=2024-2025");
+        const allFixtures = fixturesRes.data.events;
 
-        const upcoming = allFixtures.filter(fix => fix.is_completed === false);
-        const past = allFixtures.filter(fix => new Date(fix.match_date) < today && fix.is_completed === true);
+        const upcoming = allFixtures.filter(fix => fix.strStatus === "Not Started");
+        const past = allFixtures.filter(fix => fix.strStatus === "Match Finished");
+        setFilteredResults(past);
+
 
         setFixtures(upcoming);
         setResults(past);
@@ -177,38 +182,54 @@ function Fixtures() {
           No past results available.
         </div>
       )}
+
+      {!loadingFixtures && !errorFixtures && results.length > 0 && filteredResults.length === 0 && noMatchRes && (
+        <div className="alert alert-warning text-center">
+          No match found.
+        </div>
+      )}
+      
       {!loadingFixtures && !errorFixtures && (
         <div className="row">
-          {results.map((fixture) => (
-            <div className="card shadow-sm mb-5 fixtures" key={fixture.id}>
+          <div className="d-flex justify-content-center mb-4">
+            <SearchBar
+              data={results}
+              filterKeys={["strHomeTeam", "strAwayTeam"]}
+              onFilter={setFilteredResults}
+              setNoMatch={setNoMatchRes}
+              placeholder="Search Results..."
+            />
+          </div>
+          {filteredResults.slice().reverse().map((fixture) => (
+            <div className="card shadow-sm mb-5 fixtures" key={fixture.idEvent}>
               <div className="card-body text-center">
                 <h5 className="text-uppercase fw-bold mt-2">
-                  {new Date(fixture.match_date).toDateString()}
+                  {new Date(fixture.strTimestamp).toDateString()}
                 </h5>
                 <div className="d-flex justify-content-around align-items-center my-3">
                   <div>
                     <img
-                      src={fixture.home_team_logo}
-                      alt={fixture.home_team}
+                      src={fixture.strHomeTeamBadge}
+                      alt={fixture.strHomeTeam}
                       className="img-fluid"
                       style={{ height: 100 }}
                     />
-                    <p className="mt-1 fw-bold">{fixture.home_team}</p>
+                    <p className="mt-1 fw-bold">{fixture.strHomeTeam}</p>
                   </div>
                   <div>
                     <strong className="fix-time">
-                      {fixture.home_score} - {fixture.away_score}
+                      {fixture.intHomeScore} - {fixture.intAwayScore}
                     </strong>
-                    <p className="text-muted mt-3">{fixture.venue}</p>
+                    <p className="text-muted mt-3">{fixture.strVenue}</p>
                   </div>
                   <div>
                     <img
-                      src={fixture.away_team_logo}
-                      alt={fixture.away_team}
+                      src={fixture.strAwayTeamBadge}
+                      alt={fixture.strAwayTeam}
                       className="img-fluid"
                       style={{ height: 100 }}
                     />
-                    <p className="mt-1 fw-bold">{fixture.away_team}</p>
+                    <p className="mt-1 fw-bold">{fixture.strAwayTeam}</p>
                   </div>
                 </div>
               </div>
@@ -218,7 +239,6 @@ function Fixtures() {
       )}
     </>
   );
-
   const tableContent = (
     <>
       {loadingTable && (
