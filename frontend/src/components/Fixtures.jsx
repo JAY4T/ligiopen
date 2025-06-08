@@ -119,13 +119,15 @@ function Fixtures() {
         {table.map((team, index) => (
           <tr key={team.idTeam || index}>
             <td>{team.intRank}</td>
-            <td className="text-start fw-bold">
-              <img
-                src={team.strBadge}
-                alt={team.strTeam}
-                className="me-2 table-img"
-              />
-              {team.strTeam}
+            <td className="fw-bold">
+              <div className="d-flex gap-1">
+                <img
+                  src={team.strBadge}
+                  alt={team.strTeam}
+                  className="me-2 table-img"
+                />
+                {team.strTeam}
+              </div>
             </td>
             <td>{team.intPlayed}</td>
             <td>{team.intWin}</td>
