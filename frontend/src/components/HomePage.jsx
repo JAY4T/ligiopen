@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import API from '../services/api';
+import axios from "axios";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -17,18 +18,21 @@ const MatchList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    API.get("fixtures/")
-      .then((res) => {
-        setMatches(res.data);
-        setError(null);
-      })
-      .catch((err) => {
+    const fetchUpcomingFixtures = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const upcoming = (await axios.get("https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4745")).data.events;
+        setMatches(upcoming);
+      } catch (err) {
+        console.error("Fixtures error:", err);
         setError("Failed to load fixtures. Please try again later.");
-        console.error(err);
-      })
-      .finally(() => {
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchUpcomingFixtures();
   }, []);
 
   return (
@@ -68,30 +72,42 @@ const MatchList = () => {
             <div className="card shadow-sm" style={{ minWidth: '300px' }}>
               <div className="card-body text-center">
                 <h5 className="text-uppercase fw-bold">
-                  {new Date(match.match_date).toDateString()}
+                  {new Date(match.dateEvent).toDateString()}
                 </h5>
                 <div className="d-flex justify-content-around align-items-center my-3">
                   <div>
                     <img
-                      src={match.home_team_logo}
-                      alt={match.home_team}
+                      src={match.strHomeTeamBadge}
+                      alt={match.strHomeTeam}
                       className="img-fluid"
                       style={{ height: 50 }}
                     />
-                    <p className="mt-1 fw-bold">{match.home_team}</p>
+                    <p className="mt-1 fw-bold">{match.strHomeTeam}</p>
                   </div>
-                  <strong className="fix-time">{match.match_time}</strong>
+                  <strong className="fix-time">
+                    {
+                      (() => {
+                        const date = new Date(match.strTimestamp);
+                        date.setHours(date.getHours() + 3);
+                        return date.toLocaleTimeString('en-GB', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          hour12: false
+                        });
+                      })()
+                    } PM
+                  </strong>
                   <div>
                     <img
-                      src={match.away_team_logo}
-                      alt={match.away_team}
+                      src={match.strAwayTeamBadge}
+                      alt={match.strAwayTeam}
                       className="img-fluid"
                       style={{ height: 50 }}
                     />
-                    <p className="mt-1 fw-bold">{match.away_team}</p>
+                    <p className="mt-1 fw-bold">{match.strAwayTeam}</p>
                   </div>
                 </div>
-                <p className="text-muted">{match.venue}</p>
+                <p className="text-muted">{match.strVenue}</p>
               </div>
             </div>
           </SwiperSlide>

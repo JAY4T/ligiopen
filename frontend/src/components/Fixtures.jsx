@@ -137,13 +137,13 @@ function Fixtures() {
           <tr key={team.idTeam || index}>
             <td>{team.intRank}</td>
             <td className="fw-bold">
-              <div className="d-flex gap-1">
+              <div className="d-flex align-items-center gap-1">
                 <img
                   src={team.strBadge}
                   alt={team.strTeam}
                   className="me-2 table-img"
                 />
-                {team.strTeam}
+                <span>{team.strTeam}</span>
               </div>
             </td>
             <td>{team.intPlayed}</td>

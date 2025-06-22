@@ -431,6 +431,10 @@ h2 {
     width: 100vh !important;
   }
 
+  .fix-div {
+    width: 120px;
+  }
+
   .tab-small {
     padding: 10px !important;
   }
