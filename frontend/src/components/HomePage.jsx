@@ -69,13 +69,13 @@ const MatchList = () => {
       >
         {matches.map((match) => (
           <SwiperSlide key={match.id}>
-            <div className="card shadow-sm" style={{ minWidth: '300px' }}>
+            <div className="card shadow-sm card-up" style={{ minWidth: '300px' }}>
               <div className="card-body text-center">
                 <h5 className="text-uppercase fw-bold">
                   {new Date(match.dateEvent).toDateString()}
                 </h5>
                 <div className="d-flex justify-content-around align-items-center my-3">
-                  <div>
+                  <div className="fix-up">
                     <img
                       src={match.strHomeTeamBadge}
                       alt={match.strHomeTeam}
@@ -97,7 +97,7 @@ const MatchList = () => {
                       })()
                     } PM
                   </strong>
-                  <div>
+                  <div className="fix-up">
                     <img
                       src={match.strAwayTeamBadge}
                       alt={match.strAwayTeam}
