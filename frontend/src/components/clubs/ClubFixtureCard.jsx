@@ -5,31 +5,31 @@ function FixtureCard({ fixture }) {
     <div className="card shadow-sm mb-5">
                 <div className="card-body text-center">
                   <h5 className="text-uppercase fw-bold">
-                    {new Date(fixture.date).toDateString()}
+                    {new Date(fixture.strTimestamp).toDateString()}
                   </h5>
-                  <p className="text-muted">{fixture.competition}</p>
+                  <p className="text-muted">{fixture.strLeague}</p>
                   <div className="d-flex justify-content-around align-items-center my-3">
                     <div>
                       <img
-                        src={fixture.teamA.logo}
-                        alt={fixture.teamA.name}
+                        src={fixture.strHomeTeamBadge}
+                        alt={fixture.strHomeTeam}
                         className="img-fluid"
                         style={{ height: 100 }}
                       />
-                      <p className="mt-1 fw-bold">{fixture.teamA.name}</p>
+                      <p className="mt-1 fw-bold">{fixture.strHomeTeam}</p>
                     </div>
-                    <strong className="fix-time">{fixture.time}</strong>
+                    <strong className="fix-time">{fixture.strTimeLocal} PM</strong>
                     <div>
                       <img
-                        src={fixture.teamB.logo}
-                        alt={fixture.teamB.name}
+                        src={fixture.strAwayTeamBadge}
+                        alt={fixture.strAwayTeam}
                         className="img-fluid"
                         style={{ height: 100 }}
                       />
-                      <p className="mt-1 fw-bold">{fixture.teamB.name}</p>
+                      <p className="mt-1 fw-bold">{fixture.strAwayTeam}</p>
                     </div>
                   </div>
-                  <p className="text-muted">{fixture.broadcaster}</p>
+                  <p className="text-muted">{fixture.strVenue}</p>
                 </div>
               </div>
   );

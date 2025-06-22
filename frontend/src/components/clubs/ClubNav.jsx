@@ -3,16 +3,18 @@ import { NavLink, useParams } from "react-router-dom";
 
 const ClubNavbar = () => {
   const { "club-name": clubName } = useParams(); // get dynamic route
+  const { "id-team": idTeam } = useParams();
 
   return (
     <nav className="navbar navbar-expand-lg bg-white sticky-top shadow-sm custom-navbar px-3">
-      <NavLink className="navbar-brand" to={`/${clubName}`}>
+      <NavLink className="navbar-brand" to={`/${idTeam}/${clubName}`}>
         <img
           src="https://github.com/JemoGithirwa4/Dimba-Itambe-player-images/blob/main/logo/Tusker_FC_logo-removebg-preview.png?raw=true"
           alt="Club Logo"
           className="navbar-logo-img mx-2"
         />
       </NavLink>
+
       <button
         className="navbar-toggler"
         type="button"
@@ -29,7 +31,8 @@ const ClubNavbar = () => {
         <ul className="navbar-nav mx-auto">
           <li className="nav-item">
             <NavLink
-              to={`/${clubName}`}
+              to={`/${idTeam}/${clubName}`}
+              state={{ idTeam }}
               className={({ isActive }) =>
                 "nav-link" + (isActive ? " active" : "")
               }
@@ -40,7 +43,8 @@ const ClubNavbar = () => {
           </li>
           <li className="nav-item">
             <NavLink
-              to={`/${clubName}/fixtures`}
+              to={`/${idTeam}/${clubName}/fixtures`}
+              state={{ idTeam }}
               className={({ isActive }) =>
                 "nav-link" + (isActive ? " active" : "")
               }
@@ -51,6 +55,7 @@ const ClubNavbar = () => {
           <li className="nav-item">
             <NavLink
               to={`/${clubName}/history`}
+              state={{ idTeam }}
               className={({ isActive }) =>
                 "nav-link" + (isActive ? " active" : "")
               }

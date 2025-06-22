@@ -1,75 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ClubNavbar from "./ClubNav";
 import Tabs from "../ReusableTab";
 import FixtureCard from "./ClubFixtureCard";
 import ResultCard from "./ClubResultsCard";
 import LeagueStandings from "./ClubTable";
 import ClubFooter from "./ClubFooter";
+import axios from "axios";
+import LoadingSpinner from "../Loading";
+import SearchBar from "../SearchBar";
 
 function ClubFixtures() {
-    const mockFixtures = [
-    {
-        date: "Sun 25 May 2025",
-        competition: "Kenya Premier League",
-        time: "16:00",
-        teamA: {
-        name: "Tusker FC",
-        logo: "https://8381-41-81-186-94.ngrok-free.app/media/club_logos/Tusker_FC_logo-removebg-preview.png"
-        },
-        teamB: {
-        name: "Gor Mahia",
-        logo: "https://8381-41-81-186-94.ngrok-free.app/media/club_logos/Gor_Mahia_FC_logo.png"
-        },
-        broadcaster: "Sky Sports"
-    },
-    {
-        date: "Sun 1 June 2025",
-        competition: "COSAFA",
-        time: "18:30",
-        teamA: {
-        name: "Gor Mahia",
-        logo: "https://8381-41-81-186-94.ngrok-free.app/media/club_logos/Gor_Mahia_FC_logo.png"
-        },
-        teamB: {
-        name: "Tusker",
-        logo: "https://8381-41-81-186-94.ngrok-free.app/media/club_logos/Tusker_FC_logo-removebg-preview.png"
-        },
-        broadcaster: "BT Sport"
-    }
-    ];
+    const { "id-team": idTeam } = useParams();
+    
+    const [fixtures, setFixtures] = useState([]);
+    const [results, setResults] = useState([]);
+    // const [table, setTable] = useState([]);
+    
+    // const [filteredResults, setFilteredResults] = useState([]);
+    // const [noMatchRes, setNoMatchRes] = useState(false);
+    
+    const [loadingFixtures, setLoadingFixtures] = useState(true);
+    // const [loadingTable, setLoadingTable] = useState(true);
+    
+    const [errorFixtures, setErrorFixtures] = useState(null);
+    // const [errorTable, setErrorTable] = useState(null);
 
-    const mockResults = [
-    {
-        date: "2025-05-25T16:00:00Z",
-        competition: "Kenya Premier League",
-        venue: "Nyayo Stadium",
-        teamA: {
-        name: "Tusker FC",
-        logo: "https://8381-41-81-186-94.ngrok-free.app/media/club_logos/Tusker_FC_logo-removebg-preview.png",
-        score: 2,
-        },
-        teamB: {
-        name: "Gor Mahia",
-        logo: "https://8381-41-81-186-94.ngrok-free.app/media/club_logos/Gor_Mahia_FC_logo.png",
-        score: 2,
-        }
-    },
-    {
-        date: "2025-05-18T15:00:00Z",
-        competition: "Kenya Premier League",
-        venue: "Moi International Sports Centre",
-        teamA: {
-        name: "Tusker FC",
-        logo: "https://8381-41-81-186-94.ngrok-free.app/media/club_logos/Tusker_FC_logo-removebg-preview.png",
-        score: 1,
-        },
-        teamB: {
-        name: "AFC Leopards",
-        logo: "https://upload.wikimedia.org/wikipedia/en/2/25/AFC_Leopards_logo.png", // Replace with your actual logo if needed
-        score: 0,
-        }
-    }
-    ];
+    useEffect(() => {
+        if (!idTeam) return;
+
+        const fetchFixtures = async () => {
+            setLoadingFixtures(true);
+            setErrorFixtures(null);
+            try {
+                const upcoming = (await axios.get(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=${idTeam}`)).data.events;
+                const past = (await axios.get(`https://www.thesportsdb.com/api/v1/json/123/eventslast.php?id=${idTeam}`)).data.results;
+
+                setFixtures(upcoming || []);
+                setResults(past || []);
+            } catch (err) {
+                console.error("Fixtures error:", err);
+                setErrorFixtures("Failed to load fixtures. Please try again later.");
+            } finally {
+                setLoadingFixtures(false);
+            }
+        };
+
+        fetchFixtures();
+    }, [idTeam]);
+
 
     const standingsData = [
     {
@@ -123,8 +102,8 @@ function ClubFixtures() {
                     </option>
                 </select>
             </div>
-            {mockFixtures.map((fixture, index) => (
-            <FixtureCard key={index} fixture={fixture} />
+            {fixtures.map((fixture, index) => (
+                <FixtureCard key={index} fixture={fixture} />
             ))}
         </div>
     );
@@ -142,8 +121,8 @@ function ClubFixtures() {
                     </option>
                 </select>
             </div>
-            {mockResults.map((result, index) => (
-            <ResultCard key={index} result={result} />
+            {results.map((result, index) => (
+                <ResultCard key={index} result={result} />
             ))}
         </div>
     );
