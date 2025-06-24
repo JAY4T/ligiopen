@@ -35,8 +35,8 @@ function Fixtures() {
         setFilteredResults(past);
 
 
-        setFixtures(upcoming);
-        setResults(past);
+        setFixtures(upcoming || []);
+        setResults(past || []);
       } catch (err) {
         console.error("Fixtures error:", err);
         setErrorFixtures("Failed to load fixtures. Please try again later.");
@@ -194,12 +194,6 @@ function Fixtures() {
           No past results available.
         </div>
       )}
-
-      {!loadingFixtures && !errorFixtures && results.length > 0 && filteredResults.length === 0 && noMatchRes && (
-        <div className="alert alert-warning text-center">
-          No match found.
-        </div>
-      )}
       
       {!loadingFixtures && !errorFixtures && (
         <div className="row">
@@ -247,6 +241,12 @@ function Fixtures() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {!loadingFixtures && !errorFixtures && results.length > 0 && filteredResults.length === 0 && noMatchRes && (
+        <div className="alert alert-warning text-center">
+          No match found.
         </div>
       )}
     </>

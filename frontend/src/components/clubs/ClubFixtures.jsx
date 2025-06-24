@@ -17,11 +17,11 @@ function ClubFixtures() {
     const [results, setResults] = useState([]);
     // const [table, setTable] = useState([]);
     
-    // const [filteredResults, setFilteredResults] = useState([]);
-    // const [noMatchRes, setNoMatchRes] = useState(false);
+    const [filteredResults, setFilteredResults] = useState([]);
+    const [noMatchRes, setNoMatchRes] = useState(false);
     
     const [loadingFixtures, setLoadingFixtures] = useState(true);
-    // const [loadingTable, setLoadingTable] = useState(true);
+    const [loadingTable, setLoadingTable] = useState(true);
     
     const [errorFixtures, setErrorFixtures] = useState(null);
     // const [errorTable, setErrorTable] = useState(null);
@@ -90,41 +90,83 @@ function ClubFixtures() {
     ];
 
     const fixturesContent = (
-        <div className="container pb-4">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-                <h2 className="fw-bold mb-0">Fixtures</h2>
-                <select className="form-select w-auto">
-                    <option>
-                    Kenya Premier League
-                    </option>
-                    <option>
-                    CECAFA
-                    </option>
-                </select>
-            </div>
-            {fixtures.map((fixture, index) => (
-                <FixtureCard key={index} fixture={fixture} />
-            ))}
-        </div>
+        <>
+            {loadingFixtures && (
+                <div className="alert alert-info text-center">
+                <LoadingSpinner />
+                </div>
+            )}
+            {errorFixtures && (
+                <div className="alert alert-danger text-center">{errorFixtures}</div>
+            )}
+            {!loadingFixtures && !errorFixtures && fixtures.length === 0 && (
+                <div className="min-vh-100">
+                    <div className="alert alert-warning text-center">
+                        No upcoming fixtures available.
+                    </div>
+                </div>
+            )}
+            {!loadingFixtures && !errorFixtures && fixtures.length != 0 && (
+                <div className="container pb-4">
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <h2 className="fw-bold mb-0">Fixtures</h2>
+                        <select className="form-select w-auto">
+                            <option>
+                            Kenya Premier League
+                            </option>
+                            <option>
+                            CECAFA
+                            </option>
+                        </select>
+                    </div>
+                    {fixtures.map((fixture, index) => (
+                        <FixtureCard key={index} fixture={fixture} />
+                    ))}
+                </div>
+            )}
+        </>
     );
 
     const resultsContent = (
-        <div className="container pb-4">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-                <h2 className="fw-bold mb-0">Results</h2>
-                <select className="form-select w-auto">
-                    <option>
-                    Kenya Premier League
-                    </option>
-                    <option>
-                    CECAFA
-                    </option>
-                </select>
-            </div>
-            {results.map((result, index) => (
-                <ResultCard key={index} result={result} />
-            ))}
-        </div>
+        <>
+            {loadingFixtures && (
+                <div className="alert alert-info text-center">
+                <LoadingSpinner />
+                </div>
+            )}
+            {errorFixtures && (
+                <div className="alert alert-danger text-center">{errorFixtures}</div>
+            )}
+            {!loadingFixtures && !errorFixtures && results.length === 0 && (
+                <div className="alert alert-warning text-center">
+                No past results available.
+                </div>
+            )}
+            
+            {!loadingFixtures && !errorFixtures && results.length != 0 && (
+                <div className="row">
+                <div className="d-flex justify-content-center mb-4">
+                    <SearchBar
+                    data={results}
+                    filterKeys={["strHomeTeam", "strAwayTeam"]}
+                    onFilter={setFilteredResults}
+                    setNoMatch={setNoMatchRes}
+                    placeholder="Search Results..."
+                    />
+                </div>
+                {filteredResults.slice().reverse().map((fixture, index) => (
+                    <ResultCard key={index} result={fixture} />
+
+                ))}
+                </div>
+            )}
+
+            {!loadingFixtures && !errorFixtures && results.length > 0 && filteredResults.length === 0 && noMatchRes && (
+                <div className="alert alert-warning text-center">
+                No match found.
+                </div>
+            )}
+        </>
     );
 
     const tableContent = (

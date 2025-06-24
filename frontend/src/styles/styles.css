@@ -363,6 +363,10 @@ h2 {
   height: 70px;
 }
 
+.search-cb {
+  width: 70%;
+}
+
 /* Animation that moves the background */
 @keyframes gradientMove {
   0% {

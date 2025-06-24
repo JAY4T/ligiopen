@@ -23,7 +23,7 @@ const MatchList = () => {
       setError(null);
       try {
         const upcoming = (await axios.get("https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4745")).data.events;
-        setMatches(upcoming);
+        setMatches(upcoming || []);
       } catch (err) {
         console.error("Fixtures error:", err);
         setError("Failed to load fixtures. Please try again later.");
