@@ -90,7 +90,7 @@ function Clubs() {
         {!loading && !error && (
           <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4">
             {filteredClubs.map((club) => (
-              <Link to={`/${club.idTeam}/${club.strTeam}`} className="custom-link">
+              <Link to={`/${club.idTeam}/${club.strTeam}`} state={{ img: club.strBadge }} className="custom-link">
                 <div className="col text-center" key={club.idTeam}>
                   <div className="p-2">
                     <img

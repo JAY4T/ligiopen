@@ -4,7 +4,6 @@ import ClubNavbar from "./ClubNav";
 import Tabs from "../ReusableTab";
 import FixtureCard from "./ClubFixtureCard";
 import ResultCard from "./ClubResultsCard";
-import LeagueStandings from "./ClubTable";
 import ClubFooter from "./ClubFooter";
 import axios from "axios";
 import LoadingSpinner from "../Loading";
@@ -37,8 +36,10 @@ function ClubFixtures() {
                 const upcoming = (await axios.get(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=${idTeam}`)).data.events;
                 const past = (await axios.get(`https://www.thesportsdb.com/api/v1/json/123/eventslast.php?id=${idTeam}`)).data.results;
 
-                setFixtures(upcoming || []);
-                setResults(past || []);
+                //setFixtures(upcoming || []);                
+                setFixtures(Array.isArray(upcoming) ? upcoming : []);
+                //setResults(past || []);
+                setResults(Array.isArray(past) ? past : []);
             } catch (err) {
                 console.error("Fixtures error:", err);
                 setErrorFixtures("Failed to load fixtures. Please try again later.");
@@ -66,46 +67,6 @@ function ClubFixtures() {
         fetchFixtures();
     }, [idTeam]);
 
-
-    const standingsData = [
-    {
-        name: "Tusker FC",
-        logo: "https://8381-41-81-186-94.ngrok-free.app/media/club_logos/Tusker_FC_logo-removebg-preview.png",
-        played: 30,
-        won: 20,
-        drawn: 5,
-        lost: 5,
-        goalsFor: 45,
-        goalsAgainst: 20,
-        goalDifference: 25,
-        points: 65,
-    },
-    {
-        name: "Gor Mahia",
-        logo: "https://8381-41-81-186-94.ngrok-free.app/media/club_logos/Gor_Mahia_FC_logo.png",
-        played: 30,
-        won: 19,
-        drawn: 6,
-        lost: 5,
-        goalsFor: 42,
-        goalsAgainst: 22,
-        goalDifference: 20,
-        points: 63,
-    },
-    {
-        name: "AFC Leopards",
-        logo: "https://upload.wikimedia.org/wikipedia/en/2/25/AFC_Leopards_logo.png",
-        played: 30,
-        won: 18,
-        drawn: 7,
-        lost: 5,
-        goalsFor: 40,
-        goalsAgainst: 25,
-        goalDifference: 15,
-        points: 61,
-    },
-    ];
-
     const fixturesContent = (
         <>
             {loadingFixtures && (
@@ -123,7 +84,7 @@ function ClubFixtures() {
                     </div>
                 </div>
             )}
-            {!loadingFixtures && !errorFixtures && fixtures.length != 0 && (
+            {!loadingFixtures && !errorFixtures && Array.isArray(fixtures) && fixtures.length != 0 && (
                 <div className="container pb-4">
                     <div className="d-flex justify-content-between align-items-center mb-3">
                         <h2 className="fw-bold mb-0">Fixtures</h2>

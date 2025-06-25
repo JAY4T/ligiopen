@@ -1,17 +1,25 @@
 import React from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useLocation } from "react-router-dom";
+import logo from "../../assets/inval_logo.png";
 
 const ClubNavbar = () => {
   const { "club-name": clubName } = useParams(); // get dynamic route
   const { "id-team": idTeam } = useParams();
+  const location = useLocation();
+  const img = location.state?.img;
 
   return (
     <nav className="navbar navbar-expand-lg bg-white sticky-top shadow-sm custom-navbar px-3">
       <NavLink className="navbar-brand" to={`/${idTeam}/${clubName}`}>
         <img
-          src="https://github.com/JemoGithirwa4/Dimba-Itambe-player-images/blob/main/logo/Tusker_FC_logo-removebg-preview.png?raw=true"
-          alt="Club Logo"
+          src={img || logo}
+          alt="Club Badge"
           className="navbar-logo-img mx-2"
+          onError={(e) => {
+            if (e.target.src !== logo) {
+              e.target.src = logo;
+            }
+          }}
         />
       </NavLink>
 
