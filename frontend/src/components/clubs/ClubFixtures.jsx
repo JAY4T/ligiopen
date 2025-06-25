@@ -9,13 +9,14 @@ import ClubFooter from "./ClubFooter";
 import axios from "axios";
 import LoadingSpinner from "../Loading";
 import SearchBar from "../SearchBar";
+import ClubLeagueTable from "./ClubStandings";
 
 function ClubFixtures() {
     const { "id-team": idTeam } = useParams();
     
     const [fixtures, setFixtures] = useState([]);
     const [results, setResults] = useState([]);
-    // const [table, setTable] = useState([]);
+    const [table, setTable] = useState([]);
     
     const [filteredResults, setFilteredResults] = useState([]);
     const [noMatchRes, setNoMatchRes] = useState(false);
@@ -24,7 +25,7 @@ function ClubFixtures() {
     const [loadingTable, setLoadingTable] = useState(true);
     
     const [errorFixtures, setErrorFixtures] = useState(null);
-    // const [errorTable, setErrorTable] = useState(null);
+    const [errorTable, setErrorTable] = useState(null);
 
     useEffect(() => {
         if (!idTeam) return;
@@ -46,6 +47,22 @@ function ClubFixtures() {
             }
         };
 
+        // Fetch league table
+        const fetchTable = async () => {
+            setLoadingTable(true);
+            setErrorTable(null);
+            try {
+                const tableRes = await axios.get("https://www.thesportsdb.com/api/v1/json/123/lookuptable.php?l=4745");
+                setTable(tableRes.data.table || []);
+            } catch (err) {
+                console.error("Table error:", err);
+                setErrorTable("Failed to load league table. Please try again later.");
+            } finally {
+                setLoadingTable(false);
+            }
+        };
+        
+        fetchTable();
         fetchFixtures();
     }, [idTeam]);
 
@@ -170,9 +187,30 @@ function ClubFixtures() {
     );
 
     const tableContent = (
-        <div className="container pb-4">
-            <LeagueStandings standings={standingsData} />
-        </div>
+        <>
+            {loadingTable && (
+            <div className="alert alert-info text-center">
+                <LoadingSpinner />
+            </div>
+            )}
+            
+            {errorTable && (
+            <div className="alert alert-danger text-center">{errorTable}</div>
+            )}
+            
+            {!loadingTable && !errorTable && table.length === 0 && (
+            <div className="alert alert-warning text-center">
+                No table data available.
+            </div>
+            )}
+            
+            {!loadingTable && !errorTable && table.length !== 0 && (
+            <>
+                <h2 className="fw-bold mb-4">League Standings</h2>
+                <ClubLeagueTable table={table} currentClub={idTeam} />
+            </>
+            )}
+        </>
     );
 
     const tabs = [
