@@ -468,6 +468,11 @@ h2 {
     padding: 10px !important;
   }
 
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
+
 }
 
 @media (max-width: 500px) {

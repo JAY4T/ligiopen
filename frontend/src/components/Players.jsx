@@ -22,7 +22,7 @@ function Players() {
       })
       .catch((err) => {
         console.error(err);
-        setError("Failed to load featured players. Please try again later.");
+        setError("Failed to load players. Please try again later.");
       })
       .finally(() => {
         setLoading(false);

@@ -180,7 +180,7 @@ function Fixtures() {
       )}
       {!loadingFixtures && !errorFixtures && fixtures.length === 0 && (
         <div className="alert alert-warning text-center">
-          No upcoming fixtures available.
+          No fixtures available.
         </div>
       )}
       {!loadingFixtures && !errorFixtures && renderMatches(fixtures)}

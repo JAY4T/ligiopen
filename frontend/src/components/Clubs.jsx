@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 // import API from "../services/api";
-import axios from "axios";
 import LoadingSpinner from "./Loading";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
@@ -16,20 +15,6 @@ function Clubs() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-
-    // axios.get("https://www.thesportsdb.com/api/v1/json/123/search_all_teams.php?l=Kenyan_Premier_League")
-    //   .then((res) => {
-    //     setClubs(res.data.teams || []);
-    //     setFilteredClubs(res.data.table || []);
-    //     setError(null);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //     setError("Failed to load clubs. Please try again later.");
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   });
     
     const fetchClubs = async () => {
       setLoading(true);
@@ -91,8 +76,8 @@ function Clubs() {
         {!loading && !error && (
           <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4">
             {filteredClubs.map((club) => (
-              <Link to={`/${club.idTeam}/${club.strTeam}`} state={{ img: club.strBadge }} className="custom-link">
-                <div className="col text-center" key={club.idTeam}>
+              <Link key={club.idTeam} to={`/${club.idTeam}/${club.strTeam}`} state={{ img: club.strBadge }} className="custom-link">
+                <div className="col text-center">
                   <div className="p-2">
                     <img
                       src={club.strBadge}

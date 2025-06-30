@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import API from '../services/api';
-import axios from "axios";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -10,6 +9,7 @@ import FeaturedPlayers from "./FeaturedPlayers";
 import LoadingSpinner from "./Loading";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import SPORTSDB from "../services/sportsdb";
 
 // Top Section (Upcoming Matches Card)
 const MatchList = () => {
@@ -22,8 +22,11 @@ const MatchList = () => {
       setLoading(true);
       setError(null);
       try {
-        const upcoming = (await axios.get("https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4745")).data.events;
-        setMatches(upcoming || []);
+        const fixturesRes = await SPORTSDB.get("/eventsseason.php?id=4745&s=2024-2025");
+        const allFixtures = fixturesRes.data.events;
+        const past = allFixtures.filter((fix) => fix.intRound === "31");
+        //const upcoming = (await SPORTSDB.get("/eventspastleague.php?id=4745")).data.events;
+        setMatches(past || []);
       } catch (err) {
         console.error("Fixtures error:", err);
         setError("Failed to load fixtures. Please try again later.");
@@ -37,7 +40,7 @@ const MatchList = () => {
 
   return (
     <div className="upcoming px-5 mb-5 pb-3">
-      <h2 className="my-heading-white pt-3">Upcoming Fixtures</h2>
+      <h2 className="my-heading-white pt-3">Last Gameweek</h2>
 
       {loading && (
         <div className="alert alert-info text-center"><LoadingSpinner /></div>
@@ -49,7 +52,7 @@ const MatchList = () => {
 
       {!loading && !error && matches.length === 0 && (
         <div className="alert alert-warning text-center">
-          No upcoming fixtures available.
+          No results available.
         </div>
       )}
 
@@ -67,9 +70,9 @@ const MatchList = () => {
         }}
         className="py-1"
       >
-        {matches.map((match) => (
-          <SwiperSlide key={match.id}>
-            <div className="card shadow-sm card-up" style={{ minWidth: '300px' }}>
+        {matches.slice().reverse().map((match) => (
+          <SwiperSlide key={match.idEvent}>
+            <div className="card shadow-sm card-up" style={{ minWidth: '300px', height: '230px' }}>
               <div className="card-body text-center">
                 <h5 className="text-uppercase fw-bold">
                   {new Date(match.dateEvent).toDateString()}
@@ -85,17 +88,7 @@ const MatchList = () => {
                     <p className="mt-1 fw-bold">{match.strHomeTeam}</p>
                   </div>
                   <strong className="fix-time">
-                    {
-                      (() => {
-                        const date = new Date(match.strTimestamp);
-                        date.setHours(date.getHours() + 3);
-                        return date.toLocaleTimeString('en-GB', {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          hour12: false
-                        });
-                      })()
-                    } PM
+                    {match.intHomeScore} - {match.intAwayScore}
                   </strong>
                   <div className="fix-up">
                     <img
