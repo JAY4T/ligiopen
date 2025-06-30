@@ -31,20 +31,15 @@ function Fixtures() {
       setLoadingFixtures(true);
       setErrorFixtures(null);
       try {
-        const fixturesRes = await API.get(
-          "https://www.thesportsdb.com/api/v1/json/123/eventsseason.php?id=4745&s=2024-2025"
-        );
+        const fixturesRes = await SPORTSDB.get("/eventsseason.php?id=4745&s=2024-2025");
         const allFixtures = fixturesRes.data.events;
 
-        const upcoming = (
-          await axios.get(
-            "https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4745"
-          )
-        ).data.events;
+        const upcoming = await SPORTSDB.get("/eventsnextleague.php?id=4745");
+        const upcoming_2 = upcoming.data.events;
 
         const past = allFixtures.filter((fix) => fix.strStatus === "Match Finished");
         setFilteredResults(past);
-        setFixtures(upcoming || []);
+        setFixtures(upcoming_2 || []);
         setResults(past || []);
       } catch (err) {
         console.error("Fixtures error:", err);
