@@ -6,6 +6,7 @@ import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import SPORTSDB from "../services/sportsdb";
 
 function Clubs() {
   const [clubs, setClubs] = useState([]);
@@ -34,7 +35,7 @@ function Clubs() {
       setLoading(true);
       setError(null);
       try {
-        const clubRes = await axios.get("https://www.thesportsdb.com/api/v1/json/123/search_all_teams.php?l=Kenyan Premier League");
+        const clubRes = await SPORTSDB.get("/search_all_teams.php?l=Kenyan Premier League");
         setClubs(clubRes.data.teams);
         setFilteredClubs(clubRes.data.teams || []);
       } catch (err) {
@@ -83,7 +84,7 @@ function Clubs() {
 
         {!loading && !error && clubs.length > 0 && filteredClubs.length === 0 && noMatch && (
           <div className="alert alert-warning text-center">
-            No match found.
+            No club found.
           </div>
         )}
 

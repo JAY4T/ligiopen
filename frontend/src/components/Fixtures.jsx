@@ -6,6 +6,8 @@ import Tabs from "./ReusableTab";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import SearchBar from "./SearchBar";
+import SPORTSDB from "../services/sportsdb";
+import Champions from "./Champions";
 
 function Fixtures() {
   const [fixtures, setFixtures] = useState([]);
@@ -21,20 +23,27 @@ function Fixtures() {
   const [errorFixtures, setErrorFixtures] = useState(null);
   const [errorTable, setErrorTable] = useState(null);
 
+  const [activeTab, setActiveTab] = useState("fixtures");
+  const [showChampions, setShowChampions] = useState(false);
+
   useEffect(() => {
-    // Fetch fixtures and results
     const fetchFixtures = async () => {
       setLoadingFixtures(true);
       setErrorFixtures(null);
       try {
-        const fixturesRes = await API.get("https://www.thesportsdb.com/api/v1/json/123/eventsseason.php?id=4745&s=2024-2025");
+        const fixturesRes = await API.get(
+          "https://www.thesportsdb.com/api/v1/json/123/eventsseason.php?id=4745&s=2024-2025"
+        );
         const allFixtures = fixturesRes.data.events;
 
-        const upcoming = (await axios.get("https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4745")).data.events;
-        const past = allFixtures.filter(fix => fix.strStatus === "Match Finished");
+        const upcoming = (
+          await axios.get(
+            "https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4745"
+          )
+        ).data.events;
+
+        const past = allFixtures.filter((fix) => fix.strStatus === "Match Finished");
         setFilteredResults(past);
-
-
         setFixtures(upcoming || []);
         setResults(past || []);
       } catch (err) {
@@ -45,12 +54,11 @@ function Fixtures() {
       }
     };
 
-    // Fetch league table
     const fetchTable = async () => {
       setLoadingTable(true);
       setErrorTable(null);
       try {
-        const tableRes = await axios.get("https://www.thesportsdb.com/api/v1/json/123/lookuptable.php?l=4745");
+        const tableRes = await SPORTSDB.get("/lookuptable.php?l=4745");
         setTable(tableRes.data.table || []);
       } catch (err) {
         console.error("Table error:", err);
@@ -64,7 +72,11 @@ function Fixtures() {
     fetchTable();
   }, []);
 
-  // Render functions...
+  const handleTableTab = () => {
+    setActiveTab("table");
+    setShowChampions(true);
+    setTimeout(() => setShowChampions(false), 5000);
+  };
 
   const renderMatches = (matches) => (
     <div className="row">
@@ -86,17 +98,16 @@ function Fixtures() {
               </div>
               <div>
                 <strong className="fix-time">
-                  {
-                    (() => {
-                      const date = new Date(fixture.strTimestamp);
-                      date.setHours(date.getHours() + 3);
-                      return date.toLocaleTimeString('en-GB', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: false
-                      });
-                    })()
-                  } PM
+                  {(() => {
+                    const date = new Date(fixture.strTimestamp);
+                    date.setHours(date.getHours() + 3);
+                    return date.toLocaleTimeString("en-GB", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
+                    });
+                  })()}{" "}
+                  PM
                 </strong>
                 <p className="text-muted mt-3">{fixture.strVenue}</p>
               </div>
@@ -196,7 +207,7 @@ function Fixtures() {
           No past results available.
         </div>
       )}
-      
+
       {!loadingFixtures && !errorFixtures && (
         <div className="row">
           <div className="d-flex justify-content-center mb-4">
@@ -222,7 +233,9 @@ function Fixtures() {
                       className="img-fluid"
                       style={{ height: 100 }}
                     />
-                    <p className="mt-1 fw-bold text-wrap">{fixture.strHomeTeam}</p>
+                    <p className="mt-1 fw-bold text-wrap">
+                      {fixture.strHomeTeam}
+                    </p>
                   </div>
                   <div>
                     <strong className="fix-time">
@@ -246,15 +259,33 @@ function Fixtures() {
         </div>
       )}
 
-      {!loadingFixtures && !errorFixtures && results.length > 0 && filteredResults.length === 0 && noMatchRes && (
-        <div className="alert alert-warning text-center">
-          No match found.
-        </div>
-      )}
+      {!loadingFixtures &&
+        !errorFixtures &&
+        results.length > 0 &&
+        filteredResults.length === 0 &&
+        noMatchRes && (
+          <div className="alert alert-warning text-center">No match found.</div>
+        )}
     </>
   );
-  const tableContent = (
-    <>
+
+  const tableWithOverlay = () => (
+    <div style={{ position: "relative" }}>
+      {showChampions && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 10,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Champions />
+        </div>
+      )}
+
       {loadingTable && (
         <div className="alert alert-info text-center">
           <LoadingSpinner />
@@ -269,13 +300,25 @@ function Fixtures() {
         </div>
       )}
       {!loadingTable && !errorTable && renderTable()}
-    </>
+    </div>
   );
 
   const tabs = [
-    { id: "fixtures", label: "Fixtures", content: fixturesContent },
-    { id: "results", label: "Results", content: resultsContent },
-    { id: "table", label: "Table", content: tableContent },
+    {
+      id: "fixtures",
+      label: <span onClick={() => setActiveTab("fixtures")}>Fixtures</span>,
+      content: fixturesContent,
+    },
+    {
+      id: "results",
+      label: <span onClick={() => setActiveTab("results")}>Results</span>,
+      content: resultsContent,
+    },
+    {
+      id: "table",
+      label: <span onClick={handleTableTab}>Table</span>,
+      content: tableWithOverlay(),
+    },
   ];
 
   return (
