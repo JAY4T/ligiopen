@@ -26,7 +26,7 @@ const ClubNavbar = () => {
   }, [clubName]);
 
   return (
-    <nav className="navbar navbar-expand-lg bg-white sticky-top shadow-sm custom-navbar px-5">
+    <nav className="navbar navbar-expand-lg bg-white sticky-top shadow-sm custom-navbar px-5 club-nav">
       <NavLink className="navbar-brand" to={`/${idTeam}/${clubName}`}>
         <img
           src={badge || logo}

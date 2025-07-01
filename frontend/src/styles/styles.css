@@ -485,6 +485,11 @@ h2 {
   .fix-div, .fix-up {
     width: 100px;
   }
+
+  .club-nav {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
 }
 
 @media (max-width: 450px) {

@@ -9,6 +9,7 @@ import axios from "axios";
 import LoadingSpinner from "../Loading";
 import SearchBar from "../SearchBar";
 import ClubLeagueTable from "./ClubStandings";
+import SPORTSDB from "../../services/sportsdb";
 
 function ClubFixtures() {
     const { "id-team": idTeam } = useParams();
@@ -33,11 +34,18 @@ function ClubFixtures() {
             setLoadingFixtures(true);
             setErrorFixtures(null);
             try {
-                const upcoming = (await axios.get(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=${idTeam}`)).data.events;
-                const past = (await axios.get(`https://www.thesportsdb.com/api/v1/json/123/eventslast.php?id=${idTeam}`)).data.results;
+                const upcoming = await SPORTSDB.get(`/eventsnext.php?id=${idTeam}`);
+                const upcoming_2 = upcoming.data.events;
+                //const past = (await axios.get(`https://www.thesportsdb.com/api/v1/json/123/eventslast.php?id=${idTeam}`)).data.results;
+
+                const fixturesRes = await SPORTSDB.get("/eventsseason.php?id=4745&s=2024-2025");
+                const allFixtures = fixturesRes.data.events;
+
+                const past = allFixtures.filter((fix) => fix.idHomeTeam === idTeam || fix.idAwayTeam === idTeam);
+
 
                 //setFixtures(upcoming || []);                
-                setFixtures(Array.isArray(upcoming) ? upcoming : []);
+                setFixtures(Array.isArray(upcoming_2) ? upcoming_2 : []);
                 //setResults(past || []);
                 setResults(Array.isArray(past) ? past : []);
             } catch (err) {

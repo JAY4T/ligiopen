@@ -28,22 +28,28 @@ function Club() {
   const teamContent = (
     <>
       <div className="container pb-4">
-        <PositionSection title="Goalkeepers" players={goalkeepers} />
-        <PositionSection title="Defenders" players={defenders} />
+        {/* <PositionSection title="Goalkeepers" players={goalkeepers} />
+        <PositionSection title="Defenders" players={defenders} /> */}
+        <div className="alert alert-warning text-center">
+          No Players data available.
+        </div>
       </div>
     </>
   );
 
   const technicalContent = (
     <div className="row">
-      {technical.map((staff, index) => (
+      {/* {technical.map((staff, index) => (
         <TechnicalStaff
           key={index}
           name={staff.name}
           position={staff.position}
           image={staff.image}
         />
-      ))}
+      ))} */}
+      <div className="alert alert-warning text-center">
+          No Technical Staff data available.
+      </div>
     </div>
   );
 
