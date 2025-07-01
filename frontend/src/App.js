@@ -13,10 +13,12 @@ import Fixtures from "./components/Fixtures";
 import Club from "./components/clubs/Club";
 import ClubFixtures from "./components/clubs/ClubFixtures";
 import ClubHistory from "./components/clubs/ClubHistory";
+import ScrollTop from "./components/ScrollTop";
 
 const App = () => {
   return (
     <Router>
+      <ScrollTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/players" element={<Players />} />
@@ -27,7 +29,7 @@ const App = () => {
         <Route path="/:club-name" element={<Club />} />        
         <Route path="/:id-team/:club-name" element={<Club />} />
         <Route path="/:id-team/:club-name/fixtures" element={<ClubFixtures />} />
-        <Route path="/:club-name/history" element={<ClubHistory />} />
+        <Route path="/:id-team/:club-name/history" element={<ClubHistory />} />
 
       </Routes>
     </Router>

@@ -79,7 +79,7 @@ const ClubNavbar = () => {
           </li>
           <li className="nav-item">
             <NavLink
-              to={`/${clubName}/history`}
+              to={`/${idTeam}/${clubName}/history`}
               state={{ idTeam }}
               className={({ isActive }) =>
                 "nav-link" + (isActive ? " active" : "")

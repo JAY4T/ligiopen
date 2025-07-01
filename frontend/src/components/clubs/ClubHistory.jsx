@@ -76,7 +76,7 @@ function ClubHistory() {
         <div className="d-flex flex-column justify-content-center align-items-center">
           <img src={stadi} alt="Stadium Logo" className="hist-img" />
           <span className="fw-bold">Stadium</span>
-          <p className="text-body-secondary">{clubData.stadium}</p>
+          <p className="text-body-secondary">{clubData.stadium || "N/A"}</p>
         </div>
         <div className="d-flex flex-column justify-content-center align-items-center">
           <FontAwesomeIcon icon={faLocationDot} className="hist-icon p-4" />

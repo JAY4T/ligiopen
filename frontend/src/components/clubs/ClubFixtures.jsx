@@ -40,13 +40,16 @@ function ClubFixtures() {
                 const fixturesRes = await SPORTSDB.get("/eventsseason.php?id=4745&s=2024-2025");
                 const allFixtures = fixturesRes.data.events;
 
-                const past = allFixtures.filter((fix) => fix.idHomeTeam === idTeam || fix.idAwayTeam === idTeam);
+                const past = allFixtures.filter((fix) =>
+                    String(fix.idHomeTeam) === String(idTeam) || String(fix.idAwayTeam) === String(idTeam)
+                );
 
 
                 //setFixtures(upcoming || []);                
                 setFixtures(Array.isArray(upcoming_2) ? upcoming_2 : []);
                 //setResults(past || []);
                 setResults(Array.isArray(past) ? past : []);
+                console.log(results);
             } catch (err) {
                 console.error("Fixtures error:", err);
                 setErrorFixtures("Failed to load fixtures. Please try again later.");
