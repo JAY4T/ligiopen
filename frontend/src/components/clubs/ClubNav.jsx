@@ -1,18 +1,35 @@
-import React from "react";
-import { NavLink, useParams, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import logo from "../../assets/inval_logo.png";
+import SPORTSDB from "../../services/sportsdb";
 
 const ClubNavbar = () => {
-  const { "club-name": clubName } = useParams(); // get dynamic route
-  const { "id-team": idTeam } = useParams();
-  const location = useLocation();
-  const img = location.state?.img;
+  const { "club-name": clubName, "id-team": idTeam } = useParams();
+  const [badge, setBadge] = useState(null); 
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    SPORTSDB.get(`/searchteams.php?t=${clubName}`)
+      .then((res) => {
+        const club = res.data.teams?.[0];
+        if (club && club.strBadge) {
+          setBadge(club.strBadge); 
+        } else {
+          setBadge(null);
+        }
+        setError(null);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError("Failed to load club badge.");
+      });
+  }, [clubName]);
 
   return (
-    <nav className="navbar navbar-expand-lg bg-white sticky-top shadow-sm custom-navbar px-3">
+    <nav className="navbar navbar-expand-lg bg-white sticky-top shadow-sm custom-navbar px-5">
       <NavLink className="navbar-brand" to={`/${idTeam}/${clubName}`}>
         <img
-          src={img || logo}
+          src={badge || logo}
           alt="Club Badge"
           className="navbar-logo-img mx-2"
           onError={(e) => {
