@@ -2,8 +2,8 @@
 import React from "react";
 import ClubNavbar from "./ClubNav";
 import Tabs from "../ReusableTab";
-import PositionSection from "./PositionSection";
-import TechnicalStaff from "./TechnicalStaff";
+// import PositionSection from "./PositionSection";
+// import TechnicalStaff from "./TechnicalStaff";
 import ClubFooter from "./ClubFooter";
 
 function Club() {

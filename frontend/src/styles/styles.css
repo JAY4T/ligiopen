@@ -377,6 +377,16 @@ h2 {
   border: 3px solid #5DD62C;
 }
 
+.hist-icon {
+  color: #28a745;
+  font-size: 90px;
+}
+
+.hist-img {
+  height: auto;
+  width: 150px;
+}
+
 /* Animation that moves the background */
 @keyframes gradientMove {
   0% {
@@ -444,6 +454,10 @@ h2 {
   .table-img {
     width: 30px;
   }
+
+  .club-det {
+    flex-direction: column !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -508,6 +522,15 @@ h2 {
 
   .search-icon {
     font-size: 16px !important;
+  }
+
+  .hist-text {
+    padding: 0 !important;
+    align-items: end !important;
+  }
+
+  .in-hist {
+    margin: 20px !important;
   }
 }
 
