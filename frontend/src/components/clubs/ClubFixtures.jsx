@@ -5,7 +5,6 @@ import Tabs from "../ReusableTab";
 import FixtureCard from "./ClubFixtureCard";
 import ResultCard from "./ClubResultsCard";
 import ClubFooter from "./ClubFooter";
-import axios from "axios";
 import LoadingSpinner from "../Loading";
 import SearchBar from "../SearchBar";
 import ClubLeagueTable from "./ClubStandings";
@@ -61,7 +60,7 @@ function ClubFixtures() {
             setLoadingTable(true);
             setErrorTable(null);
             try {
-                const tableRes = await axios.get("https://www.thesportsdb.com/api/v1/json/123/lookuptable.php?l=4745");
+                const tableRes = await SPORTSDB.get("/lookuptable.php?l=4745");
                 setTable(tableRes.data.table || []);
             } catch (err) {
                 console.error("Table error:", err);
