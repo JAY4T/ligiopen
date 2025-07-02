@@ -48,12 +48,12 @@ const ClubFooter = () => {
 
           <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li className="ms-3">
-              <a className="text-dark" href="#" aria-label="Instagram">
+              <a className="text-dark" href="instagram.com" aria-label="Instagram">
                 <FontAwesomeIcon icon={faInstagram} size="xl" />
               </a>
             </li>
             <li className="ms-3">
-              <a className="text-dark" href="#" aria-label="Facebook">
+              <a className="text-dark" href="facebook.com" aria-label="Facebook">
                 <FontAwesomeIcon icon={faFacebook} size="xl" />
               </a>
             </li>
