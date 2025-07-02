@@ -22,7 +22,7 @@ function Players() {
       })
       .catch((err) => {
         console.error(err);
-        setError("Failed to load players. Please try again later.");
+        setError("No featured players data available. Please come back later.");
       })
       .finally(() => {
         setLoading(false);
@@ -108,9 +108,9 @@ function Players() {
 
   const statsContent = (
     <div className="text-center p-4 h-100">
-      {/* Placeholder*/}
-      <h4>Stats Section</h4>
-      <p>Player stats will go here.</p>
+      <div className="alert alert-warning text-center">
+          No Player stats available.
+        </div>
     </div>
   );
 
