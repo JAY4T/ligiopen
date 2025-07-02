@@ -330,6 +330,11 @@ h2 {
   background-color: white;
 }
 
+/*News Page*/
+.artic-im {
+  height: 200px;
+}
+
 /* Individual clubs page */
 .top-club {
   border: 2px solid black;

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../services/api"; 
+import NEWS_API from "../services/news"; 
 import LoadingSpinner from "./Loading";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL; // Replace with live API domain
 
 const NewsList = () => {
   const [articles, setArticles] = useState([]);
@@ -11,9 +13,9 @@ const NewsList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    API.get("/news/")
+    NEWS_API.get("/blogs?populate=*")
       .then((res) => {
-        setArticles(res.data);
+        setArticles(res.data.data);
         setError(null);
       })
       .catch((err) => {
@@ -38,19 +40,26 @@ const NewsList = () => {
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           {articles.map((article) => (
-              <div class="col news-all" key={article.id}>
-                  <div className="card shadow-sm h-100">
-                      <img src={article.news_photo} alt={`${article.headline}`}  />
-          
-                      <div className="card-body d-flex flex-column justify-content-between">
-                          <p className="card-text">{article.headline}</p>
-                          <div className="mb-1 text-muted">{new Date(article.created_at).toDateString()}</div>
-                          <div className="d-flex justify-content-between align-items-center mt-auto">
-                              <Link to={`/news/${article.id}`} className="my-btn">Read News</Link>
-                          </div>
-                      </div>
+            <div className="col news-all" key={article.id}>
+              <div className="card shadow-sm h-100">
+                
+                {article.coverimage && (
+                  <img
+                    src={`${BASE_URL}${article.coverimage.formats?.medium?.url || article.coverimage.url}`}
+                    alt={article.title}
+                    className="card-img-top artic-im"
+                  />
+                )}
+
+                <div className="card-body d-flex flex-column justify-content-between">
+                  <p className="card-text">{article.title}</p>
+                  <div className="mb-1 text-muted">{new Date(article.createdAt).toDateString()}</div>
+                  <div className="d-flex justify-content-between align-items-center mt-auto">
+                    <Link to={`/news/${article.documentId}/${article.slug}`} className="my-btn">Read News</Link>
                   </div>
+                </div>
               </div>
+            </div>
           ))}
         </div>
       </main>
