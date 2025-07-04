@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import NEWS_API from "../services/news";
+//import NEWS_API from "../services/news";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import LoadingSpinner from "./Loading";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import MOCK_NEWS_RESPONSE from "../services/news";
 
 const NewsDetails = () => {
   const { "id-news": id } = useParams();
@@ -15,16 +14,42 @@ const NewsDetails = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   // NEWS_API.get(`/blogs/${id}?populate=*`)
+  //   //   .then((res) => {
+  //   //     setArticle(res.data.data);
+  //   //     setError(null);
+  //   //   })
+  //   //   .catch(() => {
+  //   //     setError("Failed to load article.");
+  //   //   })
+  //   //   .finally(() => setLoading(false));
+  //   try {
+  //       const article = MOCK_NEWS_RESPONSE.data.find((item) => item.documentId === Number(id));
+  //       setArticle(article);
+  //       setError(null);
+  //     } catch (err) {
+  //       console.error(err);
+  //       setError("Failed to load news. Please try again later.");
+  //     } finally {
+  //       setLoading(false);
+  //   }
+  // }, [id]);
+
   useEffect(() => {
-    NEWS_API.get(`/blogs/${id}?populate=*`)
-      .then((res) => {
-        setArticle(res.data.data);
-        setError(null);
-      })
-      .catch(() => {
-        setError("Failed to load article.");
-      })
-      .finally(() => setLoading(false));
+    const foundArticle = MOCK_NEWS_RESPONSE.data.find(
+      (item) => item.documentId === id
+    );
+
+    if (foundArticle) {
+      setArticle(foundArticle);
+      setError(null);
+    } else {
+      setArticle(null);
+      setError("Article not found.");
+    }
+
+    setLoading(false);
   }, [id]);
 
   const renderContent = (contentArray) => {
@@ -64,7 +89,7 @@ const NewsDetails = () => {
     <>
       <Navbar />
       {loading && <div className="alert alert-info"><LoadingSpinner /></div>}
-      {error && <div className="container my-5 alert alert-danger">{error}</div>}
+      {error && <div className="container my-5 alert text-center alert-danger">{error}</div>}
       {!loading && !error && !article && (
         <div className="alert alert-warning text-center">
           Article Unavailable.
@@ -77,7 +102,7 @@ const NewsDetails = () => {
           <div
             className="club-hist position-relative text-white club-hist"
             style={{
-              backgroundImage: `url("${BASE_URL}${article.coverimage?.formats?.large?.url || article.coverimage?.url}")`,
+              backgroundImage: `url("${article.coverimage.url}")`,
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center center",
               backgroundSize: "cover",
@@ -109,11 +134,11 @@ const NewsDetails = () => {
           <main className="container my-5">
             <p className="text-muted mb-4 d-flex align-items-center gap-2">
               <span>
-                Published on {new Date(article.publishedAt).toDateString()} by {article.author}
+                Published on {new Date(article.publishedat).toDateString()} by {article.author}
               </span>
               {article.author_img && (
                 <img
-                  src={`${BASE_URL}${article.author_img.formats?.thumbnail?.url || article.author_img.url}`}
+                  src={`${article.author_img.url}`}
                   alt={article.author}
                   className="rounded-circle"
                   style={{ width: "30px", height: "30px", objectFit: "cover" }}

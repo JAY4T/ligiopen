@@ -3,9 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
 import LoadingSpinner from "./Loading";
-import NEWS_API from "../services/news";
-
-const BASE_URL = "http://localhost:1337"; // Change to your production backend
+import MOCK_NEWS_RESPONSE from "../services/news";
 
 function News() {
   const [newsItems, setNewsItems] = useState([]);
@@ -15,8 +13,8 @@ function News() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await NEWS_API.get("/blogs?populate=*");
-        setNewsItems(response.data.data);
+        const response = MOCK_NEWS_RESPONSE;
+        setNewsItems(response.data);
         setError(null);
       } catch (err) {
         console.error(err);
@@ -58,7 +56,7 @@ function News() {
         <div
           className="p-4 p-md-5 mb-4 text-white rounded"
           style={{
-            backgroundImage: `url(${BASE_URL}${featuredNews.coverimage?.formats?.large?.url || featuredNews.coverimage?.url})`,
+            backgroundImage: `url(${featuredNews.coverimage.url})`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center center",
             backgroundSize: "cover",
@@ -75,7 +73,7 @@ function News() {
               {getSummary(featuredNews.content).slice(0, 120)}...
             </p>
             <p className="lead mb-0">
-              <Link to={`/news/${featuredNews.id}/${featuredNews.slug}`} className="fw-bold arrow-btn text-white-mine">
+              <Link to={`/news/${featuredNews.documentId}/${featuredNews.slug}`} className="fw-bold arrow-btn text-white-mine">
                 Continue reading...
               </Link>
             </p>
@@ -97,13 +95,13 @@ function News() {
                 <p className="card-text mb-auto">
                   {getSummary(item.content).slice(0, 100)}...
                 </p>
-                <Link to={`/news/${item.slug}`} className="stretched-link arrow-btn">
+                <Link to={`/news/${featuredNews.documentId}/${featuredNews.slug}`} className="fw-bold arrow-btn text-white-mine">
                   Continue reading...
                 </Link>
               </div>
               <div className="col-auto d-none d-lg-block feat-article-img">
                 <img
-                  src={`${BASE_URL}${item.coverimage?.formats?.small?.url || item.coverimage?.url}`}
+                  src={`${item.coverimage.url}`}
                   alt={item.title}
                   width="200"
                   height="100%"

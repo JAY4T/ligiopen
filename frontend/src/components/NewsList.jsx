@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import NEWS_API from "../services/news"; 
+//import NEWS_API from "../services/news"; 
 import LoadingSpinner from "./Loading";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL; // Replace with live API domain
+import MOCK_NEWS_RESPONSE from "../services/news";
 
 const NewsList = () => {
   const [articles, setArticles] = useState([]);
@@ -13,15 +12,25 @@ const NewsList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    NEWS_API.get("/blogs?populate=*")
-      .then((res) => {
-        setArticles(res.data.data);
+    // NEWS_API.get("/blogs?populate=*")
+    //   .then((res) => {
+    //     setArticles(res.data.data);
+    //     setError(null);
+    //   })
+    //   .catch((err) => {
+    //     setError("Failed to load news articles.");
+    //   })
+    //   .finally(() => setLoading(false));
+    try {
+        const response = MOCK_NEWS_RESPONSE;
+        setArticles(response.data);
         setError(null);
-      })
-      .catch((err) => {
-        setError("Failed to load news articles.");
-      })
-      .finally(() => setLoading(false));
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load news. Please try again later.");
+      } finally {
+        setLoading(false);
+    }
   }, []);
 
   return (
@@ -45,7 +54,7 @@ const NewsList = () => {
                 
                 {article.coverimage && (
                   <img
-                    src={`${BASE_URL}${article.coverimage.formats?.medium?.url || article.coverimage.url}`}
+                    src={`${article.coverimage.url}`}
                     alt={article.title}
                     className="card-img-top artic-im"
                   />
@@ -53,7 +62,7 @@ const NewsList = () => {
 
                 <div className="card-body d-flex flex-column justify-content-between">
                   <p className="card-text">{article.title}</p>
-                  <div className="mb-1 text-muted">{new Date(article.createdAt).toDateString()}</div>
+                  <div className="mb-1 text-muted">{new Date(article.publishedat).toDateString()}</div>
                   <div className="d-flex justify-content-between align-items-center mt-auto">
                     <Link to={`/news/${article.documentId}/${article.slug}`} className="my-btn">Read News</Link>
                   </div>
