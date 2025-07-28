@@ -1,6 +1,5 @@
-package com.jabulani.ligiopen.model;
+package com.jabulani.ligiopen.model.tables;
 
-import com.jabulani.ligiopen.model.aws.File;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

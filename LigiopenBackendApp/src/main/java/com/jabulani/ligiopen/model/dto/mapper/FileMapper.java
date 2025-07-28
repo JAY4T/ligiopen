@@ -1,8 +1,8 @@
-package com.jabulani.ligiopen.model.aws.dto.mapper;
+package com.jabulani.ligiopen.model.dto.mapper;
 
 import com.jabulani.ligiopen.config.Constants;
-import com.jabulani.ligiopen.model.aws.File;
-import com.jabulani.ligiopen.model.aws.dto.FileDto;
+import com.jabulani.ligiopen.model.tables.File;
+import com.jabulani.ligiopen.model.dto.classes.FileDto;
 import com.jabulani.ligiopen.service.aws.AwsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

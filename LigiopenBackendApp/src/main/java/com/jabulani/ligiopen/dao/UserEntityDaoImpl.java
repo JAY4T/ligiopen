@@ -1,6 +1,6 @@
 package com.jabulani.ligiopen.dao;
 
-import com.jabulani.ligiopen.model.UserEntity;
+import com.jabulani.ligiopen.model.tables.UserEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.jabulani.ligiopen.dao;
 
-import com.jabulani.ligiopen.model.UserEntity;
+import com.jabulani.ligiopen.model.tables.UserEntity;
 
 import java.util.Optional;
 

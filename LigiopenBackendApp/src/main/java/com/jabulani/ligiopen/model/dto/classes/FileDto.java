@@ -1,4 +1,4 @@
-package com.jabulani.ligiopen.model.aws.dto;
+package com.jabulani.ligiopen.model.dto.classes;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

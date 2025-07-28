@@ -1,8 +1,8 @@
 package com.jabulani.ligiopen.service.auth;
 
 import com.jabulani.ligiopen.dao.UserEntityDao;
-import com.jabulani.ligiopen.model.UserEntity;
-import com.jabulani.ligiopen.model.UserEntity.UserRole;
+import com.jabulani.ligiopen.model.tables.UserEntity;
+import com.jabulani.ligiopen.model.tables.UserEntity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;

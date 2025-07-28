@@ -2,7 +2,7 @@ package com.jabulani.ligiopen.service.auth;
 
 import com.jabulani.ligiopen.config.security.CustomUserDetailsService;
 import com.jabulani.ligiopen.config.security.JWTGenerator;
-import com.jabulani.ligiopen.model.UserEntity;
+import com.jabulani.ligiopen.model.tables.UserEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;

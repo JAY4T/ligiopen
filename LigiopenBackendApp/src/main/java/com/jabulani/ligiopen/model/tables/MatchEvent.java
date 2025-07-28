@@ -1,4 +1,4 @@
-package com.jabulani.ligiopen.model;
+package com.jabulani.ligiopen.model.tables;
 
 import jakarta.persistence.*;
 import lombok.*;

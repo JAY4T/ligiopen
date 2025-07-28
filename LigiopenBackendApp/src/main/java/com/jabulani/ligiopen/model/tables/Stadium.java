@@ -1,4 +1,4 @@
-package com.jabulani.ligiopen.model;
+package com.jabulani.ligiopen.model.tables;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -13,21 +14,33 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "competitions")
-public class Competition {
+@Table(name = "stadiums")
+public class Stadium {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @Column(name = "competition_type")
-    @Enumerated(EnumType.STRING)
-    private CompetitionType type;
+    private String city;
 
-    @Column(name = "competition_format")
+    private String town;
+
+    private String county;
+
+    private BigDecimal latitude;
+
+    private BigDecimal longitude;
+
+    private String country;
+
+    private Integer capacity;
+
+    private Boolean shared;
+
+    @Column(name = "surface_type")
     @Enumerated(EnumType.STRING)
-    private CompetitionFormat format;
+    private SurfaceType surfaceType;
 
     @Column(name = "main_photo_id")
     private Long mainPhotoId;
@@ -35,16 +48,10 @@ public class Competition {
     @Column(name = "photos_ids")
     private List<Long> photosIds;
 
-    enum CompetitionType {
-        LEAGUE,
-        TOURNAMENT,
-        CUP
+    enum SurfaceType {
+        GRASS,
+        ARTIFICIAL_TURF,
+        DUSTY_GROUND,
     }
 
-    enum CompetitionFormat {
-        ROUND_ROBIN,
-        GROUP_STAGE,
-        KNOCKOUT,
-        MIXED
-    }
 }

@@ -1,4 +1,4 @@
-package com.jabulani.ligiopen.model;
+package com.jabulani.ligiopen.model.tables;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,19 +11,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "group_teams")
-public class GroupTeam {
+@Table(name = "favorited_clubs")
+public class FavoritedClub {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "club_id")
     private Club club;
 
-    private int seed;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 }
