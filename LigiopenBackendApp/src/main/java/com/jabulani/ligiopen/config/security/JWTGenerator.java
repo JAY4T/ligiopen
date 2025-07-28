@@ -1,30 +1,46 @@
 package com.jabulani.ligiopen.config.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 @Component
 public class JWTGenerator {
-    private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+
+    @Value("${jwt.expiration-ms}")
+    private long expirationMs;
+
+    private Key key;
+
+    @PostConstruct
+    public void init() {
+        // Build a key from your shared secret (must be at least 512 bits for HS512)
+        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+    }
 
     public String generateToken(Authentication authentication) {
-        String username = authentication.getName();
-        Date expireDate = new Date(System.currentTimeMillis() + 1000 * 60 * 24 * 30);
+        Date now    = new Date();
+        Date expiry = new Date(now.getTime() + expirationMs);
 
-        String token = Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(expireDate)
+        return Jwts.builder()
+                .setSubject(authentication.getName())
+                .setIssuedAt(now)
+                .setExpiration(expiry)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
-        return token;
     }
 
     public String getUsernameFromJWT(String token) {
@@ -43,8 +59,9 @@ public class JWTGenerator {
                     .build()
                     .parseClaimsJws(token);
             return true;
-        } catch (Exception e) {
-            throw new AuthenticationCredentialsNotFoundException("JWT was expired or incorrect", e.fillInStackTrace());
+        } catch (JwtException ex) {
+            throw new AuthenticationCredentialsNotFoundException(
+                    "Invalid or expired JWT", ex);
         }
     }
 }

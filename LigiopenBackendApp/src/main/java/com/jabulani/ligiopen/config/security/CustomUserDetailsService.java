@@ -1,8 +1,8 @@
 package com.jabulani.ligiopen.config.security;
 
-import com.jabulani.ligiopen.dao.user.UserAccountDao;
-import com.jabulani.ligiopen.model.user.Role;
-import com.jabulani.ligiopen.model.user.entity.UserAccount;
+import com.jabulani.ligiopen.dao.UserEntityDao;
+import com.jabulani.ligiopen.model.UserEntity;
+import com.jabulani.ligiopen.model.UserEntity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,18 +17,35 @@ import java.util.Collections;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UserAccountDao userAccountDao;
+
+    private final UserEntityDao userEntityDao;
+
     @Autowired
-    public CustomUserDetailsService(UserAccountDao userAccountDao) {
-        this.userAccountDao = userAccountDao;
-    }
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserAccount user = userAccountDao.getUserAccountByEmail(username);
-        return new User(user.getEmail(), user.getPassword(), mapRoleToAuthorities(user.getRole()));
+    public CustomUserDetailsService(UserEntityDao userEntityDao) {
+        this.userEntityDao = userEntityDao;
     }
 
-    private Collection<GrantedAuthority> mapRoleToAuthorities(Role role) {
-        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity user = userEntityDao.getUserByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
+
+        if (!user.isAccountEnabled()) {
+            throw new UsernameNotFoundException("User account is disabled");
+        }
+
+        return new User(
+                user.getEmail() != null ? user.getEmail() : user.getGoogleEmail(),
+                user.getPassword() != null ? user.getPassword() : "N/A", // For OAuth users without password
+                true, true, true, true, // All enabled
+                mapRoleToAuthorities(user.getRole())
+        );
+    }
+
+    private Collection<GrantedAuthority> mapRoleToAuthorities(UserRole role) {
+        if (role == null) {
+            return Collections.emptyList();
+        }
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 }
