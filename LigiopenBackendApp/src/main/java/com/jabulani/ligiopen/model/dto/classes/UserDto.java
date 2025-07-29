@@ -19,7 +19,8 @@ public class UserDto {
     private String lastName;
     private String email;
     private String googleEmail;
-    private Boolean emailVerified;
+    private boolean emailVerified;
+    private boolean accountEnabled;
     private Long profilePictureId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
