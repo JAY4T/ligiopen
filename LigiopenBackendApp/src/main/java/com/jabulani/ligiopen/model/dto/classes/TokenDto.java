@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class SuccessDto {
-    private Boolean success;
+@AllArgsConstructor
+public class TokenDto {
+    private String token;
     private String message;
 }

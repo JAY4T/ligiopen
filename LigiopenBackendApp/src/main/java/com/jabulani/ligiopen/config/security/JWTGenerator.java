@@ -1,20 +1,16 @@
 package com.jabulani.ligiopen.config.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
+import jakarta.annotation.PostConstruct;
 import java.security.Key;
 import java.util.Date;
-@Component
+
+@Component // Add this annotation
 public class JWTGenerator {
 
     @Value("${jwt.secret}")
@@ -27,12 +23,11 @@ public class JWTGenerator {
 
     @PostConstruct
     public void init() {
-        // Build a key from your shared secret (must be at least 512 bits for HS512)
-        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
     public String generateToken(Authentication authentication) {
-        Date now    = new Date();
+        Date now = new Date();
         Date expiry = new Date(now.getTime() + expirationMs);
 
         return Jwts.builder()
@@ -59,9 +54,8 @@ public class JWTGenerator {
                     .build()
                     .parseClaimsJws(token);
             return true;
-        } catch (JwtException ex) {
-            throw new AuthenticationCredentialsNotFoundException(
-                    "Invalid or expired JWT", ex);
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
         }
     }
 }

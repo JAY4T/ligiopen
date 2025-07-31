@@ -7,6 +7,7 @@ import java.util.Optional;
 public interface UserEntityDao {
     UserEntity createUser(UserEntity userEntity);
     UserEntity updateUser(UserEntity userEntity);
+    UserEntity getUserById(Long id);
     Optional<UserEntity> getUserByEmail(String email);
     Optional<UserEntity> getUserByGoogleId(String id);
 }

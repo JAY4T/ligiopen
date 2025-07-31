@@ -30,6 +30,13 @@ public class UserEntityDaoImpl implements UserEntityDao{
     }
 
     @Override
+    public UserEntity getUserById(Long id) {
+        TypedQuery<UserEntity> query = entityManager.createQuery("from UserEntity where id = :id", UserEntity.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
+    }
+
+    @Override
     public Optional<UserEntity> getUserByEmail(String email) {
         TypedQuery<UserEntity> query = entityManager.createQuery("from UserEntity where email = :email", UserEntity.class);
         query.setParameter("email", email);

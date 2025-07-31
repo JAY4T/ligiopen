@@ -20,7 +20,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
-    @Qualifier("jwtGenerator")
     private JWTGenerator tokenGenerator;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
