@@ -1,0 +1,65 @@
+name: Deploy LigiopenBackendApp to Dev Environment
+
+on:
+  push:
+    branches:
+      - dev-branch
+    paths:
+      - "LigiopenBackendApp/**"
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: "maven"
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('LigiopenBackendApp/**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build Java application with Maven
+        working-directory: ./LigiopenBackendApp
+        run: mvn clean package -DskipTests
+
+      - name: Deploy Java JAR using SCP
+        env:
+          USER: ${{ secrets.DROPLET_USER }}
+          HOST: ${{ secrets.DROPLET }}
+          DIR: /home/pipeline/releases/ligiopen_dev
+          JAR_PATH: ./LigiopenBackendApp/target/ligiopen-0.0.1-SNAPSHOT.jar
+          DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          echo "Host *" > ~/.ssh/config
+          echo "  StrictHostKeyChecking no" >> ~/.ssh/config
+          echo "  UserKnownHostsFile /dev/null" >> ~/.ssh/config         
+
+          # Create release directory if it doesn't exist
+          ssh -i ~/.ssh/id_rsa $USER@$HOST mkdir -p $DIR
+
+          # Copy the JAR to the releases directory
+          scp -i ~/.ssh/id_rsa $JAR_PATH $USER@$HOST:$DIR/ligiopen-${GITHUB_SHA}.jar 
+
+          # echo progress
+          echo "Deployed $JAR_PATH to $DIR/ligiopen-${GITHUB_SHA}.jar"
+
+          # Copy and run the deploy script on the server
+          scp -i ~/.ssh/id_rsa ./deploy-dev.sh $USER@$HOST:/tmp/deploy-dev.sh
+          ssh -i ~/.ssh/id_rsa $USER@$HOST 'chmod +x /tmp/deploy-dev.sh && /tmp/deploy-dev.sh' ${GITHUB_SHA}

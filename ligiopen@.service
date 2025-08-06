@@ -1,0 +1,26 @@
+[Unit]
+Description=Ligiopen Spring Boot %i Service
+
+[Unit]
+After=network.target postgresql@16-main.service
+Requires=postgresql@16-main.service
+
+[Service]
+ExecStart=/home/pipeline/production/ligiopen_dev/ligiopen
+WorkingDirectory=/home/pipeline/production/ligiopen_dev
+User=pipeline
+Group=pipeline
+Environment="APP_PORT=%i"
+EnvironmentFile=/etc/env/ligiopen.env
+LimitNOFILE=65536
+Restart=on-failure
+TimeoutSec=30
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+StandardOutput=file:/home/pipeline/logs/ligiopen_dev/output.log
+StandardError=file:/home/pipeline/logs/ligiopen_dev/error.log
+
+[Install]
+WantedBy=multi-user.target
