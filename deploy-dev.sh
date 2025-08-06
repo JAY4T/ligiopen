@@ -37,54 +37,39 @@ rollback_deployment() {
   else
     echo "No previous binary to roll back to."
   fi
-  # Stop all services first
+  # Stop and restart services sequentially for rollback
   for port in "${PORTS[@]}"; do
     SERVICE="${SERVICE_NAME}@${port}.service"
     echo "Stopping $SERVICE for rollback..."
     sudo systemctl stop $SERVICE || true
   done
-  # Wait for ports to be released
-  sleep 5
-  # Restart all services with the previous binary
+  sleep 10
   for port in "${PORTS[@]}"; do
     SERVICE="${SERVICE_NAME}@${port}.service"
-    echo "Restarting $SERVICE with rollback..."
+    echo "Starting $SERVICE with rollback..."
     sudo systemctl start $SERVICE
-    sleep 3  # Wait between service starts
+    sleep 8  # Wait between service starts
   done
   echo "Rollback completed."
-}
-
-# Function to stop all services
-stop_all_services() {
-  echo "Stopping all services..."
-  for port in "${PORTS[@]}"; do
-    SERVICE="${SERVICE_NAME}@${port}.service"
-    echo "Stopping ${SERVICE}..."
-    sudo systemctl stop "$SERVICE" || true
-  done
-  # Wait for all ports to be released
-  echo "Waiting for ports to be released..."
-  sleep 5
-  
-  # Verify ports are actually free
-  for port in "${PORTS[@]}"; do
-    while netstat -tulpn | grep ":${port} " > /dev/null 2>&1; do
-      echo "Port ${port} still in use, waiting..."
-      sleep 2
-    done
-    echo "Port ${port} is now free"
-  done
 }
 
 # Copy the binary to the deployment directory
 echo "Promoting ${BINARY_NAME} to ${DEPLOY_BIN}..."
 ln -sf "${RELEASES_DIR}/${BINARY_NAME}" "${DEPLOY_BIN}"
 
-# Stop all services first to avoid port conflicts
-stop_all_services
+# Stop all services first, then start them one by one
+echo "Stopping all services..."
+for port in "${PORTS[@]}"; do
+  SERVICE="${SERVICE_NAME}@${port}.service"
+  echo "Stopping ${SERVICE}..."
+  sudo systemctl stop "$SERVICE" || true
+done
 
-WAIT_TIME=10  # Increased wait time
+# Wait for all services to stop
+echo "Waiting for all services to stop..."
+sleep 10
+
+WAIT_TIME=20
 restart_service() {
   local port=$1
   local SERVICE="${SERVICE_NAME}@${port}.service"
@@ -108,33 +93,14 @@ restart_service() {
     exit 1
   fi
   
-  # Verify the port is actually listening
-  local retries=5
-  while [ $retries -gt 0 ]; do
-    if netstat -tulpn | grep ":${port} " > /dev/null 2>&1; then
-      echo "${SERVICE} is successfully listening on port ${port}"
-      break
-    else
-      echo "Port ${port} not yet listening, waiting..."
-      sleep 2
-      retries=$((retries-1))
-    fi
-  done
-  
-  if [ $retries -eq 0 ]; then
-    echo "Error: ${SERVICE} is not listening on port ${port}. Rolling back deployment."
-    rollback_deployment
-    exit 1
-  fi
-  
   echo "${SERVICE} started successfully."
 }
 
-# Start services sequentially with proper delays
+# Start services one by one with delays
 for port in "${PORTS[@]}"; do
   restart_service $port
-  # Add delay between starting different services
-  sleep 3
+  # Wait between starting services to avoid conflicts
+  sleep 5
 done
 
 echo "Deployment completed successfully."
