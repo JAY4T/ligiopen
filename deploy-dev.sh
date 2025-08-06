@@ -1,94 +1,43 @@
 #!/bin/bash
-
-# Exit on error
 set -e
-
-# Check if commit hash is passed as an argument
-if [ -z "$1" ]; then
-  echo "Usage: $0 <commit-hash>"
-  exit 1
-fi
 
 COMMIT_HASH=$1
 RELEASES_DIR="/home/pipeline/releases/ligiopen_dev"
 DEPLOY_BIN="/home/pipeline/production/ligiopen_dev/ligiopen"
 SERVICE_NAME="ligiopen_dev"
 BINARY_NAME="ligiopen-${COMMIT_HASH}.jar"
-declare -a PORTS=("3000" "3001")
+PORTS=("3000" "3001")
 
-# Check if the binary exists
-if [ ! -f "${RELEASES_DIR}/${BINARY_NAME}" ]; then
-  echo "Binary ${BINARY_NAME} not found in ${RELEASES_DIR}"
-  exit 1
-fi
-
-# Keep a reference to the previous binary from the symlink
-if [ -L "${DEPLOY_BIN}" ]; then
-  PREVIOUS=$(readlink -f $DEPLOY_BIN)
-  echo "Current binary is ${PREVIOUS}, saved for rollback."
-else
-  echo "No symbolic link found, no previous binary to backup."
-  PREVIOUS=""
-fi
-
-rollback_deployment() {
-  if [ -n "$PREVIOUS" ]; then
-    echo "Rolling back to previous binary: ${PREVIOUS}"
-    ln -sfn "${PREVIOUS}" "${DEPLOY_BIN}"
-  else
-    echo "No previous binary to roll back to."
-  fi
-
-  # wait to restart the services
-  sleep 10
-
-  # Restart all services with the previous binary
-  for port in "${PORTS[@]}"; do
-    SERVICE="${SERVICE_NAME}@${port}.service"
-    echo "Restarting $SERVICE..."
-    sudo systemctl restart $SERVICE
-  done
-
-  echo "Rollback completed."
+# Health check (replace with your app's readiness check)
+check_alive() {
+  curl -sSf "http://localhost:$1/health" >/dev/null 2>&1
 }
 
-# Copy the binary to the deployment directory
-echo "Promoting ${BINARY_NAME} to ${DEPLOY_BIN}..."
+# --- Deployment ---
 ln -sf "${RELEASES_DIR}/${BINARY_NAME}" "${DEPLOY_BIN}"
 
-WAIT_TIME=5
-restart_service() {
-  local port=$1
-  local SERVICE="${SERVICE_NAME}@${port}.service"
-  echo "Restarting ${SERVICE}..."
-
-  # Restart the service
-  if ! sudo systemctl restart "$SERVICE"; then
-    echo "Error: Failed to restart ${SERVICE}. Rolling back deployment."
-
-    # Call the rollback function
-    rollback_deployment
-    exit 1
-  fi
-
-  # Wait a few seconds to allow the service to fully start
-  echo "Waiting for ${SERVICE} to fully start..."
-  sleep $WAIT_TIME
-
-  # Check the status of the service
-  if ! systemctl is-active --quiet "${SERVICE}"; then
-    echo "Error: ${SERVICE} failed to start correctly. Rolling back deployment."
-
-    # Call the rollback function
-    rollback_deployment
-    exit 1
-  fi
-
-  echo "${SERVICE}.service restarted successfully."
-}
-
 for port in "${PORTS[@]}"; do
-  restart_service $port
+  SERVICE="${SERVICE_NAME}@${port}.service"
+  echo "Restarting $SERVICE..."
+  
+  # Stop old instance (if running)
+  sudo systemctl stop "$SERVICE" || true
+  sleep 2  # Let port release
+  
+  # Start new instance
+  sudo systemctl start "$SERVICE"
+  
+  # Verify it came up
+  for retry in {1..10}; do
+    if check_alive $port; then
+      echo "$SERVICE is healthy on port $port"
+      break
+    elif [ $retry -eq 10 ]; then
+      echo "ERROR: $SERVICE failed to start!"
+      exit 1
+    fi
+    sleep 3
+  done
 done
 
-echo "Deployment completed successfully."
+echo "Deployment successful - all instances updated"
