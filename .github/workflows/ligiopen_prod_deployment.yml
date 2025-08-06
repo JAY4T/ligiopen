@@ -1,4 +1,4 @@
-name: Deploy LigiopenBackendApp to Production Environment
+name: Deploy Ligiopen Java App to Droplet Prod
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - "LigiopenBackendApp/**"
-  workflow_dispatch: # Allow manual triggering
 
 jobs:
   deploy:
@@ -60,6 +59,6 @@ jobs:
           # echo progress
           echo "Deployed $JAR_PATH to $DIR/ligiopen-${GITHUB_SHA}.jar"
 
-          # Copy and run the deploy script on the server
-          scp -i ~/.ssh/id_rsa ./deploy-prod.sh $USER@$HOST:/tmp/deploy-prod.sh
-          ssh -i ~/.ssh/id_rsa $USER@$HOST 'chmod +x /tmp/deploy-prod.sh && /tmp/deploy-prod.sh' ${GITHUB_SHA}
+          # Run the deploy.sh script on the server
+          # Pass the GITHUB_SHA variable to the script
+          ssh -i ~/.ssh/id_rsa $USER@$HOST 'bash -s' < ./deploy-prod.sh ${GITHUB_SHA}
