@@ -1,79 +1,94 @@
 #!/bin/bash
+
+# Exit on error
 set -e
 
-# Check arguments
+# Check if commit hash is passed as an argument
 if [ -z "$1" ]; then
   echo "Usage: $0 <commit-hash>"
   exit 1
 fi
 
-# Config
 COMMIT_HASH=$1
 RELEASES_DIR="/home/pipeline/releases/ligiopen_prod"
 DEPLOY_BIN="/home/pipeline/production/ligiopen_prod/ligiopen"
 SERVICE_NAME="ligiopen"
 BINARY_NAME="ligiopen-${COMMIT_HASH}.jar"
-PORTS=("4000" "4001")
-HEALTH_CHECK_TIMEOUT=30  # Max seconds to wait for health check
+declare -a PORTS=("4000" "4001")
 
-# Validate binary exists
+# Check if the binary exists
 if [ ! -f "${RELEASES_DIR}/${BINARY_NAME}" ]; then
-  echo "Error: Binary ${BINARY_NAME} not found in ${RELEASES_DIR}"
+  echo "Binary ${BINARY_NAME} not found in ${RELEASES_DIR}"
   exit 1
 fi
 
-# Health check function (modify for your app)
-check_health() {
-  local port=$1
-  if curl -sSf "http://localhost:${port}/health" >/dev/null; then
-    return 0
-  fi
-  return 1
-}
-
-# Backup previous version
+# Keep a reference to the previous binary from the symlink
 if [ -L "${DEPLOY_BIN}" ]; then
-  PREVIOUS=$(readlink -f "$DEPLOY_BIN")
-  echo "Current version: ${PREVIOUS}"
+  PREVIOUS=$(readlink -f $DEPLOY_BIN)
+  echo "Current binary is ${PREVIOUS}, saved for rollback."
 else
+  echo "No symbolic link found, no previous binary to backup."
   PREVIOUS=""
-  echo "No previous version found"
 fi
 
-# Deploy new binary
-echo "Deploying ${BINARY_NAME}..."
+rollback_deployment() {
+  if [ -n "$PREVIOUS" ]; then
+    echo "Rolling back to previous binary: ${PREVIOUS}"
+    ln -sfn "${PREVIOUS}" "${DEPLOY_BIN}"
+  else
+    echo "No previous binary to roll back to."
+  fi
+
+  # wait to restart the services
+  sleep 10
+
+  # Restart all services with the previous binary
+  for port in "${PORTS[@]}"; do
+    SERVICE="${SERVICE_NAME}@${port}.service"
+    echo "Restarting $SERVICE..."
+    sudo systemctl restart $SERVICE
+  done
+
+  echo "Rollback completed."
+}
+
+# Copy the binary to the deployment directory
+echo "Promoting ${BINARY_NAME} to ${DEPLOY_BIN}..."
 ln -sf "${RELEASES_DIR}/${BINARY_NAME}" "${DEPLOY_BIN}"
 
-# Restart services sequentially with health checks
-for port in "${PORTS[@]}"; do
-  SERVICE="${SERVICE_NAME}@${port}.service"
-  echo "Processing ${SERVICE}..."
-  
-  # Stop old instance
-  echo "Stopping service..."
-  sudo systemctl stop "$SERVICE" || true
-  sleep 2  # Ensure clean shutdown
-  
-  # Start new instance
-  echo "Starting new version..."
-  if ! sudo systemctl start "$SERVICE"; then
-    echo "Error: Failed to start ${SERVICE}"
+WAIT_TIME=5
+restart_service() {
+  local port=$1
+  local SERVICE="${SERVICE_NAME}@${port}.service"
+  echo "Restarting ${SERVICE}..."
+
+  # Restart the service
+  if ! sudo systemctl restart "$SERVICE"; then
+    echo "Error: Failed to restart ${SERVICE}. Rolling back deployment."
+
+    # Call the rollback function
+    rollback_deployment
     exit 1
   fi
-  
-  # Health check
-  echo "Waiting for service to become healthy..."
-  for ((i=1; i<=HEALTH_CHECK_TIMEOUT; i++)); do
-    if check_health "$port"; then
-      echo "Service is healthy on port ${port}"
-      break
-    fi
-    if [ "$i" -eq "$HEALTH_CHECK_TIMEOUT" ]; then
-      echo "Error: Health check timeout for ${SERVICE}"
-      exit 1
-    fi
-    sleep 1
-  done
+
+  # Wait a few seconds to allow the service to fully start
+  echo "Waiting for ${SERVICE} to fully start..."
+  sleep $WAIT_TIME
+
+  # Check the status of the service
+  if ! systemctl is-active --quiet "${SERVICE}"; then
+    echo "Error: ${SERVICE} failed to start correctly. Rolling back deployment."
+
+    # Call the rollback function
+    rollback_deployment
+    exit 1
+  fi
+
+  echo "${SERVICE}.service restarted successfully."
+}
+
+for port in "${PORTS[@]}"; do
+  restart_service $port
 done
 
-echo "Deployment completed successfully"
+echo "Deployment completed successfully."

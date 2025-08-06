@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Exit on error
 set -e
 
@@ -37,19 +38,17 @@ rollback_deployment() {
   else
     echo "No previous binary to roll back to."
   fi
-  # Stop and restart services sequentially for rollback
-  for port in "${PORTS[@]}"; do
-    SERVICE="${SERVICE_NAME}@${port}.service"
-    echo "Stopping $SERVICE for rollback..."
-    sudo systemctl stop $SERVICE || true
-  done
+
+  # wait to restart the services
   sleep 10
+
+  # Restart all services with the previous binary
   for port in "${PORTS[@]}"; do
     SERVICE="${SERVICE_NAME}@${port}.service"
-    echo "Starting $SERVICE with rollback..."
-    sudo systemctl start $SERVICE
-    sleep 8  # Wait between service starts
+    echo "Restarting $SERVICE..."
+    sudo systemctl restart $SERVICE
   done
+
   echo "Rollback completed."
 }
 
@@ -57,50 +56,39 @@ rollback_deployment() {
 echo "Promoting ${BINARY_NAME} to ${DEPLOY_BIN}..."
 ln -sf "${RELEASES_DIR}/${BINARY_NAME}" "${DEPLOY_BIN}"
 
-# Stop all services first, then start them one by one
-echo "Stopping all services..."
-for port in "${PORTS[@]}"; do
-  SERVICE="${SERVICE_NAME}@${port}.service"
-  echo "Stopping ${SERVICE}..."
-  sudo systemctl stop "$SERVICE" || true
-done
-
-# Wait for all services to stop
-echo "Waiting for all services to stop..."
-sleep 10
-
-WAIT_TIME=20
+WAIT_TIME=5
 restart_service() {
   local port=$1
   local SERVICE="${SERVICE_NAME}@${port}.service"
-  echo "Starting ${SERVICE}..."
-  
-  # Start the service
-  if ! sudo systemctl start "$SERVICE"; then
-    echo "Error: Failed to start ${SERVICE}. Rolling back deployment."
+  echo "Restarting ${SERVICE}..."
+
+  # Restart the service
+  if ! sudo systemctl restart "$SERVICE"; then
+    echo "Error: Failed to restart ${SERVICE}. Rolling back deployment."
+
+    # Call the rollback function
     rollback_deployment
     exit 1
   fi
-  
-  # Wait for service to fully start
+
+  # Wait a few seconds to allow the service to fully start
   echo "Waiting for ${SERVICE} to fully start..."
   sleep $WAIT_TIME
-  
+
   # Check the status of the service
   if ! systemctl is-active --quiet "${SERVICE}"; then
     echo "Error: ${SERVICE} failed to start correctly. Rolling back deployment."
+
+    # Call the rollback function
     rollback_deployment
     exit 1
   fi
-  
-  echo "${SERVICE} started successfully."
+
+  echo "${SERVICE}.service restarted successfully."
 }
 
-# Start services one by one with delays
 for port in "${PORTS[@]}"; do
   restart_service $port
-  # Wait between starting services to avoid conflicts
-  sleep 5
 done
 
 echo "Deployment completed successfully."
