@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Updated deploy-dev.sh with better error handling and logging
+# Updated deploy-dev.sh with rolling deployment (zero downtime)
 # Exit on error
 set -e
 
@@ -49,17 +49,17 @@ rollback_deployment() {
     echo "   No previous binary to roll back to"
   fi
 
-  # Wait before restarting services
-  sleep 5
-
-  # Restart all services with the previous binary
+  # Rolling restart of all services with previous binary
   for port in "${PORTS[@]}"; do
     SERVICE="${SERVICE_NAME}@${port}.service"
-    echo "   Restarting $SERVICE..."
-    if sudo systemctl restart $SERVICE; then
-      echo "   ✅ $SERVICE restarted successfully"
+    echo "   Rolling back $SERVICE..."
+    sudo systemctl stop "$SERVICE" 2>/dev/null || true
+    sleep 3
+    if sudo systemctl start "$SERVICE"; then
+      echo "   ✅ $SERVICE rolled back successfully"
+      sleep 5  # Wait before next service to maintain some availability
     else
-      echo "   ❌ Failed to restart $SERVICE"
+      echo "   ❌ Failed to roll back $SERVICE"
     fi
   done
 
@@ -82,20 +82,30 @@ else
   exit 1
 fi
 
-WAIT_TIME=10
-restart_service() {
+WAIT_TIME=15
+rolling_restart_service() {
   local port=$1
   local SERVICE="${SERVICE_NAME}@${port}.service"
   
-  echo "🔄 Restarting ${SERVICE}..."
+  echo "🔄 Rolling restart of ${SERVICE}..."
+  echo "   📊 Current status before restart: $(sudo systemctl is-active $SERVICE 2>/dev/null || echo 'inactive')"
 
-  # Stop the service first (ignore errors if it's not running)
+  # Stop the service
+  echo "   🛑 Stopping ${SERVICE}..."
   sudo systemctl stop "$SERVICE" 2>/dev/null || true
   
-  # Wait a moment
-  sleep 2
+  # Wait for service to fully stop and port to be released
+  echo "   ⏳ Waiting for service to stop and port to be released..."
+  sleep 5
+  
+  # Verify port is free (but don't kill other services)
+  if lsof -ti:$port 2>/dev/null | grep -v "$$" >/dev/null; then
+    echo "   ⚠️  Port $port still in use, waiting additional time..."
+    sleep 5
+  fi
 
   # Start the service
+  echo "   🚀 Starting ${SERVICE}..."
   if sudo systemctl start "$SERVICE"; then
     echo "   ✅ Started $SERVICE"
   else
@@ -103,25 +113,32 @@ restart_service() {
     echo "   📋 Checking service status..."
     sudo systemctl status "$SERVICE" --no-pager || true
     echo "   📋 Checking recent logs..."
-    sudo journalctl -u "$SERVICE" --no-pager -n 10 || true
+    sudo journalctl -u "$SERVICE" --no-pager -n 15 || true
     
-    rollback_deployment
-    exit 1
+    # Don't rollback immediately - let the other service(s) handle traffic
+    echo "   ⚠️  Service failed to start, but continuing with deployment"
+    echo "   ℹ️  Other service instances should maintain availability"
+    return 1
   fi
 
   # Wait for the service to fully start
   echo "   ⏳ Waiting ${WAIT_TIME}s for ${SERVICE} to fully start..."
   sleep $WAIT_TIME
 
-  # Check if the service is running
+  # Health check
   if sudo systemctl is-active --quiet "${SERVICE}"; then
     echo "   ✅ ${SERVICE} is active and running"
     
     # Test if the application is responding on the port
-    if timeout 10 bash -c "until nc -z localhost $port; do sleep 1; done" 2>/dev/null; then
+    echo "   🔍 Testing application response on port $port..."
+    if timeout 20 bash -c "until nc -z localhost $port; do sleep 1; done" 2>/dev/null; then
       echo "   ✅ Application responding on port $port"
+      return 0
     else
-      echo "   ⚠️  Application might not be responding on port $port yet"
+      echo "   ⚠️  Application not responding on port $port within timeout"
+      echo "   📋 Port status:"
+      lsof -i :$port 2>/dev/null || echo "No process found on port $port"
+      return 1
     fi
   else
     echo "   ❌ ${SERVICE} failed to start correctly"
@@ -129,24 +146,62 @@ restart_service() {
     sudo systemctl status "${SERVICE}" --no-pager || true
     echo "   📋 Recent logs:"
     sudo journalctl -u "${SERVICE}" --no-pager -n 20 || true
-    
-    rollback_deployment
-    exit 1
+    return 1
   fi
 }
 
-# Restart services one by one
+# Perform rolling restart - one service at a time to maintain availability
+echo "🔄 Starting rolling deployment..."
+FAILED_SERVICES=()
+
 for port in "${PORTS[@]}"; do
-  restart_service $port
+  echo ""
+  echo "📍 Processing service on port $port..."
+  
+  if rolling_restart_service $port; then
+    echo "   ✅ Successfully deployed to port $port"
+  else
+    echo "   ❌ Failed to deploy to port $port"
+    FAILED_SERVICES+=($port)
+  fi
+  
+  # Wait between services to ensure stability
+  if [ $port != "${PORTS[-1]}" ]; then  # Don't wait after last service
+    echo "   ⏳ Waiting before next service to ensure stability..."
+    sleep 3
+  fi
 done
 
+# Check results
 echo ""
-echo "🎉 Deployment completed successfully!"
+if [ ${#FAILED_SERVICES[@]} -eq 0 ]; then
+  echo "🎉 Rolling deployment completed successfully!"
+elif [ ${#FAILED_SERVICES[@]} -eq ${#PORTS[@]} ]; then
+  echo "💥 All services failed to deploy! Rolling back..."
+  rollback_deployment
+  exit 1
+else
+  echo "⚠️  Partial deployment: ${#FAILED_SERVICES[@]} of ${#PORTS[@]} services failed"
+  echo "   Failed ports: ${FAILED_SERVICES[*]}"
+  echo "   Service is still available on working instances"
+  echo "   Consider investigating failed services or triggering rollback"
+fi
+
+echo ""
 echo "📊 Final Status:"
 for port in "${PORTS[@]}"; do
   SERVICE="${SERVICE_NAME}@${port}.service"
   STATUS=$(sudo systemctl is-active "${SERVICE}" 2>/dev/null || echo "unknown")
-  echo "   ${SERVICE}: $STATUS"
+  
+  if [[ " ${FAILED_SERVICES[*]} " =~ " ${port} " ]]; then
+    echo "   ${SERVICE}: $STATUS ❌"
+  else
+    echo "   ${SERVICE}: $STATUS ✅"
+  fi
+  
+  # Show what's actually listening on each port
+  PORT_STATUS=$(lsof -i :$port 2>/dev/null | grep LISTEN | head -1 || echo "No process listening")
+  echo "   Port $port: $PORT_STATUS"
 done
 
 echo ""
@@ -156,5 +211,4 @@ for port in "${PORTS[@]}"; do
 done
 echo "   https://dev.ligiopen.com"
 echo ""
-echo "=== Deployment Complete ==="
-
+echo "=== Rolling Deployment Complete ==="
