@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api/auth/")
 @RequiredArgsConstructor
-public class AuthControllerImpl implements AuthController {
+public class LocalAuthControllerImpl implements LocalAuthController {
 
     private final AuthenticationManager authenticationManager;
     private final UserEntityDao userEntityDao;

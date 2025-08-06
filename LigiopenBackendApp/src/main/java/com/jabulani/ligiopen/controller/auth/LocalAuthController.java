@@ -6,7 +6,7 @@ import com.jabulani.ligiopen.model.dto.classes.SuccessDto;
 import com.jabulani.ligiopen.model.dto.classes.TokenDto;
 import org.springframework.http.ResponseEntity;
 
-public interface AuthController {
+public interface LocalAuthController {
 
     ResponseEntity<SuccessDto> registerUser(SignupRequestDto signUpRequest);
 

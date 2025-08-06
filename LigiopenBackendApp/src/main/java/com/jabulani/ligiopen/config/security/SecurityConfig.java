@@ -2,11 +2,13 @@ package com.jabulani.ligiopen.config.security;
 
 import com.jabulani.ligiopen.service.auth.CustomOAuth2UserService;
 import com.jabulani.ligiopen.service.auth.OAuth2AuthenticationSuccessHandler;
+import com.jabulani.ligiopen.service.userEnity.UserEntityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -51,7 +53,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
-                "https://edcbee9918ca.ngrok-free.app",
+                "http://localhost:8080", // Add your server port
+                "http://localhost:8000",
                 "http://localhost:3000"
         ));
         config.setAllowCredentials(true);
@@ -65,7 +68,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http,
+                                           @Lazy OAuth2AuthenticationSuccessHandler successHandler) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
@@ -74,9 +78,7 @@ public class SecurityConfig {
                                 "/api/auth/**",
                                 "/login/oauth2/**",
                                 "/oauth2/**",
-                                "/api/version**",
-                                "/swagger-ui**",
-                                "/swagger-ui/**"
+                                "/debug/**" // Add debug endpoint
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -91,7 +93,8 @@ public class SecurityConfig {
                         .userInfoEndpoint(user -> user
                                 .userService(customOAuth2UserService)
                         )
-                        .successHandler(oAuth2AuthenticationSuccessHandler())
+                        // Use the lazy-loaded success handler
+                        .successHandler(successHandler)
                         .failureHandler((request, response, exception) -> {
                             logger.error("OAuth2 authentication failed", exception);
                             response.sendRedirect("/api/auth/google/failure");
@@ -100,9 +103,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
-                .exceptionHandling(exceptions -> exceptions
-                        .authenticationEntryPoint(authEntryPoint)
-                )
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPoint))
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -114,8 +115,13 @@ public class SecurityConfig {
     }
 
     @Bean
-    public OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler() {
-        return new OAuth2AuthenticationSuccessHandler(jwtGenerator, userDetailsService);
+    public OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler(
+            @Lazy UserEntityService userEntityService) {
+        return new OAuth2AuthenticationSuccessHandler(
+                jwtGenerator,
+                userDetailsService,
+                userEntityService
+        );
     }
 
     @Bean

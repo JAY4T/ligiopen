@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class CustomOAuth2User extends UserEntity implements OAuth2User {
@@ -15,7 +16,8 @@ public class CustomOAuth2User extends UserEntity implements OAuth2User {
 
     public CustomOAuth2User(UserEntity user, Map<String, Object> attributes) {
         super(user);
-        this.attributes = attributes;
+        // Ensure attributes is never null
+        this.attributes = attributes != null ? new HashMap<>(attributes) : new HashMap<>();
     }
 
     @Override
@@ -33,6 +35,32 @@ public class CustomOAuth2User extends UserEntity implements OAuth2User {
 
     @Override
     public String getName() {
-        return getEmail() != null ? getEmail() : getGoogleEmail();
+        // For JWT generation, use the email as the subject
+        String name = getEmail();
+        if (name == null) {
+            name = getGoogleEmail();
+        }
+        if (name == null && attributes != null && attributes.containsKey("email")) {
+            name = (String) attributes.get("email");
+        }
+        if (name == null && attributes != null && attributes.containsKey("sub")) {
+            name = (String) attributes.get("sub");
+        }
+
+        // Fallback to username if available
+        if (name == null) {
+            name = getUsername();
+        }
+
+        return name != null ? name : "unknown";
+    }
+
+    // Helper method to safely get attribute values
+    public String getAttributeAsString(String key) {
+        if (attributes != null && attributes.containsKey(key)) {
+            Object value = attributes.get(key);
+            return value != null ? value.toString() : null;
+        }
+        return null;
     }
 }
