@@ -57,11 +57,11 @@ fi
 echo "🔧 Setting up system configuration..."
 
 # Ensure log directory exists
-mkdir -p /home/pipeline/logs/ligiopen_dev
-chown pipeline:pipeline /home/pipeline/logs/ligiopen_dev
+sudo mkdir -p /home/pipeline/logs/ligiopen_dev
+sudo chown pipeline:pipeline /home/pipeline/logs/ligiopen_dev
 
 # Create systemd service template BEFORE starting services
-cat > /etc/systemd/system/ligiopen_dev@.service << 'EOF'
+sudo tee /etc/systemd/system/ligiopen_dev@.service > /dev/null << 'EOF'
 [Unit]
 Description=Ligiopen Spring Boot Development %i Service
 After=network.target postgresql.service
@@ -91,7 +91,7 @@ WantedBy=multi-user.target
 EOF
 
 # Create Nginx configuration
-cat > /etc/nginx/sites-available/ligiopen-dev << 'EOF'
+sudo tee /etc/nginx/sites-available/ligiopen-dev > /dev/null << 'EOF'
 upstream ligiopen_dev {
     server 127.0.0.1:3000;
     server 127.0.0.1:3001;
@@ -115,11 +115,11 @@ server {
 EOF
 
 # Enable Nginx site
-ln -sf /etc/nginx/sites-available/ligiopen-dev /etc/nginx/sites-enabled/
-rm -f /etc/nginx/sites-enabled/default
+sudo ln -sf /etc/nginx/sites-available/ligiopen-dev /etc/nginx/sites-enabled/
+sudo rm -f /etc/nginx/sites-enabled/default
 
 # Reload systemd to recognize new services
-systemctl daemon-reload
+sudo systemctl daemon-reload
 echo "✅ System configuration completed"
 
 # ======================
@@ -248,8 +248,8 @@ done
 
 # Test Nginx configuration and reload
 echo "🌐 Configuring Nginx..."
-if nginx -t; then
-  systemctl reload nginx
+if sudo nginx -t; then
+  sudo systemctl reload nginx
   echo "✅ Nginx configuration reloaded"
 else
   echo "⚠️ Nginx configuration test failed"
