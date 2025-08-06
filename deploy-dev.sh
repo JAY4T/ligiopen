@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Updated deploy-dev.sh with better error handling and logging
+# Updated deploy-dev.sh with aggressive process termination
 # Exit on error
 set -e
 
@@ -66,26 +66,74 @@ rollback_deployment() {
   echo "🔄 Rollback completed"
 }
 
-# Function to wait for port to be free
+# Function to aggressively kill processes on a port
+kill_processes_on_port() {
+  local port=$1
+  echo "   🔨 Killing all processes on port $port..."
+  
+  # Get all PIDs using the port
+  local pids=$(lsof -ti:$port 2>/dev/null || true)
+  
+  if [ -z "$pids" ]; then
+    echo "   ℹ️  No processes found on port $port"
+    return 0
+  fi
+  
+  echo "   📋 Found processes: $pids"
+  
+  # First try SIGTERM
+  for pid in $pids; do
+    if kill -TERM $pid 2>/dev/null; then
+      echo "   📤 Sent SIGTERM to process $pid"
+    fi
+  done
+  
+  # Wait 5 seconds
+  sleep 5
+  
+  # Check if any are still running and kill with SIGKILL
+  local remaining_pids=$(lsof -ti:$port 2>/dev/null || true)
+  if [ -n "$remaining_pids" ]; then
+    echo "   ⚡ Force killing remaining processes: $remaining_pids"
+    for pid in $remaining_pids; do
+      if kill -KILL $pid 2>/dev/null; then
+        echo "   💀 Force killed process $pid"
+      fi
+    done
+  fi
+  
+  # Final wait
+  sleep 2
+}
+
+# Function to wait for port to be free with aggressive cleanup
 wait_for_port_free() {
   local port=$1
-  local max_wait=30
+  local max_wait=10  # Reduced initial wait time
   local count=0
   
   echo "   🔍 Checking if port $port is free..."
   
+  # Initial check
   while lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; do
     if [ $count -ge $max_wait ]; then
-      echo "   ❌ Port $port is still in use after ${max_wait} seconds"
-      echo "   📋 Processes using port $port:"
-      lsof -Pi :$port -sTCP:LISTEN || true
-      return 1
+      echo "   ⚡ Port $port still in use after ${max_wait} seconds, forcing cleanup..."
+      kill_processes_on_port $port
+      break
     fi
     
     echo "   ⏳ Port $port still in use, waiting... (${count}/${max_wait})"
     sleep 1
     count=$((count + 1))
   done
+  
+  # Final verification
+  if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; then
+    echo "   ❌ Port $port is still in use after aggressive cleanup"
+    echo "   📋 Remaining processes:"
+    lsof -Pi :$port -sTCP:LISTEN || true
+    return 1
+  fi
   
   echo "   ✅ Port $port is now free"
   return 0
@@ -114,24 +162,40 @@ restart_service() {
   
   echo "🔄 Restarting ${SERVICE}..."
 
-  # Stop the service first (ignore errors if it's not running)
+  # Get the current PID if service is running
+  local current_pid=""
+  if systemctl is-active --quiet "$SERVICE"; then
+    current_pid=$(systemctl show --property MainPID --value "$SERVICE" 2>/dev/null || true)
+    if [ "$current_pid" != "0" ] && [ -n "$current_pid" ]; then
+      echo "   📋 Current service PID: $current_pid"
+    fi
+  fi
+
+  # Stop the service
   echo "   🛑 Stopping ${SERVICE}..."
   sudo systemctl stop "$SERVICE" 2>/dev/null || true
+  
+  # Wait a moment for systemd to process the stop
+  sleep 2
+  
+  # If we had a PID and it's still running, kill it directly
+  if [ -n "$current_pid" ] && [ "$current_pid" != "0" ]; then
+    if kill -0 "$current_pid" 2>/dev/null; then
+      echo "   ⚡ Service PID $current_pid still running, killing directly..."
+      kill -TERM "$current_pid" 2>/dev/null || true
+      sleep 3
+      if kill -0 "$current_pid" 2>/dev/null; then
+        echo "   💀 Force killing PID $current_pid..."
+        kill -KILL "$current_pid" 2>/dev/null || true
+      fi
+    fi
+  fi
   
   # Wait for the port to be free
   if ! wait_for_port_free $port; then
     echo "   ❌ Failed to free port $port"
-    # Try to kill any remaining processes on the port
-    echo "   🔨 Attempting to kill processes on port $port..."
-    sudo lsof -ti:$port | xargs -r sudo kill -9 2>/dev/null || true
-    sleep 2
-    
-    # Check again
-    if ! wait_for_port_free $port; then
-      echo "   ❌ Still unable to free port $port"
-      rollback_deployment
-      exit 1
-    fi
+    rollback_deployment
+    exit 1
   fi
 
   # Start the service
@@ -141,7 +205,7 @@ restart_service() {
   else
     echo "   ❌ Failed to start ${SERVICE}"
     echo "   📋 Checking service status..."
-    sudo systemctl status "$SERVICE" --no-pager || true
+    sudo systemctl status "$SERVICE" --no-pager --lines=5 || true
     echo "   📋 Checking recent logs..."
     sudo journalctl -u "$SERVICE" --no-pager -n 10 || true
     
@@ -151,24 +215,38 @@ restart_service() {
 
   # Wait for the service to fully start
   echo "   ⏳ Waiting ${WAIT_TIME}s for ${SERVICE} to fully start..."
-  sleep $WAIT_TIME
-
-  # Check if the service is running
-  if sudo systemctl is-active --quiet "${SERVICE}"; then
-    echo "   ✅ ${SERVICE} is active and running"
+  
+  # Monitor startup progress
+  local startup_count=0
+  while [ $startup_count -lt $WAIT_TIME ]; do
+    if systemctl is-active --quiet "${SERVICE}"; then
+      if nc -z localhost $port 2>/dev/null; then
+        echo "   ✅ ${SERVICE} is active and responding on port $port"
+        break
+      fi
+    fi
+    sleep 1
+    startup_count=$((startup_count + 1))
     
-    # Test if the application is responding on the port
-    if timeout 15 bash -c "until nc -z localhost $port; do sleep 1; done" 2>/dev/null; then
+    # Show progress every 5 seconds
+    if [ $((startup_count % 5)) -eq 0 ]; then
+      echo "   ⏳ Still starting... (${startup_count}/${WAIT_TIME})"
+    fi
+  done
+
+  # Final checks
+  if sudo systemctl is-active --quiet "${SERVICE}"; then
+    echo "   ✅ ${SERVICE} is active"
+    
+    if nc -z localhost $port 2>/dev/null; then
       echo "   ✅ Application responding on port $port"
     else
-      echo "   ⚠️  Application might not be responding on port $port yet"
-      echo "   📋 Checking if port is listening..."
-      ss -tlnp | grep ":$port " || echo "   No process listening on port $port"
+      echo "   ⚠️  Service is active but port $port may not be ready yet"
     fi
   else
     echo "   ❌ ${SERVICE} failed to start correctly"
     echo "   📋 Service status:"
-    sudo systemctl status "${SERVICE}" --no-pager || true
+    sudo systemctl status "${SERVICE}" --no-pager --lines=10 || true
     echo "   📋 Recent logs:"
     sudo journalctl -u "${SERVICE}" --no-pager -n 20 || true
     
@@ -176,6 +254,21 @@ restart_service() {
     exit 1
   fi
 }
+
+# Show current status before deployment
+echo "📊 Pre-deployment status:"
+for port in "${PORTS[@]}"; do
+  SERVICE="${SERVICE_NAME}@${port}.service"
+  STATUS=$(sudo systemctl is-active "${SERVICE}" 2>/dev/null || echo "unknown")
+  echo "   ${SERVICE}: $STATUS"
+  
+  if lsof -Pi :$port -sTCP:LISTEN >/dev/null 2>&1; then
+    echo "   Port $port: LISTENING"
+  else
+    echo "   Port $port: FREE"
+  fi
+done
+echo ""
 
 # Restart services one by one
 for port in "${PORTS[@]}"; do
