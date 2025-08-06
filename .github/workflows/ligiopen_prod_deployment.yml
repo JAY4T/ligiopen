@@ -18,9 +18,9 @@ jobs:
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: "21" # Specify your desired Java version
-          distribution: "temurin" # Or 'adopt', 'oracle', etc.
-          cache: "maven" # Caches Maven dependencies
+          java-version: "21"
+          distribution: "temurin"
+          cache: "maven"
 
       - name: Cache Maven dependencies
         uses: actions/cache@v4
@@ -31,6 +31,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build Java application with Maven
+        working-directory: ./LigiopenBackendApp
         run: mvn clean package -DskipTests
 
       - name: Deploy Java JAR using SCP
@@ -38,7 +39,7 @@ jobs:
           USER: ${{ secrets.DROPLET_USER }}
           HOST: ${{ secrets.DROPLET }}
           DIR: /home/pipeline/releases/ligiopen_prod
-          JAR_PATH: ./target/ligiopen-0.0.1-SNAPSHOT.jar
+          JAR_PATH: ./LigiopenBackendApp/target/ligiopen-0.0.1-SNAPSHOT.jar
           DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
@@ -60,4 +61,4 @@ jobs:
 
           # Run the deploy.sh script on the server
           # Pass the GITHUB_SHA variable to the script
-          ssh -i ~/.ssh/id_rsa $USER@$HOST 'bash -s' < ./deploy-dev.sh ${GITHUB_SHA}
+          ssh -i ~/.ssh/id_rsa $USER@$HOST 'bash -s' < ./deploy-prod.sh ${GITHUB_SHA}
