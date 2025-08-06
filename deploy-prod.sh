@@ -18,7 +18,7 @@ RELEASES_DIR="/home/pipeline/releases/ligiopen_prod"
 DEPLOY_BIN="/home/pipeline/production/ligiopen_prod/ligiopen"
 SERVICE_NAME="ligiopen"
 BINARY_NAME="ligiopen-${COMMIT_HASH}.jar"
-declare -a PORTS=("3000" "3001")
+declare -a PORTS=("4000" "4001")
 
 echo "📦 Deploying: $BINARY_NAME"
 echo "🔍 Commit Hash: $COMMIT_HASH"
