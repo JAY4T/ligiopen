@@ -66,6 +66,31 @@ rollback_deployment() {
   echo "🔄 Rollback completed"
 }
 
+# Function to wait for port to be free
+wait_for_port_free() {
+  local port=$1
+  local max_wait=30
+  local count=0
+  
+  echo "   🔍 Checking if port $port is free..."
+  
+  while lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; do
+    if [ $count -ge $max_wait ]; then
+      echo "   ❌ Port $port is still in use after ${max_wait} seconds"
+      echo "   📋 Processes using port $port:"
+      lsof -Pi :$port -sTCP:LISTEN || true
+      return 1
+    fi
+    
+    echo "   ⏳ Port $port still in use, waiting... (${count}/${max_wait})"
+    sleep 1
+    count=$((count + 1))
+  done
+  
+  echo "   ✅ Port $port is now free"
+  return 0
+}
+
 # Create the production directory if it doesn't exist
 mkdir -p "$(dirname "$DEPLOY_BIN")"
 
@@ -82,7 +107,7 @@ else
   exit 1
 fi
 
-WAIT_TIME=10
+WAIT_TIME=15
 restart_service() {
   local port=$1
   local SERVICE="${SERVICE_NAME}@${port}.service"
@@ -90,12 +115,27 @@ restart_service() {
   echo "🔄 Restarting ${SERVICE}..."
 
   # Stop the service first (ignore errors if it's not running)
+  echo "   🛑 Stopping ${SERVICE}..."
   sudo systemctl stop "$SERVICE" 2>/dev/null || true
   
-  # Wait a moment
-  sleep 2
+  # Wait for the port to be free
+  if ! wait_for_port_free $port; then
+    echo "   ❌ Failed to free port $port"
+    # Try to kill any remaining processes on the port
+    echo "   🔨 Attempting to kill processes on port $port..."
+    sudo lsof -ti:$port | xargs -r sudo kill -9 2>/dev/null || true
+    sleep 2
+    
+    # Check again
+    if ! wait_for_port_free $port; then
+      echo "   ❌ Still unable to free port $port"
+      rollback_deployment
+      exit 1
+    fi
+  fi
 
   # Start the service
+  echo "   ▶️  Starting ${SERVICE}..."
   if sudo systemctl start "$SERVICE"; then
     echo "   ✅ Started $SERVICE"
   else
@@ -118,10 +158,12 @@ restart_service() {
     echo "   ✅ ${SERVICE} is active and running"
     
     # Test if the application is responding on the port
-    if timeout 10 bash -c "until nc -z localhost $port; do sleep 1; done" 2>/dev/null; then
+    if timeout 15 bash -c "until nc -z localhost $port; do sleep 1; done" 2>/dev/null; then
       echo "   ✅ Application responding on port $port"
     else
       echo "   ⚠️  Application might not be responding on port $port yet"
+      echo "   📋 Checking if port is listening..."
+      ss -tlnp | grep ":$port " || echo "   No process listening on port $port"
     fi
   else
     echo "   ❌ ${SERVICE} failed to start correctly"
@@ -155,6 +197,16 @@ for port in "${PORTS[@]}"; do
   echo "   http://localhost:$port"
 done
 echo "   https://dev.ligiopen.com"
+
+echo ""
+echo "📊 Port Status:"
+for port in "${PORTS[@]}"; do
+  if ss -tlnp | grep -q ":$port "; then
+    echo "   Port $port: ✅ LISTENING"
+  else
+    echo "   Port $port: ❌ NOT LISTENING"
+  fi
+done
+
 echo ""
 echo "=== Deployment Complete ==="
-
