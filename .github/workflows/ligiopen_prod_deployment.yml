@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'LigiopenBackendApp/**'
+      - "LigiopenBackendApp/**"
   workflow_dispatch: # Allow manual triggering
 
 jobs:
