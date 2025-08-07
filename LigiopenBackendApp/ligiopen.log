@@ -3431,3 +3431,104 @@ org.springframework.security.oauth2.core.OAuth2AuthenticationException: [authori
 2025-08-07T22:55:35.047+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.s.HttpSessionRequestCache        : Saved request http://localhost:8000/error?continue to session
 2025-08-07T22:56:08.233+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/google
 2025-08-07T22:56:08.234+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-5] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com&scope=openid%20email%20profile&state=qoM5eCupyEohV3LXn9Tnh0MSvQ0zBVM8ZHZI_TmPJoQ%3D&redirect_uri=http://192.168.100.134:8000/login/oauth2/code/google&nonce=vR6872hRvgHz1NSPSKKU0UzX5ycJoMtmoC4fnK4SSDA
+2025-08-07T23:02:45.100+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/v1/signin
+2025-08-07T23:02:45.101+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:02:45.102+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/v1/signin
+2025-08-07T23:02:45.102+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/v1/signin", parameters={}
+2025-08-07T23:02:45.103+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.LocalAuthControllerImpl#authenticateUser(LoginRequestDto)
+2025-08-07T23:02:45.119+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginRequestDto(email=abc@gmail.com, username=abc, password=1234)]
+2025-08-07T23:02:46.091+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-10] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-07T23:02:46.128+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:02:46.128+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNAZ21haWwuY29tIiwiaWF0IjoxNzU0NTk2OTY2LCJleHAiOjE3 (truncated)...]
+2025-08-07T23:02:46.131+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:03:13.340+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/google
+2025-08-07T23:03:13.341+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-1] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com&scope=openid%20email%20profile&state=lFup3i1bDktJrZDgwM80--hMrmCX4_dSo1yoblZGOJg%3D&redirect_uri=http://localhost:8000/login/oauth2/code/google&nonce=kXWL0kb6kCCnyfClSwgLxyOXBYfo_f8dm9d9ui41Eu4
+2025-08-07T23:03:13.900+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /login/oauth2/code/google?state=lFup3i1bDktJrZDgwM80--hMrmCX4_dSo1yoblZGOJg%3D&code=4%2F0AVMBsJh-q6h0Ih0MefLG6QFBUP6IUc_luHpVKb95ylRPc5jVaaL8WIzrJoORRh1dwlh_qw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=none
+2025-08-07T23:03:13.901+03:00 ERROR 250020 --- [ligiopen] [http-nio-8000-exec-2] c.j.l.config.security.SecurityConfig     : OAuth2 authentication failed
+
+org.springframework.security.oauth2.core.OAuth2AuthenticationException: [authorization_request_not_found] 
+	at org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.attemptAuthentication(OAuth2LoginAuthenticationFilter.java:173) ~[spring-security-oauth2-client-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:231) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:198) ~[spring-security-oauth2-client-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.springframework.session.web.http.SessionRepositoryFilter.doFilterInternal(SessionRepositoryFilter.java:142) ~[spring-session-core-3.4.0.jar:3.4.0]
+	at org.springframework.session.web.http.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:82) ~[spring-session-core-3.4.0.jar:3.4.0]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2025-08-07T23:03:13.906+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/google/failure
+2025-08-07T23:03:13.907+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:03:13.907+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/google/failure
+2025-08-07T23:03:13.907+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/auth/google/failure", parameters={}
+2025-08-07T23:03:13.907+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.GoogleAuthControllerImpl#googleAuthFailure()
+2025-08-07T23:03:13.909+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:03:13.909+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [TokenDto(token=null, message=Google authentication failed)]
+2025-08-07T23:03:13.910+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
+2025-08-07T23:03:13.971+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /favicon.ico
+2025-08-07T23:03:13.972+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:03:13.974+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /error
+2025-08-07T23:03:13.974+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:03:13.976+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.s.HttpSessionRequestCache        : Saved request http://localhost:8000/error?continue to session
