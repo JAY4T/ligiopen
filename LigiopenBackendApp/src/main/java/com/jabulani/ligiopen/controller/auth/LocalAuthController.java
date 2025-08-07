@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface LocalAuthController {
 
-    ResponseEntity<SuccessDto> registerUser(SignupRequestDto signUpRequest);
+    ResponseEntity<Object> registerUser(SignupRequestDto signUpRequest);
 
-    ResponseEntity<TokenDto> authenticateUser(LoginRequestDto loginRequest);
+    ResponseEntity<Object> authenticateUser(LoginRequestDto loginRequest);
 }

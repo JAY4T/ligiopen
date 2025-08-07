@@ -57,12 +57,10 @@ public class UserEntityServiceImpl implements UserEntityService {
             UserEntity userEntity = UserEntity.builder()
                     .email(signupRequestDto.getEmail())
                     .password(passwordEncoder.encode(signupRequestDto.getPassword()))
-//                    .username(signupRequestDto.getUsername()) // Add if available in DTO
-//                    .firstName(signupRequestDto.getFirstName()) // Add if available in DTO
-//                    .lastName(signupRequestDto.getLastName()) // Add if available in DTO
-                    .role(UserEntity.UserRole.USER) // Default role for new users
-                    .emailVerified(false) // Default to false, verify via email
-                    .accountEnabled(true) // Enable account by default
+                    .role(UserEntity.UserRole.USER)
+                    .emailVerified(false)
+                    .accountEnabled(true)
+                    .username(signupRequestDto.getUsername())
                     .createdAt(LocalDateTime.now())
                     .updatedAt(LocalDateTime.now())
                     .build();

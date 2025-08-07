@@ -1,8 +1,8 @@
 package com.jabulani.ligiopen.controller.aws;
 
+import com.jabulani.ligiopen.config.response.BuildResponse;
 import com.jabulani.ligiopen.model.aws.FileType;
 import com.jabulani.ligiopen.service.aws.AwsService;
-import com.jabulani.ligiopen.config.response.BuildResponse;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +13,22 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/s3bucketstorage")
 public class AwsController {
-    private final BuildResponse buildResponse = new BuildResponse();
+
+    private final BuildResponse buildResponse;
+
+    private final AwsService service;
+
     @Autowired
-    private AwsService service;
+    public AwsController(BuildResponse buildResponse, AwsService service) {
+        this.buildResponse = buildResponse;
+        this.service = service;
+    }
 
     // Endpoint to list files in a bucket
     @GetMapping("/{bucketName}")
@@ -39,9 +48,11 @@ public class AwsController {
     ) throws Exception {
         try {
             if (files.length == 0) {
-                return buildResponse.createResponse("files", "Files is empty", "Empty", HttpStatus.OK);
+                Map<String, Object> errors = new HashMap<>();
+                errors.put("error", "Files is empty");
+                return buildResponse.error("files", errors, HttpStatus.BAD_REQUEST);
             } else {
-                return buildResponse.createResponse("files", service.uploadFiles(bucketName, files), "files uploaded", HttpStatus.OK);
+                return buildResponse.success(service.uploadFiles(bucketName, files),"files",  null, HttpStatus.OK);
             }
         } catch (Exception e) {
             throw new Exception(e);

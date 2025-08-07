@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +38,7 @@ public class UserEntityDaoImpl implements UserEntityDao {
             }
 
             entityManager.persist(userEntity);
-            entityManager.flush(); // Ensure the entity is persisted immediately
+//            entityManager.flush(); // Ensure the entity is persisted immediately
 
             logger.info("Successfully created user with ID: {}", userEntity.getId());
             return userEntity;
@@ -47,6 +48,7 @@ public class UserEntityDaoImpl implements UserEntityDao {
         }
     }
 
+    @Transactional
     @Override
     public UserEntity updateUser(UserEntity userEntity) {
         try {
