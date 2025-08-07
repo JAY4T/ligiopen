@@ -3532,3 +3532,4 @@ org.springframework.security.oauth2.core.OAuth2AuthenticationException: [authori
 2025-08-07T23:03:13.974+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /error
 2025-08-07T23:03:13.974+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
 2025-08-07T23:03:13.976+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.s.HttpSessionRequestCache        : Saved request http://localhost:8000/error?continue to session
+2025-08-07T23:09:45.107+03:00  WARN 250020 --- [ligiopen] [lettuce-nioEventLoop-4-2] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect to [localhost/<unresolved>:6379]: Connection refused: localhost/127.0.0.1:6379
