@@ -81,11 +81,6 @@ public class LocalAuthControllerImpl implements LocalAuthController {
     @PostMapping("signin")
     @Override
     public ResponseEntity<Object> authenticateUser(@RequestBody LoginRequestDto loginRequest) {
-        // Handle Google login (should be handled by OAuth2 flow)
-        if (loginRequest.getOauthMethod() == OauthMethod.GOOGLE) {
-            return ResponseEntity.badRequest()
-                    .body(new TokenDto(null, "Google login should be handled through OAuth2 flow"));
-        }
 
         // Local login
         Authentication authentication = authenticationManager.authenticate(
