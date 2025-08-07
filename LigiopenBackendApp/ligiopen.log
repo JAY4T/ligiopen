@@ -3533,3 +3533,772 @@ org.springframework.security.oauth2.core.OAuth2AuthenticationException: [authori
 2025-08-07T23:03:13.974+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
 2025-08-07T23:03:13.976+03:00 DEBUG 250020 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.s.HttpSessionRequestCache        : Saved request http://localhost:8000/error?continue to session
 2025-08-07T23:09:45.107+03:00  WARN 250020 --- [ligiopen] [lettuce-nioEventLoop-4-2] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect to [localhost/<unresolved>:6379]: Connection refused: localhost/127.0.0.1:6379
+2025-08-07T23:26:46.252+03:00  INFO 253521 --- [ligiopen] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-08-07T23:26:46.323+03:00  WARN 253521 --- [ligiopen] [main] com.amazonaws.util.VersionInfoUtils      : The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'.
+This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'.
+The AWS SDK for Java 1.x is being used here:
+at java.base/java.lang.Thread.getStackTrace(Thread.java:2450)
+at com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81)
+at com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59)
+at com.amazonaws.internal.EC2ResourceFetcher.<clinit>(EC2ResourceFetcher.java:44)
+at com.amazonaws.auth.InstanceMetadataServiceCredentialsFetcher.<init>(InstanceMetadataServiceCredentialsFetcher.java:38)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:111)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:91)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:75)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<clinit>(InstanceProfileCredentialsProvider.java:58)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.initializeProvider(EC2ContainerCredentialsProviderWrapper.java:66)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.<init>(EC2ContainerCredentialsProviderWrapper.java:55)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<init>(DefaultAWSCredentialsProviderChain.java:60)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<clinit>(DefaultAWSCredentialsProviderChain.java:54)
+at com.amazonaws.services.s3.AmazonS3ClientBuilder.standard(AmazonS3ClientBuilder.java:46)
+at com.jabulani.ligiopen.config.aws.AwsConfig.s3Client(AwsConfig.java:30)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$0.CGLIB$s3Client$0(<generated>)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>)
+at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:348)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$0.s3Client(<generated>)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:171)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:88)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:168)
+at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:489)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1351)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1181)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1568)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1435)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1626)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1371)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+at com.jabulani.ligiopen.LigiopenApplication.main(LigiopenApplication.java:10)
+2025-08-07T23:26:47.345+03:00  WARN 253521 --- [ligiopen] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-07T23:26:47.594+03:00 DEBUG 253521 --- [ligiopen] [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 14 mappings in 'requestMappingHandlerMapping'
+2025-08-07T23:26:47.721+03:00 DEBUG 253521 --- [ligiopen] [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-08-07T23:26:47.918+03:00 DEBUG 253521 --- [ligiopen] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, OAuth2AuthorizationRequestRedirectFilter, OAuth2LoginAuthenticationFilter, JWTAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-08-07T23:26:48.121+03:00 DEBUG 253521 --- [ligiopen] [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-08-07T23:26:48.272+03:00 DEBUG 253521 --- [ligiopen] [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-08-07T23:26:55.548+03:00  INFO 253521 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-08-07T23:26:55.549+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-08-07T23:26:55.551+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-08-07T23:26:55.552+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-08-07T23:26:55.558+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@162ccd19
+2025-08-07T23:26:55.562+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@522db06e
+2025-08-07T23:26:55.564+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-08-07T23:26:55.565+03:00  INFO 253521 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 16 ms
+2025-08-07T23:26:55.622+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/google
+2025-08-07T23:26:55.668+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-1] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com&scope=openid%20email%20profile&state=Zk8Ztv4fw839XnkKRTUpQdut6581ccPrxaPfJSy3RmE%3D&redirect_uri=http://localhost:8000/login/oauth2/code/google&nonce=PCYx1oQ80usMJN4Z7QF29wti0VufxeqGGQinFeAdbeI
+2025-08-07T23:26:56.644+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /login/oauth2/code/google?state=Zk8Ztv4fw839XnkKRTUpQdut6581ccPrxaPfJSy3RmE%3D&code=4%2F0AVMBsJh-hOGFrgiRoaEb6baX6i-OYWrEo_UXdL6A77ulWLjLsDqzOrAbTKRmsVIwhHbyMQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none
+2025-08-07T23:26:56.658+03:00 ERROR 253521 --- [ligiopen] [http-nio-8000-exec-2] c.j.l.config.security.SecurityConfig     : OAuth2 authentication failed
+
+org.springframework.security.oauth2.core.OAuth2AuthenticationException: [authorization_request_not_found] 
+	at org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.attemptAuthentication(OAuth2LoginAuthenticationFilter.java:173) ~[spring-security-oauth2-client-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:231) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:198) ~[spring-security-oauth2-client-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.1.jar:6.4.1]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.springframework.session.web.http.SessionRepositoryFilter.doFilterInternal(SessionRepositoryFilter.java:142) ~[spring-session-core-3.4.0.jar:3.4.0]
+	at org.springframework.session.web.http.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:82) ~[spring-session-core-3.4.0.jar:3.4.0]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.0.jar:6.2.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.33.jar:10.1.33]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2025-08-07T23:26:56.704+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/google/failure
+2025-08-07T23:26:56.714+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:26:56.721+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/google/failure
+2025-08-07T23:26:56.727+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/auth/google/failure", parameters={}
+2025-08-07T23:26:56.733+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.GoogleAuthControllerImpl#googleAuthFailure()
+2025-08-07T23:26:57.025+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:26:57.033+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [TokenDto(token=null, message=Google authentication failed)]
+2025-08-07T23:26:57.061+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
+2025-08-07T23:26:57.153+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /favicon.ico
+2025-08-07T23:26:57.155+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:26:57.171+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /error
+2025-08-07T23:26:57.172+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:26:57.180+03:00 DEBUG 253521 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.s.HttpSessionRequestCache        : Saved request http://localhost:8000/error?continue to session
+2025-08-07T23:27:19.323+03:00  INFO 253781 --- [ligiopen] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-08-07T23:27:19.417+03:00  WARN 253781 --- [ligiopen] [main] com.amazonaws.util.VersionInfoUtils      : The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'.
+This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'.
+The AWS SDK for Java 1.x is being used here:
+at java.base/java.lang.Thread.getStackTrace(Thread.java:2450)
+at com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81)
+at com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59)
+at com.amazonaws.internal.EC2ResourceFetcher.<clinit>(EC2ResourceFetcher.java:44)
+at com.amazonaws.auth.InstanceMetadataServiceCredentialsFetcher.<init>(InstanceMetadataServiceCredentialsFetcher.java:38)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:111)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:91)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:75)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<clinit>(InstanceProfileCredentialsProvider.java:58)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.initializeProvider(EC2ContainerCredentialsProviderWrapper.java:66)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.<init>(EC2ContainerCredentialsProviderWrapper.java:55)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<init>(DefaultAWSCredentialsProviderChain.java:60)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<clinit>(DefaultAWSCredentialsProviderChain.java:54)
+at com.amazonaws.services.s3.AmazonS3ClientBuilder.standard(AmazonS3ClientBuilder.java:46)
+at com.jabulani.ligiopen.config.aws.AwsConfig.s3Client(AwsConfig.java:30)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$0.CGLIB$s3Client$0(<generated>)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>)
+at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:348)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$0.s3Client(<generated>)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:171)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:88)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:168)
+at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:489)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1351)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1181)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1568)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1435)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1626)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1371)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+at com.jabulani.ligiopen.LigiopenApplication.main(LigiopenApplication.java:10)
+2025-08-07T23:27:20.538+03:00  WARN 253781 --- [ligiopen] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-07T23:27:20.794+03:00 DEBUG 253781 --- [ligiopen] [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 14 mappings in 'requestMappingHandlerMapping'
+2025-08-07T23:27:20.936+03:00 DEBUG 253781 --- [ligiopen] [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-08-07T23:27:21.124+03:00 DEBUG 253781 --- [ligiopen] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, OAuth2AuthorizationRequestRedirectFilter, OAuth2LoginAuthenticationFilter, JWTAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-08-07T23:27:21.279+03:00 DEBUG 253781 --- [ligiopen] [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-08-07T23:27:21.359+03:00 DEBUG 253781 --- [ligiopen] [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-08-07T23:27:29.004+03:00  INFO 253781 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-08-07T23:27:29.004+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-08-07T23:27:29.004+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-08-07T23:27:29.004+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-08-07T23:27:29.006+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@78ae9b9c
+2025-08-07T23:27:29.007+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@5d260659
+2025-08-07T23:27:29.007+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-08-07T23:27:29.008+03:00  INFO 253781 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2025-08-07T23:27:29.036+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/google
+2025-08-07T23:27:29.072+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-1] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com&scope=openid%20email%20profile&state=SHQhqKRku5mXDm7cDddFlHkE3vNKuE_LIcu7acMBor8%3D&redirect_uri=http://localhost:8000/login/oauth2/code/google&nonce=snTB1YkiW9ZH0DV-oe-xWcjwjHPRljUn13Jj57rBzyY
+2025-08-07T23:27:30.101+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /login/oauth2/code/google?state=SHQhqKRku5mXDm7cDddFlHkE3vNKuE_LIcu7acMBor8%3D&code=4%2F0AVMBsJgeaT7qdEuJlaC4SuH8vey7KczITMb9fsQJrPHbcaVBQtdsf_BuPocOwF96E97xIA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+2025-08-07T23:27:30.146+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : HTTP POST https://oauth2.googleapis.com/token
+2025-08-07T23:27:30.159+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2025-08-07T23:27:30.161+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Writing [{grant_type=[authorization_code], code=[4/0AVMBsJgeaT7qdEuJlaC4SuH8vey7KczITMb9fsQJrPHbcaVBQtdsf_BuPocOwF96E97xIA], redirect_uri=[http://localhost:8000/login/oauth2/code/google]}] as "application/x-www-form-urlencoded;charset=UTF-8"
+2025-08-07T23:27:30.751+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Response 200 OK
+2025-08-07T23:27:30.753+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Reading to [org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse] as "application/json;charset=utf-8"
+2025-08-07T23:27:31.032+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : HTTP GET https://www.googleapis.com/oauth2/v3/certs
+2025-08-07T23:27:31.034+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Accept=[text/plain, application/json, application/cbor, application/yaml, application/*+json, */*]
+2025-08-07T23:27:31.606+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Response 200 OK
+2025-08-07T23:27:31.607+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Reading to [java.lang.String] as "application/json;charset=UTF-8"
+2025-08-07T23:27:31.697+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] .s.ChangeSessionIdAuthenticationStrategy : Changed session id from e55b8c37-71d3-4c63-9195-3c46dfc95350
+2025-08-07T23:27:31.701+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] w.c.HttpSessionSecurityContextRepository : Stored SecurityContextImpl [Authentication=OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=Qck5MZLgAgrFx0h5kcq4bg, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=snTB1YkiW9ZH0DV-oe-xWcjwjHPRljUn13Jj57rBzyY, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:27:30Z, family_name=Alex, iat=2025-08-07T20:27:30Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=e55b8c37-71d3-4c63-9195-3c46dfc95350], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]] to HttpSession [org.springframework.session.web.http.SessionRepositoryFilter$SessionRepositoryRequestWrapper$HttpSessionWrapper@1f74206d]
+2025-08-07T23:27:31.702+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Set SecurityContextHolder to OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=Qck5MZLgAgrFx0h5kcq4bg, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=snTB1YkiW9ZH0DV-oe-xWcjwjHPRljUn13Jj57rBzyY, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:27:30Z, family_name=Alex, iat=2025-08-07T20:27:30Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=e55b8c37-71d3-4c63-9195-3c46dfc95350], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]
+2025-08-07T23:27:32.620+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-2] o.s.s.web.DefaultRedirectStrategy        : Redirecting to /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTg0NTIsImV4cCI6MTc1NTIwMzI1Mn0.xA5CO0wJv4qRnxpxb95JFITUdpOBwfahErRm8TANLVcwOfOjwMeG5OW6RGSbIb0jdOs6SRtVT3p8dFzZaUVm1A&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:27:32.658+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTg0NTIsImV4cCI6MTc1NTIwMzI1Mn0.xA5CO0wJv4qRnxpxb95JFITUdpOBwfahErRm8TANLVcwOfOjwMeG5OW6RGSbIb0jdOs6SRtVT3p8dFzZaUVm1A&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:27:32.666+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTg0NTIsImV4cCI6MTc1NTIwMzI1Mn0.xA5CO0wJv4qRnxpxb95JFITUdpOBwfahErRm8TANLVcwOfOjwMeG5OW6RGSbIb0jdOs6SRtVT3p8dFzZaUVm1A&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:27:32.670+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTg0NTIsImV4cCI6MTc1NTIwMzI1Mn0.xA5CO0wJv4qRnxpxb95JFITUdpOBwfahErRm8TANLVcwOfOjwMeG5OW6RGSbIb0jdOs6SRtVT3p8dFzZaUVm1A&userId=1&email=mbogoalex3@gmail.com&isNewUser=false", parameters={masked}
+2025-08-07T23:27:32.671+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.GoogleAuthControllerImpl#googleAuthSuccess(String)
+2025-08-07T23:27:32.730+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:27:32.734+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTg0NTIs (truncated)...]
+2025-08-07T23:27:32.746+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:27:32.747+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-3] w.c.HttpSessionSecurityContextRepository : Retrieved SecurityContextImpl [Authentication=OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=Qck5MZLgAgrFx0h5kcq4bg, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=snTB1YkiW9ZH0DV-oe-xWcjwjHPRljUn13Jj57rBzyY, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:27:30Z, family_name=Alex, iat=2025-08-07T20:27:30Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=e55b8c37-71d3-4c63-9195-3c46dfc95350], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]]
+2025-08-07T23:27:32.792+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /favicon.ico
+2025-08-07T23:27:32.798+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] w.c.HttpSessionSecurityContextRepository : Retrieved SecurityContextImpl [Authentication=OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=Qck5MZLgAgrFx0h5kcq4bg, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=snTB1YkiW9ZH0DV-oe-xWcjwjHPRljUn13Jj57rBzyY, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:27:30Z, family_name=Alex, iat=2025-08-07T20:27:30Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=e55b8c37-71d3-4c63-9195-3c46dfc95350], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]]
+2025-08-07T23:27:32.798+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /favicon.ico
+2025-08-07T23:27:32.799+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2025-08-07T23:27:32.802+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-08-07T23:27:32.806+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-08-07T23:27:32.814+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.]
+2025-08-07T23:27:32.815+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-08-07T23:27:32.829+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /error
+2025-08-07T23:27:32.830+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] w.c.HttpSessionSecurityContextRepository : Retrieved SecurityContextImpl [Authentication=OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=Qck5MZLgAgrFx0h5kcq4bg, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=snTB1YkiW9ZH0DV-oe-xWcjwjHPRljUn13Jj57rBzyY, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:27:30Z, family_name=Alex, iat=2025-08-07T20:27:30Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=e55b8c37-71d3-4c63-9195-3c46dfc95350], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]]
+2025-08-07T23:27:32.831+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /error
+2025-08-07T23:27:32.831+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-08-07T23:27:32.832+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-08-07T23:27:32.840+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.8', given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:27:32.841+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Aug 07 23:27:32 EAT 2025, status=404, error=Not Found, path=/favicon.ico}]
+2025-08-07T23:27:32.868+03:00 DEBUG 253781 --- [ligiopen] [http-nio-8000-exec-4] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-08-07T23:30:05.201+03:00  INFO 254218 --- [ligiopen] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-08-07T23:30:05.272+03:00  WARN 254218 --- [ligiopen] [main] com.amazonaws.util.VersionInfoUtils      : The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'.
+This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'.
+The AWS SDK for Java 1.x is being used here:
+at java.base/java.lang.Thread.getStackTrace(Thread.java:2450)
+at com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81)
+at com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59)
+at com.amazonaws.internal.EC2ResourceFetcher.<clinit>(EC2ResourceFetcher.java:44)
+at com.amazonaws.auth.InstanceMetadataServiceCredentialsFetcher.<init>(InstanceMetadataServiceCredentialsFetcher.java:38)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:111)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:91)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:75)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<clinit>(InstanceProfileCredentialsProvider.java:58)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.initializeProvider(EC2ContainerCredentialsProviderWrapper.java:66)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.<init>(EC2ContainerCredentialsProviderWrapper.java:55)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<init>(DefaultAWSCredentialsProviderChain.java:60)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<clinit>(DefaultAWSCredentialsProviderChain.java:54)
+at com.amazonaws.services.s3.AmazonS3ClientBuilder.standard(AmazonS3ClientBuilder.java:46)
+at com.jabulani.ligiopen.config.aws.AwsConfig.s3Client(AwsConfig.java:30)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$0.CGLIB$s3Client$0(<generated>)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>)
+at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:348)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$0.s3Client(<generated>)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:171)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:88)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:168)
+at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:489)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1351)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1181)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1568)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1435)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1626)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1371)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+at com.jabulani.ligiopen.LigiopenApplication.main(LigiopenApplication.java:10)
+2025-08-07T23:30:06.328+03:00  WARN 254218 --- [ligiopen] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-07T23:30:06.637+03:00 DEBUG 254218 --- [ligiopen] [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 14 mappings in 'requestMappingHandlerMapping'
+2025-08-07T23:30:06.856+03:00 DEBUG 254218 --- [ligiopen] [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-08-07T23:30:07.066+03:00 DEBUG 254218 --- [ligiopen] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, OAuth2AuthorizationRequestRedirectFilter, OAuth2LoginAuthenticationFilter, JWTAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-08-07T23:30:07.193+03:00 DEBUG 254218 --- [ligiopen] [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-08-07T23:30:07.259+03:00 DEBUG 254218 --- [ligiopen] [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-08-07T23:30:14.116+03:00  INFO 254218 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-08-07T23:30:14.118+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-08-07T23:30:14.120+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-08-07T23:30:14.121+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-08-07T23:30:14.127+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@f243d5c
+2025-08-07T23:30:14.129+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@50c8a382
+2025-08-07T23:30:14.130+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-08-07T23:30:14.131+03:00  INFO 254218 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 14 ms
+2025-08-07T23:30:14.183+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/google
+2025-08-07T23:30:14.876+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-1] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com&scope=openid%20email%20profile&state=mVLhUvZltXyDwKzYD7BqiADcuOb2V3AuMeUWACd7yf8%3D&redirect_uri=http://localhost:8000/login/oauth2/code/google&nonce=_KWC9JryCL1pwPhOo6TN92o8C-ynma1y_BOiZ-D0ZMI
+2025-08-07T23:30:15.296+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /login/oauth2/code/google?state=mVLhUvZltXyDwKzYD7BqiADcuOb2V3AuMeUWACd7yf8%3D&code=4%2F0AVMBsJievXJDHVku5n0Lwea4bKnWuJdsqOUCTBUxtsReDuMq9XdnVAb97fuaUvvPpBY7pQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+2025-08-07T23:30:15.380+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : HTTP POST https://oauth2.googleapis.com/token
+2025-08-07T23:30:15.407+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2025-08-07T23:30:15.410+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Writing [{grant_type=[authorization_code], code=[4/0AVMBsJievXJDHVku5n0Lwea4bKnWuJdsqOUCTBUxtsReDuMq9XdnVAb97fuaUvvPpBY7pQ], redirect_uri=[http://localhost:8000/login/oauth2/code/google]}] as "application/x-www-form-urlencoded;charset=UTF-8"
+2025-08-07T23:30:16.207+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Response 200 OK
+2025-08-07T23:30:16.212+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Reading to [org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse] as "application/json;charset=utf-8"
+2025-08-07T23:30:16.700+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : HTTP GET https://www.googleapis.com/oauth2/v3/certs
+2025-08-07T23:30:16.705+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Accept=[text/plain, application/json, application/cbor, application/yaml, application/*+json, */*]
+2025-08-07T23:30:17.300+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Response 200 OK
+2025-08-07T23:30:17.302+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Reading to [java.lang.String] as "application/json;charset=UTF-8"
+2025-08-07T23:30:17.410+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] .s.ChangeSessionIdAuthenticationStrategy : Changed session id from 45e54341-d8a1-4450-af1c-95bca20521ad
+2025-08-07T23:30:17.415+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] w.c.HttpSessionSecurityContextRepository : Stored SecurityContextImpl [Authentication=OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=vqdSXrIzy00OLSgr4v7Enw, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=_KWC9JryCL1pwPhOo6TN92o8C-ynma1y_BOiZ-D0ZMI, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:30:16Z, family_name=Alex, iat=2025-08-07T20:30:16Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=45e54341-d8a1-4450-af1c-95bca20521ad], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]] to HttpSession [org.springframework.session.web.http.SessionRepositoryFilter$SessionRepositoryRequestWrapper$HttpSessionWrapper@631ef182]
+2025-08-07T23:30:17.418+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Set SecurityContextHolder to OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=vqdSXrIzy00OLSgr4v7Enw, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=_KWC9JryCL1pwPhOo6TN92o8C-ynma1y_BOiZ-D0ZMI, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:30:16Z, family_name=Alex, iat=2025-08-07T20:30:16Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=45e54341-d8a1-4450-af1c-95bca20521ad], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]
+2025-08-07T23:30:18.303+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-2] o.s.s.web.DefaultRedirectStrategy        : Redirecting to /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTg2MTgsImV4cCI6MTc1NTIwMzQxOH0.xTgF-6Q8oW4zHaG9zxySyweVb1c1Eb-13E-st5_KBDWnpt16XNAlhzTZVwhPDCZKns3AaodbSB6_hWmkmz7CVQ&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:30:18.327+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTg2MTgsImV4cCI6MTc1NTIwMzQxOH0.xTgF-6Q8oW4zHaG9zxySyweVb1c1Eb-13E-st5_KBDWnpt16XNAlhzTZVwhPDCZKns3AaodbSB6_hWmkmz7CVQ&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:30:18.335+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTg2MTgsImV4cCI6MTc1NTIwMzQxOH0.xTgF-6Q8oW4zHaG9zxySyweVb1c1Eb-13E-st5_KBDWnpt16XNAlhzTZVwhPDCZKns3AaodbSB6_hWmkmz7CVQ&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:30:18.338+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTg2MTgsImV4cCI6MTc1NTIwMzQxOH0.xTgF-6Q8oW4zHaG9zxySyweVb1c1Eb-13E-st5_KBDWnpt16XNAlhzTZVwhPDCZKns3AaodbSB6_hWmkmz7CVQ&userId=1&email=mbogoalex3@gmail.com&isNewUser=false", parameters={masked}
+2025-08-07T23:30:18.339+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.GoogleAuthControllerImpl#googleAuthSuccess(String)
+2025-08-07T23:30:18.393+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:30:18.395+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTg2MTgs (truncated)...]
+2025-08-07T23:30:18.409+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:30:18.410+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-3] w.c.HttpSessionSecurityContextRepository : Retrieved SecurityContextImpl [Authentication=OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=vqdSXrIzy00OLSgr4v7Enw, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=_KWC9JryCL1pwPhOo6TN92o8C-ynma1y_BOiZ-D0ZMI, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:30:16Z, family_name=Alex, iat=2025-08-07T20:30:16Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=45e54341-d8a1-4450-af1c-95bca20521ad], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]]
+2025-08-07T23:30:26.444+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/v1/signin
+2025-08-07T23:30:26.445+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:30:26.446+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/v1/signin
+2025-08-07T23:30:26.446+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/v1/signin", parameters={}
+2025-08-07T23:30:26.446+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.LocalAuthControllerImpl#authenticateUser(LoginRequestDto)
+2025-08-07T23:30:26.456+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginRequestDto(email=abc@gmail.com, username=abc, password=1234)]
+2025-08-07T23:30:26.801+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-5] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-07T23:30:26.804+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:30:26.805+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNAZ21haWwuY29tIiwiaWF0IjoxNzU0NTk4NjI2LCJleHAiOjE3 (truncated)...]
+2025-08-07T23:30:26.807+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:30:31.879+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/v1/signin
+2025-08-07T23:30:31.880+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:30:31.881+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/v1/signin
+2025-08-07T23:30:31.881+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/v1/signin", parameters={}
+2025-08-07T23:30:31.881+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.LocalAuthControllerImpl#authenticateUser(LoginRequestDto)
+2025-08-07T23:30:31.883+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginRequestDto(email=null, username=abc, password=1234)]
+2025-08-07T23:30:32.065+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-6] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-07T23:30:32.067+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:30:32.067+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZGNAZ21haWwuY29tIiwiaWF0IjoxNzU0NTk4NjMyLCJleHAiOjE3 (truncated)...]
+2025-08-07T23:30:32.069+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:30:38.797+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/v1/signin
+2025-08-07T23:30:38.798+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:30:38.799+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/v1/signin
+2025-08-07T23:30:38.799+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/v1/signin", parameters={}
+2025-08-07T23:30:38.800+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.LocalAuthControllerImpl#authenticateUser(LoginRequestDto)
+2025-08-07T23:30:38.802+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginRequestDto(email=abc@gmail.com, username=null, password=1234)]
+2025-08-07T23:30:38.972+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-7] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-07T23:30:38.974+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:30:38.975+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNAZ21haWwuY29tIiwiaWF0IjoxNzU0NTk4NjM4LCJleHAiOjE3 (truncated)...]
+2025-08-07T23:30:38.976+03:00 DEBUG 254218 --- [ligiopen] [http-nio-8000-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:31:48.407+03:00  INFO 254631 --- [ligiopen] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-08-07T23:31:48.505+03:00  WARN 254631 --- [ligiopen] [main] com.amazonaws.util.VersionInfoUtils      : The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'.
+This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'.
+The AWS SDK for Java 1.x is being used here:
+at java.base/java.lang.Thread.getStackTrace(Thread.java:2450)
+at com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81)
+at com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59)
+at com.amazonaws.internal.EC2ResourceFetcher.<clinit>(EC2ResourceFetcher.java:44)
+at com.amazonaws.auth.InstanceMetadataServiceCredentialsFetcher.<init>(InstanceMetadataServiceCredentialsFetcher.java:38)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:111)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:91)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:75)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<clinit>(InstanceProfileCredentialsProvider.java:58)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.initializeProvider(EC2ContainerCredentialsProviderWrapper.java:66)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.<init>(EC2ContainerCredentialsProviderWrapper.java:55)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<init>(DefaultAWSCredentialsProviderChain.java:60)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<clinit>(DefaultAWSCredentialsProviderChain.java:54)
+at com.amazonaws.services.s3.AmazonS3ClientBuilder.standard(AmazonS3ClientBuilder.java:46)
+at com.jabulani.ligiopen.config.aws.AwsConfig.s3Client(AwsConfig.java:30)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$0.CGLIB$s3Client$0(<generated>)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>)
+at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:348)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$0.s3Client(<generated>)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:171)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:88)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:168)
+at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:489)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1351)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1181)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1568)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1435)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1626)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1371)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+at com.jabulani.ligiopen.LigiopenApplication.main(LigiopenApplication.java:10)
+2025-08-07T23:31:49.615+03:00  WARN 254631 --- [ligiopen] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-07T23:31:49.895+03:00 DEBUG 254631 --- [ligiopen] [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 14 mappings in 'requestMappingHandlerMapping'
+2025-08-07T23:31:50.045+03:00 DEBUG 254631 --- [ligiopen] [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-08-07T23:31:50.239+03:00 DEBUG 254631 --- [ligiopen] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, OAuth2AuthorizationRequestRedirectFilter, OAuth2LoginAuthenticationFilter, JWTAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-08-07T23:31:50.375+03:00 DEBUG 254631 --- [ligiopen] [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-08-07T23:31:50.444+03:00 DEBUG 254631 --- [ligiopen] [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-08-07T23:32:06.872+03:00  INFO 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-08-07T23:32:06.872+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-08-07T23:32:06.873+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-08-07T23:32:06.873+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-08-07T23:32:06.875+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@53a65166
+2025-08-07T23:32:06.876+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@5aaecd25
+2025-08-07T23:32:06.877+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-08-07T23:32:06.877+03:00  INFO 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2025-08-07T23:32:06.912+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/v1/signin
+2025-08-07T23:32:06.931+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:32:06.935+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/v1/signin
+2025-08-07T23:32:06.939+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/v1/signin", parameters={}
+2025-08-07T23:32:06.943+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.LocalAuthControllerImpl#authenticateUser(LoginRequestDto)
+2025-08-07T23:32:07.087+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginRequestDto(email=abc@gmail.com, username=abc, password=1234)]
+2025-08-07T23:32:08.552+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-07T23:32:08.655+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:32:08.658+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{data=TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNAZ21haWwuY29tIiwiaWF0IjoxNzU0NTk4NzI4LCJleH (truncated)...]
+2025-08-07T23:32:08.696+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:32:16.446+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/v1/signin
+2025-08-07T23:32:16.447+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:32:16.448+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/v1/signin
+2025-08-07T23:32:16.448+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/v1/signin", parameters={}
+2025-08-07T23:32:16.449+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.LocalAuthControllerImpl#authenticateUser(LoginRequestDto)
+2025-08-07T23:32:16.452+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginRequestDto(email=null, username=abc, password=1234)]
+2025-08-07T23:32:16.720+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-3] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-07T23:32:16.723+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:32:16.724+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{data=TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZGNAZ21haWwuY29tIiwiaWF0IjoxNzU0NTk4NzM2LCJleH (truncated)...]
+2025-08-07T23:32:16.727+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:32:23.171+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/v1/signin
+2025-08-07T23:32:23.172+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:32:23.172+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/v1/signin
+2025-08-07T23:32:23.173+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/v1/signin", parameters={}
+2025-08-07T23:32:23.173+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.LocalAuthControllerImpl#authenticateUser(LoginRequestDto)
+2025-08-07T23:32:23.175+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginRequestDto(email=abc@gmail.com, username=null, password=1234)]
+2025-08-07T23:32:23.347+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-07T23:32:23.349+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:32:23.350+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{data=TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNAZ21haWwuY29tIiwiaWF0IjoxNzU0NTk4NzQzLCJleH (truncated)...]
+2025-08-07T23:32:23.351+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:32:31.920+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/v1/signin
+2025-08-07T23:32:31.920+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:32:31.921+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/v1/signin
+2025-08-07T23:32:31.921+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/v1/signin", parameters={}
+2025-08-07T23:32:31.921+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.LocalAuthControllerImpl#authenticateUser(LoginRequestDto)
+2025-08-07T23:32:31.923+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginRequestDto(email=null, username=abcc, password=1234)]
+2025-08-07T23:32:32.090+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-5] o.s.s.a.dao.DaoAuthenticationProvider    : Failed to find user 'abcc'
+2025-08-07T23:32:32.098+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:32:32.099+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{success=false, message=failed, errors={authentication=Invalid credentials}}]
+2025-08-07T23:32:32.100+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 401 UNAUTHORIZED
+2025-08-07T23:32:41.357+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/v1/signin
+2025-08-07T23:32:41.358+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:32:41.358+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/v1/signin
+2025-08-07T23:32:41.358+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/v1/signin", parameters={}
+2025-08-07T23:32:41.359+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.LocalAuthControllerImpl#authenticateUser(LoginRequestDto)
+2025-08-07T23:32:41.360+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginRequestDto(email=abc@gmail.com, username=abcc, password=1234)]
+2025-08-07T23:32:41.517+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-6] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-07T23:32:41.518+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:32:41.519+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{data=TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNAZ21haWwuY29tIiwiaWF0IjoxNzU0NTk4NzYxLCJleH (truncated)...]
+2025-08-07T23:32:41.520+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:32:46.852+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/v1/signin
+2025-08-07T23:32:46.852+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:32:46.853+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/v1/signin
+2025-08-07T23:32:46.853+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/v1/signin", parameters={}
+2025-08-07T23:32:46.853+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.LocalAuthControllerImpl#authenticateUser(LoginRequestDto)
+2025-08-07T23:32:46.854+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginRequestDto(email=abc@gmail.com, username=abc, password=1234)]
+2025-08-07T23:32:47.014+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-7] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-07T23:32:47.016+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:32:47.017+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{data=TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNAZ21haWwuY29tIiwiaWF0IjoxNzU0NTk4NzY3LCJleH (truncated)...]
+2025-08-07T23:32:47.018+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:33:07.290+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-8] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/v1/signin
+2025-08-07T23:33:07.291+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:33:07.292+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-8] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/v1/signin
+2025-08-07T23:33:07.292+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/v1/signin", parameters={}
+2025-08-07T23:33:07.293+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.LocalAuthControllerImpl#authenticateUser(LoginRequestDto)
+2025-08-07T23:33:07.295+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginRequestDto(email=abc@gmail.com, username=null, password=1234)]
+2025-08-07T23:33:07.463+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-8] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-07T23:33:07.465+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:33:07.466+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{data=TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNAZ21haWwuY29tIiwiaWF0IjoxNzU0NTk4Nzg3LCJleH (truncated)...]
+2025-08-07T23:33:07.467+03:00 DEBUG 254631 --- [ligiopen] [http-nio-8000-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:37:14.333+03:00  INFO 255296 --- [ligiopen] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-08-07T23:37:14.410+03:00  WARN 255296 --- [ligiopen] [main] com.amazonaws.util.VersionInfoUtils      : The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'.
+This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'.
+The AWS SDK for Java 1.x is being used here:
+at java.base/java.lang.Thread.getStackTrace(Thread.java:2450)
+at com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81)
+at com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59)
+at com.amazonaws.internal.EC2ResourceFetcher.<clinit>(EC2ResourceFetcher.java:44)
+at com.amazonaws.auth.InstanceMetadataServiceCredentialsFetcher.<init>(InstanceMetadataServiceCredentialsFetcher.java:38)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:111)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:91)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:75)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<clinit>(InstanceProfileCredentialsProvider.java:58)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.initializeProvider(EC2ContainerCredentialsProviderWrapper.java:66)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.<init>(EC2ContainerCredentialsProviderWrapper.java:55)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<init>(DefaultAWSCredentialsProviderChain.java:60)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<clinit>(DefaultAWSCredentialsProviderChain.java:54)
+at com.amazonaws.services.s3.AmazonS3ClientBuilder.standard(AmazonS3ClientBuilder.java:46)
+at com.jabulani.ligiopen.config.aws.AwsConfig.s3Client(AwsConfig.java:30)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$0.CGLIB$s3Client$0(<generated>)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>)
+at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:348)
+at com.jabulani.ligiopen.config.aws.AwsConfig$$SpringCGLIB$$0.s3Client(<generated>)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:171)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:88)
+at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:168)
+at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:489)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1351)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1181)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1568)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1435)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1626)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1371)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+at com.jabulani.ligiopen.LigiopenApplication.main(LigiopenApplication.java:10)
+2025-08-07T23:37:15.664+03:00  WARN 255296 --- [ligiopen] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-07T23:37:15.893+03:00 DEBUG 255296 --- [ligiopen] [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 14 mappings in 'requestMappingHandlerMapping'
+2025-08-07T23:37:16.011+03:00 DEBUG 255296 --- [ligiopen] [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-08-07T23:37:16.160+03:00 DEBUG 255296 --- [ligiopen] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, OAuth2AuthorizationRequestRedirectFilter, OAuth2LoginAuthenticationFilter, JWTAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-08-07T23:37:16.276+03:00 DEBUG 255296 --- [ligiopen] [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-08-07T23:37:16.343+03:00 DEBUG 255296 --- [ligiopen] [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-08-07T23:37:25.936+03:00  INFO 255296 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-08-07T23:37:25.937+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-08-07T23:37:25.937+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-08-07T23:37:25.937+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-08-07T23:37:25.939+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@3c0a4c8b
+2025-08-07T23:37:25.941+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@5d9576a0
+2025-08-07T23:37:25.941+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-08-07T23:37:25.942+03:00  INFO 255296 --- [ligiopen] [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2025-08-07T23:37:25.978+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/google
+2025-08-07T23:37:26.046+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-1] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com&scope=openid%20email%20profile&state=s2tlXGNye9wk89Lue4YOE4innWK-PPOip1Q0XftXmlk%3D&redirect_uri=http://localhost:8000/login/oauth2/code/google&nonce=YJ73mgG9UTT75VFc1qi7hZns3uVjKgVzC-lQoSZ5Sbc
+2025-08-07T23:37:38.065+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /login/oauth2/code/google?state=s2tlXGNye9wk89Lue4YOE4innWK-PPOip1Q0XftXmlk%3D&code=4%2F0AVMBsJirZx5jzdJ-XPYgq9vjLlXCFKJWR5DpsRhK1ZbwrnuVtI04rIrkC9wXINEy3jZuqQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent
+2025-08-07T23:37:38.121+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : HTTP POST https://oauth2.googleapis.com/token
+2025-08-07T23:37:38.137+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2025-08-07T23:37:38.139+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Writing [{grant_type=[authorization_code], code=[4/0AVMBsJirZx5jzdJ-XPYgq9vjLlXCFKJWR5DpsRhK1ZbwrnuVtI04rIrkC9wXINEy3jZuqQ], redirect_uri=[http://localhost:8000/login/oauth2/code/google]}] as "application/x-www-form-urlencoded;charset=UTF-8"
+2025-08-07T23:37:38.971+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Response 200 OK
+2025-08-07T23:37:38.978+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Reading to [org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse] as "application/json;charset=utf-8"
+2025-08-07T23:37:39.382+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : HTTP GET https://www.googleapis.com/oauth2/v3/certs
+2025-08-07T23:37:39.384+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Accept=[text/plain, application/json, application/cbor, application/yaml, application/*+json, */*]
+2025-08-07T23:37:40.058+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Response 200 OK
+2025-08-07T23:37:40.060+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] o.s.web.client.RestTemplate              : Reading to [java.lang.String] as "application/json;charset=UTF-8"
+2025-08-07T23:37:40.150+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] .s.ChangeSessionIdAuthenticationStrategy : Changed session id from 30c01bd1-6691-4164-8bc6-5c56bdb57084
+2025-08-07T23:37:40.155+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] w.c.HttpSessionSecurityContextRepository : Stored SecurityContextImpl [Authentication=OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=OWt612LxlVk5uvk5sqstrQ, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=YJ73mgG9UTT75VFc1qi7hZns3uVjKgVzC-lQoSZ5Sbc, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:37:38Z, family_name=Alex, iat=2025-08-07T20:37:38Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=127.0.0.1, SessionId=30c01bd1-6691-4164-8bc6-5c56bdb57084], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]] to HttpSession [org.springframework.session.web.http.SessionRepositoryFilter$SessionRepositoryRequestWrapper$HttpSessionWrapper@5ab199f9]
+2025-08-07T23:37:40.157+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Set SecurityContextHolder to OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=OWt612LxlVk5uvk5sqstrQ, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=YJ73mgG9UTT75VFc1qi7hZns3uVjKgVzC-lQoSZ5Sbc, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:37:38Z, family_name=Alex, iat=2025-08-07T20:37:38Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=127.0.0.1, SessionId=30c01bd1-6691-4164-8bc6-5c56bdb57084], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]
+2025-08-07T23:37:41.246+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-2] o.s.s.web.DefaultRedirectStrategy        : Redirecting to /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTkwNjEsImV4cCI6MTc1NTIwMzg2MX0.zaE9ue_QuCDIDeUzt63etRnoYqdAzp2ZuVE9fCAB4e6wGKutyT_thG5z1tU3K1zDVI5FPRHlJFgibDDpCxK2ew&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:37:41.304+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTkwNjEsImV4cCI6MTc1NTIwMzg2MX0.zaE9ue_QuCDIDeUzt63etRnoYqdAzp2ZuVE9fCAB4e6wGKutyT_thG5z1tU3K1zDVI5FPRHlJFgibDDpCxK2ew&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:37:41.317+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTkwNjEsImV4cCI6MTc1NTIwMzg2MX0.zaE9ue_QuCDIDeUzt63etRnoYqdAzp2ZuVE9fCAB4e6wGKutyT_thG5z1tU3K1zDVI5FPRHlJFgibDDpCxK2ew&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:37:41.322+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTkwNjEsImV4cCI6MTc1NTIwMzg2MX0.zaE9ue_QuCDIDeUzt63etRnoYqdAzp2ZuVE9fCAB4e6wGKutyT_thG5z1tU3K1zDVI5FPRHlJFgibDDpCxK2ew&userId=1&email=mbogoalex3@gmail.com&isNewUser=false", parameters={masked}
+2025-08-07T23:37:41.324+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.GoogleAuthControllerImpl#googleAuthSuccess(String)
+2025-08-07T23:37:41.386+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:37:41.390+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{data=TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OT (truncated)...]
+2025-08-07T23:37:41.425+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:37:41.426+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-3] w.c.HttpSessionSecurityContextRepository : Retrieved SecurityContextImpl [Authentication=OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=OWt612LxlVk5uvk5sqstrQ, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=YJ73mgG9UTT75VFc1qi7hZns3uVjKgVzC-lQoSZ5Sbc, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:37:38Z, family_name=Alex, iat=2025-08-07T20:37:38Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=127.0.0.1, SessionId=30c01bd1-6691-4164-8bc6-5c56bdb57084], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]]
+2025-08-07T23:37:41.583+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /favicon.ico
+2025-08-07T23:37:41.584+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:37:41.600+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /error
+2025-08-07T23:37:41.601+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-07T23:37:41.611+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-4] o.s.s.w.s.HttpSessionRequestCache        : Saved request http://localhost:8000/error?continue to session
+2025-08-07T23:37:54.228+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/google
+2025-08-07T23:37:54.238+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-5] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com&scope=openid%20email%20profile&state=7c6_6Dm1e6dzkBocsrglnClrNCZ8xCrVO6oyV-yJLvc%3D&redirect_uri=http://localhost:8000/login/oauth2/code/google&nonce=NTL6bxyCzQT5a4KIVgaoBT5yHzdz8LvuUJ1crMbn6MI
+2025-08-07T23:37:54.768+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /login/oauth2/code/google?state=7c6_6Dm1e6dzkBocsrglnClrNCZ8xCrVO6oyV-yJLvc%3D&code=4%2F0AVMBsJjxmdpY1iyXE-1_4qMSjRWFv-ZGGhcDhDpkYwoDMqWDqWQJtbyaFHuYv7N4E_dAcA&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none
+2025-08-07T23:37:54.779+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-6] o.s.web.client.RestTemplate              : HTTP POST https://oauth2.googleapis.com/token
+2025-08-07T23:37:54.780+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-6] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2025-08-07T23:37:54.781+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-6] o.s.web.client.RestTemplate              : Writing [{grant_type=[authorization_code], code=[4/0AVMBsJjxmdpY1iyXE-1_4qMSjRWFv-ZGGhcDhDpkYwoDMqWDqWQJtbyaFHuYv7N4E_dAcA], redirect_uri=[http://localhost:8000/login/oauth2/code/google]}] as "application/x-www-form-urlencoded;charset=UTF-8"
+2025-08-07T23:37:55.240+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-6] o.s.web.client.RestTemplate              : Response 200 OK
+2025-08-07T23:37:55.242+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-6] o.s.web.client.RestTemplate              : Reading to [org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse] as "application/json;charset=utf-8"
+2025-08-07T23:37:55.252+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-6] .s.ChangeSessionIdAuthenticationStrategy : Changed session id from 93b52da2-dd9b-49b6-943f-e51e4f8c794e
+2025-08-07T23:37:55.253+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-6] w.c.HttpSessionSecurityContextRepository : Stored SecurityContextImpl [Authentication=OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=uFzwGHlUWQtTWqr5PQ7n3g, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=NTL6bxyCzQT5a4KIVgaoBT5yHzdz8LvuUJ1crMbn6MI, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:37:55Z, family_name=Alex, iat=2025-08-07T20:37:55Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=93b52da2-dd9b-49b6-943f-e51e4f8c794e], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]] to HttpSession [org.springframework.session.web.http.SessionRepositoryFilter$SessionRepositoryRequestWrapper$HttpSessionWrapper@556946bb]
+2025-08-07T23:37:55.254+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-6] .s.o.c.w.OAuth2LoginAuthenticationFilter : Set SecurityContextHolder to OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=uFzwGHlUWQtTWqr5PQ7n3g, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=NTL6bxyCzQT5a4KIVgaoBT5yHzdz8LvuUJ1crMbn6MI, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:37:55Z, family_name=Alex, iat=2025-08-07T20:37:55Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=93b52da2-dd9b-49b6-943f-e51e4f8c794e], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]
+2025-08-07T23:37:55.279+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-6] o.s.s.web.DefaultRedirectStrategy        : Redirecting to /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTkwNzUsImV4cCI6MTc1NTIwMzg3NX0.ZaASm_m7T_1daO3s1jcp_cf-sET0Hy53QT3l4wxEG_1njhvKHjQfZd0tpoogb8svWYh-cTaPjzDkUVHUV9X7kQ&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:37:55.310+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTkwNzUsImV4cCI6MTc1NTIwMzg3NX0.ZaASm_m7T_1daO3s1jcp_cf-sET0Hy53QT3l4wxEG_1njhvKHjQfZd0tpoogb8svWYh-cTaPjzDkUVHUV9X7kQ&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:37:55.322+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTkwNzUsImV4cCI6MTc1NTIwMzg3NX0.ZaASm_m7T_1daO3s1jcp_cf-sET0Hy53QT3l4wxEG_1njhvKHjQfZd0tpoogb8svWYh-cTaPjzDkUVHUV9X7kQ&userId=1&email=mbogoalex3@gmail.com&isNewUser=false
+2025-08-07T23:37:55.325+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/auth/google/success?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OTkwNzUsImV4cCI6MTc1NTIwMzg3NX0.ZaASm_m7T_1daO3s1jcp_cf-sET0Hy53QT3l4wxEG_1njhvKHjQfZd0tpoogb8svWYh-cTaPjzDkUVHUV9X7kQ&userId=1&email=mbogoalex3@gmail.com&isNewUser=false", parameters={masked}
+2025-08-07T23:37:55.327+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.jabulani.ligiopen.controller.auth.GoogleAuthControllerImpl#googleAuthSuccess(String)
+2025-08-07T23:37:55.331+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [application/json, application/*+json, application/cbor, application/yaml]
+2025-08-07T23:37:55.333+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{data=TokenDto(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDUzMjIwNDM2ODg0MjE3NDY0NTgiLCJpYXQiOjE3NTQ1OT (truncated)...]
+2025-08-07T23:37:55.342+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-08-07T23:37:55.344+03:00 DEBUG 255296 --- [ligiopen] [http-nio-8000-exec-7] w.c.HttpSessionSecurityContextRepository : Retrieved SecurityContextImpl [Authentication=OAuth2AuthenticationToken [Principal=Name: [105322043688421746458], Granted Authorities: [[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]], User Attributes: [{at_hash=uFzwGHlUWQtTWqr5PQ7n3g, sub=105322043688421746458, email_verified=true, iss=https://accounts.google.com, given_name=Mbogo, nonce=NTL6bxyCzQT5a4KIVgaoBT5yHzdz8LvuUJ1crMbn6MI, picture=https://lh3.googleusercontent.com/a/ACg8ocIuHg7BoSH2JTYdca1Pik3iJhisq3NkGFyq4gdFeszHtbH43w=s96-c, aud=[568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com], azp=568982030180-4t1j0uvj90s4ml85avb10b8hra0k2sd0.apps.googleusercontent.com, name=Mbogo Alex, exp=2025-08-07T21:37:55Z, family_name=Alex, iat=2025-08-07T20:37:55Z, email=mbogoalex3@gmail.com}], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=93b52da2-dd9b-49b6-943f-e51e4f8c794e], Granted Authorities=[OIDC_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]]]

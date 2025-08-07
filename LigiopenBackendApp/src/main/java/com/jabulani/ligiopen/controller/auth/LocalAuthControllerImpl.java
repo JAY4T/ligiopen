@@ -4,8 +4,6 @@ import com.jabulani.ligiopen.config.response.BuildResponse;
 import com.jabulani.ligiopen.config.security.JWTGenerator;
 import com.jabulani.ligiopen.dao.UserEntityDao;
 import com.jabulani.ligiopen.model.dto.classes.*;
-import com.jabulani.ligiopen.model.tables.UserEntity;
-import com.jabulani.ligiopen.model.tables.UserEntity.UserRole;
 import com.jabulani.ligiopen.service.userEnity.UserEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,17 +79,35 @@ public class LocalAuthControllerImpl implements LocalAuthController {
     @Override
     public ResponseEntity<Object> authenticateUser(@RequestBody LoginRequestDto loginRequest) {
 
-        // Local login
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
-                        loginRequest.getPassword()
-                )
-        );
+        // Determine which identifier to use (email or username)
+        String identifier = loginRequest.getEmail() != null && !loginRequest.getEmail().isEmpty()
+                ? loginRequest.getEmail()
+                : loginRequest.getUsername();
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtGenerator.generateToken(authentication);
+        if (identifier == null || identifier.isEmpty()) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("credential", "Error: Either email or username must be provided!");
+            return buildResponse.error("failed", errors, HttpStatus.BAD_REQUEST);
+        }
 
-        return ResponseEntity.ok(new TokenDto(jwt, "Login successful"));
+        try {
+            // Local login - UserDetailsService will handle email or username lookup
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            identifier,
+                            loginRequest.getPassword()
+                    )
+            );
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtGenerator.generateToken(authentication);
+
+            return buildResponse.success(new TokenDto(jwt, "Login successful"), "success", null, HttpStatus.OK);
+
+        } catch (Exception e) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("authentication", "Invalid credentials");
+            return buildResponse.error("failed", errors, HttpStatus.UNAUTHORIZED);
+        }
     }
 }

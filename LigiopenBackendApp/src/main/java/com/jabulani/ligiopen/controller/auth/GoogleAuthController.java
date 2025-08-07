@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface GoogleAuthController {
 
-    ResponseEntity<TokenDto> googleAuthSuccess(String token);
+    ResponseEntity<Object> googleAuthSuccess(String token);
 
-    ResponseEntity<TokenDto> googleAuthFailure();
+    ResponseEntity<Object> googleAuthFailure();
 }

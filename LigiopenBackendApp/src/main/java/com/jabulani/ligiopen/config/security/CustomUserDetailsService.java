@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -26,9 +27,23 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userEntityDao.getUserByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
+    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+        UserEntity user = null;
+
+        // Try to find by email first, then by username
+        Optional<UserEntity> userOptional = userEntityDao.getUserByEmail(usernameOrEmail);
+        if (userOptional.isPresent()) {
+            user = userOptional.get();
+        } else {
+            userOptional = userEntityDao.getUserByUsername(usernameOrEmail);
+            if (userOptional.isPresent()) {
+                user = userOptional.get();
+            }
+        }
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with email or username: " + usernameOrEmail);
+        }
 
         if (!user.isAccountEnabled()) {
             throw new UsernameNotFoundException("User account is disabled");
