@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Optional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -27,27 +26,16 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        // Try to find user by email first, then by username
-        Optional<UserEntity> userOptional = userEntityDao.getUserByEmail(usernameOrEmail);
-
-        if (userOptional.isEmpty()) {
-            userOptional = userEntityDao.getUserByUsername(usernameOrEmail);
-        }
-
-        UserEntity user = userOptional
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email or username: " + usernameOrEmail));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity user = userEntityDao.getUserByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
 
         if (!user.isAccountEnabled()) {
             throw new UsernameNotFoundException("User account is disabled");
         }
 
-        // Use email as the principal if available, otherwise use username
-        String principal = user.getEmail() != null ? user.getEmail() :
-                (user.getGoogleEmail() != null ? user.getGoogleEmail() : user.getUsername());
-
         return new User(
-                principal,
+                user.getEmail() != null ? user.getEmail() : user.getGoogleEmail(),
                 user.getPassword() != null ? user.getPassword() : "N/A", // For OAuth users without password
                 true, true, true, true, // All enabled
                 mapRoleToAuthorities(user.getRole())

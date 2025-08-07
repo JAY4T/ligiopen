@@ -82,34 +82,17 @@ public class LocalAuthControllerImpl implements LocalAuthController {
     @Override
     public ResponseEntity<Object> authenticateUser(@RequestBody LoginRequestDto loginRequest) {
 
-        // Determine which identifier to use (email or username)
-        String identifier = loginRequest.getEmail() != null && !loginRequest.getEmail().isEmpty()
-                ? loginRequest.getEmail()
-                : loginRequest.getUsername();
+        // Local login
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getEmail(),
+                        loginRequest.getPassword()
+                )
+        );
 
-        if (identifier == null || identifier.isEmpty()) {
-            Map<String, Object> errors = new HashMap<>();
-            errors.put("credential", "Error: Either email or username must be provided!");
-            return buildResponse.error("failed", errors, HttpStatus.BAD_REQUEST);
-        }
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtGenerator.generateToken(authentication);
 
-        try {
-            // Local login
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            identifier,
-                            loginRequest.getPassword()
-                    )
-            );
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            String jwt = jwtGenerator.generateToken(authentication);
-
-            return buildResponse.success(new TokenDto(jwt, "Login successful"), "success", null, HttpStatus.OK);
-        } catch (Exception e) {
-            Map<String, Object> errors = new HashMap<>();
-            errors.put("authentication", "Invalid credentials");
-            return buildResponse.error("failed", errors, HttpStatus.UNAUTHORIZED);
-        }
+        return ResponseEntity.ok(new TokenDto(jwt, "Login successful"));
     }
 }
