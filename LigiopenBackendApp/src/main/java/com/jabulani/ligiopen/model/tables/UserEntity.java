@@ -33,7 +33,7 @@ public class UserEntity {
     @Column(name = "google_id")
     private String googleId; // Google's unique identifier
 
-    @Column(name = "google_email")
+    @Column(name = "google_email", unique = true)
     private String googleEmail; // Email associated with Google account
 
     @Column(name = "email_verified")

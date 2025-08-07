@@ -35,10 +35,6 @@ public class LocalAuthControllerImpl implements LocalAuthController {
     @Override
     public ResponseEntity<SuccessDto> registerUser(@RequestBody SignupRequestDto signUpRequest) {
         // Handle Google signup (should be handled by OAuth2 flow)
-        if (signUpRequest.getOauthMethod() == OauthMethod.GOOGLE) {
-            return ResponseEntity.badRequest()
-                    .body(new SuccessDto(false, "Google signup should be handled through OAuth2 flow"));
-        }
 
         // Local signup
         if (userEntityDao.getUserByEmail(signUpRequest.getEmail()).isPresent()) {
