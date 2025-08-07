@@ -143,6 +143,7 @@ public class UserEntityDaoImpl implements UserEntityDao {
         }
     }
 
+    @Override
     public Optional<UserEntity> getUserByUsername(String username) {
         try {
             TypedQuery<UserEntity> query = entityManager.createQuery(

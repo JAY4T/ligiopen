@@ -55,7 +55,6 @@ public class LocalAuthControllerImpl implements LocalAuthController {
     @PostMapping("signup")
     @Override
     public ResponseEntity<Object> registerUser(@RequestBody SignupRequestDto signUpRequest) {
-        // Handle Google signup (should be handled by OAuth2 flow)
 
         // Local signup
         if (userEntityDao.getUserByEmail(signUpRequest.getEmail()).isPresent()) {
@@ -64,9 +63,19 @@ public class LocalAuthControllerImpl implements LocalAuthController {
             return buildResponse.error("failed", errors, HttpStatus.BAD_REQUEST);
         }
 
+        if (userEntityDao.getUserByUsername(signUpRequest.getUsername()).isPresent()) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("username", "Error: Username is already in use!");
+            return buildResponse.error("failed", errors, HttpStatus.BAD_REQUEST);
+        }
 
-
-        return buildResponse.success(userEntityService.createUser(signUpRequest),"Account created",  null, HttpStatus.OK);
+        try {
+            return buildResponse.success(userEntityService.createUser(signUpRequest),"Account created",  null, HttpStatus.OK);
+        } catch (Exception e) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("exception", e.getMessage());
+            return buildResponse.error("failed", errors, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("signin")
