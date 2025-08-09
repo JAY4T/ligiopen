@@ -1,5 +1,7 @@
 package com.jabulani.ligiopen.model.tables;
 
+import com.jabulani.ligiopen.model.tables.competition.Group;
+import com.jabulani.ligiopen.model.tables.team_and_player.Club;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

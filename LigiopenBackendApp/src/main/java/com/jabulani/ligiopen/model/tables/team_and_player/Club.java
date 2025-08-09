@@ -1,5 +1,8 @@
-package com.jabulani.ligiopen.model.tables;
+package com.jabulani.ligiopen.model.tables.team_and_player;
 
+import com.jabulani.ligiopen.model.tables.FavoritedClub;
+import com.jabulani.ligiopen.model.tables.Stadium;
+import com.jabulani.ligiopen.model.tables.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

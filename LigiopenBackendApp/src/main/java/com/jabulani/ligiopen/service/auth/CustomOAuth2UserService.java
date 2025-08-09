@@ -68,6 +68,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                         newUser.setRole(UserRole.USER); // Adjust based on your enum values
                         newUser.setEmailVerified(emailVerified != null ? emailVerified : false);
                         newUser.setAccountEnabled(true);
+                        newUser.setEmailVerified(true);
                         newUser.setCreatedAt(LocalDateTime.now());
                         newUser.setUpdatedAt(LocalDateTime.now());
 
@@ -77,6 +78,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             // Update existing user information if needed
             if (user.getId() != null) {
                 boolean needsUpdate = false;
+
+                user.setEmailVerified(true);
 
                 if (!email.equals(user.getGoogleEmail())) {
                     user.setGoogleEmail(email);

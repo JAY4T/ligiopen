@@ -1,4 +1,4 @@
-package com.jabulani.ligiopen.model.tables;
+package com.jabulani.ligiopen.model.tables.match_tracking;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,18 +11,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "`groups`")
-public class Group {
+@Table(name = "match_stats")
+public class MatchStats {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "stage_id")
-    private Stage stage;
+    private Integer shots;
 
-    private String name;
+    private Double possession;
 
-    @Column(name = "advancing_teams")
-    private int advancingTeams;
+    @Column(name = "pass_accuracy")
+    private Double passAccuracy;
 }

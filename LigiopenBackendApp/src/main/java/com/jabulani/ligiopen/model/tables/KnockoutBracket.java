@@ -1,5 +1,6 @@
 package com.jabulani.ligiopen.model.tables;
 
+import com.jabulani.ligiopen.model.tables.competition.Stage;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

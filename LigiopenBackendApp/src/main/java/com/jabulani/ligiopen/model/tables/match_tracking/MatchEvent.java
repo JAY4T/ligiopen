@@ -1,5 +1,6 @@
-package com.jabulani.ligiopen.model.tables;
+package com.jabulani.ligiopen.model.tables.match_tracking;
 
+import com.jabulani.ligiopen.model.tables.team_and_player.Player;
 import jakarta.persistence.*;
 import lombok.*;
 

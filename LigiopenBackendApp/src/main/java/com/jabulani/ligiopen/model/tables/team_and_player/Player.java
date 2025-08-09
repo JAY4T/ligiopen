@@ -1,4 +1,4 @@
-package com.jabulani.ligiopen.model.tables;
+package com.jabulani.ligiopen.model.tables.team_and_player;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
