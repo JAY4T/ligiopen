@@ -1,8 +1,7 @@
 package com.jabulani.ligiopen.config.security;
 
 import com.jabulani.ligiopen.dao.UserEntityDao;
-import com.jabulani.ligiopen.model.tables.UserEntity;
-import com.jabulani.ligiopen.model.tables.UserEntity.UserRole;
+import com.jabulani.ligiopen.entity.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -57,7 +56,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         );
     }
 
-    private Collection<GrantedAuthority> mapRoleToAuthorities(UserRole role) {
+    private Collection<GrantedAuthority> mapRoleToAuthorities(UserEntity.UserRole role) {
         if (role == null) {
             return Collections.emptyList();
         }

@@ -1,7 +1,7 @@
 package com.jabulani.ligiopen.controller.auth;
 
-import com.jabulani.ligiopen.config.response.BuildResponse;
-import com.jabulani.ligiopen.model.dto.classes.TokenDto;
+import com.jabulani.ligiopen.config.web.BuildResponse;
+import com.jabulani.ligiopen.dto.auth.TokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +26,15 @@ public class GoogleAuthControllerImpl implements GoogleAuthController {
 
     @GetMapping("success")
     @Override
-    public ResponseEntity<Object> googleAuthSuccess(@RequestParam String token) {
-        return buildResponse.success(new TokenDto(token, "Google authentication successful"), "success", null, HttpStatus.OK);
+    public ResponseEntity<Object> googleAuthSuccess(@RequestParam String token, 
+                                                  @RequestParam(required = false) String refreshToken,
+                                                  @RequestParam(required = false) Long expiresIn) {
+        if (refreshToken != null && expiresIn != null) {
+            TokenDto tokenResponse = new TokenDto(token, refreshToken, "Google authentication successful", expiresIn);
+            return buildResponse.success(tokenResponse, "success", null, HttpStatus.OK);
+        } else {
+            return buildResponse.success(new TokenDto(token, "Google authentication successful"), "success", null, HttpStatus.OK);
+        }
     }
 
     @GetMapping("failure")

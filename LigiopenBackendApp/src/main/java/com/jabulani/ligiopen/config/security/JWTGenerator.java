@@ -10,7 +10,7 @@ import jakarta.annotation.PostConstruct;
 import java.security.Key;
 import java.util.Date;
 
-@Component // Add this annotation
+@Component
 public class JWTGenerator {
 
     @Value("${jwt.secret}")
@@ -18,6 +18,9 @@ public class JWTGenerator {
 
     @Value("${jwt.expiration-ms}")
     private long expirationMs;
+
+    @Value("${jwt.refresh-expiration-ms:604800000}") // Default 7 days
+    private long refreshExpirationMs;
 
     private Key key;
 
@@ -47,6 +50,23 @@ public class JWTGenerator {
         return claims.getSubject();
     }
 
+    public String generateRefreshToken(Authentication authentication) {
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + refreshExpirationMs);
+
+        return Jwts.builder()
+                .setSubject(authentication.getName())
+                .setIssuedAt(now)
+                .setExpiration(expiry)
+                .claim("type", "refresh")
+                .signWith(key, SignatureAlgorithm.HS512)
+                .compact();
+    }
+
+    public long getExpirationMs() {
+        return expirationMs;
+    }
+
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
@@ -54,6 +74,19 @@ public class JWTGenerator {
                     .build()
                     .parseClaimsJws(token);
             return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    public boolean isRefreshToken(String token) {
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            return "refresh".equals(claims.get("type"));
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }

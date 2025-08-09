@@ -1,10 +1,12 @@
 package com.jabulani.ligiopen.controller.auth;
 
-import com.jabulani.ligiopen.config.response.BuildResponse;
+import com.jabulani.ligiopen.config.web.BuildResponse;
 import com.jabulani.ligiopen.config.security.JWTGenerator;
 import com.jabulani.ligiopen.dao.UserEntityDao;
-import com.jabulani.ligiopen.model.dto.classes.*;
-import com.jabulani.ligiopen.service.userEnity.UserEntityService;
+import com.jabulani.ligiopen.dto.auth.LoginRequestDto;
+import com.jabulani.ligiopen.dto.auth.SignupRequestDto;
+import com.jabulani.ligiopen.dto.auth.TokenDto;
+import com.jabulani.ligiopen.service.user.UserEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -101,12 +103,57 @@ public class LocalAuthControllerImpl implements LocalAuthController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtGenerator.generateToken(authentication);
+            String refreshToken = jwtGenerator.generateRefreshToken(authentication);
+            Long expiresIn = jwtGenerator.getExpirationMs() / 1000; // Convert to seconds
 
-            return buildResponse.success(new TokenDto(jwt, "Login successful"), "success", null, HttpStatus.OK);
+            TokenDto tokenResponse = new TokenDto(jwt, refreshToken, "Login successful", expiresIn);
+            return buildResponse.success(tokenResponse, "success", null, HttpStatus.OK);
 
         } catch (Exception e) {
             Map<String, Object> errors = new HashMap<>();
             errors.put("authentication", "Invalid credentials");
+            return buildResponse.error("failed", errors, HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @PostMapping("refresh")
+    @Override
+    public ResponseEntity<Object> refreshToken(@RequestBody Map<String, String> request) {
+        String refreshToken = request.get("refreshToken");
+        
+        if (refreshToken == null || refreshToken.isEmpty()) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("refreshToken", "Refresh token is required");
+            return buildResponse.error("failed", errors, HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            // Validate the refresh token
+            if (!jwtGenerator.validateToken(refreshToken) || !jwtGenerator.isRefreshToken(refreshToken)) {
+                Map<String, Object> errors = new HashMap<>();
+                errors.put("refreshToken", "Invalid or expired refresh token");
+                return buildResponse.error("failed", errors, HttpStatus.UNAUTHORIZED);
+            }
+
+            // Extract username from refresh token
+            String username = jwtGenerator.getUsernameFromJWT(refreshToken);
+            
+            // Create new authentication object for token generation
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, null)
+            );
+
+            // Generate new tokens
+            String newAccessToken = jwtGenerator.generateToken(authentication);
+            String newRefreshToken = jwtGenerator.generateRefreshToken(authentication);
+            Long expiresIn = jwtGenerator.getExpirationMs() / 1000;
+
+            TokenDto tokenResponse = new TokenDto(newAccessToken, newRefreshToken, "Token refreshed successfully", expiresIn);
+            return buildResponse.success(tokenResponse, "success", null, HttpStatus.OK);
+
+        } catch (Exception e) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("refreshToken", "Failed to refresh token");
             return buildResponse.error("failed", errors, HttpStatus.UNAUTHORIZED);
         }
     }
