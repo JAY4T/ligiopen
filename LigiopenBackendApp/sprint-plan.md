@@ -73,7 +73,7 @@ LigiOpen is a comprehensive football league management system for Kenya, designe
    - Club profile management (CRUD)
    - Club logo and media upload
    - Club staff management
-   - FKF integration preparation
+   - FKF registration number tracking
 
 3. **Club-User Relationships**
    - Club ownership management
@@ -183,26 +183,29 @@ LigiOpen is a comprehensive football league management system for Kenya, designe
    - Official assignment system
 
 2. **Match Day Management**
-   - Team lineup submission
-   - Match status updates
-   - Live score updates
-   - Match event tracking (goals, cards, substitutions)
+   - Team lineup submission by club staff members
+   - Match status updates by assigned scouts
+   - Live score updates through scout reporting
+   - Match event tracking by trained field personnel
 
-3. **Match Officials**
-   - Referee and official management
-   - Official assignment system
-   - Official performance tracking
+3. **Scout & Official Management**
+   - Scout deployment and assignment system
+   - Referee details upload and management by scouts
+   - Official assignment and performance tracking
+   - Scout permissions and content management roles
 
-4. **Match Broadcasting**
-   - Live stream integration
-   - Match highlights upload
-   - Match commentary system
+4. **Broadcasting & Media Collaboration**
+   - Local media station partnership integration
+   - LigiOpen media team live stream capabilities
+   - Match highlights upload by scouts and media team
+   - Professional commentary creation and management
 
 **Sprint 5 Success Criteria:**
 - Complete fixture generation for leagues
-- Real-time match tracking functional
-- Match events can be recorded live
-- Commentary system working
+- Club staff can submit team lineups
+- Scouts can update match events and referee details in real-time
+- Media collaboration system functional for live streaming
+- Professional commentary system working
 
 ---
 
@@ -341,10 +344,10 @@ LigiOpen is a comprehensive football league management system for Kenya, designe
    - Agent commission tracking
 
 3. **FKF Compliance**
-   - Official FKF integration
-   - Compliance reporting
-   - Registration synchronization
-   - Official documentation
+   - FKF registration number validation and tracking
+   - Compliance reporting for federation requirements
+   - Player and club registration documentation
+   - Official documentation and record keeping
 
 4. **Payment Integration**
    - M-Pesa integration
@@ -354,7 +357,7 @@ LigiOpen is a comprehensive football league management system for Kenya, designe
 
 **Sprint 9 Success Criteria:**
 - Complete financial management system
-- FKF integration working
+- FKF compliance and registration tracking working
 - Payment processing functional
 - Compliance reporting available
 
@@ -425,16 +428,18 @@ LigiOpen is a comprehensive football league management system for Kenya, designe
 ## Risk Management
 
 ### High Risk Areas
-1. **FKF Integration**: May require additional coordination time
+1. **FKF Compliance**: May require additional coordination for proper documentation
 2. **Real-time Features**: Complex technical implementation
 3. **Payment Integration**: M-Pesa API complexity
 4. **Scale Requirements**: Performance under load
+5. **Scout Network Management**: Coordinating large distributed team
 
 ### Mitigation Strategies
-1. Early stakeholder engagement for FKF integration
+1. Early stakeholder engagement with FKF for compliance requirements
 2. Proof-of-concept development for complex features
 3. Payment sandbox testing and gradual rollout
 4. Load testing throughout development
+5. Comprehensive scout training and management system
 
 ## Development Team Structure
 
@@ -457,9 +462,10 @@ LigiOpen is a comprehensive football league management system for Kenya, designe
 - WebSocket for real-time features
 
 ### DevOps Stack
-- Docker for containerization
 - GitHub Actions for CI/CD
-- Ubuntu droplets for deployment
+- Direct Ubuntu Digital Ocean droplet deployment
+- Systemd for service management
+- Maven for build and JAR deployment
 - Nginx for reverse proxy
 - Let's Encrypt for SSL
 
