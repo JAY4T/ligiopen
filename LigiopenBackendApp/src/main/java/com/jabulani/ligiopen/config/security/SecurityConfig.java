@@ -75,10 +75,16 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/api/auth/**",
+                                "/api/v1/auth/**",
                                 "/login/oauth2/**",
                                 "/oauth2/**",
-                                "/debug/**" // Add debug endpoint
+                                "/debug/**", // Add debug endpoint
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**",
+                                "/v3/api-docs.yaml",
+                                "/swagger-resources/**",
+                                "/webjars/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -97,7 +103,7 @@ public class SecurityConfig {
                         .successHandler(successHandler)
                         .failureHandler((request, response, exception) -> {
                             logger.error("OAuth2 authentication failed", exception);
-                            response.sendRedirect("/api/auth/google/failure");
+                            response.sendRedirect("/api/v1/auth/google/failure");
                         })
                 )
                 .sessionManagement(session -> session

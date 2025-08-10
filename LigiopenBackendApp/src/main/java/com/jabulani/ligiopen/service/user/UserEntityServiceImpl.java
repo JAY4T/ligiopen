@@ -4,6 +4,8 @@ import com.jabulani.ligiopen.dao.UserEntityDao;
 import com.jabulani.ligiopen.dto.auth.SignupRequestDto;
 import com.jabulani.ligiopen.dto.response.SuccessDto;
 import com.jabulani.ligiopen.dto.user.UserDto;
+import com.jabulani.ligiopen.dto.user.UserProfileDto;
+import com.jabulani.ligiopen.dto.user.UpdateUserProfileDto;
 import com.jabulani.ligiopen.mapper.SuccessMapper;
 import com.jabulani.ligiopen.mapper.UserMapper;
 import com.jabulani.ligiopen.entity.user.UserEntity;
@@ -225,6 +227,167 @@ public class UserEntityServiceImpl implements UserEntityService {
         } catch (Exception e) {
             logger.error("Failed to verify email for user: {}", email, e);
             throw new RuntimeException("Failed to verify email: " + e.getMessage());
+        }
+    }
+
+    // Profile CRUD operations implementation
+    
+    @Override
+    public UserProfileDto getUserProfile(Long userId) {
+        try {
+            logger.info("Fetching profile for user ID: {}", userId);
+            UserEntity user = userEntityDao.getUserById(userId);
+            return userMapper.toUserProfileDto(user);
+        } catch (Exception e) {
+            logger.error("Failed to get profile for user ID: {}", userId, e);
+            throw new RuntimeException("Failed to get user profile: " + e.getMessage());
+        }
+    }
+    
+    @Transactional
+    @Override
+    public UserProfileDto updateUserProfile(Long userId, UpdateUserProfileDto updateDto) {
+        try {
+            logger.info("Updating profile for user ID: {}", userId);
+            
+            UserEntity user = userEntityDao.getUserById(userId);
+            
+            // Validate unique constraints before updating
+            if (updateDto.getUsername() != null && 
+                !updateDto.getUsername().equals(user.getUsername()) &&
+                userEntityDao.existsByUsernameAndNotId(updateDto.getUsername(), userId)) {
+                throw new RuntimeException("Username is already taken");
+            }
+            
+            if (updateDto.getEmail() != null && 
+                !updateDto.getEmail().equals(user.getEmail()) &&
+                userEntityDao.existsByEmailAndNotId(updateDto.getEmail(), userId)) {
+                throw new RuntimeException("Email is already in use");
+            }
+            
+            // Update user fields if provided
+            if (updateDto.getFirstName() != null) {
+                user.setFirstName(updateDto.getFirstName());
+            }
+            if (updateDto.getLastName() != null) {
+                user.setLastName(updateDto.getLastName());
+            }
+            if (updateDto.getPhoneNumber() != null) {
+                user.setPhoneNumber(updateDto.getPhoneNumber());
+            }
+            if (updateDto.getBio() != null) {
+                user.setBio(updateDto.getBio());
+            }
+            if (updateDto.getPreferredLanguage() != null) {
+                user.setPreferredLanguage(updateDto.getPreferredLanguage());
+            }
+            if (updateDto.getEmail() != null) {
+                user.setEmail(updateDto.getEmail());
+                // Reset email verification if email changed
+                user.setEmailVerified(false);
+            }
+            if (updateDto.getUsername() != null) {
+                user.setUsername(updateDto.getUsername());
+            }
+            
+            user.setUpdatedAt(LocalDateTime.now());
+            UserEntity updatedUser = userEntityDao.updateUser(user);
+            
+            logger.info("Successfully updated profile for user ID: {}", userId);
+            return userMapper.toUserProfileDto(updatedUser);
+        } catch (Exception e) {
+            logger.error("Failed to update profile for user ID: {}", userId, e);
+            throw new RuntimeException("Failed to update user profile: " + e.getMessage());
+        }
+    }
+    
+    @Transactional
+    @Override
+    public void deleteUserProfile(Long userId) {
+        try {
+            logger.info("Deleting user profile for user ID: {}", userId);
+            
+            // Get user to ensure it exists
+            UserEntity user = userEntityDao.getUserById(userId);
+            logger.info("Found user to delete: {}", user.getEmail());
+            
+            // Delete the user (this will cascade delete related records)
+            userEntityDao.deleteUser(userId);
+            
+            logger.info("Successfully deleted user profile for user ID: {}", userId);
+        } catch (Exception e) {
+            logger.error("Failed to delete user profile for user ID: {}", userId, e);
+            throw new RuntimeException("Failed to delete user profile: " + e.getMessage());
+        }
+    }
+    
+    @Transactional
+    @Override
+    public UserProfileDto updateProfilePicture(Long userId, Long profilePictureId) {
+        try {
+            logger.info("Updating profile picture for user ID: {} with picture ID: {}", userId, profilePictureId);
+            
+            UserEntity user = userEntityDao.getUserById(userId);
+            user.setProfilePictureId(profilePictureId);
+            user.setUpdatedAt(LocalDateTime.now());
+            
+            UserEntity updatedUser = userEntityDao.updateUser(user);
+            logger.info("Successfully updated profile picture for user ID: {}", userId);
+            
+            return userMapper.toUserProfileDto(updatedUser);
+        } catch (Exception e) {
+            logger.error("Failed to update profile picture for user ID: {}", userId, e);
+            throw new RuntimeException("Failed to update profile picture: " + e.getMessage());
+        }
+    }
+    
+    @Transactional
+    @Override
+    public void removeProfilePicture(Long userId) {
+        try {
+            logger.info("Removing profile picture for user ID: {}", userId);
+            
+            UserEntity user = userEntityDao.getUserById(userId);
+            user.setProfilePictureId(null);
+            user.setUpdatedAt(LocalDateTime.now());
+            
+            userEntityDao.updateUser(user);
+            logger.info("Successfully removed profile picture for user ID: {}", userId);
+        } catch (Exception e) {
+            logger.error("Failed to remove profile picture for user ID: {}", userId, e);
+            throw new RuntimeException("Failed to remove profile picture: " + e.getMessage());
+        }
+    }
+    
+    // Additional utility methods
+    
+    @Override
+    public boolean userExistsByUsername(String username) {
+        try {
+            return userEntityDao.getUserByUsername(username).isPresent();
+        } catch (Exception e) {
+            logger.error("Error checking if user exists by username: {}", username, e);
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean userExistsByUsernameAndNotId(String username, Long userId) {
+        try {
+            return userEntityDao.existsByUsernameAndNotId(username, userId);
+        } catch (Exception e) {
+            logger.error("Error checking if user exists by username excluding ID: {}", username, e);
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean userExistsByEmailAndNotId(String email, Long userId) {
+        try {
+            return userEntityDao.existsByEmailAndNotId(email, userId);
+        } catch (Exception e) {
+            logger.error("Error checking if user exists by email excluding ID: {}", email, e);
+            return false;
         }
     }
 }

@@ -328,19 +328,19 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-The application will start on `http://localhost:8080`
+The application will start on `http://localhost:8000`
 
 ### 5. Access API Documentation
 Once running, access the interactive API documentation:
-- **Swagger UI**: http://localhost:8080/swagger-ui/index.html
-- **OpenAPI JSON**: http://localhost:8080/v3/api-docs
-- **OpenAPI YAML**: http://localhost:8080/v3/api-docs.yaml
+- **Swagger UI**: http://localhost:8000/swagger-ui/index.html
+- **OpenAPI JSON**: http://localhost:8000/v3/api-docs
+- **OpenAPI YAML**: http://localhost:8000/v3/api-docs.yaml
 
 ### 6. Test Authentication
 Test the authentication endpoints:
 ```bash
 # Register a new user
-curl -X POST http://localhost:8080/api/auth/v1/signup \
+curl -X POST http://localhost:8000/api/v1/auth/signup \
   -H "Content-Type: application/json" \
   -d '{
     "username": "testuser",
@@ -351,7 +351,7 @@ curl -X POST http://localhost:8080/api/auth/v1/signup \
   }'
 
 # Login
-curl -X POST http://localhost:8080/api/auth/v1/signin \
+curl -X POST http://localhost:8000/api/v1/auth/signin \
   -H "Content-Type: application/json" \
   -d '{
     "email": "test@example.com",
@@ -367,7 +367,7 @@ curl -X POST http://localhost:8080/api/auth/v1/signin \
 
 #### Register User
 ```http
-POST /api/auth/v1/signup
+POST /api/v1/auth/signup
 Content-Type: application/json
 
 {
@@ -382,7 +382,7 @@ Content-Type: application/json
 
 #### Login User
 ```http
-POST /api/auth/v1/signin
+POST /api/v1/auth/signin
 Content-Type: application/json
 
 {
@@ -393,12 +393,63 @@ Content-Type: application/json
 
 #### Refresh Token
 ```http
-POST /api/auth/v1/refresh
+POST /api/v1/auth/refresh
 Content-Type: application/json
 
 {
   "refreshToken": "your_refresh_token_here"
 }
+```
+
+### User Profile Management Endpoints
+
+#### Get Current User Profile
+```http
+GET /api/v1/users/profile
+Authorization: Bearer your_jwt_token_here
+```
+
+#### Get User Profile by ID
+```http
+GET /api/v1/users/{userId}/profile
+Authorization: Bearer your_jwt_token_here
+```
+
+#### Update Current User Profile
+```http
+PUT /api/v1/users/profile
+Authorization: Bearer your_jwt_token_here
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe Updated",
+  "phoneNumber": "+254712345678",
+  "bio": "Updated bio information",
+  "preferredLanguage": "en"
+}
+```
+
+#### Upload Profile Picture
+```http
+POST /api/v1/users/profile/picture
+Authorization: Bearer your_jwt_token_here
+Content-Type: multipart/form-data
+
+Form Data:
+- file: [image_file] (JPG, PNG, max 10MB)
+```
+
+#### Remove Profile Picture
+```http
+DELETE /api/v1/users/profile/picture
+Authorization: Bearer your_jwt_token_here
+```
+
+#### Delete Current User Profile
+```http
+DELETE /api/v1/users/profile
+Authorization: Bearer your_jwt_token_here
 ```
 
 ### Authentication Headers
@@ -431,7 +482,29 @@ All API responses follow a consistent format:
 }
 ```
 
-For complete API documentation, visit: **http://localhost:8080/swagger-ui/index.html**
+### 🧪 API Testing with Postman
+We provide a comprehensive Postman collection for testing all APIs:
+
+**Quick Start:**
+1. Import `postman/LigiOpen-API-Collection.json` into Postman
+2. Import `postman/LigiOpen-Development-Environment.json`
+3. Select the development environment and start testing
+
+**Automated Testing:**
+```bash
+cd postman
+npm install
+npm run test:dev
+```
+
+**Collection Features:**
+- ✅ Complete API coverage with examples
+- ✅ Automated authentication token management
+- ✅ Comprehensive test scripts for validation
+- ✅ Environment variables for easy switching
+- ✅ Detailed documentation for each endpoint
+
+For complete API documentation, visit: **http://localhost:8000/swagger-ui/index.html**
 
 ---
 
@@ -856,7 +929,8 @@ LigiOpen follows an agile development approach with planned sprints:
 - ✅ JWT authentication with refresh tokens
 - ✅ Google OAuth2 integration  
 - ✅ OpenAPI/Swagger documentation
-- 🔄 User profile management (In Progress)
+- ✅ User profile management with CRUD operations
+- ✅ File upload system with Digital Ocean Spaces integration
 - ⏳ Email verification system (Pending)
 
 ### Next Phases

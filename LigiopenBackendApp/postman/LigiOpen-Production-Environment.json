@@ -1,0 +1,49 @@
+{
+	"id": "production-env-67890",
+	"name": "LigiOpen - Production Environment",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "https://api.ligiopen.com",
+			"description": "Production server URL",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "api_version",
+			"value": "v1",
+			"description": "API version",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "jwt_token",
+			"value": "",
+			"description": "JWT access token (auto-populated after login)",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "refresh_token",
+			"value": "",
+			"description": "Refresh token for JWT renewal (auto-populated after login)",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "user_id",
+			"value": "",
+			"description": "Current authenticated user's ID",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "user_email",
+			"value": "",
+			"description": "Current authenticated user's email",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment"
+}

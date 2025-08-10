@@ -11,4 +11,7 @@ public interface UserEntityDao {
     Optional<UserEntity> getUserByEmail(String email);
     Optional<UserEntity> getUserByUsername(String username);
     Optional<UserEntity> getUserByGoogleId(String id);
+    void deleteUser(Long id);
+    boolean existsByUsernameAndNotId(String username, Long userId);
+    boolean existsByEmailAndNotId(String email, Long userId);
 }

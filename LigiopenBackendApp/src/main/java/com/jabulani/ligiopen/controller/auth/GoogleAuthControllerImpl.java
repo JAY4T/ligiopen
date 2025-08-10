@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth/google/")
+@RequestMapping("/api/v1/auth/google/")
 public class GoogleAuthControllerImpl implements GoogleAuthController {
 
     private final BuildResponse buildResponse;

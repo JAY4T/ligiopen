@@ -1,0 +1,42 @@
+{
+  "name": "ligiopen-api-tests",
+  "version": "1.0.0",
+  "description": "Automated testing suite for LigiOpen API using Newman/Postman",
+  "main": "run-tests.js",
+  "scripts": {
+    "test": "node run-tests.js development",
+    "test:dev": "node run-tests.js development --verbose",
+    "test:prod": "node run-tests.js production --verbose",
+    "test:export": "node run-tests.js development --export-results --verbose",
+    "test:all": "npm run test:dev && npm run test:prod",
+    "install-newman": "npm install -g newman newman-reporter-htmlextra",
+    "help": "node run-tests.js --help"
+  },
+  "keywords": [
+    "ligiopen",
+    "api",
+    "testing",
+    "postman",
+    "newman",
+    "football",
+    "kenya"
+  ],
+  "author": "LigiOpen Development Team",
+  "license": "MIT",
+  "devDependencies": {
+    "newman": "^5.3.2",
+    "newman-reporter-htmlextra": "^1.22.11"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ligiopen.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/ligiopen/issues"
+  },
+  "homepage": "https://ligiopen.com"
+}

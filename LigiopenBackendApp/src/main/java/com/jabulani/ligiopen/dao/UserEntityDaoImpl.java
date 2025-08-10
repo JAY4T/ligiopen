@@ -220,6 +220,7 @@ public class UserEntityDaoImpl implements UserEntityDao {
         }
     }
 
+    @Override
     public void deleteUser(Long userId) {
         try {
             UserEntity user = getUserById(userId);
@@ -230,6 +231,40 @@ public class UserEntityDaoImpl implements UserEntityDao {
         } catch (Exception e) {
             logger.error("Failed to delete user with ID: {}", userId, e);
             throw new RuntimeException("Failed to delete user", e);
+        }
+    }
+    
+    @Override
+    public boolean existsByUsernameAndNotId(String username, Long userId) {
+        try {
+            TypedQuery<Long> query = entityManager.createQuery(
+                    "SELECT COUNT(u) FROM UserEntity u WHERE u.username = :username AND u.id != :userId", 
+                    Long.class);
+            query.setParameter("username", username);
+            query.setParameter("userId", userId);
+
+            Long count = query.getSingleResult();
+            return count > 0;
+        } catch (Exception e) {
+            logger.error("Error checking if user exists with username: {} excluding ID: {}", username, userId, e);
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean existsByEmailAndNotId(String email, Long userId) {
+        try {
+            TypedQuery<Long> query = entityManager.createQuery(
+                    "SELECT COUNT(u) FROM UserEntity u WHERE u.email = :email AND u.id != :userId", 
+                    Long.class);
+            query.setParameter("email", email);
+            query.setParameter("userId", userId);
+
+            Long count = query.getSingleResult();
+            return count > 0;
+        } catch (Exception e) {
+            logger.error("Error checking if user exists with email: {} excluding ID: {}", email, userId, e);
+            return false;
         }
     }
 }

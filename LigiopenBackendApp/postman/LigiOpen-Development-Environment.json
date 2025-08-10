@@ -1,0 +1,70 @@
+{
+	"id": "development-env-12345",
+	"name": "LigiOpen - Development Environment",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"description": "Development server URL",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "api_version",
+			"value": "v1",
+			"description": "API version",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "jwt_token",
+			"value": "",
+			"description": "JWT access token (auto-populated after login)",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "refresh_token",
+			"value": "",
+			"description": "Refresh token for JWT renewal (auto-populated after login)",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "user_id",
+			"value": "",
+			"description": "Current authenticated user's ID",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "user_email",
+			"value": "",
+			"description": "Current authenticated user's email",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "test_username",
+			"value": "testuser123",
+			"description": "Test user username for development",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "test_email",
+			"value": "testuser@ligiopen.com",
+			"description": "Test user email for development",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "test_password",
+			"value": "SecurePassword123!",
+			"description": "Test user password for development",
+			"type": "secret",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment"
+}

@@ -16,6 +16,13 @@ public class FileDaoImpl implements FileDao{
     }
 
     @Override
+    public File saveFile(File file) {
+        entityManager.persist(file);
+        entityManager.flush();
+        return file;
+    }
+
+    @Override
     public File getFileById(Integer fileId) {
         TypedQuery<File> query = entityManager.createQuery("from File where id = :fileId", File.class);
         query.setParameter("fileId", fileId);

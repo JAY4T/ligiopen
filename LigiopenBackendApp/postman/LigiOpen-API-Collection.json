@@ -1,0 +1,837 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-ab12-cd3456ef7890",
+		"name": "LigiOpen API Collection",
+		"description": "# LigiOpen - Comprehensive Football League Management System for Kenya\n\nThis collection contains all API endpoints for the LigiOpen system, designed specifically for Kenya's diverse football ecosystem.\n\n## 📋 Collection Overview\n\n### 🔐 Authentication & Authorization\n- JWT authentication with refresh tokens\n- Google OAuth2 integration\n- Email verification system\n- Password reset functionality\n\n### 👤 User Profile Management\n- Complete user profile CRUD operations\n- Profile picture upload with Digital Ocean Spaces\n- User preferences and settings management\n- Account management features\n\n## 🚀 Getting Started\n\n### 1. Environment Setup\n- Set the `base_url` variable to your server URL (default: `http://localhost:8000`)\n- The `jwt_token` variable will be automatically set after login\n\n### 2. Authentication Flow\n1. **Register** a new account using the signup endpoint\n2. **Verify** your email (check console logs for verification link)\n3. **Login** to get JWT token (automatically saved to environment)\n4. Use **protected endpoints** with the JWT token\n\n### 3. API Testing\n- All requests include proper examples and test scripts\n- Environment variables are automatically managed\n- Response data is validated and displayed\n\n## 📱 Base URL Structure\nAll endpoints follow the pattern: `{{base_url}}/api/v1/...`\n\n## 🔒 Security\n- JWT tokens are automatically included in protected requests\n- Tokens are stored securely in environment variables\n- All sensitive endpoints require authentication\n\n---\n\n**Version**: 1.0.0  \n**Author**: LigiOpen Team  \n**Documentation**: https://docs.ligiopen.com  \n**Support**: support@ligiopen.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12345678"
+	},
+	"item": [
+		{
+			"name": "🔐 Authentication & Authorization",
+			"description": "Authentication endpoints including local auth, Google OAuth2, email verification, and token management.",
+			"item": [
+				{
+					"name": "📝 User Registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200 or 201\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"// Test response structure",
+									"pm.test(\"Response has required fields\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('status');",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"});",
+									"",
+									"// Test success status",
+									"pm.test(\"Registration successful\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});",
+									"",
+									"// Store user email for later use",
+									"pm.test(\"Store user email\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    if (jsonData.data && jsonData.data.email) {",
+									"        pm.environment.set('user_email', jsonData.data.email);",
+									"    }",
+									"});",
+									"",
+									"console.log('✅ User registration completed successfully!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"testuser123\",\n  \"email\": \"testuser@ligiopen.com\",\n  \"password\": \"SecurePassword123!\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"phoneNumber\": \"+254712345678\",\n  \"preferredLanguage\": \"en\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup"
+							]
+						},
+						"description": "Register a new user account in the LigiOpen system.\n\n### Request Body\n- `username`: Unique username (3-50 characters)\n- `email`: Valid email address \n- `password`: Strong password (min 8 characters)\n- `firstName`: User's first name (2-50 characters)\n- `lastName`: User's last name (2-50 characters)\n- `phoneNumber`: Kenyan phone number format (+254...)\n- `preferredLanguage`: Language preference (en/sw)\n\n### Response\n- Returns user details and success message\n- Email verification will be required\n- User account starts as unverified\n\n### Next Steps\n1. Check application logs for verification email link\n2. Use the verification link to activate account\n3. Login with credentials to get JWT token"
+					}
+				},
+				{
+					"name": "🔓 User Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test response structure",
+									"pm.test(\"Response has required fields\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('status');",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"});",
+									"",
+									"// Test login success and extract tokens",
+									"pm.test(\"Login successful and tokens present\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"    ",
+									"    if (jsonData.data) {",
+									"        pm.expect(jsonData.data).to.have.property('accessToken');",
+									"        pm.expect(jsonData.data).to.have.property('refreshToken');",
+									"        ",
+									"        // Store tokens in environment",
+									"        pm.environment.set('jwt_token', jsonData.data.accessToken);",
+									"        pm.environment.set('refresh_token', jsonData.data.refreshToken);",
+									"        ",
+									"        // Store user info",
+									"        if (jsonData.data.user) {",
+									"            pm.environment.set('user_id', jsonData.data.user.id);",
+									"            pm.environment.set('user_email', jsonData.data.user.email);",
+									"        }",
+									"    }",
+									"});",
+									"",
+									"console.log('✅ Login successful! JWT token stored in environment.');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"testuser@ligiopen.com\",\n  \"password\": \"SecurePassword123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/signin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signin"
+							]
+						},
+						"description": "Authenticate user and receive JWT tokens.\n\n### Request Body\n- `email`: User's email address or username\n- `password`: User's password\n\n### Response\n- `accessToken`: JWT token for API authentication (expires in 24 hours)\n- `refreshToken`: Token for refreshing access token (expires in 7 days)\n- `user`: User profile information\n\n### Important Notes\n- Access token is automatically stored in environment variable `jwt_token`\n- Refresh token is stored in `refresh_token`\n- User must have verified email to login\n- Tokens are required for all protected endpoints\n\n### Usage\nThe JWT token will be automatically included in subsequent requests that require authentication."
+					}
+				},
+				{
+					"name": "🔄 Refresh JWT Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test token refresh",
+									"pm.test(\"Token refresh successful\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"    ",
+									"    if (jsonData.data) {",
+									"        pm.expect(jsonData.data).to.have.property('accessToken');",
+									"        pm.expect(jsonData.data).to.have.property('refreshToken');",
+									"        ",
+									"        // Update tokens in environment",
+									"        pm.environment.set('jwt_token', jsonData.data.accessToken);",
+									"        pm.environment.set('refresh_token', jsonData.data.refreshToken);",
+									"    }",
+									"});",
+									"",
+									"console.log('✅ Tokens refreshed successfully!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshToken\": \"{{refresh_token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh"
+							]
+						},
+						"description": "Refresh expired JWT access token using refresh token.\n\n### Request Body\n- `refreshToken`: Valid refresh token from login\n\n### Response\n- New `accessToken`: Fresh JWT token (24 hour expiry)\n- New `refreshToken`: Fresh refresh token (7 day expiry)\n\n### When to Use\n- When access token expires (typically after 24 hours)\n- To maintain user session without re-login\n- Automatically updates environment variables\n\n### Security Notes\n- Refresh tokens are single-use and generate new tokens\n- Old refresh token becomes invalid after use\n- Both tokens are updated in environment automatically"
+					}
+				},
+				{
+					"name": "✅ Verify Email Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test verification success",
+									"pm.test(\"Email verification successful\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});",
+									"",
+									"console.log('✅ Email verification completed!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/verify-email?token=your_verification_token_here",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"verify-email"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "your_verification_token_here",
+									"description": "Email verification token from email"
+								}
+							]
+						},
+						"description": "Verify user's email address using verification token.\n\n### Query Parameters\n- `token`: Email verification token sent to user's email\n\n### Process\n1. User registers account\n2. Verification email is sent (check application logs)\n3. User clicks verification link or uses token manually\n4. Account becomes verified and active\n\n### Response\n- Success message confirming email verification\n- User can now login normally\n\n### Development Note\nIn development, verification emails are logged to console. Check application logs for the verification link and extract the token parameter."
+					}
+				},
+				{
+					"name": "📧 Resend Verification Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test resend success",
+									"pm.test(\"Verification email resent\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});",
+									"",
+									"console.log('✅ Verification email resent!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"testuser@ligiopen.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/resend-verification",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"resend-verification"
+							]
+						},
+						"description": "Resend email verification link to user's email address.\n\n### Request Body\n- `email`: User's email address that needs verification\n\n### When to Use\n- When user didn't receive initial verification email\n- When verification token has expired\n- When user needs a new verification link\n\n### Response\n- Success message confirming email was sent\n- New verification token generated and sent\n\n### Rate Limiting\n- Limited to prevent spam\n- Wait a few minutes between requests if needed"
+					}
+				}
+			]
+		},
+		{
+			"name": "👤 User Profile Management",
+			"description": "Complete user profile CRUD operations including profile updates, picture uploads, and account management.",
+			"item": [
+				{
+					"name": "👤 Get Current User Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test authentication",
+									"pm.test(\"User is authenticated\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});",
+									"",
+									"// Test profile structure",
+									"pm.test(\"Profile has required fields\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    if (jsonData.data) {",
+									"        pm.expect(jsonData.data).to.have.property('id');",
+									"        pm.expect(jsonData.data).to.have.property('email');",
+									"        pm.expect(jsonData.data).to.have.property('firstName');",
+									"        pm.expect(jsonData.data).to.have.property('lastName');",
+									"    }",
+									"});",
+									"",
+									"console.log('✅ User profile retrieved successfully!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile"
+							]
+						},
+						"description": "Get the authenticated user's complete profile information.\n\n### Authentication Required\n- JWT token must be included in Authorization header\n- Token is automatically included from environment variable\n\n### Response Fields\n- `id`: User's unique identifier\n- `username`: User's username\n- `email`: User's email address\n- `firstName` & `lastName`: User's name\n- `phoneNumber`: Contact number\n- `bio`: User's biography/description\n- `preferredLanguage`: Language preference\n- `profilePictureUrl`: URL to profile picture (if uploaded)\n- `emailVerified`: Email verification status\n- `accountEnabled`: Account status\n- `role`: User's role in the system\n- `createdAt` & `updatedAt`: Timestamps\n- `favoritedClubsCount`: Number of clubs favorited\n- `ownedClubsCount`: Number of clubs owned\n- `managedClubsCount`: Number of clubs managed\n\n### Use Cases\n- Display user information in UI\n- Profile page data\n- User settings initialization\n- Dashboard statistics"
+					}
+				},
+				{
+					"name": "👤 Get User Profile by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test profile retrieval",
+									"pm.test(\"Profile retrieved successfully\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});",
+									"",
+									"console.log('✅ User profile retrieved by ID!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/{{user_id}}/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{user_id}}",
+								"profile"
+							]
+						},
+						"description": "Get any user's public profile information by their user ID.\n\n### Path Parameters\n- `userId`: The unique identifier of the user whose profile to retrieve\n\n### Authentication Required\n- JWT token required for accessing user profiles\n- Returns public profile information only\n\n### Response\n- Same structure as current user profile\n- May have restricted information for privacy\n- Useful for viewing other users' public profiles\n\n### Use Cases\n- Club member profiles\n- Player profiles\n- Public user directories\n- Social features\n\n### Privacy Notes\n- Only public information is returned\n- Some fields may be hidden based on privacy settings\n- Sensitive information is never exposed"
+					}
+				},
+				{
+					"name": "✏️ Update Current User Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test update success",
+									"pm.test(\"Profile updated successfully\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});",
+									"",
+									"// Verify updated fields",
+									"pm.test(\"Updated fields are present\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    if (jsonData.data) {",
+									"        pm.expect(jsonData.data).to.have.property('firstName');",
+									"        pm.expect(jsonData.data).to.have.property('lastName');",
+									"    }",
+									"});",
+									"",
+									"console.log('✅ Profile updated successfully!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"John Updated\",\n  \"lastName\": \"Doe Updated\",\n  \"phoneNumber\": \"+254787654321\",\n  \"bio\": \"Updated bio: Football enthusiast and LigiOpen user. Passionate about Kenyan football development.\",\n  \"preferredLanguage\": \"sw\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile"
+							]
+						},
+						"description": "Update the authenticated user's profile information.\n\n### Authentication Required\n- JWT token must be included in Authorization header\n\n### Request Body (All fields optional)\n- `firstName`: First name (2-50 characters)\n- `lastName`: Last name (2-50 characters)\n- `phoneNumber`: Phone number in international format\n- `bio`: User biography/description (max 500 characters)\n- `preferredLanguage`: Language preference (en/sw)\n\n### Validation Rules\n- Names must be 2-50 characters long\n- Phone number must be valid international format\n- Bio cannot exceed 500 characters\n- Language must be 'en' or 'sw'\n\n### Response\n- Returns updated profile information\n- All profile fields included in response\n- Updated timestamp reflects change time\n\n### Use Cases\n- Profile editing forms\n- Settings updates\n- Personal information maintenance\n- Language preference changes\n\n### Important Notes\n- Only provided fields are updated\n- Validation errors return specific field messages\n- Profile picture updated separately"
+					}
+				},
+				{
+					"name": "📷 Upload Profile Picture",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test upload success",
+									"pm.test(\"Profile picture uploaded successfully\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});",
+									"",
+									"// Verify file information",
+									"pm.test(\"File information present\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    if (jsonData.data) {",
+									"        pm.expect(jsonData.data).to.have.property('fileUrl');",
+									"        pm.expect(jsonData.data).to.have.property('fileId');",
+									"        pm.expect(jsonData.data).to.have.property('profile');",
+									"    }",
+									"});",
+									"",
+									"console.log('✅ Profile picture uploaded successfully!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": [],
+									"description": "Profile picture image file (JPG, PNG, max 10MB)"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/profile/picture",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile",
+								"picture"
+							]
+						},
+						"description": "Upload a new profile picture for the authenticated user.\n\n### Authentication Required\n- JWT token must be included in Authorization header\n\n### Request Body (Form Data)\n- `file`: Image file to upload as profile picture\n\n### File Requirements\n- **Format**: JPG, JPEG, PNG only\n- **Size**: Maximum 10MB\n- **Type**: Must be an image file\n- **Content**: Appropriate profile picture content\n\n### Digital Ocean Spaces Integration\n- Files uploaded to Digital Ocean Spaces\n- Automatic file optimization and resizing\n- CDN delivery for fast loading\n- Secure file storage with access controls\n\n### Response\n- `profile`: Updated user profile with new picture URL\n- `fileUrl`: Direct URL to uploaded image\n- `fileId`: Unique file identifier for management\n\n### Use Cases\n- Profile picture updates\n- Avatar customization\n- User identification\n- Social profile enhancement\n\n### Important Notes\n- Previous profile picture is automatically replaced\n- File is validated for type and size\n- URL is immediately available for use\n- Optimized for web and mobile display\n\n### Error Handling\n- Invalid file types rejected\n- Oversized files rejected\n- Corrupted files handled gracefully\n- Detailed error messages provided"
+					}
+				},
+				{
+					"name": "🗑️ Remove Profile Picture",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test removal success",
+									"pm.test(\"Profile picture removed successfully\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});",
+									"",
+									"console.log('✅ Profile picture removed successfully!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/profile/picture",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile",
+								"picture"
+							]
+						},
+						"description": "Remove the current profile picture for the authenticated user.\n\n### Authentication Required\n- JWT token must be included in Authorization header\n\n### Action\n- Removes current profile picture from user profile\n- Deletes file from Digital Ocean Spaces storage\n- Resets profile picture URL to null\n- Cannot be undone (file is permanently deleted)\n\n### Response\n- Success message confirming removal\n- Profile reverts to default/no picture state\n\n### Use Cases\n- Privacy concerns\n- Profile cleanup\n- Before uploading new picture\n- Account management\n\n### Important Notes\n- File is permanently deleted from storage\n- Profile picture URL becomes null\n- Action cannot be reversed\n- Does not affect other profile information\n\n### After Removal\n- User profile shows no picture\n- Can upload new picture anytime\n- Profile remains fully functional"
+					}
+				},
+				{
+					"name": "🗑️ Delete Current User Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test deletion success",
+									"pm.test(\"Profile deleted successfully\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});",
+									"",
+									"// Clear environment variables",
+									"pm.test(\"Clear authentication tokens\", function () {",
+									"    pm.environment.unset('jwt_token');",
+									"    pm.environment.unset('refresh_token');",
+									"    pm.environment.unset('user_id');",
+									"    pm.environment.unset('user_email');",
+									"});",
+									"",
+									"console.log('⚠️ User profile and account deleted permanently!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile"
+							]
+						},
+						"description": "⚠️ **PERMANENTLY DELETE** the authenticated user's account and all associated data.\n\n### Authentication Required\n- JWT token must be included in Authorization header\n\n### ⚠️ WARNING - IRREVERSIBLE ACTION\nThis action will permanently delete:\n- User account and profile\n- All uploaded files and media\n- Club memberships and relationships\n- Favorited clubs and preferences\n- All user-generated content\n- Account history and statistics\n\n### Data Deletion\n- User profile completely removed\n- Files deleted from Digital Ocean Spaces\n- Database records permanently deleted\n- No recovery possible after deletion\n- Complies with data protection regulations\n\n### Response\n- Success message confirming deletion\n- JWT tokens become invalid immediately\n- All sessions terminated\n\n### Use Cases\n- Account closure requests\n- Privacy compliance (GDPR right to erasure)\n- User-initiated account deletion\n- Administrative account removal\n\n### Post-Deletion\n- User cannot login with deleted credentials\n- Email address becomes available for new registration\n- All associated data is permanently removed\n- Action cannot be undone\n\n### Important Notes\n- **This action is irreversible**\n- Consider data export before deletion\n- Inform user of permanent nature\n- All related data is cascade deleted\n- Complies with data retention policies"
+					}
+				}
+			]
+		},
+		{
+			"name": "🔧 System & Health Checks",
+			"description": "System health checks, API status, and debugging endpoints.",
+			"item": [
+				{
+					"name": "🏥 API Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"API is healthy\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test response time",
+									"pm.test(\"Response time is acceptable\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"console.log('✅ API is healthy and responding!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actuator/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						},
+						"description": "Check the health status of the API and its dependencies.\n\n### Public Endpoint\n- No authentication required\n- Always available for monitoring\n\n### Response\n- `status`: Overall health status (UP/DOWN)\n- `components`: Individual component health\n  - Database connectivity\n  - Redis cache status\n  - External service status\n\n### Use Cases\n- System monitoring\n- Load balancer health checks\n- DevOps monitoring\n- Service discovery\n- Uptime monitoring\n\n### Monitoring\n- Use for automated health checks\n- Monitor response time\n- Track service availability\n- Alert on failures"
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Auto-set base URL if not present",
+					"if (!pm.environment.get('base_url')) {",
+					"    pm.environment.set('base_url', 'http://localhost:8000');",
+					"    console.log('🔧 Base URL set to default: http://localhost:8000');",
+					"}",
+					"",
+					"// Log current request info",
+					"console.log('🚀 Making request to:', pm.request.url.toString());"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Global response time test",
+					"pm.test(\"Response time is reasonable\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+					"});",
+					"",
+					"// Log response info",
+					"console.log('📊 Response Status:', pm.response.code, pm.response.status);",
+					"console.log('⏱️ Response Time:', pm.response.responseTime + 'ms');"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string",
+			"description": "Base URL for the LigiOpen API"
+		},
+		{
+			"key": "jwt_token",
+			"value": "",
+			"type": "string",
+			"description": "JWT access token for authentication (auto-populated after login)"
+		},
+		{
+			"key": "refresh_token",
+			"value": "",
+			"type": "string",
+			"description": "Refresh token for JWT renewal (auto-populated after login)"
+		},
+		{
+			"key": "user_id",
+			"value": "",
+			"type": "string",
+			"description": "Current user's ID (auto-populated after login)"
+		},
+		{
+			"key": "user_email",
+			"value": "",
+			"type": "string",
+			"description": "Current user's email (auto-populated after login)"
+		}
+	]
+}

@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth/v1/")
+@RequestMapping("/api/v1/auth/")
 public class LocalAuthControllerImpl implements LocalAuthController {
 
     private final AuthenticationManager authenticationManager;
