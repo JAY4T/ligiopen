@@ -7,12 +7,12 @@ import net.sargue.mailgun.Mail;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-@Service
+// @Service - Commented out until Mailgun is configured
 @RequiredArgsConstructor
 @Slf4j
 public class MailgunEmailService implements EmailService {
 
-    private final Configuration mailgunConfiguration;
+    // private final Configuration mailgunConfiguration; - Commented out
     
     @Value("${app.base-url:http://localhost:8080}")
     private String baseUrl;
@@ -22,62 +22,25 @@ public class MailgunEmailService implements EmailService {
 
     @Override
     public void sendVerificationEmail(String to, String username, String verificationToken) {
-        try {
-            String subject = "Verify Your LigiOpen Account";
-            String htmlBody = buildVerificationEmailTemplate(username, verificationToken);
-            
-            Mail.using(mailgunConfiguration)
-                .to(to)
-                .subject(subject)
-                .html(htmlBody)
-                .build()
-                .send();
-                
-            log.info("Verification email sent successfully to: {}", to);
-        } catch (Exception e) {
-            log.error("Failed to send verification email to: {}", to, e);
-            throw new RuntimeException("Failed to send verification email", e);
-        }
+        // TODO: Implement when Mailgun is configured
+        log.info("MOCK EMAIL - Verification email would be sent to: {} with token: {}", to, verificationToken);
+        log.info("MOCK EMAIL - Verification URL: {}/api/auth/v1/verify-email?token={}", baseUrl, verificationToken);
+        // Simulate successful email sending
     }
 
     @Override
     public void sendPasswordResetEmail(String to, String username, String resetToken) {
-        try {
-            String subject = "Reset Your LigiOpen Password";
-            String htmlBody = buildPasswordResetEmailTemplate(username, resetToken);
-            
-            Mail.using(mailgunConfiguration)
-                .to(to)
-                .subject(subject)
-                .html(htmlBody)
-                .build()
-                .send();
-                
-            log.info("Password reset email sent successfully to: {}", to);
-        } catch (Exception e) {
-            log.error("Failed to send password reset email to: {}", to, e);
-            throw new RuntimeException("Failed to send password reset email", e);
-        }
+        // TODO: Implement when Mailgun is configured
+        log.info("MOCK EMAIL - Password reset email would be sent to: {} with token: {}", to, resetToken);
+        log.info("MOCK EMAIL - Reset URL: {}/reset-password?token={}", frontendUrl, resetToken);
+        // Simulate successful email sending
     }
 
     @Override
     public void sendWelcomeEmail(String to, String username) {
-        try {
-            String subject = "Welcome to LigiOpen!";
-            String htmlBody = buildWelcomeEmailTemplate(username);
-            
-            Mail.using(mailgunConfiguration)
-                .to(to)
-                .subject(subject)
-                .html(htmlBody)
-                .build()
-                .send();
-                
-            log.info("Welcome email sent successfully to: {}", to);
-        } catch (Exception e) {
-            log.error("Failed to send welcome email to: {}", to, e);
-            // Don't throw exception for welcome email - it's not critical
-        }
+        // TODO: Implement when Mailgun is configured  
+        log.info("MOCK EMAIL - Welcome email would be sent to: {} for user: {}", to, username);
+        // Simulate successful email sending
     }
 
     private String buildVerificationEmailTemplate(String username, String verificationToken) {

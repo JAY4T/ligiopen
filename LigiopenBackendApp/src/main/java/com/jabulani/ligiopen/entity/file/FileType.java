@@ -1,14 +1,13 @@
-package com.jabulani.ligiopen.model.aws;
+package com.jabulani.ligiopen.entity.file;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.val;
 import org.springframework.http.MediaType;
 
 import java.util.Arrays;
 
 @Getter
-@AllArgsConstructor(access = lombok.AccessLevel.PACKAGE)
+@AllArgsConstructor
 public enum FileType {
     // Enum constants representing file types with their extensions and corresponding media types
     JPG("jpg", MediaType.IMAGE_JPEG),
@@ -26,9 +25,9 @@ public enum FileType {
     // Method to get MediaType based on the filename's extension
     public static MediaType fromFilename(String fileName) {
         // Finding the last index of '.' to get the extension
-        val dotIndex = fileName.lastIndexOf('.');
+        int dotIndex = fileName.lastIndexOf('.');
         // Extracting file extension from filename
-        val fileExtension = (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
+        String fileExtension = (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
         // Finding matching enum constant for the file extension
         return Arrays.stream(values())
                 .filter(e -> e.getExtension().equals(fileExtension))

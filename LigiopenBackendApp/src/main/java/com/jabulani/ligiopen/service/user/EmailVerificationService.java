@@ -86,7 +86,7 @@ public class EmailVerificationService {
             // Mark user as verified
             UserEntity user = verificationToken.getUser();
             user.setEmailVerified(true);
-            userDao.save(user);
+            userDao.updateUser(user);
             
             // Send welcome email (async, non-critical)
             sendWelcomeEmailAsync(user);
