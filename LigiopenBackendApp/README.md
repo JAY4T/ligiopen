@@ -45,11 +45,12 @@
 To digitize and modernize Kenyan football by providing a unified platform that connects players, clubs, officials, fans, and administrators across all levels of the beautiful game.
 
 ### 🇰🇪 Kenyan Focus
-- **FKF Integration**: Direct integration with Football Kenya Federation
+- **FKF Compliance**: Registration numbers and compliance with Football Kenya Federation standards
 - **County-based Organization**: Reflects Kenya's 47-county structure
 - **Grassroots Support**: Special focus on community-level football development
 - **Local Payment Integration**: M-Pesa and local banking systems
 - **Swahili/English Support**: Multilingual platform for accessibility
+- **Professional Content Team**: Employed scouts and content managers for match coverage
 
 ### 🌍 Vision
 To become the definitive digital platform for African football management, starting with Kenya and expanding continent-wide.
@@ -67,7 +68,7 @@ To become the definitive digital platform for African football management, start
 
 ### 🏛️ Club Management
 - **Comprehensive Club Profiles**: From grassroots to premier league
-- **FKF Registration Integration**: Official registration number tracking
+- **FKF Registration Tracking**: Official registration number storage and validation
 - **Club Verification System**: Multi-level verification (PENDING → VERIFIED)
 - **Staff Management**: Coaches, managers, and administrative roles
 - **Media Management**: Club logos, photos, and branding materials
@@ -93,15 +94,15 @@ To become the definitive digital platform for African football management, start
 - **Automatic Standings**: Real-time league table calculations
 - **Promotion/Relegation**: Automated tier management
 
-### 📅 Match Management & Live Tracking
-- **Comprehensive Match Scheduling**: Fixture generation and management
-- **Real-time Match Tracking**: Live score updates and match events
+### 📅 Match Management & Content Creation
+- **Professional Match Coverage**: Employed scouts provide match data and coverage
+- **Manual Content Management**: Expert content creators manage match information
+- **Real-time Updates**: Scout-provided live score updates and match events
 - **Match Status Management**: SCHEDULED → LIVE → HALF_TIME → COMPLETED
-- **Event Recording**: Goals, cards, substitutions, and detailed match events
-- **Official Assignment**: Referee and assistant referee management
-- **Match Commentary**: Live text commentary system
-- **Broadcasting Integration**: Live stream and highlight video support
-- **Weather & Conditions**: Environmental data tracking
+- **Event Recording**: Goals, cards, substitutions manually recorded by trained scouts
+- **Expert Commentary**: Professional commentary by LigiOpen employed content team
+- **Media Management**: Photo and video content uploaded by field scouts
+- **Weather & Conditions**: On-site data collection by match scouts
 
 ### 📊 Statistics & Analytics
 - **Player Statistics**: Comprehensive performance tracking
@@ -147,6 +148,15 @@ To become the definitive digital platform for African football management, start
 - **Virtual Ticketing**: Digital ticket sales and management
 - **Fan Polls & Voting**: Community engagement features
 - **News & Updates**: Club and competition news feeds
+
+### 📰 Professional Content Management
+- **Employed Scout Network**: Professional scouts deployed across Kenya for match coverage
+- **Content Creation Team**: Expert writers and analysts for news, match reports, and commentary
+- **Real-time Data Collection**: On-ground scouts provide live match updates and statistics
+- **Photography & Videography**: Professional media teams capture match highlights and club content
+- **Editorial Quality Control**: Multi-level content review and fact-checking processes
+- **Local Language Support**: Content creation in both English and Swahili
+- **County Coverage Network**: Scout presence in all 47 Kenyan counties for comprehensive coverage
 
 ### 🛡️ Security & Compliance
 - **Data Protection**: GDPR-compliant data handling
@@ -241,11 +251,12 @@ Club ──────── has ──────── Player ──── p
 ### DevOps & Infrastructure
 | Component | Technology | Purpose |
 |-----------|------------|---------|
-| **Containerization** | Docker | Application containerization |
 | **CI/CD** | GitHub Actions | Automated testing and deployment |
-| **Deployment** | Ubuntu Droplets | Production hosting |
+| **Deployment** | Ubuntu Digital Ocean Droplets | Direct production hosting |
+| **Service Management** | Systemd | Application service management |
 | **Reverse Proxy** | Nginx | Load balancing and SSL termination |
 | **SSL** | Let's Encrypt | HTTPS encryption |
+| **Process Management** | Linux systemd | Service lifecycle management |
 | **Monitoring** | Application Insights | Performance monitoring |
 
 ---
@@ -571,60 +582,7 @@ logging.level.root=WARN
 
 ## 🚢 Deployment
 
-### Docker Deployment
-
-#### 1. Build Docker Image
-```bash
-# Build the application
-mvn clean package
-
-# Build Docker image
-docker build -t ligiopen:latest .
-```
-
-#### 2. Docker Compose Setup
-```yaml
-# docker-compose.yml
-version: '3.8'
-
-services:
-  app:
-    image: ligiopen:latest
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
-      - DB_ADDRESS=postgres
-      - REDIS_HOST=redis
-    depends_on:
-      - postgres
-      - redis
-      
-  postgres:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: ligiopen_db
-      POSTGRES_USER: ligiopen_user
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      
-  redis:
-    image: redis:7
-    volumes:
-      - redis_data:/data
-
-volumes:
-  postgres_data:
-  redis_data:
-```
-
-#### 3. Deploy with Docker Compose
-```bash
-docker-compose up -d
-```
-
-### Production Deployment (Ubuntu Droplet)
+### Production Deployment (Ubuntu Digital Ocean Droplet)
 
 #### 1. Server Setup
 ```bash
@@ -634,32 +592,85 @@ sudo apt update && sudo apt upgrade -y
 # Install Java 17
 sudo apt install openjdk-17-jdk -y
 
-# Install Docker
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
+# Install Maven
+sudo apt install maven -y
 
-# Install Docker Compose
-sudo apt install docker-compose -y
+# Install PostgreSQL
+sudo apt install postgresql postgresql-contrib -y
+
+# Install Redis
+sudo apt install redis-server -y
 
 # Install Nginx
 sudo apt install nginx -y
+
+# Create application user
+sudo useradd -r -s /bin/false ligiopen
+sudo mkdir -p /opt/ligiopen
+sudo chown ligiopen:ligiopen /opt/ligiopen
 ```
 
-#### 2. Application Deployment
+#### 2. Database Setup
 ```bash
-# Clone repository
-git clone https://github.com/yourusername/ligiopen.git
-cd ligiopen
+# Configure PostgreSQL
+sudo -u postgres createdb ligiopen_db
+sudo -u postgres createuser ligiopen_user
+sudo -u postgres psql -c "ALTER USER ligiopen_user WITH PASSWORD 'secure_password';"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE ligiopen_db TO ligiopen_user;"
+
+# Configure Redis
+sudo systemctl enable redis-server
+sudo systemctl start redis-server
+```
+
+#### 3. Application Deployment
+```bash
+# Clone repository to server
+cd /opt/ligiopen
+git clone https://github.com/yourusername/ligiopen.git .
 
 # Set environment variables
-cp .env.example .env
-# Edit .env with production values
+sudo nano /opt/ligiopen/.env
+# Add production environment variables
 
-# Deploy application
-docker-compose -f docker-compose.prod.yml up -d
+# Build application
+mvn clean package -DskipTests
+
+# Create systemd service
+sudo nano /etc/systemd/system/ligiopen.service
 ```
 
-#### 3. Nginx Configuration
+#### 4. Systemd Service Configuration
+```ini
+[Unit]
+Description=LigiOpen Spring Boot Application
+After=network.target
+
+[Service]
+Type=simple
+User=ligiopen
+WorkingDirectory=/opt/ligiopen
+ExecStart=/usr/bin/java -jar /opt/ligiopen/target/ligiopen-0.0.1-SNAPSHOT.jar
+EnvironmentFile=/opt/ligiopen/.env
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+
+#### 5. Start Application Service
+```bash
+# Enable and start service
+sudo systemctl daemon-reload
+sudo systemctl enable ligiopen
+sudo systemctl start ligiopen
+
+# Check status
+sudo systemctl status ligiopen
+```
+
+#### 6. Nginx Configuration
 ```nginx
 # /etc/nginx/sites-available/ligiopen
 server {
@@ -676,7 +687,7 @@ server {
 }
 ```
 
-#### 4. SSL Setup with Let's Encrypt
+#### 7. SSL Setup with Let's Encrypt
 ```bash
 # Install Certbot
 sudo apt install certbot python3-certbot-nginx -y
@@ -726,8 +737,8 @@ jobs:
           script: |
             cd /opt/ligiopen
             git pull origin main
-            docker-compose down
-            docker-compose up -d --build
+            mvn clean package -DskipTests
+            sudo systemctl restart ligiopen
 ```
 
 ---
