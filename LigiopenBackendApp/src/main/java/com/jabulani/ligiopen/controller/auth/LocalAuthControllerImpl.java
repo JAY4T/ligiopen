@@ -22,12 +22,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth/")
+@Tag(name = "Authentication", description = "User authentication and authorization endpoints")
 public class LocalAuthControllerImpl implements LocalAuthController {
 
     private static final Logger logger = LoggerFactory.getLogger(LocalAuthControllerImpl.class);
@@ -62,9 +69,16 @@ public class LocalAuthControllerImpl implements LocalAuthController {
         this.buildResponse = buildResponse;
     }
 
+    @Operation(summary = "Register new user", description = "Create a new user account with email verification")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "User registered successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid input or user already exists")
+    })
     @PostMapping("signup")
     @Override
-    public ResponseEntity<Object> registerUser(@RequestBody SignupRequestDto signUpRequest) {
+    public ResponseEntity<Object> registerUser(
+            @Parameter(description = "User registration details", required = true)
+            @Valid @RequestBody SignupRequestDto signUpRequest) {
 
         // Local signup
         if (userEntityDao.getUserByEmail(signUpRequest.getEmail()).isPresent()) {
@@ -88,9 +102,16 @@ public class LocalAuthControllerImpl implements LocalAuthController {
         }
     }
 
+    @Operation(summary = "Login user", description = "Authenticate user with email/username and password")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Login successful, JWT tokens returned"),
+        @ApiResponse(responseCode = "401", description = "Invalid credentials")
+    })
     @PostMapping("signin")
     @Override
-    public ResponseEntity<Object> authenticateUser(@RequestBody LoginRequestDto loginRequest) {
+    public ResponseEntity<Object> authenticateUser(
+            @Parameter(description = "Login credentials (email/username and password)", required = true)
+            @Valid @RequestBody LoginRequestDto loginRequest) {
 
         // Determine which identifier to use (email or username)
         String identifier = loginRequest.getEmail() != null && !loginRequest.getEmail().isEmpty()
@@ -127,9 +148,16 @@ public class LocalAuthControllerImpl implements LocalAuthController {
         }
     }
 
+    @Operation(summary = "Refresh JWT token", description = "Get new access token using valid refresh token")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Token refreshed successfully"),
+        @ApiResponse(responseCode = "401", description = "Invalid or expired refresh token")
+    })
     @PostMapping("refresh")
     @Override
-    public ResponseEntity<Object> refreshToken(@RequestBody Map<String, String> request) {
+    public ResponseEntity<Object> refreshToken(
+            @Parameter(description = "Refresh token request body", required = true)
+            @RequestBody Map<String, String> request) {
         String refreshToken = request.get("refreshToken");
         logger.info("Refresh token request received");
         
@@ -190,9 +218,16 @@ public class LocalAuthControllerImpl implements LocalAuthController {
         }
     }
 
+    @Operation(summary = "Verify email address", description = "Verify user's email address using verification token")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Email verified successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid or expired verification token")
+    })
     @GetMapping("verify-email")
     @Override
-    public ResponseEntity<Object> verifyEmail(@RequestParam("token") String token) {
+    public ResponseEntity<Object> verifyEmail(
+            @Parameter(description = "Email verification token", required = true)
+            @RequestParam("token") String token) {
         if (token == null || token.trim().isEmpty()) {
             Map<String, Object> errors = new HashMap<>();
             errors.put("token", "Verification token is required");
@@ -222,9 +257,16 @@ public class LocalAuthControllerImpl implements LocalAuthController {
         }
     }
 
+    @Operation(summary = "Resend verification email", description = "Send a new verification email to user")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Verification email sent successfully"),
+        @ApiResponse(responseCode = "400", description = "User not found or already verified")
+    })
     @PostMapping("resend-verification")
     @Override
-    public ResponseEntity<Object> resendVerification(@RequestBody ResendVerificationDto request) {
+    public ResponseEntity<Object> resendVerification(
+            @Parameter(description = "Email address to resend verification", required = true)
+            @Valid @RequestBody ResendVerificationDto request) {
         if (request.getEmail() == null || request.getEmail().trim().isEmpty()) {
             Map<String, Object> errors = new HashMap<>();
             errors.put("email", "Email address is required");

@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "base_url",
-			"value": "https://api.ligiopen.com",
+			"value": "https://prod.ligiopen.com",
 			"description": "Production server URL",
 			"type": "default",
 			"enabled": true

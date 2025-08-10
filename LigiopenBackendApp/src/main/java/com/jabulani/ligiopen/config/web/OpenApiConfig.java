@@ -21,10 +21,13 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .addServersItem(new Server()
                         .url("http://localhost:8000")
-                        .description("Development Server"))
+                        .description("Local Development Server"))
                 .addServersItem(new Server()
-                        .url("https://api.ligiopen.com")
-                        .description("Production Server"))
+                        .url("https://dev.ligiopen.com")
+                        .description("Development Environment (dev-branch)"))
+                .addServersItem(new Server()
+                        .url("https://prod.ligiopen.com")
+                        .description("Production Environment (main branch)"))
                 .info(new Info()
                         .title("LigiOpen API")
                         .version("1.0.0")
@@ -69,10 +72,18 @@ public class OpenApiConfig {
                                 - Professional commentary system
                                 
                                 ## Getting Started
-                                1. Register a new account using `/api/v1/auth/signup`
-                                2. Verify your email and login using `/api/v1/auth/signin`
-                                3. Use the JWT token in the Authorization header for protected endpoints
-                                4. Manage your profile using the User Profile Management endpoints
+                                1. **Register**: Create account using `/api/v1/auth/signup`
+                                2. **Login**: Authenticate using `/api/v1/auth/signin` - copy the JWT token from response
+                                3. **Authorize in Swagger**: 
+                                   - Click the 🔒 "Authorize" button at the top of this page
+                                   - Paste your JWT token (without "Bearer " prefix)
+                                   - Click "Authorize" to enable authenticated requests
+                                4. **Test Protected Endpoints**: Now you can use User Profile Management endpoints
+                                
+                                ## Environment URLs
+                                - **Local Development**: http://localhost:8000 (your local machine)
+                                - **Dev Environment**: https://dev.ligiopen.com (dev-branch deployments)  
+                                - **Production**: https://prod.ligiopen.com (main branch deployments)
                                 """)
                         .contact(new Contact()
                                 .name("LigiOpen Team")

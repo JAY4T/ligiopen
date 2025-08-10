@@ -1,11 +1,11 @@
 {
-	"id": "development-env-12345",
-	"name": "LigiOpen - Local Development Environment",
+	"id": "dev-env-54321",
+	"name": "LigiOpen - Dev Server Environment",
 	"values": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:8000",
-			"description": "Local development server URL",
+			"value": "https://dev.ligiopen.com",
+			"description": "Development server URL (dev-branch deployments)",
 			"type": "default",
 			"enabled": true
 		},
@@ -46,22 +46,22 @@
 		},
 		{
 			"key": "test_username",
-			"value": "testuser123",
-			"description": "Test user username for development",
+			"value": "devuser123",
+			"description": "Test user username for dev server",
 			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "test_email",
-			"value": "testuser@ligiopen.com",
-			"description": "Test user email for development",
+			"value": "devuser@ligiopen.com",
+			"description": "Test user email for dev server",
 			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "test_password",
-			"value": "SecurePassword123!",
-			"description": "Test user password for development",
+			"value": "DevPassword123!",
+			"description": "Test user password for dev server",
 			"type": "secret",
 			"enabled": true
 		}
