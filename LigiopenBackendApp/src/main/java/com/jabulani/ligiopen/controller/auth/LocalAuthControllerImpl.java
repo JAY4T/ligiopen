@@ -9,7 +9,9 @@ import com.jabulani.ligiopen.dto.auth.SignupRequestDto;
 import com.jabulani.ligiopen.dto.auth.TokenDto;
 import com.jabulani.ligiopen.service.user.EmailVerificationService;
 import com.jabulani.ligiopen.service.user.UserEntityService;
+import com.jabulani.ligiopen.config.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +20,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,12 +30,15 @@ import java.util.Map;
 @RequestMapping("/api/v1/auth/")
 public class LocalAuthControllerImpl implements LocalAuthController {
 
+    private static final Logger logger = LoggerFactory.getLogger(LocalAuthControllerImpl.class);
+
     private final AuthenticationManager authenticationManager;
     private final UserEntityDao userEntityDao;
     private final PasswordEncoder passwordEncoder;
     private final JWTGenerator jwtGenerator;
     private final UserEntityService userEntityService;
     private final EmailVerificationService emailVerificationService;
+    private final CustomUserDetailsService userDetailsService;
     private final BuildResponse buildResponse;
 
     @Autowired
@@ -42,6 +49,7 @@ public class LocalAuthControllerImpl implements LocalAuthController {
             JWTGenerator jwtGenerator,
             UserEntityService userEntityService,
             EmailVerificationService emailVerificationService,
+            CustomUserDetailsService userDetailsService,
             BuildResponse buildResponse
     ) {
         this.authenticationManager = authenticationManager;
@@ -50,6 +58,7 @@ public class LocalAuthControllerImpl implements LocalAuthController {
         this.jwtGenerator = jwtGenerator;
         this.userEntityService = userEntityService;
         this.emailVerificationService = emailVerificationService;
+        this.userDetailsService = userDetailsService;
         this.buildResponse = buildResponse;
     }
 
@@ -122,40 +131,61 @@ public class LocalAuthControllerImpl implements LocalAuthController {
     @Override
     public ResponseEntity<Object> refreshToken(@RequestBody Map<String, String> request) {
         String refreshToken = request.get("refreshToken");
+        logger.info("Refresh token request received");
         
         if (refreshToken == null || refreshToken.isEmpty()) {
+            logger.warn("Refresh token is missing from request");
             Map<String, Object> errors = new HashMap<>();
             errors.put("refreshToken", "Refresh token is required");
             return buildResponse.error("failed", errors, HttpStatus.BAD_REQUEST);
         }
 
         try {
+            logger.info("Validating refresh token");
+            
             // Validate the refresh token
-            if (!jwtGenerator.validateToken(refreshToken) || !jwtGenerator.isRefreshToken(refreshToken)) {
+            boolean isValid = jwtGenerator.validateToken(refreshToken);
+            boolean isRefresh = jwtGenerator.isRefreshToken(refreshToken);
+            logger.info("Token validation - isValid: {}, isRefresh: {}", isValid, isRefresh);
+            
+            if (!isValid || !isRefresh) {
+                logger.warn("Invalid or expired refresh token");
                 Map<String, Object> errors = new HashMap<>();
                 errors.put("refreshToken", "Invalid or expired refresh token");
                 return buildResponse.error("failed", errors, HttpStatus.UNAUTHORIZED);
             }
 
             // Extract username from refresh token
+            logger.info("Extracting username from refresh token");
             String username = jwtGenerator.getUsernameFromJWT(refreshToken);
+            logger.info("Extracted username: {}", username);
             
-            // Create new authentication object for token generation
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, null)
+            // Load user details and create authenticated token
+            logger.info("Loading user details for username: {}", username);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            logger.info("User details loaded successfully. Authorities: {}", userDetails.getAuthorities());
+            
+            // Create pre-authenticated token - this constructor automatically sets authenticated=true
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    userDetails, null, userDetails.getAuthorities()
             );
+            logger.info("Authentication object created");
 
             // Generate new tokens
+            logger.info("Generating new tokens");
             String newAccessToken = jwtGenerator.generateToken(authentication);
             String newRefreshToken = jwtGenerator.generateRefreshToken(authentication);
             Long expiresIn = jwtGenerator.getExpirationMs() / 1000;
+            logger.info("New tokens generated successfully");
 
             TokenDto tokenResponse = new TokenDto(newAccessToken, newRefreshToken, "Token refreshed successfully", expiresIn);
+            logger.info("Refresh token operation completed successfully");
             return buildResponse.success(tokenResponse, "success", null, HttpStatus.OK);
 
         } catch (Exception e) {
+            logger.error("Failed to refresh token", e);
             Map<String, Object> errors = new HashMap<>();
-            errors.put("refreshToken", "Failed to refresh token");
+            errors.put("refreshToken", "Failed to refresh token: " + e.getMessage());
             return buildResponse.error("failed", errors, HttpStatus.UNAUTHORIZED);
         }
     }
