@@ -2,7 +2,7 @@ package com.jabulani.ligiopen.config.security;
 
 import com.jabulani.ligiopen.service.auth.CustomOAuth2UserService;
 import com.jabulani.ligiopen.service.auth.OAuth2AuthenticationSuccessHandler;
-import com.jabulani.ligiopen.service.userEnity.UserEntityService;
+import com.jabulani.ligiopen.service.user.UserEntityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,8 @@ package com.jabulani.ligiopen.service.auth;
 
 import com.jabulani.ligiopen.config.security.JWTGenerator;
 import com.jabulani.ligiopen.config.security.CustomUserDetailsService;
-import com.jabulani.ligiopen.model.tables.UserEntity;
-import com.jabulani.ligiopen.service.userEnity.UserEntityService;
+import com.jabulani.ligiopen.entity.user.UserEntity;
+import com.jabulani.ligiopen.service.user.UserEntityService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -76,13 +76,17 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                 return;
             }
 
-            // Generate JWT token using the authentication object
+            // Generate JWT token and refresh token using the authentication object
             String jwt;
+            String refreshToken;
+            long expiresIn;
             try {
                 jwt = jwtGenerator.generateToken(authentication);
-                logger.info("JWT token generated successfully for user: {}", email);
+                refreshToken = jwtGenerator.generateRefreshToken(authentication);
+                expiresIn = jwtGenerator.getExpirationMs() / 1000; // Convert to seconds
+                logger.info("JWT and refresh tokens generated successfully for user: {}", email);
             } catch (Exception e) {
-                logger.error("Failed to generate JWT token for user: {}", email, e);
+                logger.error("Failed to generate JWT tokens for user: {}", email, e);
                 response.sendRedirect("/api/auth/google/failure");
                 return;
             }
@@ -90,6 +94,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             // Build redirect URL with token and user info
             String redirectUrl = UriComponentsBuilder.fromUriString("/api/auth/google/success")
                     .queryParam("token", jwt)
+                    .queryParam("refreshToken", refreshToken)
+                    .queryParam("expiresIn", expiresIn)
                     .queryParam("userId", savedUser.getId())
                     .queryParam("email", savedUser.getEmail())
                     .queryParam("isNewUser", savedUser.getCreatedAt().equals(savedUser.getUpdatedAt())) // Check if just created

@@ -1,14 +1,21 @@
 package com.jabulani.ligiopen.controller.auth;
 
-import com.jabulani.ligiopen.model.dto.classes.LoginRequestDto;
-import com.jabulani.ligiopen.model.dto.classes.SignupRequestDto;
-import com.jabulani.ligiopen.model.dto.classes.SuccessDto;
-import com.jabulani.ligiopen.model.dto.classes.TokenDto;
+import com.jabulani.ligiopen.dto.auth.LoginRequestDto;
+import com.jabulani.ligiopen.dto.auth.ResendVerificationDto;
+import com.jabulani.ligiopen.dto.auth.SignupRequestDto;
+import com.jabulani.ligiopen.dto.response.SuccessDto;
+import com.jabulani.ligiopen.dto.auth.TokenDto;
 import org.springframework.http.ResponseEntity;
 
 public interface LocalAuthController {
 
-    ResponseEntity<SuccessDto> registerUser(SignupRequestDto signUpRequest);
+    ResponseEntity<Object> registerUser(SignupRequestDto signUpRequest);
 
-    ResponseEntity<TokenDto> authenticateUser(LoginRequestDto loginRequest);
+    ResponseEntity<Object> authenticateUser(LoginRequestDto loginRequest);
+
+    ResponseEntity<Object> refreshToken(java.util.Map<String, String> request);
+    
+    ResponseEntity<Object> verifyEmail(String token);
+    
+    ResponseEntity<Object> resendVerification(ResendVerificationDto request);
 }

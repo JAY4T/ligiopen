@@ -1,6 +1,6 @@
 package com.jabulani.ligiopen.dao;
 
-import com.jabulani.ligiopen.model.tables.UserEntity;
+import com.jabulani.ligiopen.entity.user.UserEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +38,7 @@ public class UserEntityDaoImpl implements UserEntityDao {
             }
 
             entityManager.persist(userEntity);
-            entityManager.flush(); // Ensure the entity is persisted immediately
+//            entityManager.flush(); // Ensure the entity is persisted immediately
 
             logger.info("Successfully created user with ID: {}", userEntity.getId());
             return userEntity;
@@ -47,6 +48,7 @@ public class UserEntityDaoImpl implements UserEntityDao {
         }
     }
 
+    @Transactional
     @Override
     public UserEntity updateUser(UserEntity userEntity) {
         try {
@@ -141,6 +143,7 @@ public class UserEntityDaoImpl implements UserEntityDao {
         }
     }
 
+    @Override
     public Optional<UserEntity> getUserByUsername(String username) {
         try {
             TypedQuery<UserEntity> query = entityManager.createQuery(

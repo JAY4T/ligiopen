@@ -1,6 +1,6 @@
 package com.jabulani.ligiopen.dao;
 
-import com.jabulani.ligiopen.model.tables.File;
+import com.jabulani.ligiopen.entity.file.File;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
