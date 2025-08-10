@@ -26,18 +26,21 @@ public class UserEntityServiceImpl implements UserEntityService {
     private final UserMapper userMapper;
     private final SuccessMapper successMapper;
     private final PasswordEncoder passwordEncoder;
+    private final EmailVerificationService emailVerificationService;
 
     @Autowired
     public UserEntityServiceImpl(
             UserEntityDao userEntityDao,
             UserMapper userMapper,
             SuccessMapper successMapper,
-            PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder,
+            EmailVerificationService emailVerificationService
     ) {
         this.userEntityDao = userEntityDao;
         this.userMapper = userMapper;
         this.successMapper = successMapper;
         this.passwordEncoder = passwordEncoder;
+        this.emailVerificationService = emailVerificationService;
     }
 
     @Transactional
@@ -61,6 +64,9 @@ public class UserEntityServiceImpl implements UserEntityService {
                     .emailVerified(false)
                     .accountEnabled(true)
                     .username(signupRequestDto.getUsername())
+                    .firstName(signupRequestDto.getFirstName())
+                    .lastName(signupRequestDto.getLastName())
+                    .phoneNumber(signupRequestDto.getPhoneNumber())
                     .createdAt(LocalDateTime.now())
                     .updatedAt(LocalDateTime.now())
                     .build();
@@ -69,6 +75,16 @@ public class UserEntityServiceImpl implements UserEntityService {
             UserEntity savedUser = userEntityDao.createUser(userEntity);
             logger.info("Successfully created user with ID: {} and email: {}",
                     savedUser.getId(), savedUser.getEmail());
+
+            // Send verification email asynchronously
+            try {
+                emailVerificationService.sendVerificationEmail(savedUser);
+                logger.info("Verification email queued for user: {}", savedUser.getEmail());
+            } catch (Exception e) {
+                logger.error("Failed to send verification email to user: {}, but user creation succeeded", 
+                    savedUser.getEmail(), e);
+                // Don't fail user creation if email sending fails
+            }
 
             return successMapper.toSuccessDto(true);
 

@@ -1,6 +1,7 @@
 package com.jabulani.ligiopen.controller.auth;
 
 import com.jabulani.ligiopen.dto.auth.LoginRequestDto;
+import com.jabulani.ligiopen.dto.auth.ResendVerificationDto;
 import com.jabulani.ligiopen.dto.auth.SignupRequestDto;
 import com.jabulani.ligiopen.dto.response.SuccessDto;
 import com.jabulani.ligiopen.dto.auth.TokenDto;
@@ -13,4 +14,8 @@ public interface LocalAuthController {
     ResponseEntity<Object> authenticateUser(LoginRequestDto loginRequest);
 
     ResponseEntity<Object> refreshToken(java.util.Map<String, String> request);
+    
+    ResponseEntity<Object> verifyEmail(String token);
+    
+    ResponseEntity<Object> resendVerification(ResendVerificationDto request);
 }

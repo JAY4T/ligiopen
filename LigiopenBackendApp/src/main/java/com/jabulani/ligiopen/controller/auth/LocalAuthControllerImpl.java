@@ -4,8 +4,10 @@ import com.jabulani.ligiopen.config.web.BuildResponse;
 import com.jabulani.ligiopen.config.security.JWTGenerator;
 import com.jabulani.ligiopen.dao.UserEntityDao;
 import com.jabulani.ligiopen.dto.auth.LoginRequestDto;
+import com.jabulani.ligiopen.dto.auth.ResendVerificationDto;
 import com.jabulani.ligiopen.dto.auth.SignupRequestDto;
 import com.jabulani.ligiopen.dto.auth.TokenDto;
+import com.jabulani.ligiopen.service.user.EmailVerificationService;
 import com.jabulani.ligiopen.service.user.UserEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +31,7 @@ public class LocalAuthControllerImpl implements LocalAuthController {
     private final PasswordEncoder passwordEncoder;
     private final JWTGenerator jwtGenerator;
     private final UserEntityService userEntityService;
+    private final EmailVerificationService emailVerificationService;
     private final BuildResponse buildResponse;
 
     @Autowired
@@ -41,6 +41,7 @@ public class LocalAuthControllerImpl implements LocalAuthController {
             PasswordEncoder passwordEncoder,
             JWTGenerator jwtGenerator,
             UserEntityService userEntityService,
+            EmailVerificationService emailVerificationService,
             BuildResponse buildResponse
     ) {
         this.authenticationManager = authenticationManager;
@@ -48,6 +49,7 @@ public class LocalAuthControllerImpl implements LocalAuthController {
         this.passwordEncoder = passwordEncoder;
         this.jwtGenerator = jwtGenerator;
         this.userEntityService = userEntityService;
+        this.emailVerificationService = emailVerificationService;
         this.buildResponse = buildResponse;
     }
 
@@ -155,6 +157,70 @@ public class LocalAuthControllerImpl implements LocalAuthController {
             Map<String, Object> errors = new HashMap<>();
             errors.put("refreshToken", "Failed to refresh token");
             return buildResponse.error("failed", errors, HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping("verify-email")
+    @Override
+    public ResponseEntity<Object> verifyEmail(@RequestParam("token") String token) {
+        if (token == null || token.trim().isEmpty()) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("token", "Verification token is required");
+            return buildResponse.error("failed", errors, HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            boolean verified = emailVerificationService.verifyEmail(token);
+            
+            if (verified) {
+                return buildResponse.success(
+                    Map.of("verified", true), 
+                    "Email verified successfully! Welcome to LigiOpen.", 
+                    null, 
+                    HttpStatus.OK
+                );
+            } else {
+                Map<String, Object> errors = new HashMap<>();
+                errors.put("token", "Invalid or expired verification token");
+                return buildResponse.error("failed", errors, HttpStatus.BAD_REQUEST);
+            }
+            
+        } catch (Exception e) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("verification", "Email verification failed");
+            return buildResponse.error("failed", errors, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("resend-verification")
+    @Override
+    public ResponseEntity<Object> resendVerification(@RequestBody ResendVerificationDto request) {
+        if (request.getEmail() == null || request.getEmail().trim().isEmpty()) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("email", "Email address is required");
+            return buildResponse.error("failed", errors, HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            boolean sent = emailVerificationService.resendVerificationEmail(request.getEmail());
+            
+            if (sent) {
+                return buildResponse.success(
+                    Map.of("sent", true), 
+                    "Verification email sent successfully. Please check your inbox.", 
+                    null, 
+                    HttpStatus.OK
+                );
+            } else {
+                Map<String, Object> errors = new HashMap<>();
+                errors.put("email", "User not found or already verified");
+                return buildResponse.error("failed", errors, HttpStatus.BAD_REQUEST);
+            }
+            
+        } catch (Exception e) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("email", "Failed to send verification email");
+            return buildResponse.error("failed", errors, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
