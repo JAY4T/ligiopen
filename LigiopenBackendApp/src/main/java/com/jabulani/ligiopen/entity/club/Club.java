@@ -87,15 +87,36 @@ public class Club {
     @ManyToMany(mappedBy = "managedClubs")
     private List<UserEntity> managers = new ArrayList<>();
 
-    @Column(name = "is_verified")
-    private Boolean isVerified = false;
+    // LigiOpen internal verification
+    @Column(name = "is_ligiopen_verified")
+    private Boolean isLigiopenVerified = false;
+
+    @Column(name = "ligiopen_verification_status")
+    @Enumerated(EnumType.STRING)
+    private LigiopenVerificationStatus ligiopenVerificationStatus = LigiopenVerificationStatus.PENDING;
+
+    @Column(name = "ligiopen_verification_date")
+    private LocalDateTime ligiopenVerificationDate;
+
+    @Column(name = "ligiopen_verification_notes", columnDefinition = "TEXT")
+    private String ligiopenVerificationNotes;
+
+    // FKF official verification
+    @Column(name = "is_fkf_verified")
+    private Boolean isFkfVerified = false;
+
+    @Column(name = "fkf_verification_status")
+    @Enumerated(EnumType.STRING)
+    private FkfVerificationStatus fkfVerificationStatus = FkfVerificationStatus.NOT_APPLICABLE;
+
+    @Column(name = "fkf_verification_date")
+    private LocalDateTime fkfVerificationDate;
+
+    @Column(name = "fkf_registration_date")
+    private LocalDate fkfRegistrationDate;
 
     @Column(name = "is_active")
     private Boolean isActive = true;
-
-    @Column(name = "verification_status")
-    @Enumerated(EnumType.STRING)
-    private VerificationStatus verificationStatus = VerificationStatus.PENDING;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -125,8 +146,21 @@ public class Club {
         YOUTH_LEAGUE
     }
 
-    public enum VerificationStatus {
-        PENDING, VERIFIED, REJECTED, SUSPENDED
+    public enum LigiopenVerificationStatus {
+        PENDING,        // Awaiting LigiOpen crew review
+        VERIFIED,       // Verified by LigiOpen as legitimate club
+        REJECTED,       // Rejected by LigiOpen (fake/duplicate club)
+        SUSPENDED,      // Temporarily suspended by LigiOpen
+        UNDER_REVIEW    // Currently being reviewed by crew
+    }
+
+    public enum FkfVerificationStatus {
+        NOT_APPLICABLE, // Grassroots club, no FKF registration needed
+        PENDING,        // Has FKF registration number but not verified
+        VERIFIED,       // FKF registration confirmed as valid
+        EXPIRED,        // FKF registration has expired
+        INVALID,        // FKF registration number is invalid
+        SUSPENDED       // Suspended by FKF
     }
 
     @PrePersist

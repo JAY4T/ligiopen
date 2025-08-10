@@ -107,18 +107,10 @@
 			<version>1.12.772</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
+		<!-- Flyway for database migrations (version managed by Spring Boot) -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
-			<version>11.10.4</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-mysql -->
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-mysql</artifactId>
-			<version>11.10.4</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
