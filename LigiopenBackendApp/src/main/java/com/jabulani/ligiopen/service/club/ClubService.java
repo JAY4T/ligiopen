@@ -2,9 +2,13 @@ package com.jabulani.ligiopen.service.club;
 
 import com.jabulani.ligiopen.entity.club.Club;
 import com.jabulani.ligiopen.entity.user.UserEntity;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface ClubService {
@@ -362,4 +366,139 @@ public interface ClubService {
      * @throws RuntimeException if user not authorized or club has dependencies
      */
     void deleteClub(Long clubId, Long userId);
+    
+    // Extended CRUD operations for Club Profile Management
+    
+    /**
+     * Update comprehensive club information
+     * @param clubId Club ID
+     * @param userId User ID (must be owner or manager)
+     * @param name Club name
+     * @param shortName Club short name
+     * @param abbreviation Club abbreviation
+     * @param founded Foundation date
+     * @param description Club description
+     * @param colors Club colors
+     * @param contactEmail Contact email
+     * @param contactPhone Contact phone
+     * @param websiteUrl Website URL
+     * @param socialMediaLinks Social media links
+     * @param countyId County ID
+     * @param homeStadiumId Home stadium ID
+     * @param clubLevel Club level
+     * @return Updated Club entity
+     */
+    Club updateClub(Long clubId, Long userId, String name, String shortName, String abbreviation,
+                   LocalDate founded, String description, String colors, String contactEmail,
+                   String contactPhone, String websiteUrl, String socialMediaLinks,
+                   Long countyId, Long homeStadiumId, Club.ClubLevel clubLevel);
+    
+    /**
+     * Update club logo
+     * @param clubId Club ID
+     * @param userId User ID (must be owner or manager)
+     * @param logoFile Logo file
+     * @return Updated Club entity
+     */
+    Club updateClubLogo(Long clubId, Long userId, MultipartFile logoFile);
+    
+    /**
+     * Update club main photo
+     * @param clubId Club ID
+     * @param userId User ID (must be owner or manager)
+     * @param photoFile Photo file
+     * @return Updated Club entity
+     */
+    Club updateClubMainPhoto(Long clubId, Long userId, MultipartFile photoFile);
+    
+    /**
+     * Delete club logo
+     * @param clubId Club ID
+     * @param userId User ID (must be owner or manager)
+     * @return Updated Club entity
+     */
+    Club deleteClubLogo(Long clubId, Long userId);
+    
+    /**
+     * Delete club main photo
+     * @param clubId Club ID
+     * @param userId User ID (must be owner or manager)
+     * @return Updated Club entity
+     */
+    Club deleteClubMainPhoto(Long clubId, Long userId);
+    
+    // Paginated search and filtering methods
+    
+    /**
+     * Search clubs by name with pagination
+     * @param searchTerm Search term
+     * @param pageRequest Pagination info
+     * @return List of clubs matching search
+     */
+    List<Club> searchClubsByName(String searchTerm, PageRequest pageRequest);
+    
+    /**
+     * Get clubs by county with pagination
+     * @param countyId County ID
+     * @param pageRequest Pagination info
+     * @return List of clubs in the county
+     */
+    List<Club> getClubsByCounty(Long countyId, PageRequest pageRequest);
+    
+    /**
+     * Get clubs by region with pagination
+     * @param region Region name
+     * @param pageRequest Pagination info
+     * @return List of clubs in the region
+     */
+    List<Club> getClubsByRegion(String region, PageRequest pageRequest);
+    
+    /**
+     * Get clubs by level with pagination
+     * @param clubLevel Club level
+     * @param pageRequest Pagination info
+     * @return List of clubs at the level
+     */
+    List<Club> getClubsByLevel(Club.ClubLevel clubLevel, PageRequest pageRequest);
+    
+    /**
+     * Get clubs near location (geographic search)
+     * @param latitude Latitude
+     * @param longitude Longitude
+     * @param radiusKm Search radius in kilometers
+     * @param pageRequest Pagination info
+     * @return List of clubs near location
+     */
+    List<Club> getClubsNearLocation(BigDecimal latitude, BigDecimal longitude, 
+                                   double radiusKm, PageRequest pageRequest);
+    
+    /**
+     * Get verified clubs with pagination
+     * @param verificationType "ligiopen", "fkf", or "both"
+     * @param pageRequest Pagination info
+     * @return List of verified clubs
+     */
+    List<Club> getVerifiedClubs(String verificationType, PageRequest pageRequest);
+    
+    /**
+     * Get all active clubs with pagination
+     * @param pageRequest Pagination info
+     * @return List of active clubs
+     */
+    List<Club> getAllActiveClubs(PageRequest pageRequest);
+    
+    /**
+     * Get club by registration number (returns entity directly, throws if not found)
+     * @param registrationNumber FKF registration number
+     * @return Club entity
+     * @throws RuntimeException if club not found
+     */
+    Club getClubByRegistrationNumberOrThrow(String registrationNumber);
+    
+    /**
+     * Get club statistics
+     * @param clubId Club ID
+     * @return Map containing club statistics
+     */
+    Map<String, Object> getClubStatistics(Long clubId);
 }

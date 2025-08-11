@@ -4,6 +4,7 @@ import com.jabulani.ligiopen.entity.club.Club;
 import com.jabulani.ligiopen.entity.location.County;
 import com.jabulani.ligiopen.entity.user.UserEntity;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -126,4 +127,49 @@ public interface ClubDao {
     long countLigiopenVerifiedClubs();
     
     long countFkfVerifiedClubs();
+    
+    // Additional methods for pagination and geographic search
+    
+    /**
+     * Check if club name exists in county (excluding specific club ID)
+     */
+    boolean existsByNameAndCountyAndIdNot(String name, Long countyId, Long excludeClubId);
+    
+    /**
+     * Search clubs by name with pagination
+     */
+    List<Club> searchClubsByName(String searchTerm, long offset, int limit);
+    
+    /**
+     * Get clubs by county with pagination
+     */
+    List<Club> getClubsByCounty(Long countyId, long offset, int limit);
+    
+    /**
+     * Get clubs by region with pagination
+     */
+    List<Club> getClubsByRegion(String region, long offset, int limit);
+    
+    /**
+     * Get clubs by level with pagination
+     */
+    List<Club> getClubsByLevel(Club.ClubLevel clubLevel, long offset, int limit);
+    
+    /**
+     * Get clubs near location (geographic search with pagination)
+     */
+    List<Club> getClubsNearLocation(BigDecimal latitude, BigDecimal longitude, 
+                                   double radiusKm, long offset, int limit);
+    
+    /**
+     * Get verified clubs with pagination
+     */
+    List<Club> getLigiopenVerifiedClubs(long offset, int limit);
+    List<Club> getFkfVerifiedClubs(long offset, int limit);
+    List<Club> getFullyVerifiedClubs(long offset, int limit);
+    
+    /**
+     * Get all active clubs with pagination
+     */
+    List<Club> getAllActiveClubs(long offset, int limit);
 }

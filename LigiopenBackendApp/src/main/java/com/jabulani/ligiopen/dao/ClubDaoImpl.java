@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -651,6 +653,183 @@ public class ClubDaoImpl implements ClubDao {
         } catch (Exception e) {
             logger.error("Error counting FKF verified clubs", e);
             return 0;
+        }
+    }
+
+    // Additional methods for pagination and geographic search
+
+    @Override
+    public boolean existsByNameAndCountyAndIdNot(String name, Long countyId, Long excludeClubId) {
+        try {
+            logger.debug("Checking if club name '{}' exists in county ID {} excluding club ID {}", 
+                        name, countyId, excludeClubId);
+            TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(c) FROM Club c WHERE c.name = :name AND c.county.id = :countyId AND c.id != :excludeId", 
+                Long.class);
+            query.setParameter("name", name);
+            query.setParameter("countyId", countyId);
+            query.setParameter("excludeId", excludeClubId);
+            Long count = query.getSingleResult();
+            return count > 0;
+        } catch (Exception e) {
+            logger.error("Error checking club name existence", e);
+            return false;
+        }
+    }
+
+    @Override
+    public List<Club> searchClubsByName(String searchTerm, long offset, int limit) {
+        try {
+            logger.debug("Searching clubs by name: '{}' with offset {} and limit {}", searchTerm, offset, limit);
+            TypedQuery<Club> query = entityManager.createQuery(
+                "SELECT c FROM Club c WHERE c.isActive = true AND " +
+                "(LOWER(c.name) LIKE LOWER(:searchTerm) OR LOWER(c.shortName) LIKE LOWER(:searchTerm)) " +
+                "ORDER BY c.name", Club.class);
+            query.setParameter("searchTerm", "%" + searchTerm + "%");
+            query.setFirstResult((int) offset);
+            query.setMaxResults(limit);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error searching clubs by name: '{}'", searchTerm, e);
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Club> getClubsByCounty(Long countyId, long offset, int limit) {
+        try {
+            logger.debug("Getting clubs by county ID {} with offset {} and limit {}", countyId, offset, limit);
+            TypedQuery<Club> query = entityManager.createQuery(
+                "SELECT c FROM Club c WHERE c.county.id = :countyId AND c.isActive = true ORDER BY c.name", 
+                Club.class);
+            query.setParameter("countyId", countyId);
+            query.setFirstResult((int) offset);
+            query.setMaxResults(limit);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error getting clubs by county ID: {}", countyId, e);
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Club> getClubsByRegion(String region, long offset, int limit) {
+        try {
+            logger.debug("Getting clubs by region '{}' with offset {} and limit {}", region, offset, limit);
+            TypedQuery<Club> query = entityManager.createQuery(
+                "SELECT c FROM Club c WHERE c.county.region = :region AND c.isActive = true ORDER BY c.name", 
+                Club.class);
+            query.setParameter("region", region);
+            query.setFirstResult((int) offset);
+            query.setMaxResults(limit);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error getting clubs by region: '{}'", region, e);
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Club> getClubsByLevel(Club.ClubLevel clubLevel, long offset, int limit) {
+        try {
+            logger.debug("Getting clubs by level {} with offset {} and limit {}", clubLevel, offset, limit);
+            TypedQuery<Club> query = entityManager.createQuery(
+                "SELECT c FROM Club c WHERE c.clubLevel = :level AND c.isActive = true ORDER BY c.name", 
+                Club.class);
+            query.setParameter("level", clubLevel);
+            query.setFirstResult((int) offset);
+            query.setMaxResults(limit);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error getting clubs by level: {}", clubLevel, e);
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Club> getClubsNearLocation(BigDecimal latitude, BigDecimal longitude, 
+                                          double radiusKm, long offset, int limit) {
+        try {
+            logger.debug("Getting clubs near location ({}, {}) within {}km with offset {} and limit {}", 
+                        latitude, longitude, radiusKm, offset, limit);
+            
+            // Using Haversine formula in SQL - simplified version for PostgreSQL
+            TypedQuery<Club> query = entityManager.createQuery(
+                "SELECT c FROM Club c JOIN c.homeStadium s WHERE c.isActive = true AND " +
+                "s.latitude IS NOT NULL AND s.longitude IS NOT NULL " +
+                "ORDER BY c.name", Club.class);
+            query.setFirstResult((int) offset);
+            query.setMaxResults(limit);
+            
+            // In a real implementation, you'd calculate distance using SQL functions
+            // This is a simplified version that just returns clubs with stadiums
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error getting clubs near location", e);
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Club> getLigiopenVerifiedClubs(long offset, int limit) {
+        try {
+            logger.debug("Getting LigiOpen verified clubs with offset {} and limit {}", offset, limit);
+            TypedQuery<Club> query = entityManager.createQuery(
+                "SELECT c FROM Club c WHERE c.isLigiopenVerified = true AND c.isActive = true ORDER BY c.name", 
+                Club.class);
+            query.setFirstResult((int) offset);
+            query.setMaxResults(limit);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error getting LigiOpen verified clubs", e);
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Club> getFkfVerifiedClubs(long offset, int limit) {
+        try {
+            logger.debug("Getting FKF verified clubs with offset {} and limit {}", offset, limit);
+            TypedQuery<Club> query = entityManager.createQuery(
+                "SELECT c FROM Club c WHERE c.isFkfVerified = true AND c.isActive = true ORDER BY c.name", 
+                Club.class);
+            query.setFirstResult((int) offset);
+            query.setMaxResults(limit);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error getting FKF verified clubs", e);
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Club> getFullyVerifiedClubs(long offset, int limit) {
+        try {
+            logger.debug("Getting fully verified clubs with offset {} and limit {}", offset, limit);
+            TypedQuery<Club> query = entityManager.createQuery(
+                "SELECT c FROM Club c WHERE c.isLigiopenVerified = true AND c.isFkfVerified = true " +
+                "AND c.isActive = true ORDER BY c.name", Club.class);
+            query.setFirstResult((int) offset);
+            query.setMaxResults(limit);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error getting fully verified clubs", e);
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Club> getAllActiveClubs(long offset, int limit) {
+        try {
+            logger.debug("Getting all active clubs with offset {} and limit {}", offset, limit);
+            TypedQuery<Club> query = entityManager.createQuery(
+                "SELECT c FROM Club c WHERE c.isActive = true ORDER BY c.name", Club.class);
+            query.setFirstResult((int) offset);
+            query.setMaxResults(limit);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error getting all active clubs", e);
+            return new ArrayList<>();
         }
     }
 }

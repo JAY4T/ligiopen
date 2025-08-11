@@ -8,15 +8,21 @@ import com.jabulani.ligiopen.entity.club.Club;
 import com.jabulani.ligiopen.entity.location.County;
 import com.jabulani.ligiopen.entity.location.Stadium;
 import com.jabulani.ligiopen.entity.user.UserEntity;
+import com.jabulani.ligiopen.service.file.FileUploadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -28,14 +34,17 @@ public class ClubServiceImpl implements ClubService {
     private final CountyDao countyDao;
     private final StadiumDao stadiumDao;
     private final UserEntityDao userEntityDao;
+    private final FileUploadService fileUploadService;
 
     @Autowired
     public ClubServiceImpl(ClubDao clubDao, CountyDao countyDao, 
-                          StadiumDao stadiumDao, UserEntityDao userEntityDao) {
+                          StadiumDao stadiumDao, UserEntityDao userEntityDao,
+                          FileUploadService fileUploadService) {
         this.clubDao = clubDao;
         this.countyDao = countyDao;
         this.stadiumDao = stadiumDao;
         this.userEntityDao = userEntityDao;
+        this.fileUploadService = fileUploadService;
     }
 
     @Override
@@ -708,5 +717,295 @@ public class ClubServiceImpl implements ClubService {
     private boolean isValidEmail(String email) {
         // Basic email validation - in production, use a proper email validation library
         return email != null && email.contains("@") && email.contains(".") && email.length() > 5;
+    }
+
+    // Extended CRUD operations for Club Profile Management
+
+    @Override
+    @Transactional
+    public Club updateClub(Long clubId, Long userId, String name, String shortName, String abbreviation,
+                          LocalDate founded, String description, String colors, String contactEmail,
+                          String contactPhone, String websiteUrl, String socialMediaLinks,
+                          Long countyId, Long homeStadiumId, Club.ClubLevel clubLevel) {
+        logger.info("Updating comprehensive club info for club ID: {} by user ID: {}", clubId, userId);
+        
+        validateClubManagementPermission(clubId, userId);
+        
+        Club club = getClubById(clubId);
+        
+        // Update basic information if provided
+        if (name != null && !name.trim().isEmpty()) {
+            validateBasicClubInfo(name, null);
+            if (clubDao.existsByNameAndCountyAndIdNot(name.trim(), club.getCounty().getId(), clubId)) {
+                throw new RuntimeException("A club with this name already exists in the county");
+            }
+            club.setName(name.trim());
+        }
+        
+        if (shortName != null && !shortName.trim().isEmpty()) {
+            club.setShortName(shortName.trim());
+        }
+        
+        if (abbreviation != null && !abbreviation.trim().isEmpty()) {
+            club.setAbbreviation(abbreviation.trim().toUpperCase());
+        }
+        
+        if (founded != null) {
+            club.setFounded(founded);
+        }
+        
+        if (description != null) {
+            club.setDescription(description.trim().isEmpty() ? null : description.trim());
+        }
+        
+        if (colors != null) {
+            club.setColors(colors.trim().isEmpty() ? null : colors.trim());
+        }
+        
+        if (contactEmail != null && !contactEmail.trim().isEmpty()) {
+            validateBasicClubInfo(null, contactEmail);
+            club.setContactEmail(contactEmail.trim());
+        }
+        
+        if (contactPhone != null) {
+            club.setContactPhone(contactPhone.trim().isEmpty() ? null : contactPhone.trim());
+        }
+        
+        if (websiteUrl != null) {
+            club.setWebsiteUrl(websiteUrl.trim().isEmpty() ? null : websiteUrl.trim());
+        }
+        
+        if (socialMediaLinks != null) {
+            club.setSocialMediaLinks(socialMediaLinks.trim().isEmpty() ? null : socialMediaLinks.trim());
+        }
+        
+        // Update location if provided
+        if (countyId != null) {
+            County county = countyDao.getCountyById(countyId);
+            club.setCounty(county);
+        }
+        
+        if (homeStadiumId != null) {
+            Stadium stadium = stadiumDao.getStadiumById(homeStadiumId);
+            club.setHomeStadium(stadium);
+        }
+        
+        // Update club level if provided (only owner can change this)
+        if (clubLevel != null && isUserClubOwner(userId, clubId)) {
+            club.setClubLevel(clubLevel);
+        }
+        
+        club.setUpdatedAt(LocalDateTime.now());
+        
+        return clubDao.updateClub(club);
+    }
+
+    @Override
+    @Transactional
+    public Club updateClubLogo(Long clubId, Long userId, MultipartFile logoFile) {
+        logger.info("Updating club logo for club ID: {} by user ID: {}", clubId, userId);
+        
+        validateClubManagementPermission(clubId, userId);
+        
+        Club club = getClubById(clubId);
+        
+        try {
+            // Delete existing logo if present
+            if (club.getLogoFileId() != null) {
+                fileUploadService.deleteFile(club.getLogoFileId().intValue());
+            }
+            
+            // Upload new logo
+            var uploadResult = fileUploadService.uploadFile(logoFile, userId, "Club logo", true);
+            club.setLogoFileId(uploadResult.getId().longValue());
+            club.setUpdatedAt(LocalDateTime.now());
+            
+            return clubDao.updateClub(club);
+            
+        } catch (Exception e) {
+            logger.error("Failed to upload club logo for club ID: {}", clubId, e);
+            throw new RuntimeException("Failed to upload club logo: " + e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public Club updateClubMainPhoto(Long clubId, Long userId, MultipartFile photoFile) {
+        logger.info("Updating club main photo for club ID: {} by user ID: {}", clubId, userId);
+        
+        validateClubManagementPermission(clubId, userId);
+        
+        Club club = getClubById(clubId);
+        
+        try {
+            // Delete existing photo if present
+            if (club.getMainPhotoId() != null) {
+                fileUploadService.deleteFile(club.getMainPhotoId().intValue());
+            }
+            
+            // Upload new photo
+            var uploadResult = fileUploadService.uploadFile(photoFile, userId, "Club main photo", true);
+            club.setMainPhotoId(uploadResult.getId().longValue());
+            club.setUpdatedAt(LocalDateTime.now());
+            
+            return clubDao.updateClub(club);
+            
+        } catch (Exception e) {
+            logger.error("Failed to upload club main photo for club ID: {}", clubId, e);
+            throw new RuntimeException("Failed to upload club main photo: " + e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public Club deleteClubLogo(Long clubId, Long userId) {
+        logger.info("Deleting club logo for club ID: {} by user ID: {}", clubId, userId);
+        
+        validateClubManagementPermission(clubId, userId);
+        
+        Club club = getClubById(clubId);
+        
+        if (club.getLogoFileId() != null) {
+            try {
+                fileUploadService.deleteFile(club.getLogoFileId().intValue());
+                club.setLogoFileId(null);
+                club.setUpdatedAt(LocalDateTime.now());
+                
+                return clubDao.updateClub(club);
+                
+            } catch (Exception e) {
+                logger.error("Failed to delete club logo for club ID: {}", clubId, e);
+                throw new RuntimeException("Failed to delete club logo: " + e.getMessage());
+            }
+        }
+        
+        return club;
+    }
+
+    @Override
+    @Transactional
+    public Club deleteClubMainPhoto(Long clubId, Long userId) {
+        logger.info("Deleting club main photo for club ID: {} by user ID: {}", clubId, userId);
+        
+        validateClubManagementPermission(clubId, userId);
+        
+        Club club = getClubById(clubId);
+        
+        if (club.getMainPhotoId() != null) {
+            try {
+                fileUploadService.deleteFile(club.getMainPhotoId().intValue());
+                club.setMainPhotoId(null);
+                club.setUpdatedAt(LocalDateTime.now());
+                
+                return clubDao.updateClub(club);
+                
+            } catch (Exception e) {
+                logger.error("Failed to delete club main photo for club ID: {}", clubId, e);
+                throw new RuntimeException("Failed to delete club main photo: " + e.getMessage());
+            }
+        }
+        
+        return club;
+    }
+
+    // Paginated search and filtering methods
+
+    @Override
+    public List<Club> searchClubsByName(String searchTerm, PageRequest pageRequest) {
+        logger.info("Searching clubs by name: '{}' with pagination", searchTerm);
+        return clubDao.searchClubsByName(searchTerm, pageRequest.getOffset(), pageRequest.getPageSize());
+    }
+
+    @Override
+    public List<Club> getClubsByCounty(Long countyId, PageRequest pageRequest) {
+        logger.info("Getting clubs by county ID: {} with pagination", countyId);
+        return clubDao.getClubsByCounty(countyId, pageRequest.getOffset(), pageRequest.getPageSize());
+    }
+
+    @Override
+    public List<Club> getClubsByRegion(String region, PageRequest pageRequest) {
+        logger.info("Getting clubs by region: {} with pagination", region);
+        return clubDao.getClubsByRegion(region, pageRequest.getOffset(), pageRequest.getPageSize());
+    }
+
+    @Override
+    public List<Club> getClubsByLevel(Club.ClubLevel clubLevel, PageRequest pageRequest) {
+        logger.info("Getting clubs by level: {} with pagination", clubLevel);
+        return clubDao.getClubsByLevel(clubLevel, pageRequest.getOffset(), pageRequest.getPageSize());
+    }
+
+    @Override
+    public List<Club> getClubsNearLocation(BigDecimal latitude, BigDecimal longitude, 
+                                          double radiusKm, PageRequest pageRequest) {
+        logger.info("Getting clubs near location: {}, {} within {}km with pagination", 
+                   latitude, longitude, radiusKm);
+        return clubDao.getClubsNearLocation(latitude, longitude, radiusKm, 
+                                           pageRequest.getOffset(), pageRequest.getPageSize());
+    }
+
+    @Override
+    public List<Club> getVerifiedClubs(String verificationType, PageRequest pageRequest) {
+        logger.info("Getting verified clubs of type: {} with pagination", verificationType);
+        
+        return switch (verificationType.toLowerCase()) {
+            case "ligiopen" -> clubDao.getLigiopenVerifiedClubs(pageRequest.getOffset(), pageRequest.getPageSize());
+            case "fkf" -> clubDao.getFkfVerifiedClubs(pageRequest.getOffset(), pageRequest.getPageSize());
+            case "both" -> clubDao.getFullyVerifiedClubs(pageRequest.getOffset(), pageRequest.getPageSize());
+            default -> throw new IllegalArgumentException("Invalid verification type: " + verificationType + 
+                                                        ". Must be 'ligiopen', 'fkf', or 'both'");
+        };
+    }
+
+    @Override
+    public List<Club> getAllActiveClubs(PageRequest pageRequest) {
+        logger.info("Getting all active clubs with pagination");
+        return clubDao.getAllActiveClubs(pageRequest.getOffset(), pageRequest.getPageSize());
+    }
+
+    @Override
+    public Club getClubByRegistrationNumberOrThrow(String registrationNumber) {
+        logger.info("Getting club by registration number: {}", registrationNumber);
+        
+        Optional<Club> club = clubDao.getClubByRegistrationNumber(registrationNumber);
+        if (club.isEmpty()) {
+            throw new RuntimeException("Club not found with registration number: " + registrationNumber);
+        }
+        
+        return club.get();
+    }
+
+    @Override
+    public Map<String, Object> getClubStatistics(Long clubId) {
+        logger.info("Getting statistics for club ID: {}", clubId);
+        
+        Club club = getClubById(clubId);
+        
+        Map<String, Object> statistics = new HashMap<>();
+        
+        // Basic club info
+        statistics.put("clubId", club.getId());
+        statistics.put("clubName", club.getName());
+        statistics.put("clubLevel", club.getClubLevel());
+        statistics.put("isActive", club.getIsActive());
+        statistics.put("createdAt", club.getCreatedAt());
+        
+        // Verification status
+        statistics.put("isLigiopenVerified", club.getIsLigiopenVerified());
+        statistics.put("isFkfVerified", club.getIsFkfVerified());
+        statistics.put("ligiopenVerificationStatus", club.getLigiopenVerificationStatus());
+        statistics.put("fkfVerificationStatus", club.getFkfVerificationStatus());
+        
+        // Counts - these would require additional DAO queries in a real implementation
+        statistics.put("managersCount", club.getManagers() != null ? club.getManagers().size() : 0);
+        statistics.put("favoritesCount", club.getFavoritedByUsers() != null ? club.getFavoritedByUsers().size() : 0);
+        
+        // Additional statistics would be calculated based on relationships:
+        // statistics.put("playersCount", clubDao.getPlayersCount(clubId));
+        // statistics.put("matchesPlayed", clubDao.getMatchesPlayedCount(clubId));
+        // statistics.put("wins", clubDao.getWinsCount(clubId));
+        // statistics.put("draws", clubDao.getDrawsCount(clubId));
+        // statistics.put("losses", clubDao.getLossesCount(clubId));
+        
+        return statistics;
     }
 }
