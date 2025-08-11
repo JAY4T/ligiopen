@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "a1b2c3d4-e5f6-7890-ab12-cd3456ef7890",
 		"name": "LigiOpen API Collection",
-		"description": "# LigiOpen - Comprehensive Football League Management System for Kenya\n\nThis collection contains all API endpoints for the LigiOpen system, designed specifically for Kenya's diverse football ecosystem.\n\n## 📋 Collection Overview\n\n### 🔐 Authentication & Authorization\n- JWT authentication with refresh tokens\n- Google OAuth2 integration\n- Email verification system\n- Password reset functionality\n\n### 👤 User Profile Management\n- Complete user profile CRUD operations\n- Profile picture upload with Digital Ocean Spaces\n- User preferences and settings management\n- Account management features\n\n## 🚀 Getting Started\n\n### 1. Environment Setup\n- Set the `base_url` variable to your server URL (default: `http://localhost:8000`)\n- The `jwt_token` variable will be automatically set after login\n\n### 2. Authentication Flow\n1. **Register** a new account using the signup endpoint\n2. **Verify** your email (check console logs for verification link)\n3. **Login** to get JWT token (automatically saved to environment)\n4. Use **protected endpoints** with the JWT token\n\n### 3. API Testing\n- All requests include proper examples and test scripts\n- Environment variables are automatically managed\n- Response data is validated and displayed\n\n## 📱 Base URL Structure\nAll endpoints follow the pattern: `{{base_url}}/api/v1/...`\n\n## 🔒 Security\n- JWT tokens are automatically included in protected requests\n- Tokens are stored securely in environment variables\n- All sensitive endpoints require authentication\n\n---\n\n**Version**: 1.0.0  \n**Author**: LigiOpen Team  \n**Documentation**: https://docs.ligiopen.com  \n**Support**: support@ligiopen.com",
+		"description": "# LigiOpen - Comprehensive Football League Management System for Kenya\n\nThis collection contains all API endpoints for the LigiOpen system, designed specifically for Kenya's diverse football ecosystem.\n\n## 📋 Collection Overview\n\n### 🔐 Authentication & Authorization\n- JWT authentication with refresh tokens\n- Google OAuth2 integration\n- Email verification system\n- Password reset functionality\n\n### 👤 User Profile Management\n- Complete user profile CRUD operations\n- Profile picture upload with Digital Ocean Spaces\n- User preferences and settings management\n- Account management features\n\n### 🏛️ Club Management (NEW - Sprint 2)\n- **Club Registration**: Grassroots and FKF club registration system\n- **Club Profiles**: Complete CRUD operations for club management\n- **Staff Management**: Owner, manager, and staff role management\n- **Club Relationships**: User-club favorites and ownership tracking\n- **Media Management**: Club logos and photo uploads\n- **Geographic Search**: Kenya county-based club discovery\n- **Dual Verification**: LigiOpen internal + FKF official verification\n\n### 🌍 Location & Infrastructure (NEW - Sprint 2)\n- **Kenyan Counties**: All 47 counties with regional data\n- **Stadium Management**: Complete venue information system\n- **Geographic Search**: Location-based club and venue discovery\n\n## 🚀 Getting Started\n\n### 1. Environment Setup\n- Set the `base_url` variable to your server URL (default: `http://localhost:8000`)\n- The `jwt_token` variable will be automatically set after login\n- `club_id` and other IDs are automatically captured from responses\n\n### 2. Authentication Flow\n1. **Register** a new account using the signup endpoint\n2. **Verify** your email (check console logs for verification link)\n3. **Login** to get JWT token (automatically saved to environment)\n4. Use **protected endpoints** with the JWT token\n\n### 3. API Testing Workflow\n1. **Authentication**: Register → Login → Get JWT Token\n2. **Club Management**: Create Club → Verify → Update → Manage Staff\n3. **User Relationships**: Favorite Clubs → View Owned/Managed Clubs\n4. **Location Services**: Search Counties → Find Stadiums → Geographic Queries\n\n### 4. Sprint 2 New Features\n- **Club Registration**: Both grassroots and FKF-registered clubs supported\n- **Dual Verification System**: Internal LigiOpen + Official FKF verification\n- **Geographic Integration**: Kenya's 47-county system with regional organization\n- **Media Management**: Club logos and photos with Digital Ocean Spaces\n- **Staff Hierarchy**: Owner → Manager → Staff role management\n- **Search & Discovery**: County-based and name-based club search\n\n## 📱 Base URL Structure\nAll endpoints follow the pattern: `{{base_url}}/api/v1/...`\n\n## 🔒 Security\n- JWT tokens are automatically included in protected requests\n- Tokens are stored securely in environment variables\n- All sensitive endpoints require authentication\n- Role-based access control for club management\n\n---\n\n**Version**: 2.0.0 (Sprint 2)  \n**Author**: LigiOpen Team  \n**Documentation**: https://docs.ligiopen.com  \n**Support**: support@ligiopen.com",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12345678"
 	},
@@ -723,6 +723,353 @@
 			]
 		},
 		{
+			"name": "🏛️ Club Management",
+			"description": "Sprint 2: Comprehensive club management system including registration, verification, profile management, staff management, and user relationships.",
+			"item": [
+				{
+					"name": "📋 Club Registration",
+					"description": "Club registration endpoints supporting both grassroots and FKF-registered clubs with dual verification system.",
+					"item": [
+						{
+							"name": "🌱 Register Grassroots Club",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"",
+											"pm.test(\"Club registration successful\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"    if (jsonData.data && jsonData.data.id) {",
+											"        pm.environment.set('club_id', jsonData.data.id);",
+											"        console.log('✅ Club ID stored:', jsonData.data.id);",
+											"    }",
+											"});",
+											"",
+											"console.log('✅ Grassroots club registered successfully!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Kibera United FC\",\n  \"shortName\": \"KUFC\",\n  \"description\": \"Community football club from Kibera, promoting youth development through football\",\n  \"foundedYear\": 2019,\n  \"colors\": \"Green and White\",\n  \"homeCountyId\": 1,\n  \"city\": \"Nairobi\",\n  \"town\": \"Kibera\",\n  \"address\": \"Olympic Estate, Kibera\",\n  \"phoneNumber\": \"+254712345678\",\n  \"email\": \"info@kiberaunited.co.ke\",\n  \"websiteUrl\": \"https://kiberaunited.co.ke\",\n  \"socialMediaHandles\": {\n    \"twitter\": \"@KiberaUnitedFC\",\n    \"facebook\": \"KiberaUnitedFC\",\n    \"instagram\": \"kiberaunited\"\n  },\n  \"clubType\": \"GRASSROOTS\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/register/grassroots",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"register",
+										"grassroots"
+									]
+								},
+								"description": "Register a new grassroots club in the LigiOpen system.\n\n### Authentication Required\n- JWT token must be included in Authorization header\n- User becomes the club owner automatically\n\n### Club Type: Grassroots\n- Community-level football clubs\n- No FKF registration required\n- Focus on youth development and community engagement\n- Simpler verification process\n\n### Request Body\n- `name`: Full club name (required)\n- `shortName`: Abbreviated name (optional)\n- `description`: Club description and mission\n- `foundedYear`: Year the club was established\n- `colors`: Club colors/kit colors\n- `homeCountyId`: ID of the home county (required)\n- `city` & `town`: Location details\n- `phoneNumber` & `email`: Contact information\n- `socialMediaHandles`: Social media presence\n\n### Response\n- Returns created club with initial verification status\n- Club starts with LigiOpen verification = PENDING\n- FKF verification = NOT_APPLICABLE for grassroots\n- Owner automatically set to requesting user"
+							}
+						},
+						{
+							"name": "🏆 Register FKF Club",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"",
+											"pm.test(\"FKF club registration successful\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"    if (jsonData.data && jsonData.data.id) {",
+											"        pm.environment.set('fkf_club_id', jsonData.data.id);",
+											"    }",
+											"});",
+											"",
+											"console.log('✅ FKF club registered successfully!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Gor Mahia FC\",\n  \"shortName\": \"GM\",\n  \"description\": \"Kenya's most successful football club with rich history and passionate fanbase\",\n  \"foundedYear\": 1968,\n  \"colors\": \"Green and White\",\n  \"homeCountyId\": 1,\n  \"city\": \"Nairobi\",\n  \"town\": \"Nairobi\",\n  \"address\": \"Kasarani Sports Complex\",\n  \"phoneNumber\": \"+254711000000\",\n  \"email\": \"info@gormahiafc.co.ke\",\n  \"websiteUrl\": \"https://gormahiafc.co.ke\",\n  \"socialMediaHandles\": {\n    \"twitter\": \"@GorMahiaFC\",\n    \"facebook\": \"GorMahiaFC\",\n    \"instagram\": \"gormahiafc\"\n  },\n  \"clubType\": \"PROFESSIONAL\",\n  \"fkfRegistrationNumber\": \"FKF-2024-001\",\n  \"fkfRegistrationDate\": \"2024-01-15\",\n  \"league\": \"FKF Premier League\",\n  \"tier\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/register/fkf",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"register",
+										"fkf"
+									]
+								},
+								"description": "Register an FKF-registered professional club.\n\n### Authentication Required\n- JWT token required\n- User becomes club owner\n\n### Club Type: FKF Registered\n- Professional and semi-professional clubs\n- Official FKF registration required\n- Dual verification system applies\n- Higher tier club management\n\n### Additional FKF Fields\n- `fkfRegistrationNumber`: Official FKF registration number\n- `fkfRegistrationDate`: Date of FKF registration\n- `league`: Current league participation\n- `tier`: League tier (1=Premier, 2=National, etc.)\n\n### Verification Process\n1. LigiOpen internal verification (PENDING)\n2. FKF official verification (PENDING)\n3. Both must be completed for full verification"
+							}
+						}
+					]
+				},
+				{
+					"name": "👑 Club Profile Management",
+					"description": "Complete CRUD operations for club profiles including updates, media management, and deletion.",
+					"item": [
+						{
+							"name": "🔍 Get Club by ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Club retrieved successfully\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"});",
+											"",
+											"console.log('✅ Club profile retrieved successfully!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/{{club_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"{{club_id}}"
+									]
+								},
+								"description": "Retrieve detailed information about a specific club by ID.\n\n### Public Endpoint\n- No authentication required\n- Returns public club information\n- Includes verification status and basic details\n\n### Response Fields\n- Complete club profile information\n- Owner and managers information\n- Verification status (LigiOpen + FKF)\n- Media URLs (logo, photos)\n- Contact information and social media\n- Location details (county, city, town)"
+							}
+						},
+						{
+							"name": "📝 Update Club Profile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Club updated successfully\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"});",
+											"",
+											"console.log('✅ Club profile updated successfully!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Kibera United Football Club\",\n  \"shortName\": \"KUFC\",\n  \"description\": \"Premier community football club from Kibera, dedicated to youth development and community empowerment through football\",\n  \"colors\": \"Green, White and Gold\",\n  \"phoneNumber\": \"+254787654321\",\n  \"email\": \"contact@kiberaunited.co.ke\",\n  \"websiteUrl\": \"https://www.kiberaunited.co.ke\",\n  \"socialMediaHandles\": {\n    \"twitter\": \"@KiberaUnitedFC\",\n    \"facebook\": \"KiberaUnitedFootballClub\",\n    \"instagram\": \"kiberaunitedfc\",\n    \"youtube\": \"KiberaUnitedFC\"\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/{{club_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"{{club_id}}"
+									]
+								},
+								"description": "Update club profile information.\n\n### Authentication Required\n- Must be club owner or manager\n- JWT token required\n\n### Updateable Fields\n- Basic information (name, description, colors)\n- Contact details (phone, email, website)\n- Social media handles\n- Location information\n\n### Validation\n- Club name must be unique\n- Email format validation\n- Phone number format validation\n- URL format validation for website and social media\n\n### Permissions\n- Owner: Can update all fields\n- Managers: Limited field updates (based on permissions)"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "🌍 Location & Infrastructure",
+			"description": "Sprint 2: Kenya's geographic system including counties, regions, and stadium management for location-based services.",
+			"item": [
+				{
+					"name": "🗺️ Get All Kenyan Counties",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Counties retrieved successfully\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"    pm.expect(jsonData.data).to.be.an('array');",
+									"    pm.expect(jsonData.data.length).to.equal(47);",
+									"});",
+									"",
+									"console.log('✅ All 47 Kenyan counties retrieved!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/counties",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"counties"
+							]
+						},
+						"description": "Get all 47 Kenyan counties with regional information.\n\n### Public Endpoint\n- No authentication required\n- Returns complete county list\n\n### Response\n- All 47 counties organized by regions:\n  - Central Region (6 counties)\n  - Coast Region (6 counties) \n  - Eastern Region (8 counties)\n  - North Eastern Region (3 counties)\n  - Nyanza Region (6 counties)\n  - Rift Valley Region (14 counties)\n  - Western Region (4 counties)\n\n### Use Cases\n- Club registration county selection\n- Geographic search and filtering\n- Location-based services\n- Regional competition organization"
+					}
+				},
+				{
+					"name": "🏟️ Get Stadiums by County",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Stadiums retrieved successfully\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});",
+									"",
+									"console.log('✅ County stadiums retrieved!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/counties/1/stadiums",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"counties",
+								"1",
+								"stadiums"
+							]
+						},
+						"description": "Get all stadiums in a specific county.\n\n### Public Endpoint\n- No authentication required\n- Paginated results\n\n### Path Parameters\n- `countyId`: The ID of the county\n\n### Response\n- List of stadiums in the county\n- Stadium details (capacity, surface, facilities)\n- Geographic coordinates\n- Availability and verification status\n\n### Major Stadiums by County\n- **Nairobi**: Kasarani Stadium (60,000), Nyayo Stadium (30,000)\n- **Mombasa**: Mombasa Municipal Stadium (10,000)\n- **Kisumu**: Moi Stadium Kisumu (35,000)\n- **Nakuru**: Afraha Stadium (8,200)"
+					}
+				}
+			]
+		},
+		{
 			"name": "🔧 System & Health Checks",
 			"description": "System health checks, API status, and debugging endpoints.",
 			"item": [
@@ -832,6 +1179,30 @@
 			"value": "",
 			"type": "string",
 			"description": "Current user's email (auto-populated after login)"
+		},
+		{
+			"key": "club_id",
+			"value": "",
+			"type": "string",
+			"description": "Club ID for testing (auto-populated after club registration)"
+		},
+		{
+			"key": "fkf_club_id",
+			"value": "",
+			"type": "string",
+			"description": "FKF Club ID for testing (auto-populated after FKF club registration)"
+		},
+		{
+			"key": "county_id",
+			"value": "1",
+			"type": "string",
+			"description": "County ID for location testing (default: Nairobi = 1)"
+		},
+		{
+			"key": "manager_user_id",
+			"value": "",
+			"type": "string",
+			"description": "Manager User ID for staff management testing"
 		}
 	]
 }

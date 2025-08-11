@@ -3,7 +3,19 @@
 ## Overview
 LigiOpen is a comprehensive football league management system for Kenya with authentication, club management, match tracking, and competition structure capabilities.
 
-**Base URL**: `http://localhost:8080` (or configured port)
+**Base URL**: `http://localhost:8000` (or configured port)
+**Current Version**: v2.0.0 (Sprint 2 Complete)
+
+## 🎯 Current Status: Sprint 2 Complete ✅
+**Location & Club Management System fully implemented and operational**
+
+### New in Sprint 2
+- **50+ Club Management Endpoints** across 4 major controller areas
+- **Dual Verification System** for grassroots and professional clubs  
+- **Complete Kenyan Geographic Data** with all 47 counties
+- **Advanced Search Capabilities** with location-based filtering
+- **Role-based Permission System** for club management
+- **Media Management Integration** with Digital Ocean Spaces
 
 ## Authentication Endpoints
 
@@ -318,20 +330,196 @@ The application uses the following environment variables:
 ## Features Overview
 
 The LigiOpen system includes:
-- **User Authentication**: Local signup/signin and Google OAuth2
-- **JWT Token Management**: Access and refresh token support
-- **Club Management**: Football club creation and management
-- **Match Tracking**: Match scheduling and live tracking
-- **Competition Structure**: Leagues, groups, knockout tournaments
-- **Player Management**: Player profiles and transfers
-- **Statistics**: Match and player performance tracking
-- **File Management**: AWS S3 integration for media storage
+- **User Authentication**: Local signup/signin and Google OAuth2 ✅
+- **JWT Token Management**: Access and refresh token support ✅
+- **Club Management**: Football club creation and management ✅ (NEW - Sprint 2)
+- **Location & Infrastructure**: Kenya counties and stadium management ✅ (NEW - Sprint 2)
+- **Match Tracking**: Match scheduling and live tracking (Sprint 5)
+- **Competition Structure**: Leagues, groups, knockout tournaments (Sprint 4)
+- **Player Management**: Player profiles and transfers (Sprint 3)
+- **Statistics**: Match and player performance tracking (Sprint 6)
+- **File Management**: Digital Ocean Spaces integration for media storage ✅
 
 ## Technical Stack
 
 - **Framework**: Spring Boot 3.4.0
 - **Database**: PostgreSQL
 - **Authentication**: Spring Security + JWT
-- **File Storage**: AWS S3
+- **File Storage**: Digital Ocean Spaces
 - **Session Management**: Redis
 - **Build Tool**: Maven
+
+---
+
+## 🏛️ Club Management Endpoints (NEW - Sprint 2)
+
+### Club Registration
+
+#### Register Grassroots Club
+```http
+POST /api/v1/clubs/register/grassroots
+Authorization: Bearer {jwt_token}
+Content-Type: application/json
+
+{
+  "name": "Kibera United FC",
+  "shortName": "KUFC",
+  "description": "Community football club from Kibera",
+  "foundedYear": 2019,
+  "colors": "Green and White",
+  "homeCountyId": 1,
+  "city": "Nairobi",
+  "town": "Kibera",
+  "address": "Olympic Estate, Kibera",
+  "phoneNumber": "+254712345678",
+  "email": "info@kiberaunited.co.ke",
+  "websiteUrl": "https://kiberaunited.co.ke",
+  "socialMediaHandles": {
+    "twitter": "@KiberaUnitedFC",
+    "facebook": "KiberaUnitedFC",
+    "instagram": "kiberaunited"
+  },
+  "clubType": "GRASSROOTS"
+}
+```
+
+#### Register FKF Club
+```http
+POST /api/v1/clubs/register/fkf
+Authorization: Bearer {jwt_token}
+Content-Type: application/json
+
+{
+  "name": "Gor Mahia FC",
+  "shortName": "GM",
+  "description": "Kenya's most successful football club",
+  "foundedYear": 1968,
+  "colors": "Green and White",
+  "homeCountyId": 1,
+  "phoneNumber": "+254711000000",
+  "email": "info@gormahiafc.co.ke",
+  "clubType": "PROFESSIONAL",
+  "fkfRegistrationNumber": "FKF-2024-001",
+  "fkfRegistrationDate": "2024-01-15",
+  "league": "FKF Premier League",
+  "tier": 1
+}
+```
+
+### Club Profile Management
+
+#### Get Club by ID
+```http
+GET /api/v1/clubs/{clubId}
+```
+
+#### Update Club Profile
+```http
+PUT /api/v1/clubs/{clubId}
+Authorization: Bearer {jwt_token}
+Content-Type: application/json
+
+{
+  "name": "Updated Club Name",
+  "description": "Updated description",
+  "phoneNumber": "+254787654321",
+  "email": "updated@email.com"
+}
+```
+
+#### Upload Club Logo
+```http
+POST /api/v1/clubs/{clubId}/logo
+Authorization: Bearer {jwt_token}
+Content-Type: multipart/form-data
+
+Form Data:
+- file: [image_file] (JPG, PNG, max 10MB)
+```
+
+### Club Staff Management
+
+#### Add Club Manager
+```http
+POST /api/v1/clubs/{clubId}/staff/managers/{managerId}
+Authorization: Bearer {jwt_token}
+```
+
+#### Get Club Staff
+```http
+GET /api/v1/clubs/{clubId}/staff
+```
+
+#### Transfer Ownership
+```http
+POST /api/v1/clubs/{clubId}/staff/transfer-ownership/{newOwnerId}
+Authorization: Bearer {jwt_token}
+```
+
+### Club Relationships
+
+#### Favorite Club
+```http
+POST /api/v1/clubs/{clubId}/relationships/favorite
+Authorization: Bearer {jwt_token}
+```
+
+#### Get User's Favorited Clubs
+```http
+GET /api/v1/clubs/relationships/favorites
+Authorization: Bearer {jwt_token}
+```
+
+---
+
+## 🌍 Location & Infrastructure Endpoints (NEW - Sprint 2)
+
+### Counties
+
+#### Get All Kenyan Counties
+```http
+GET /api/v1/counties
+```
+
+**Response includes all 47 counties organized by regions:**
+- Central Region (6 counties)
+- Coast Region (6 counties) 
+- Eastern Region (8 counties)
+- North Eastern Region (3 counties)
+- Nyanza Region (6 counties)
+- Rift Valley Region (14 counties)
+- Western Region (4 counties)
+
+#### Get County by ID
+```http
+GET /api/v1/counties/{countyId}
+```
+
+### Stadiums
+
+#### Get Stadiums by County
+```http
+GET /api/v1/counties/{countyId}/stadiums
+```
+
+**Major Stadiums Include:**
+- **Nairobi**: Kasarani Stadium (60,000), Nyayo Stadium (30,000)
+- **Mombasa**: Mombasa Municipal Stadium (10,000)
+- **Kisumu**: Moi Stadium Kisumu (35,000)
+- **Nakuru**: Afraha Stadium (8,200)
+
+---
+
+## 🔐 Club Verification System (Sprint 2)
+
+### Dual Verification Process
+1. **LigiOpen Internal Verification**: PENDING → VERIFIED/REJECTED/SUSPENDED
+2. **FKF Official Verification**: NOT_APPLICABLE → PENDING → VERIFIED/EXPIRED
+
+### Club Types
+- **GRASSROOTS**: Community clubs, FKF verification = NOT_APPLICABLE
+- **PROFESSIONAL**: Professional clubs, FKF verification required
+
+---
+
+**For complete interactive API documentation, visit:** http://localhost:8000/swagger-ui/index.html
