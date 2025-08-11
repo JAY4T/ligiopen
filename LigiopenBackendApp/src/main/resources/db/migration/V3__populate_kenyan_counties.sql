@@ -2,31 +2,28 @@
 -- Insert all 47 Kenyan counties with their regions and codes
 -- Data source: Kenya National Bureau of Statistics
 
--- Clear existing data if any (optional, for clean re-runs)
--- DELETE FROM counties;
+-- Clear existing data if any (for clean migration)
+DELETE FROM counties;
 
--- Insert Central Region Counties
+-- Insert all Kenyan counties in one statement (47 counties total)
 INSERT INTO counties (name, code, region) VALUES
+-- Central Region Counties
 ('Nairobi', '047', 'Central'),
 ('Kiambu', '022', 'Central'),
 ('Murang''a', '021', 'Central'),
 ('Nyeri', '018', 'Central'),
 ('Kirinyaga', '020', 'Central'),
-('Nyandarua', '019', 'Central')
-ON CONFLICT (name) DO NOTHING;
+('Nyandarua', '019', 'Central'),
 
--- Insert Coast Region Counties
-INSERT INTO counties (name, code, region) VALUES
+-- Coast Region Counties
 ('Mombasa', '001', 'Coast'),
 ('Kilifi', '003', 'Coast'),
 ('Tana River', '006', 'Coast'),
 ('Lamu', '004', 'Coast'),
 ('Taita-Taveta', '005', 'Coast'),
-('Kwale', '002', 'Coast')
-ON CONFLICT (name) DO NOTHING;
+('Kwale', '002', 'Coast'),
 
--- Insert Eastern Region Counties
-INSERT INTO counties (name, code, region) VALUES
+-- Eastern Region Counties
 ('Machakos', '016', 'Eastern'),
 ('Kitui', '015', 'Eastern'),
 ('Makueni', '017', 'Eastern'),
@@ -34,28 +31,22 @@ INSERT INTO counties (name, code, region) VALUES
 ('Tharaka-Nithi', '013', 'Eastern'),
 ('Meru', '012', 'Eastern'),
 ('Isiolo', '011', 'Eastern'),
-('Marsabit', '010', 'Eastern')
-ON CONFLICT (name) DO NOTHING;
+('Marsabit', '010', 'Eastern'),
 
--- Insert North Eastern Region Counties
-INSERT INTO counties (name, code, region) VALUES
+-- North Eastern Region Counties
 ('Garissa', '007', 'North Eastern'),
 ('Wajir', '008', 'North Eastern'),
-('Mandera', '009', 'North Eastern')
-ON CONFLICT (name) DO NOTHING;
+('Mandera', '009', 'North Eastern'),
 
--- Insert Nyanza Region Counties
-INSERT INTO counties (name, code, region) VALUES
+-- Nyanza Region Counties
 ('Siaya', '041', 'Nyanza'),
 ('Kisumu', '042', 'Nyanza'),
 ('Homa Bay', '043', 'Nyanza'),
 ('Migori', '044', 'Nyanza'),
 ('Kisii', '045', 'Nyanza'),
-('Nyamira', '046', 'Nyanza')
-ON CONFLICT (name) DO NOTHING;
+('Nyamira', '046', 'Nyanza'),
 
--- Insert Rift Valley Region Counties
-INSERT INTO counties (name, code, region) VALUES
+-- Rift Valley Region Counties
 ('Turkana', '023', 'Rift Valley'),
 ('West Pokot', '024', 'Rift Valley'),
 ('Samburu', '025', 'Rift Valley'),
@@ -69,16 +60,13 @@ INSERT INTO counties (name, code, region) VALUES
 ('Narok', '033', 'Rift Valley'),
 ('Kajiado', '034', 'Rift Valley'),
 ('Kericho', '035', 'Rift Valley'),
-('Bomet', '036', 'Rift Valley')
-ON CONFLICT (name) DO NOTHING;
+('Bomet', '036', 'Rift Valley'),
 
--- Insert Western Region Counties
-INSERT INTO counties (name, code, region) VALUES
+-- Western Region Counties
 ('Kakamega', '037', 'Western'),
 ('Vihiga', '038', 'Western'),
 ('Bungoma', '039', 'Western'),
-('Busia', '040', 'Western')
-ON CONFLICT (name) DO NOTHING;
+('Busia', '040', 'Western');
 
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_counties_region ON counties(region);
@@ -98,5 +86,4 @@ INSERT INTO stadiums (name, city, town, county_id, capacity, surface_type, has_f
 ('Moi Stadium Kisumu', 'Kisumu', 'Kisumu', (SELECT id FROM counties WHERE name = 'Kisumu'), 35000, 'NATURAL_GRASS', true, true, true, NOW()),
 
 -- Nakuru stadiums
-('Afraha Stadium', 'Nakuru', 'Nakuru', (SELECT id FROM counties WHERE name = 'Nakuru'), 8200, 'NATURAL_GRASS', false, true, true, NOW())
-ON CONFLICT (name) DO NOTHING;
+('Afraha Stadium', 'Nakuru', 'Nakuru', (SELECT id FROM counties WHERE name = 'Nakuru'), 8200, 'NATURAL_GRASS', false, true, true, NOW());

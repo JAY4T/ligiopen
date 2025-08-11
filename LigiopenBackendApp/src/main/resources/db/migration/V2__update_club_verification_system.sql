@@ -24,10 +24,20 @@ CREATE INDEX IF NOT EXISTS idx_clubs_is_ligiopen_verified ON clubs(is_ligiopen_v
 CREATE INDEX IF NOT EXISTS idx_clubs_is_fkf_verified ON clubs(is_fkf_verified);
 
 -- Add check constraints for enum values
-ALTER TABLE clubs ADD CONSTRAINT IF NOT EXISTS chk_ligiopen_verification_status 
+-- Drop constraints if they exist first
+DO $$ 
+BEGIN
+    ALTER TABLE clubs DROP CONSTRAINT IF EXISTS chk_ligiopen_verification_status;
+    ALTER TABLE clubs DROP CONSTRAINT IF EXISTS chk_fkf_verification_status;
+EXCEPTION WHEN undefined_object THEN 
+    NULL;
+END $$;
+
+-- Add the constraints
+ALTER TABLE clubs ADD CONSTRAINT chk_ligiopen_verification_status 
     CHECK (ligiopen_verification_status IN ('PENDING', 'VERIFIED', 'REJECTED', 'SUSPENDED', 'UNDER_REVIEW'));
 
-ALTER TABLE clubs ADD CONSTRAINT IF NOT EXISTS chk_fkf_verification_status 
+ALTER TABLE clubs ADD CONSTRAINT chk_fkf_verification_status 
     CHECK (fkf_verification_status IN ('NOT_APPLICABLE', 'PENDING', 'VERIFIED', 'EXPIRED', 'INVALID', 'SUSPENDED'));
 
 -- Update existing records to set default values

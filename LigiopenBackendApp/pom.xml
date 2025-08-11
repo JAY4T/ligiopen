@@ -107,10 +107,18 @@
 			<version>1.12.772</version>
 		</dependency>
 
-		<!-- Flyway for database migrations (version managed by Spring Boot) -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
+			<version>11.0.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
+			<version>11.3.1</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
