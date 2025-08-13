@@ -1044,6 +1044,410 @@
 								},
 								"description": "Update club profile information.\n\n### Authentication Required\n- Must be club owner or manager\n- JWT token required\n\n### Updateable Fields\n- Basic information (name, description, colors)\n- Contact details (phone, email, website)\n- Social media handles\n- Location information\n\n### Validation\n- Club name must be unique\n- Email format validation\n- Phone number format validation\n- URL format validation for website and social media\n\n### Permissions\n- Owner: Can update all fields\n- Managers: Limited field updates (based on permissions)"
 							}
+						},
+						{
+							"name": "🔍 Search Clubs by Name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Search results retrieved\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"    pm.expect(jsonData.data).to.have.property('clubs');",
+											"});",
+											"",
+											"console.log('✅ Club search completed successfully!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/search?query=United&page=0&size=20",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"search"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "United",
+											"description": "Search term for club name"
+										},
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number (0-based)"
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"description": "Number of results per page"
+										}
+									]
+								},
+								"description": "Search clubs by name with pagination support.\n\n### Public Endpoint\n- No authentication required\n- Returns matching clubs based on name search\n\n### Query Parameters\n- `query`: Search term (required) - searches club names\n- `page`: Page number (0-based, default: 0)\n- `size`: Results per page (default: 20, max: 100)\n\n### Search Features\n- **Case-insensitive** name matching\n- **Partial matching** - finds clubs containing search term\n- **Fuzzy matching** for better search results\n- **Pagination** for large result sets\n\n### Response\n- `clubs`: Array of matching club profiles\n- `totalElements`: Total number of matching clubs\n- `currentPage`: Current page number\n- `pageSize`: Number of results per page\n\n### Use Cases\n- Club discovery by name\n- Auto-complete functionality\n- General club search\n- Finding specific clubs\n\n### Performance\n- Indexed database search\n- Fast response times\n- Optimized for mobile and web"
+							}
+						},
+						{
+							"name": "🏛️ Get Clubs by County",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"County clubs retrieved\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"    pm.expect(jsonData.data).to.have.property('clubs');",
+											"    pm.expect(jsonData.data).to.have.property('countyId');",
+											"});",
+											"",
+											"console.log('✅ County clubs retrieved successfully!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/county/1?page=0&size=20",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"county",
+										"1"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number (0-based)"
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"description": "Number of results per page"
+										}
+									]
+								},
+								"description": "Get all clubs in a specific Kenyan county with pagination.\n\n### Public Endpoint\n- No authentication required\n- Returns clubs based in the specified county\n\n### Path Parameters\n- `countyId`: County ID (1-47 for Kenya's counties)\n  - 1: Nairobi\n  - 2: Mombasa\n  - 3: Kwale\n  - ... (all 47 Kenyan counties)\n\n### Query Parameters\n- `page`: Page number (0-based, default: 0)\n- `size`: Results per page (default: 20)\n\n### Kenya County Integration\n- **All 47 counties** supported\n- **Regional grouping** available\n- **Geographic accuracy** ensured\n- **Local football structure** respected\n\n### Response\n- `clubs`: Array of clubs in the county\n- `totalElements`: Total clubs in county\n- `currentPage`: Current page number\n- `pageSize`: Results per page\n- `countyId`: County identifier\n\n### Use Cases\n- **Local club discovery**\n- **Regional tournaments**\n- **Geographic analysis**\n- **County-based competitions**\n\n### Common County IDs\n- **1**: Nairobi (Capital, most clubs)\n- **2**: Mombasa (Coastal football hub)\n- **32**: Nakuru (Rift Valley center)\n- **22**: Kisumu (Western Kenya hub)"
+							}
+						},
+						{
+							"name": "🌍 Get Clubs by Region",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Regional clubs retrieved\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"    pm.expect(jsonData.data).to.have.property('clubs');",
+											"    pm.expect(jsonData.data).to.have.property('region');",
+											"});",
+											"",
+											"console.log('✅ Regional clubs retrieved successfully!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/region/Central?page=0&size=20",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"region",
+										"Central"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number (0-based)"
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"description": "Number of results per page"
+										}
+									]
+								},
+								"description": "Get clubs in a specific Kenyan region with pagination.\n\n### Public Endpoint\n- No authentication required\n- Returns clubs grouped by Kenya's administrative regions\n\n### Path Parameters\n- `region`: Region name (case-sensitive)\n  - **Central**: Kiambu, Murang'a, Nyeri, Nyandarua, Kirinyaga\n  - **Coast**: Mombasa, Kwale, Kilifi, Tana River, Lamu, Taita-Taveta\n  - **Eastern**: Machakos, Makueni, Kitui, Embu, Tharaka-Nithi, Meru, Isiolo\n  - **North Eastern**: Garissa, Wajir, Mandera\n  - **Nyanza**: Kisumu, Siaya, Kisii, Nyamira, Homa Bay, Migori\n  - **Rift Valley**: Nakuru, Narok, Kajiado, Kericho, Bomet, Kakamega, etc.\n  - **Western**: Kakamega, Vihiga, Bungoma, Busia\n  - **Nairobi**: Nairobi County (special status)\n\n### Kenya Regional Structure\n- **8 main regions** covering all 47 counties\n- **Regional tournaments** and competitions\n- **Cultural and geographic** football differences\n- **Development priorities** vary by region\n\n### Response\n- `clubs`: Array of clubs in the region\n- `totalElements`: Total clubs in region\n- `currentPage`: Current page number\n- `pageSize`: Results per page\n- `region`: Region name\n\n### Use Cases\n- **Regional competitions**\n- **Development programs**\n- **Geographic analysis**\n- **Cultural football studies**\n\n### Popular Regions for Football\n- **Nairobi**: Highest concentration of professional clubs\n- **Central**: Strong grassroots development\n- **Rift Valley**: Large geographic area, diverse clubs\n- **Coast**: Unique coastal football culture"
+							}
+						},
+						{
+							"name": "🏆 Get Clubs by Level",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Level-based clubs retrieved\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"    pm.expect(jsonData.data).to.have.property('clubs');",
+											"    pm.expect(jsonData.data).to.have.property('level');",
+											"});",
+											"",
+											"console.log('✅ Clubs by level retrieved successfully!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/level/NATIONAL?page=0&size=20",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"level",
+										"NATIONAL"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number (0-based)"
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"description": "Number of results per page"
+										}
+									]
+								},
+								"description": "Get clubs filtered by their competitive level.\n\n### Public Endpoint\n- No authentication required\n- Returns clubs based on their competitive tier\n\n### Path Parameters\n- `level`: Club competitive level (enum values)\n  - **GRASSROOTS**: Community and youth development clubs\n  - **COUNTY**: County-level competitive clubs\n  - **REGIONAL**: Regional championship clubs\n  - **NATIONAL**: National division clubs\n  - **PREMIER**: Top-tier professional clubs (FKF Premier League)\n\n### Club Level Hierarchy\n1. **PREMIER**: Elite professional clubs (16-20 clubs)\n   - FKF Premier League participants\n   - Professional players and management\n   - National and international competitions\n\n2. **NATIONAL**: National division clubs (40+ clubs)\n   - FKF Division One and Two\n   - Semi-professional setup\n   - Pathway to premier league\n\n3. **REGIONAL**: Regional competitive clubs (100+ clubs)\n   - Regional championships\n   - County representatives\n   - Organized league structure\n\n4. **COUNTY**: County-level clubs (500+ clubs)\n   - County leagues and tournaments\n   - Local competitive structure\n   - Community-based competitions\n\n5. **GRASSROOTS**: Community clubs (1000+ clubs)\n   - Youth development focus\n   - Community engagement\n   - Entry-level football\n\n### Response\n- `clubs`: Array of clubs at specified level\n- `totalElements`: Total clubs at this level\n- `currentPage`: Current page number\n- `pageSize`: Results per page\n- `level`: Club level filter\n\n### Use Cases\n- **Competitive analysis**\n- **League management**\n- **Development pathway mapping**\n- **Tournament organization**\n- **Scout network building**\n\n### Level Statistics (Approximate)\n- Premier: 18 clubs\n- National: 60+ clubs  \n- Regional: 200+ clubs\n- County: 800+ clubs\n- Grassroots: 2000+ clubs"
+							}
+						},
+						{
+							"name": "📍 Get Clubs Near Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Nearby clubs retrieved\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"    pm.expect(jsonData.data).to.have.property('clubs');",
+											"    pm.expect(jsonData.data).to.have.property('searchLocation');",
+											"});",
+											"",
+											"console.log('✅ Nearby clubs retrieved successfully!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/near?latitude=-1.286389&longitude=36.817223&radiusKm=25.0&page=0&size=20",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"near"
+									],
+									"query": [
+										{
+											"key": "latitude",
+											"value": "-1.286389",
+											"description": "Latitude coordinate (Nairobi CBD example)"
+										},
+										{
+											"key": "longitude",
+											"value": "36.817223",
+											"description": "Longitude coordinate (Nairobi CBD example)"
+										},
+										{
+											"key": "radiusKm",
+											"value": "25.0",
+											"description": "Search radius in kilometers"
+										},
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number (0-based)"
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"description": "Number of results per page"
+										}
+									]
+								},
+								"description": "Find clubs near a specific geographic location using GPS coordinates.\n\n### Public Endpoint\n- No authentication required\n- Uses Haversine formula for accurate distance calculation\n\n### Query Parameters (Required)\n- `latitude`: GPS latitude coordinate (decimal degrees)\n- `longitude`: GPS longitude coordinate (decimal degrees)\n\n### Query Parameters (Optional)\n- `radiusKm`: Search radius in kilometers (default: 50km, max: 200km)\n- `page`: Page number (0-based, default: 0)\n- `size`: Results per page (default: 20)\n\n### Geographic Search Features\n- **Haversine formula** for precise distance calculation\n- **Kilometers and miles** support\n- **Proximity sorting** - nearest clubs first\n- **Radius filtering** - configurable search area\n\n### Kenya GPS Coordinates (Examples)\n- **Nairobi CBD**: -1.286389, 36.817223\n- **Mombasa**: -4.043477, 39.658871\n- **Kisumu**: -0.091702, 34.767956\n- **Nakuru**: -0.303099, 36.080025\n- **Eldoret**: 0.514277, 35.269779\n\n### Response\n- `clubs`: Array of nearby clubs (sorted by distance)\n- `totalElements`: Total clubs within radius\n- `searchLocation`: Input coordinates for reference\n- `radiusKm`: Applied search radius\n- `currentPage`: Current page number\n- `pageSize`: Results per page\n\n### Distance Calculation\n- Each club includes calculated distance from search point\n- Distances in kilometers (can be converted to miles)\n- Accurate to within meters using Haversine formula\n\n### Use Cases\n- **Mobile app location services**\n- **\"Find clubs near me\" functionality**\n- **Geographic club discovery**\n- **Local community mapping**\n- **Tournament venue selection**\n- **Travel planning for matches**\n\n### Performance\n- Optimized spatial queries\n- Geographic database indexing\n- Fast response times for mobile\n\n### Typical Radius Values\n- **5km**: Immediate neighborhood\n- **25km**: City-wide search\n- **50km**: Regional area\n- **100km**: Cross-county search"
+							}
+						},
+						{
+							"name": "✅ Get Verified Clubs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verified clubs retrieved\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"    pm.expect(jsonData.data).to.have.property('clubs');",
+											"    pm.expect(jsonData.data).to.have.property('verificationType');",
+											"});",
+											"",
+											"console.log('✅ Verified clubs retrieved successfully!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/verified?verificationType=both&page=0&size=20",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"verified"
+									],
+									"query": [
+										{
+											"key": "verificationType",
+											"value": "both",
+											"description": "Verification filter: 'ligiopen', 'fkf', or 'both'"
+										},
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number (0-based)"
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"description": "Number of results per page"
+										}
+									]
+								},
+								"description": "Get clubs based on their verification status in LigiOpen's dual verification system.\n\n### Public Endpoint\n- No authentication required\n- Shows clubs with verified authenticity\n\n### Query Parameters\n- `verificationType`: Verification filter (default: 'ligiopen')\n  - **'ligiopen'**: LigiOpen internal verification only\n  - **'fkf'**: FKF official verification only  \n  - **'both'**: Both LigiOpen and FKF verified (highest trust)\n- `page`: Page number (0-based, default: 0)\n- `size`: Results per page (default: 20)\n\n### LigiOpen Dual Verification System\n\n#### 1. LigiOpen Internal Verification\n- **Community validation**: User reports and feedback\n- **Data accuracy**: Contact information and location verification\n- **Activity monitoring**: Regular updates and engagement\n- **Quality assurance**: Profile completeness and authenticity\n\n#### 2. FKF Official Verification  \n- **Registration validation**: Official FKF registration numbers\n- **Legal compliance**: Meets FKF club requirements\n- **Competitive participation**: Active in FKF competitions\n- **Administrative approval**: FKF official endorsement\n\n#### 3. Dual Verification (Both)\n- **Highest trust level**: Both systems verify the club\n- **Professional clubs**: Most premier and national level clubs\n- **Gold standard**: Recommended for partnerships and sponsorships\n- **Quality assurance**: Multiple validation layers\n\n### Verification Levels\n1. **Unverified**: New clubs, pending verification\n2. **LigiOpen Verified**: Community-validated grassroots clubs  \n3. **FKF Verified**: Officially registered competitive clubs\n4. **Dual Verified**: Premium verification (both systems)\n\n### Response\n- `clubs`: Array of verified clubs\n- `totalElements`: Total verified clubs\n- `verificationType`: Applied verification filter\n- `currentPage`: Current page number\n- `pageSize`: Results per page\n\n### Use Cases\n- **Sponsorship decisions**: Find trustworthy clubs\n- **Partnership selection**: Verified club partnerships\n- **Tournament organization**: Invite legitimate clubs\n- **Player recruitment**: Focus on verified clubs\n- **Fan engagement**: Follow authentic clubs\n\n### Trust Indicators\n- ✅ **LigiOpen Verified**: Community-validated\n- 🏛️ **FKF Verified**: Officially registered\n- 🌟 **Dual Verified**: Highest trust level\n\n### Benefits of Verification\n- **Enhanced visibility** in search results\n- **Trust building** with fans and sponsors  \n- **Priority support** from LigiOpen\n- **Access to premium features**\n- **Partnership opportunities**"
+							}
+						},
+						{
+							"name": "🟢 Get All Active Clubs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Active clubs retrieved\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"    pm.expect(jsonData.data).to.have.property('clubs');",
+											"});",
+											"",
+											"console.log('✅ Active clubs retrieved successfully!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/active?page=0&size=20",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"active"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number (0-based)"
+										},
+										{
+											"key": "size",
+											"value": "20",
+											"description": "Number of results per page"
+										}
+									]
+								},
+								"description": "Get all currently active clubs with pagination - the main club discovery endpoint.\n\n### Public Endpoint\n- No authentication required\n- Returns all active clubs in the system\n- Primary endpoint for club browsing and discovery\n\n### Query Parameters\n- `page`: Page number (0-based, default: 0)\n- `size`: Results per page (default: 20, max: 100)\n\n### Active Club Criteria\n- **Profile Complete**: Basic information filled out\n- **Recently Updated**: Activity within last 6 months\n- **Not Suspended**: No administrative restrictions\n- **Verified Status**: At least basic verification completed\n\n### Response\n- `clubs`: Array of active club profiles\n- `totalElements`: Total number of active clubs\n- `currentPage`: Current page number\n- `pageSize`: Results per page\n\n### Club Information Included\n- Basic profile (name, description, colors)\n- Location (county, city, region)\n- Verification status indicators\n- Contact information\n- Formation date and level\n- Logo and media URLs\n\n### Sorting and Ordering\n- **Recently Updated**: Most recently active clubs first\n- **Verification Status**: Verified clubs prioritized\n- **Engagement Level**: Popular clubs ranked higher\n- **Geographic Relevance**: Location-based sorting available\n\n### Use Cases\n- **General club browsing**: Explore available clubs\n- **Discovery interface**: Main club listing page\n- **Mobile app home screen**: Featured clubs\n- **Search base data**: Starting point for filtered searches\n- **Analytics and reporting**: Total active club counts\n\n### Performance\n- **Cached results**: Fast response times\n- **Optimized queries**: Database performance tuned\n- **Mobile optimized**: Lightweight response payload\n- **CDN integration**: Media URLs optimized for loading\n\n### Typical Response Size\n- **20 clubs per page**: Balanced loading time\n- **Basic profile data**: Essential information only\n- **Optimized payload**: ~50KB average response\n- **Image URLs**: Ready for lazy loading\n\n### Integration Notes\n- Perfect for main club listing pages\n- Combine with search filters for advanced discovery\n- Use with infinite scroll or pagination UI\n- Cache responses for better user experience"
+							}
 						}
 					]
 				}
@@ -1868,6 +2272,36 @@
 			"value": "",
 			"type": "string",
 			"description": "Manager User ID for staff management testing"
+		},
+		{
+			"key": "stadium_id",
+			"value": "1",
+			"type": "string",
+			"description": "Stadium ID for club location testing (default: sample stadium)"
+		},
+		{
+			"key": "invitation_id",
+			"value": "",
+			"type": "string",
+			"description": "Invitation ID for staff invitation testing (auto-populated)"
+		},
+		{
+			"key": "nairobi_latitude",
+			"value": "-1.286389",
+			"type": "string",
+			"description": "Nairobi CBD latitude for location-based search testing"
+		},
+		{
+			"key": "nairobi_longitude",
+			"value": "36.817223",
+			"type": "string",
+			"description": "Nairobi CBD longitude for location-based search testing"
+		},
+		{
+			"key": "fkf_registration_number",
+			"value": "",
+			"type": "string",
+			"description": "FKF registration number for testing (auto-populated or manual)"
 		}
 	]
 }
