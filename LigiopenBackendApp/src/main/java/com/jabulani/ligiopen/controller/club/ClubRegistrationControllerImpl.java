@@ -51,42 +51,113 @@ public class ClubRegistrationControllerImpl implements ClubRegistrationControlle
         this.buildResponse = buildResponse;
     }
 
-    @Operation(summary = "Register grassroots club", 
-               description = "Register a grassroots-level club without FKF registration")
+    @Operation(summary = "Register club (unified)", 
+               description = "Register a club with optional FKF registration. Supports both grassroots and FKF clubs in one endpoint.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Club registered successfully"),
         @ApiResponse(responseCode = "400", description = "Invalid registration data"),
         @ApiResponse(responseCode = "401", description = "User not authenticated"),
-        @ApiResponse(responseCode = "409", description = "Club name already exists in county")
+        @ApiResponse(responseCode = "409", description = "Club name or FKF registration number already exists")
     })
+    @PostMapping("")
+    public ResponseEntity<Object> registerClub(
+            @Parameter(description = "Complete club registration details", required = true)
+            @Valid @RequestBody ClubRegistrationDto registrationDto) {
+        try {
+            Long userId = getCurrentUserId();
+            logger.info("Registering club '{}' (Level: {}, FKF: {}) by user ID: {}", 
+                       registrationDto.getName(), registrationDto.getClubLevel(), 
+                       registrationDto.getIsFkfRegistered(), userId);
+
+            // Validate FKF registration data if FKF registered
+            if (registrationDto.getIsFkfRegistered() != null && registrationDto.getIsFkfRegistered()) {
+                if (registrationDto.getFkfRegistrationNumber() == null || registrationDto.getFkfRegistrationNumber().trim().isEmpty()) {
+                    Map<String, Object> errors = new HashMap<>();
+                    errors.put("fkfRegistrationNumber", "FKF registration number is required for FKF registered clubs");
+                    return buildResponse.error("Invalid FKF registration data", errors);
+                }
+                if (registrationDto.getClubLevel() == null) {
+                    Map<String, Object> errors = new HashMap<>();
+                    errors.put("clubLevel", "Club level is required for FKF registered clubs");
+                    return buildResponse.error("Invalid FKF registration data", errors);
+                }
+            }
+
+            // Create comprehensive club registration
+            Club club = clubService.registerClubUnified(registrationDto, userId);
+            ClubDto clubDto = clubMapper.toClubDto(club);
+            
+            String message = registrationDto.getIsFkfRegistered() 
+                ? "FKF club registered successfully" 
+                : "Grassroots club registered successfully";
+            
+            return buildResponse.success(clubDto, message, null, HttpStatus.CREATED);
+
+        } catch (Exception e) {
+            logger.error("Failed to register club", e);
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("registration", e.getMessage());
+            return buildResponse.error("Failed to register club", errors);
+        }
+    }
+
+    @Operation(summary = "Promote club to FKF", 
+               description = "Promote a grassroots club to FKF status with official registration")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Club promoted to FKF successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid FKF registration data or club already FKF"),
+        @ApiResponse(responseCode = "401", description = "User not authenticated"),
+        @ApiResponse(responseCode = "403", description = "User not authorized (must be club owner)"),
+        @ApiResponse(responseCode = "404", description = "Club not found"),
+        @ApiResponse(responseCode = "409", description = "FKF registration number already exists")
+    })
+    @PostMapping("/{clubId}/promote-to-fkf")
+    public ResponseEntity<Object> promoteClubToFkf(
+            @Parameter(description = "Club ID", required = true) @PathVariable Long clubId,
+            @Parameter(description = "FKF registration details", required = true)
+            @RequestBody Map<String, Object> fkfData) {
+        try {
+            Long userId = getCurrentUserId();
+            logger.info("Promoting club ID: {} to FKF by user ID: {}", clubId, userId);
+
+            String fkfRegistrationNumber = (String) fkfData.get("fkfRegistrationNumber");
+            String fkfRegistrationDateStr = (String) fkfData.get("fkfRegistrationDate");
+            String currentLeague = (String) fkfData.get("currentLeague");
+            Integer tier = (Integer) fkfData.get("tier");
+            String newLevelStr = (String) fkfData.get("newClubLevel"); // Optional upgrade to higher level
+            
+            LocalDate fkfRegistrationDate = fkfRegistrationDateStr != null 
+                ? LocalDate.parse(fkfRegistrationDateStr) : LocalDate.now();
+                
+            Club.ClubLevel newLevel = newLevelStr != null 
+                ? Club.ClubLevel.valueOf(newLevelStr) : null;
+
+            Club club = clubService.promoteToFkf(clubId, userId, fkfRegistrationNumber, 
+                                               fkfRegistrationDate, currentLeague, tier, newLevel);
+            ClubDto clubDto = clubMapper.toClubDto(club);
+
+            return buildResponse.success(clubDto, "Club promoted to FKF successfully");
+
+        } catch (Exception e) {
+            logger.error("Failed to promote club ID: {} to FKF", clubId, e);
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("promotion", e.getMessage());
+            return buildResponse.error("Failed to promote club to FKF", errors);
+        }
+    }
+
+    @Deprecated
+    @Operation(summary = "Register grassroots club (DEPRECATED)", 
+               description = "DEPRECATED: Use POST /api/v1/clubs/registration instead")
     @PostMapping("/grassroots")
     @Override
     public ResponseEntity<Object> registerGrassrootsClub(
             @Parameter(description = "Club registration details", required = true)
             @Valid @RequestBody ClubRegistrationDto registrationDto) {
-        try {
-            Long userId = getCurrentUserId();
-            logger.info("Registering grassroots club '{}' by user ID: {}", registrationDto.getName(), userId);
-
-            Club club = clubService.registerClub(
-                registrationDto.getName(),
-                registrationDto.getShortName(),
-                userId,
-                registrationDto.getCountyId(),
-                registrationDto.getDescription(),
-                registrationDto.getContactEmail(),
-                registrationDto.getContactPhone()
-            );
-
-            ClubDto clubDto = clubMapper.toClubDto(club);
-            return buildResponse.success(clubDto, "Grassroots club registered successfully", null, HttpStatus.CREATED);
-
-        } catch (Exception e) {
-            logger.error("Failed to register grassroots club", e);
-            Map<String, Object> errors = new HashMap<>();
-            errors.put("registration", e.getMessage());
-            return buildResponse.error("Failed to register club", errors);
-        }
+        // Redirect to unified endpoint
+        registrationDto.setIsFkfRegistered(false);
+        registrationDto.setClubLevel(Club.ClubLevel.GRASSROOTS);
+        return registerClub(registrationDto);
     }
 
     @Operation(summary = "Register FKF club", 
@@ -105,9 +176,9 @@ public class ClubRegistrationControllerImpl implements ClubRegistrationControlle
         try {
             Long userId = getCurrentUserId();
             logger.info("Registering FKF club '{}' with registration number '{}' by user ID: {}", 
-                       registrationDto.getName(), registrationDto.getRegistrationNumber(), userId);
+                       registrationDto.getName(), registrationDto.getFkfRegistrationNumber(), userId);
 
-            if (registrationDto.getRegistrationNumber() == null || registrationDto.getRegistrationNumber().trim().isEmpty()) {
+            if (registrationDto.getFkfRegistrationNumber() == null || registrationDto.getFkfRegistrationNumber().trim().isEmpty()) {
                 Map<String, Object> errors = new HashMap<>();
                 errors.put("registrationNumber", "FKF registration number is required");
                 return buildResponse.error("Invalid FKF registration data", errors);
@@ -127,7 +198,7 @@ public class ClubRegistrationControllerImpl implements ClubRegistrationControlle
                 registrationDto.getDescription(),
                 registrationDto.getContactEmail(),
                 registrationDto.getContactPhone(),
-                registrationDto.getRegistrationNumber(),
+                registrationDto.getFkfRegistrationNumber(),
                 registrationDto.getClubLevel(),
                 registrationDto.getFounded()
             );

@@ -1008,4 +1008,122 @@ public class ClubServiceImpl implements ClubService {
         
         return statistics;
     }
+
+    @Override
+    @Transactional
+    public Club registerClubUnified(com.jabulani.ligiopen.dto.club.ClubRegistrationDto registrationDto, Long ownerId) {
+        logger.info("Starting unified club registration for '{}' by user ID: {}", registrationDto.getName(), ownerId);
+        
+        validateClubRegistrationInput(registrationDto.getName(), ownerId, registrationDto.getCountyId(), registrationDto.getContactEmail());
+        
+        UserEntity owner = userEntityDao.getUserById(ownerId);
+        County county = countyDao.getCountyById(registrationDto.getCountyId());
+        
+        // Check for duplicate club name in the same county
+        if (clubDao.existsByNameAndCounty(registrationDto.getName().trim(), county)) {
+            throw new RuntimeException("Club with name '" + registrationDto.getName().trim() + "' already exists in " + county.getName());
+        }
+
+        // Check FKF registration number uniqueness if provided
+        if (registrationDto.getFkfRegistrationNumber() != null && !registrationDto.getFkfRegistrationNumber().trim().isEmpty()) {
+            if (clubDao.existsByRegistrationNumber(registrationDto.getFkfRegistrationNumber().trim())) {
+                throw new RuntimeException("Club with FKF registration number '" + registrationDto.getFkfRegistrationNumber() + "' already exists");
+            }
+        }
+
+        // Validate stadium if provided
+        Stadium homeStadium = null;
+        if (registrationDto.getHomeStadiumId() != null) {
+            homeStadium = stadiumDao.getStadiumById(registrationDto.getHomeStadiumId());
+        }
+
+        // Build the club using builder pattern
+        Club.ClubBuilder clubBuilder = Club.builder()
+                .name(registrationDto.getName().trim())
+                .shortName(registrationDto.getShortName() != null ? registrationDto.getShortName().trim() : null)
+                .abbreviation(registrationDto.getAbbreviation() != null ? registrationDto.getAbbreviation().trim() : null)
+                .owner(owner)
+                .county(county)
+                .description(registrationDto.getDescription() != null ? registrationDto.getDescription().trim() : null)
+                .contactEmail(registrationDto.getContactEmail().trim())
+                .contactPhone(registrationDto.getContactPhone() != null ? registrationDto.getContactPhone().trim() : null)
+                .colors(registrationDto.getColors())
+                .founded(registrationDto.getFounded())
+                .websiteUrl(registrationDto.getWebsiteUrl())
+                .socialMediaLinks(registrationDto.getSocialMediaLinks())
+                .homeStadium(homeStadium)
+                .clubLevel(registrationDto.getClubLevel() != null ? registrationDto.getClubLevel() : Club.ClubLevel.GRASSROOTS)
+                .isLigiopenVerified(false)
+                .ligiopenVerificationStatus(Club.LigiopenVerificationStatus.PENDING)
+                .isActive(true)
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now());
+        
+        // Set FKF registration if provided
+        if (registrationDto.getIsFkfRegistered() != null && registrationDto.getIsFkfRegistered()) {
+            clubBuilder
+                .registrationNumber(registrationDto.getFkfRegistrationNumber().trim())
+                .fkfRegistrationDate(registrationDto.getFkfRegistrationDate() != null ? 
+                    registrationDto.getFkfRegistrationDate() : LocalDate.now())
+                .isFkfVerified(false)
+                .fkfVerificationStatus(Club.FkfVerificationStatus.PENDING);
+        } else {
+            clubBuilder
+                .isFkfVerified(false)
+                .fkfVerificationStatus(Club.FkfVerificationStatus.NOT_APPLICABLE);
+        }
+
+        Club club = clubBuilder.build();
+        Club savedClub = clubDao.createClub(club);
+        
+        logger.info("Successfully registered club '{}' with ID: {} for user ID: {}", 
+                   savedClub.getName(), savedClub.getId(), ownerId);
+        
+        return savedClub;
+    }
+
+    @Override
+    @Transactional
+    public Club promoteToFkf(Long clubId, Long userId, String fkfRegistrationNumber, 
+                            LocalDate fkfRegistrationDate, String currentLeague, Integer tier, 
+                            Club.ClubLevel newLevel) {
+        logger.info("Starting FKF promotion for club ID: {} by user ID: {}", clubId, userId);
+        
+        validateClubOwnershipPermission(clubId, userId);
+        validateFkfRegistrationInput(fkfRegistrationNumber, newLevel != null ? newLevel : Club.ClubLevel.DIVISION_1);
+        
+        Club club = clubDao.getClubById(clubId);
+
+        // Check if club is already FKF registered
+        if (club.getRegistrationNumber() != null && !club.getRegistrationNumber().isEmpty()) {
+            throw new RuntimeException("Club is already FKF registered with number: " + club.getRegistrationNumber());
+        }
+
+        // Check if FKF registration number already exists
+        if (clubDao.existsByRegistrationNumber(fkfRegistrationNumber.trim())) {
+            throw new RuntimeException("FKF registration number '" + fkfRegistrationNumber + "' already exists");
+        }
+
+        // Update club with FKF information
+        club.setRegistrationNumber(fkfRegistrationNumber.trim());
+        club.setFkfRegistrationDate(fkfRegistrationDate != null ? fkfRegistrationDate : LocalDate.now());
+        
+        // Upgrade club level if provided
+        if (newLevel != null && !newLevel.equals(club.getClubLevel())) {
+            logger.info("Upgrading club level from {} to {} for club ID: {}", 
+                       club.getClubLevel(), newLevel, clubId);
+            club.setClubLevel(newLevel);
+        }
+        
+        club.setIsFkfVerified(false);
+        club.setFkfVerificationStatus(Club.FkfVerificationStatus.PENDING);
+        club.setUpdatedAt(LocalDateTime.now());
+
+        Club savedClub = clubDao.updateClub(club);
+        
+        logger.info("Successfully promoted club ID: {} to FKF with registration number: {}", 
+                   clubId, fkfRegistrationNumber);
+        
+        return savedClub;
+    }
 }

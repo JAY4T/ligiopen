@@ -28,6 +28,14 @@ public interface ClubService {
                      String description, String contactEmail, String contactPhone);
     
     /**
+     * Unified club registration method supporting both grassroots and FKF clubs
+     * @param registrationDto Complete club registration details
+     * @param ownerId User ID of the club owner
+     * @return Created Club entity
+     */
+    Club registerClubUnified(com.jabulani.ligiopen.dto.club.ClubRegistrationDto registrationDto, Long ownerId);
+    
+    /**
      * Register a club with FKF registration number
      * @param name Club name
      * @param shortName Club short name (optional)
@@ -91,6 +99,21 @@ public interface ClubService {
      */
     Club addFkfRegistration(Long clubId, Long userId, String registrationNumber, 
                            Club.ClubLevel clubLevel, LocalDate founded);
+    
+    /**
+     * Promote grassroots club to FKF status with comprehensive upgrades
+     * @param clubId Club ID
+     * @param userId User ID (must be owner)
+     * @param fkfRegistrationNumber FKF registration number
+     * @param fkfRegistrationDate FKF registration date
+     * @param currentLeague Current league name
+     * @param tier League tier
+     * @param newLevel Optional new club level for promotion
+     * @return Updated Club entity
+     */
+    Club promoteToFkf(Long clubId, Long userId, String fkfRegistrationNumber, 
+                     LocalDate fkfRegistrationDate, String currentLeague, Integer tier, 
+                     Club.ClubLevel newLevel);
     
     /**
      * Update club level (promotion/relegation)

@@ -55,7 +55,8 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(
                 "http://localhost:8080", // Add your server port
                 "http://localhost:8000",
-                "http://localhost:3000"
+                "http://localhost:3000",
+                "http://localhost:5173"
         ));
         config.setAllowCredentials(true);
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

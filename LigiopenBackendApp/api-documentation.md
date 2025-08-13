@@ -1,21 +1,32 @@
 # LigiOpen API Documentation
 
 ## Overview
-LigiOpen is a comprehensive football league management system for Kenya with authentication, club management, match tracking, and competition structure capabilities.
+LigiOpen is a comprehensive football league management system for Kenya designed specifically for the diverse Kenyan football ecosystem, from grassroots village teams to premier league clubs.
 
 **Base URL**: `http://localhost:8000` (or configured port)
-**Current Version**: v2.0.0 (Sprint 2 Complete)
+**Current Version**: v2.1.0 (Sprint 2 Complete)
 
 ## 🎯 Current Status: Sprint 2 Complete ✅
-**Location & Club Management System fully implemented and operational**
+**Club Management System fully implemented with 52+ API endpoints**
 
-### New in Sprint 2
-- **50+ Club Management Endpoints** across 4 major controller areas
-- **Dual Verification System** for grassroots and professional clubs  
-- **Complete Kenyan Geographic Data** with all 47 counties
-- **Advanced Search Capabilities** with location-based filtering
-- **Role-based Permission System** for club management
-- **Media Management Integration** with Digital Ocean Spaces
+### Sprint 2 Achievements (COMPLETED)
+- **52+ API Endpoints** across 4 major controller areas
+- **Unified Registration System** supporting both grassroots and FKF clubs in one endpoint
+- **FKF Promotion Workflow** allowing grassroots clubs to upgrade to official status
+- **Dual Verification System** with comprehensive LigiOpen + FKF workflows
+- **Professional Staff Management** with invitation and role management system
+- **Complete Kenyan Geographic Data** with all 47 counties and regional organization
+- **Advanced Search Capabilities** with name, county, region, level, and proximity-based discovery
+- **Role-based Permission System** with Owner/Manager/Admin hierarchy
+- **Media Management Integration** with Digital Ocean Spaces for professional branding
+
+### API Endpoint Categories
+1. **Club Registration & Verification**: 12 endpoints (unified registration, FKF promotion, verification workflows)
+2. **Club Profile Management**: 14 endpoints (CRUD, search, media, statistics)
+3. **Club Relationships**: 11 endpoints (favorites, popularity, recommendations)
+4. **Club Staff Management**: 12 endpoints (managers, invitations, ownership transfer)
+5. **Authentication & Users**: 5+ endpoints (signup, login, profile management)
+6. **Location Services**: Stadium and county integration (interface ready for Sprint 3)
 
 ## Authentication Endpoints
 
@@ -222,6 +233,211 @@ For protected endpoints, include the JWT token in the Authorization header:
 ```http
 Authorization: Bearer {jwt_token}
 ```
+
+## Club Management Endpoints (NEW - Sprint 2)
+
+### Club Registration & Verification
+
+#### 1. Unified Club Registration (NEW)
+```http
+POST /api/v1/clubs/registration
+```
+
+**Description**: Single endpoint supporting both grassroots and FKF club registration.
+
+**Request Body**:
+```json
+{
+  "name": "Test Football Club",
+  "shortName": "Test FC",
+  "abbreviation": "TFC",
+  "countyId": 1,
+  "description": "A test football club",
+  "contactEmail": "contact@testfc.com",
+  "contactPhone": "+254700123456",
+  "colors": "Blue and White",
+  "founded": "2024-01-15",
+  "websiteUrl": "https://testfc.com",
+  "clubLevel": "GRASSROOTS",
+  "isFkfRegistered": false,
+  "fkfRegistrationNumber": "FKF-2024-001",
+  "fkfRegistrationDate": "2024-08-01"
+}
+```
+
+**Response Success (201)**:
+```json
+{
+  "status": "success",
+  "message": "Club registered successfully",
+  "data": {
+    "id": 1,
+    "name": "Test Football Club",
+    "shortName": "Test FC",
+    "clubLevel": "GRASSROOTS",
+    "ligiopenVerificationStatus": "PENDING",
+    "fkfVerificationStatus": "NOT_APPLICABLE"
+  }
+}
+```
+
+#### 2. Promote Club to FKF (NEW)
+```http
+POST /api/v1/clubs/registration/{clubId}/promote-to-fkf
+```
+
+**Description**: Promote a grassroots club to FKF status with official registration.
+
+**Request Body**:
+```json
+{
+  "fkfRegistrationNumber": "FKF-2024-001",
+  "fkfRegistrationDate": "2024-08-01",
+  "newClubLevel": "DIVISION_3"
+}
+```
+
+#### 3. Submit for LigiOpen Verification
+```http
+POST /api/v1/clubs/registration/{clubId}/submit-verification
+```
+
+#### 4. LigiOpen Verify Club (Admin Only)
+```http
+POST /api/v1/clubs/registration/{clubId}/ligiopen-verify
+```
+
+**Request Body**:
+```json
+{
+  "verified": true,
+  "notes": "Club verified successfully after review"
+}
+```
+
+### Club Profile Management
+
+#### 1. Get Club by ID
+```http
+GET /api/v1/clubs/{clubId}
+```
+
+#### 2. Update Club Profile
+```http
+PUT /api/v1/clubs/{clubId}
+```
+
+#### 3. Search Clubs
+```http
+GET /api/v1/clubs/search?query=Test&page=0&size=10
+```
+
+#### 4. Get Clubs by County
+```http
+GET /api/v1/clubs/county/{countyId}?page=0&size=20
+```
+
+#### 5. Get Clubs Near Location
+```http
+GET /api/v1/clubs/near?lat=-1.2921&lng=36.8219&radiusKm=50
+```
+
+### Club Relationships
+
+#### 1. Favorite Club
+```http
+POST /api/v1/clubs/{clubId}/favorite
+```
+
+#### 2. Get My Favorite Clubs
+```http
+GET /api/v1/clubs/favorites/my
+```
+
+#### 3. Get Popular Clubs
+```http
+GET /api/v1/clubs/popular
+```
+
+### Club Staff Management
+
+#### 1. Add Club Manager
+```http
+POST /api/v1/clubs/{clubId}/staff/managers/{managerId}
+```
+
+#### 2. Transfer Club Ownership
+```http
+POST /api/v1/clubs/{clubId}/staff/transfer-ownership/{newOwnerId}
+```
+
+#### 3. Invite Manager
+```http
+POST /api/v1/clubs/{clubId}/staff/managers/invite
+```
+
+**Request Body**:
+```json
+{
+  "email": "manager@example.com",
+  "role": "MANAGER",
+  "message": "Welcome to our club management team!"
+}
+```
+
+### Club Data Models
+
+#### ClubRegistrationDto
+```json
+{
+  "name": "string",
+  "shortName": "string", 
+  "abbreviation": "string",
+  "countyId": "long",
+  "description": "string",
+  "contactEmail": "string",
+  "contactPhone": "string",
+  "colors": "string",
+  "founded": "date",
+  "websiteUrl": "string",
+  "socialMediaLinks": "string",
+  "homeStadiumId": "long",
+  "clubLevel": "enum",
+  "isFkfRegistered": "boolean",
+  "fkfRegistrationNumber": "string",
+  "fkfRegistrationDate": "date"
+}
+```
+
+#### ClubDto
+```json
+{
+  "id": "long",
+  "name": "string",
+  "shortName": "string",
+  "abbreviation": "string",
+  "clubLevel": "enum",
+  "county": "CountyDto",
+  "homeStadium": "StadiumDto",
+  "owner": "UserDto",
+  "managers": ["UserDto"],
+  "ligiopenVerificationStatus": "enum",
+  "fkfVerificationStatus": "enum",
+  "isActive": "boolean",
+  "createdAt": "timestamp",
+  "updatedAt": "timestamp"
+}
+```
+
+#### Club Levels
+- GRASSROOTS
+- DIVISION_3
+- DIVISION_2
+- DIVISION_1
+- PREMIER_LEAGUE
+- NATIONAL_TEAM
+- WOMEN_PREMIER
+- YOUTH_LEAGUE
 
 ## Data Models
 

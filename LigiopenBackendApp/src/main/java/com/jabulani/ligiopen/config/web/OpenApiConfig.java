@@ -30,7 +30,7 @@ public class OpenApiConfig {
                         .description("Production Environment (main branch)"))
                 .info(new Info()
                         .title("LigiOpen API")
-                        .version("2.0.0")
+                        .version("2.1.0")
                         .description("""
                                 # LigiOpen - Comprehensive Football League Management System for Kenya
                                 
@@ -54,14 +54,15 @@ public class OpenApiConfig {
                                 - User preferences and settings management
                                 - Account management features
                                 
-                                ### 🏛️ Club Management ✅ (NEW - Sprint 2)
-                                - **Club Registration**: Grassroots and FKF club registration system
-                                - **Dual Verification**: LigiOpen internal + FKF official verification
-                                - **Profile Management**: Complete CRUD operations with media upload
-                                - **Staff Management**: Owner, manager, and role-based permissions
-                                - **User Relationships**: Club favorites and ownership tracking
-                                - **Geographic Integration**: Kenya county-based organization
-                                - **Media Management**: Logo and photo uploads via Digital Ocean Spaces
+                                ### 🏛️ Club Management System ✅ (Sprint 2 Complete - 52+ Endpoints)
+                                - **Unified Registration**: Single endpoint supporting both grassroots and FKF clubs
+                                - **FKF Promotion**: Grassroots clubs can upgrade to official FKF status
+                                - **Dual Verification**: LigiOpen internal + FKF official verification workflows
+                                - **Profile Management**: Complete CRUD operations with advanced search
+                                - **Staff Management**: Owner/Manager hierarchy with invitation system
+                                - **User Relationships**: Club favorites with popularity tracking
+                                - **Geographic Search**: County, region, and proximity-based discovery
+                                - **Media Management**: Professional branding with Digital Ocean Spaces
                                 
                                 ### 🌍 Location & Infrastructure ✅ (NEW - Sprint 2)
                                 - **Kenyan Counties**: All 47 counties with regional data
@@ -94,24 +95,28 @@ public class OpenApiConfig {
                                    - Paste your JWT token (without "Bearer " prefix)
                                    - Click "Authorize" to enable authenticated requests
                                 
-                                ### Step 2: Club Management (NEW)
-                                1. **Register Club**: Use `/api/v1/clubs/register/grassroots` or `/api/v1/clubs/register/fkf`
-                                2. **Update Profile**: Use `/api/v1/clubs/{clubId}` to update club information
-                                3. **Upload Media**: Use `/api/v1/clubs/{clubId}/logo` for club branding
-                                4. **Manage Staff**: Add managers via `/api/v1/clubs/{clubId}/staff/managers/{managerId}`
-                                5. **User Relations**: Favorite clubs via `/api/v1/clubs/{clubId}/relationships/favorite`
+                                ### Step 2: Club Management (52+ Endpoints)
+                                1. **Unified Registration**: Use `/api/v1/clubs/registration` for both grassroots and FKF clubs
+                                2. **FKF Promotion**: Upgrade grassroots clubs via `/api/v1/clubs/registration/{clubId}/promote-to-fkf`
+                                3. **Profile Management**: Update via `/api/v1/clubs/{clubId}` with comprehensive search
+                                4. **Staff Management**: Add managers via `/api/v1/clubs/{clubId}/staff/managers/{managerId}`
+                                5. **User Relations**: Favorite clubs via `/api/v1/clubs/{clubId}/favorite`
+                                6. **Verification**: Submit for verification via `/api/v1/clubs/registration/{clubId}/submit-verification`
                                 
                                 ### Step 3: Location Services (NEW)
                                 1. **Browse Counties**: Get all counties via `/api/v1/counties`
                                 2. **Find Stadiums**: Get county stadiums via `/api/v1/counties/{countyId}/stadiums`
                                 3. **Geographic Search**: Search clubs by location and proximity
                                 
-                                ## 🌟 Sprint 2 Highlights
-                                - **50+ New API Endpoints** across 4 major controller areas
-                                - **Dual Verification System** for grassroots and professional clubs
+                                ## 🌟 Sprint 2 Achievements (COMPLETED)
+                                - **52+ API Endpoints** across 4 major controller areas
+                                - **Unified Registration System** supporting grassroots and FKF clubs
+                                - **FKF Promotion Workflow** for club upgrades
+                                - **Dual Verification System** with comprehensive workflows
+                                - **Professional Staff Management** with invitation system
                                 - **Complete Kenyan Geographic Data** with all 47 counties
-                                - **Advanced Search Capabilities** with location-based filtering
-                                - **Role-based Permission System** for club management
+                                - **Advanced Search Capabilities** with proximity-based discovery
+                                - **Role-based Permission System** (Owner/Manager/Admin hierarchy)
                                 - **Media Management Integration** with Digital Ocean Spaces
                                 
                                 ## Environment URLs

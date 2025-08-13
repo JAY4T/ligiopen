@@ -1,5 +1,6 @@
 package com.jabulani.ligiopen.entity.location;
 
+import com.jabulani.ligiopen.entity.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -77,6 +78,50 @@ public class Stadium {
     @Column(name = "rental_fee")
     private BigDecimal rentalFee;
 
+    // Stadium approval workflow fields
+    @Column(name = "approval_status")
+    @Enumerated(EnumType.STRING)
+    private ApprovalStatus approvalStatus = ApprovalStatus.APPROVED; // Default for existing stadiums
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "submitted_by_user_id")
+    private UserEntity submittedBy;
+
+    @Column(name = "submission_date")
+    private LocalDateTime submissionDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "approved_by_user_id")
+    private UserEntity approvedBy;
+
+    @Column(name = "approval_date")
+    private LocalDateTime approvalDate;
+
+    @Column(name = "approval_notes", columnDefinition = "TEXT")
+    private String approvalNotes;
+
+    // Enhanced stadium features
+    @Column(name = "has_parking")
+    private Boolean hasParking = false;
+
+    @Column(name = "has_concessions")
+    private Boolean hasConcessions = false;
+
+    @Column(name = "has_wifi_internet")
+    private Boolean hasWifiInternet = false;
+
+    @Column(name = "website_url")
+    private String websiteUrl;
+
+    @Column(name = "owner_name")
+    private String ownerName;
+
+    @Column(name = "management_company")
+    private String managementCompany;
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
+
     @Column(name = "is_verified")
     private Boolean isVerified = false;
 
@@ -86,10 +131,22 @@ public class Stadium {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     public enum SurfaceType {
         NATURAL_GRASS,
         ARTIFICIAL_TURF,
         DUSTY_GROUND,
-        CONCRETE
+        CONCRETE,
+        MIXED_SURFACE
+    }
+
+    public enum ApprovalStatus {
+        PENDING,      // Newly submitted, awaiting review
+        APPROVED,     // Approved and visible to users
+        REJECTED,     // Rejected with reason
+        MERGED,       // Merged with existing stadium (duplicate)
+        UNDER_REVIEW  // Being reviewed by admin
     }
 }

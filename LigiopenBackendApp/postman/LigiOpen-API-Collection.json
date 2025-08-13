@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "a1b2c3d4-e5f6-7890-ab12-cd3456ef7890",
-		"name": "LigiOpen API Collection",
-		"description": "# LigiOpen - Comprehensive Football League Management System for Kenya\n\nThis collection contains all API endpoints for the LigiOpen system, designed specifically for Kenya's diverse football ecosystem.\n\n## 📋 Collection Overview\n\n### 🔐 Authentication & Authorization\n- JWT authentication with refresh tokens\n- Google OAuth2 integration\n- Email verification system\n- Password reset functionality\n\n### 👤 User Profile Management\n- Complete user profile CRUD operations\n- Profile picture upload with Digital Ocean Spaces\n- User preferences and settings management\n- Account management features\n\n### 🏛️ Club Management (NEW - Sprint 2)\n- **Club Registration**: Grassroots and FKF club registration system\n- **Club Profiles**: Complete CRUD operations for club management\n- **Staff Management**: Owner, manager, and staff role management\n- **Club Relationships**: User-club favorites and ownership tracking\n- **Media Management**: Club logos and photo uploads\n- **Geographic Search**: Kenya county-based club discovery\n- **Dual Verification**: LigiOpen internal + FKF official verification\n\n### 🌍 Location & Infrastructure (NEW - Sprint 2)\n- **Kenyan Counties**: All 47 counties with regional data\n- **Stadium Management**: Complete venue information system\n- **Geographic Search**: Location-based club and venue discovery\n\n## 🚀 Getting Started\n\n### 1. Environment Setup\n- Set the `base_url` variable to your server URL (default: `http://localhost:8000`)\n- The `jwt_token` variable will be automatically set after login\n- `club_id` and other IDs are automatically captured from responses\n\n### 2. Authentication Flow\n1. **Register** a new account using the signup endpoint\n2. **Verify** your email (check console logs for verification link)\n3. **Login** to get JWT token (automatically saved to environment)\n4. Use **protected endpoints** with the JWT token\n\n### 3. API Testing Workflow\n1. **Authentication**: Register → Login → Get JWT Token\n2. **Club Management**: Create Club → Verify → Update → Manage Staff\n3. **User Relationships**: Favorite Clubs → View Owned/Managed Clubs\n4. **Location Services**: Search Counties → Find Stadiums → Geographic Queries\n\n### 4. Sprint 2 New Features\n- **Club Registration**: Both grassroots and FKF-registered clubs supported\n- **Dual Verification System**: Internal LigiOpen + Official FKF verification\n- **Geographic Integration**: Kenya's 47-county system with regional organization\n- **Media Management**: Club logos and photos with Digital Ocean Spaces\n- **Staff Hierarchy**: Owner → Manager → Staff role management\n- **Search & Discovery**: County-based and name-based club search\n\n## 📱 Base URL Structure\nAll endpoints follow the pattern: `{{base_url}}/api/v1/...`\n\n## 🔒 Security\n- JWT tokens are automatically included in protected requests\n- Tokens are stored securely in environment variables\n- All sensitive endpoints require authentication\n- Role-based access control for club management\n\n---\n\n**Version**: 2.0.0 (Sprint 2)  \n**Author**: LigiOpen Team  \n**Documentation**: https://docs.ligiopen.com  \n**Support**: support@ligiopen.com",
+		"name": "LigiOpen API Collection v2.1",
+		"description": "# LigiOpen - Comprehensive Football League Management System for Kenya\n\nThis collection contains all API endpoints for the LigiOpen system, designed specifically for Kenya's diverse football ecosystem.\n\n## 📋 Collection Overview (Sprint 2 COMPLETED)\n\n### 🔐 Authentication & Authorization ✅\n- JWT authentication with refresh tokens\n- Google OAuth2 integration\n- Email verification system\n- Password reset functionality\n\n### 👤 User Profile Management ✅\n- Complete user profile CRUD operations\n- Profile picture upload with Digital Ocean Spaces\n- User preferences and settings management\n- Account management features\n\n### 🏛️ Club Management System ✅ (52+ Endpoints)\n- **Unified Registration**: Single endpoint supporting both grassroots and FKF clubs\n- **FKF Promotion**: Grassroots clubs can upgrade to official FKF status\n- **Club Profiles**: Complete CRUD operations with media management\n- **Staff Management**: Comprehensive invitation and role management system\n- **Club Relationships**: User-club favorites with popularity tracking\n- **Advanced Search**: Name, county, region, level, and proximity-based discovery\n- **Dual Verification**: LigiOpen internal + FKF official verification workflows\n- **Geographic Integration**: Kenya's 47-county system with regional organization\n\n### 🌍 Location & Infrastructure ✅\n- **Kenyan Counties**: All 47 counties with regional data integration\n- **Stadium Management**: Complete venue information system (interface ready)\n- **Geographic Search**: Location-based club and venue discovery with Haversine formula\n\n### 🎯 Sprint 2 Achievements (COMPLETED)\n- **4 Major Controller Areas**: Registration, Profile, Staff, Relationships\n- **52+ API Endpoints** across comprehensive club management\n- **Dual Verification Workflows**: Internal + external verification processes\n- **Professional Staff Management**: Owner/Manager hierarchy with invitations\n- **Advanced Club Search**: Multiple search criteria with pagination\n- **Media Management**: Club branding with Digital Ocean Spaces integration\n- **Permission System**: Owner/Manager/Admin role-based access control\n\n## 🚀 Getting Started\n\n### 1. Environment Setup\n- Set the `base_url` variable to your server URL (default: `http://localhost:8000`)\n- The `jwt_token` variable will be automatically set after login\n- `club_id` and other IDs are automatically captured from responses\n\n### 2. Authentication Flow\n1. **Register** a new account using the signup endpoint\n2. **Verify** your email (check console logs for verification link)\n3. **Login** to get JWT token (automatically saved to environment)\n4. Use **protected endpoints** with the JWT token\n\n### 3. Complete API Testing Workflow\n1. **Authentication**: Register → Verify Email → Login → Get JWT Token\n2. **Club Registration**: Create Club (Unified) → Verify → Promote to FKF (optional)\n3. **Club Management**: Update Profile → Upload Media → Manage Staff\n4. **Staff Operations**: Add Managers → Send Invitations → Transfer Ownership\n5. **User Relationships**: Favorite Clubs → View Owned/Managed Clubs\n6. **Discovery**: Search by Name/County/Region → Geographic Proximity Search\n7. **Admin Operations**: Verify Clubs → Manage Verification Workflows\n\n### 4. API Endpoint Categories (52+ Total)\n- **Club Registration & Verification**: 12 endpoints (unified registration, FKF promotion, verification workflows)\n- **Club Profile Management**: 14 endpoints (CRUD, search, media, statistics)\n- **Club Relationships**: 11 endpoints (favorites, popularity, recommendations)\n- **Club Staff Management**: 12 endpoints (managers, invitations, ownership transfer)\n- **Authentication & Users**: 5+ endpoints (signup, login, profile management)\n- **Location Services**: Stadium and county integration (interface ready)\n\n## 📱 Base URL Structure\nAll endpoints follow the pattern: `{{base_url}}/api/v1/...`\n\n## 🔒 Security & Permissions\n- JWT tokens are automatically included in protected requests\n- Tokens are stored securely in environment variables\n- All sensitive endpoints require authentication\n- **Three-tier Permission System**:\n  - **Club Owner**: Full club management rights\n  - **Club Manager**: Limited management permissions\n  - **Admin**: Platform-wide administrative access\n\n## 🌟 Key Features\n- **Kenyan Football Integration**: FKF registration numbers and official verification\n- **Geographic Search**: Kenya's 47-county system with proximity-based discovery\n- **Professional Media Management**: Club logos and photos with automatic URL generation\n- **Comprehensive Staff System**: From grassroots volunteer management to professional club hierarchies\n- **Dual Verification**: Internal quality control + external official verification\n\n---\n\n**Version**: 2.1.0 (Sprint 2 Complete)  \n**Updated**: August 2025  \n**Author**: LigiOpen Team  \n**Documentation**: https://docs.ligiopen.com  \n**Support**: support@ligiopen.com",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12345678"
 	},
@@ -866,6 +866,74 @@
 								},
 								"description": "Register an FKF-registered professional club.\n\n### Authentication Required\n- JWT token required\n- User becomes club owner\n\n### Club Type: FKF Registered\n- Professional and semi-professional clubs\n- Official FKF registration required\n- Dual verification system applies\n- Higher tier club management\n\n### Additional FKF Fields\n- `fkfRegistrationNumber`: Official FKF registration number\n- `fkfRegistrationDate`: Date of FKF registration\n- `league`: Current league participation\n- `tier`: League tier (1=Premier, 2=National, etc.)\n\n### Verification Process\n1. LigiOpen internal verification (PENDING)\n2. FKF official verification (PENDING)\n3. Both must be completed for full verification"
 							}
+						},
+						{
+							"name": "⭐ Register Club (Unified)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"",
+											"pm.test(\"Club registration successful\", function () {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql('success');",
+											"    if (jsonData.data && jsonData.data.id) {",
+											"        pm.environment.set('club_id', jsonData.data.id);",
+											"        console.log('✅ Club ID stored:', jsonData.data.id);",
+											"    }",
+											"});",
+											"",
+											"console.log('✅ Club registered successfully with unified endpoint!');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Nakuru City FC\",\n  \"shortName\": \"NCFC\",\n  \"abbreviation\": \"NCF\",\n  \"founded\": \"2020-03-15\",\n  \"description\": \"Professional football club based in Nakuru City, competing in national leagues\",\n  \"colors\": \"Blue and Gold\",\n  \"contactEmail\": \"info@nakurucityfc.co.ke\",\n  \"contactPhone\": \"+254722334455\",\n  \"websiteUrl\": \"https://nakurucityfc.co.ke\",\n  \"socialMediaLinks\": \"{\\\"twitter\\\": \\\"@NakuruCityFC\\\", \\\"facebook\\\": \\\"NakuruCityFC\\\", \\\"instagram\\\": \\\"nakurucityfc\\\"}\",\n  \"countyId\": 32,\n  \"homeStadiumId\": 15,\n  \"clubLevel\": \"NATIONAL\",\n  \"fkfRegistrationNumber\": \"FKF-NK-2024-015\",\n  \"fkfRegistrationDate\": \"2024-04-10\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/clubs/registration",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"clubs",
+										"registration"
+									]
+								},
+								"description": "**UNIFIED** club registration endpoint supporting both grassroots and professional clubs with intelligent routing.\n\n### Authentication Required\n- JWT token must be included in Authorization header\n- User automatically becomes the club owner\n\n### Intelligent Registration\n- **Single endpoint** for all club types\n- **Automatic detection** of club level based on provided fields\n- **Smart validation** applies appropriate rules based on club type\n- **Flexible field handling** - optional FKF fields for grassroots clubs\n\n### Request Body (All Fields Optional Except Required)\n**Required Fields:**\n- `name`: Full club name\n- `contactEmail`: Primary contact email\n- `countyId`: Home county ID (1-47 for Kenya)\n\n**Optional Basic Fields:**\n- `shortName`: Abbreviated club name\n- `abbreviation`: 2-4 letter abbreviation\n- `founded`: Foundation date (YYYY-MM-DD)\n- `description`: Club mission and description\n- `colors`: Team colors/kit colors\n- `contactPhone`: Kenyan format (+254...)\n- `websiteUrl`: Official website\n- `socialMediaLinks`: JSON string of social handles\n- `homeStadiumId`: Home venue ID\n- `clubLevel`: GRASSROOTS, COUNTY, REGIONAL, NATIONAL, PREMIER\n\n**FKF Professional Fields (Optional):**\n- `fkfRegistrationNumber`: Official FKF registration\n- `fkfRegistrationDate`: Date of FKF registration\n\n### Smart Processing Logic\n1. **If FKF fields provided**: Creates professional club with dual verification\n2. **If no FKF fields**: Creates grassroots club with simple verification\n3. **Validation adapts** to club type automatically\n4. **Verification workflow** assigned based on club level\n\n### Verification Status\n- **Grassroots**: LigiOpen internal verification only\n- **Professional**: Both LigiOpen + FKF verification required\n- **Initial status**: PENDING for applicable verification types\n\n### Response\n- Complete club profile with assigned verification status\n- Owner automatically set to requesting user\n- Club ID for future operations\n- Verification workflow initiated\n\n### Use Cases\n- **Community clubs** can register without FKF details\n- **Professional clubs** include FKF registration info\n- **Upgrading clubs** can add FKF details later via promotion endpoint\n- **Single API integration** for all frontend forms\n\n### Example Bodies\n**Grassroots Club (Minimal):**\n```json\n{\n  \"name\": \"Mathare Youth FC\",\n  \"contactEmail\": \"contact@mathareyouth.org\",\n  \"countyId\": 1,\n  \"description\": \"Youth development through football\"\n}\n```\n\n**Professional Club (Full):**\n```json\n{\n  \"name\": \"Nakuru City FC\",\n  \"shortName\": \"NCFC\",\n  \"contactEmail\": \"info@nakurucityfc.co.ke\",\n  \"countyId\": 32,\n  \"clubLevel\": \"NATIONAL\",\n  \"fkfRegistrationNumber\": \"FKF-NK-2024-015\",\n  \"fkfRegistrationDate\": \"2024-04-10\"\n}\n```"
+							}
 						}
 					]
 				},
@@ -978,6 +1046,603 @@
 							}
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "❤️ Club Relationships & Favorites",
+			"description": "Club favoriting, popularity tracking, and relationship management endpoints.",
+			"item": [
+				{
+					"name": "❤️ Favorite Club",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Response has success status\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});",
+									"",
+									"console.log('✅ Club favorited successfully!');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/favorite",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "favorite"]
+						},
+						"description": "Add club to user's favorites list."
+					}
+				},
+				{
+					"name": "💔 Unfavorite Club",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/favorite",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "favorite"]
+						}
+					}
+				},
+				{
+					"name": "❓ Check Favorite Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/favorite/status",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "favorite", "status"]
+						}
+					}
+				},
+				{
+					"name": "💖 Get My Favorite Clubs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/favorites/my?page=0&size=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "favorites", "my"],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "👥 Get Club Fans",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/favorites?page=0&size=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "favorites"],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "🔢 Get Club Favorite Count",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/favorites/count",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "favorites", "count"]
+						}
+					}
+				},
+				{
+					"name": "👑 Get Clubs I Own",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/relationships/owned",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "relationships", "owned"]
+						}
+					}
+				},
+				{
+					"name": "👨‍💼 Get Clubs I Manage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/relationships/managed",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "relationships", "managed"]
+						}
+					}
+				},
+				{
+					"name": "📋 Get Relationship Summary",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/relationships/summary",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "relationships", "summary"]
+						}
+					}
+				},
+				{
+					"name": "🔥 Get Popular Clubs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/popular?page=0&size=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "popular"],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "💡 Get Club Recommendations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/recommendations?page=0&size=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "recommendations"],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "👥 Club Staff Management",
+			"description": "Club staff, management, and ownership endpoints including invitations and role management.",
+			"item": [
+				{
+					"name": "➕ Add Club Manager",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff/managers/{{manager_user_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff", "managers", "{{manager_user_id}}"]
+						}
+					}
+				},
+				{
+					"name": "➖ Remove Club Manager",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff/managers/{{manager_user_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff", "managers", "{{manager_user_id}}"]
+						}
+					}
+				},
+				{
+					"name": "👨‍💼 Get Club Managers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff/managers",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff", "managers"]
+						}
+					}
+				},
+				{
+					"name": "🔄 Transfer Club Ownership",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff/transfer-ownership/{{new_owner_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff", "transfer-ownership", "{{new_owner_id}}"]
+						}
+					}
+				},
+				{
+					"name": "📜 Get Ownership History",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff/ownership-history",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff", "ownership-history"]
+						}
+					}
+				},
+				{
+					"name": "👥 Get All Club Staff",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff"]
+						}
+					}
+				},
+				{
+					"name": "🎭 Update Manager Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"COACH\",\n    \"permissions\": [\"MANAGE_PLAYERS\", \"VIEW_STATS\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff/managers/{{manager_user_id}}/role",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff", "managers", "{{manager_user_id}}", "role"]
+						}
+					}
+				},
+				{
+					"name": "📧 Invite Manager",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"manager@example.com\",\n    \"role\": \"MANAGER\",\n    \"message\": \"Welcome to our club management team!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff/managers/invite",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff", "managers", "invite"]
+						}
+					}
+				},
+				{
+					"name": "✅ Accept Manager Invitation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff/invitations/{{invitation_id}}/accept",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff", "invitations", "{{invitation_id}}", "accept"]
+						}
+					}
+				},
+				{
+					"name": "❌ Decline Manager Invitation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff/invitations/{{invitation_id}}/decline",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff", "invitations", "{{invitation_id}}", "decline"]
+						}
+					}
+				},
+				{
+					"name": "📋 Get Pending Invitations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff/invitations/pending",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff", "invitations", "pending"]
+						}
+					}
+				},
+				{
+					"name": "🗑️ Cancel Invitation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clubs/{{club_id}}/staff/invitations/{{invitation_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "clubs", "{{club_id}}", "staff", "invitations", "{{invitation_id}}"]
+						}
+					}
 				}
 			]
 		},
