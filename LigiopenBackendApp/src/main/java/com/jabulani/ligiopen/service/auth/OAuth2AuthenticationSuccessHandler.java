@@ -45,7 +45,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             // Check if the principal is OAuth2User
             if (!(authentication.getPrincipal() instanceof OAuth2User)) {
                 logger.error("Expected OAuth2User but got: {}", authentication.getPrincipal().getClass());
-                response.sendRedirect("/api/auth/google/failure");
+                response.sendRedirect("/api/v1/auth/google/failure");
                 return;
             }
 
@@ -60,7 +60,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
             if (email == null || googleId == null) {
                 logger.error("Missing required OAuth2 user data - email: {}, googleId: {}", email, googleId);
-                response.sendRedirect("/api/auth/google/failure");
+                response.sendRedirect("/api/v1/auth/google/failure");
                 return;
             }
 
@@ -72,7 +72,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                 logger.info("Successfully processed OAuth2 user: {} with ID: {}", email, savedUser.getId());
             } catch (Exception e) {
                 logger.error("Failed to save/update OAuth2 user: {}", email, e);
-                response.sendRedirect("/api/auth/google/failure");
+                response.sendRedirect("/api/v1/auth/google/failure");
                 return;
             }
 
@@ -87,12 +87,12 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                 logger.info("JWT and refresh tokens generated successfully for user: {}", email);
             } catch (Exception e) {
                 logger.error("Failed to generate JWT tokens for user: {}", email, e);
-                response.sendRedirect("/api/auth/google/failure");
+                response.sendRedirect("/api/v1/auth/google/failure");
                 return;
             }
 
             // Build redirect URL with token and user info
-            String redirectUrl = UriComponentsBuilder.fromUriString("/api/auth/google/success")
+            String redirectUrl = UriComponentsBuilder.fromUriString("/api/v1/auth/google/success")
                     .queryParam("token", jwt)
                     .queryParam("refreshToken", refreshToken)
                     .queryParam("expiresIn", expiresIn)
@@ -106,7 +106,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         } catch (Exception e) {
             logger.error("Failed to handle OAuth2 success", e);
-            response.sendRedirect("/api/auth/google/failure");
+            response.sendRedirect("/api/v1/auth/google/failure");
         }
     }
 

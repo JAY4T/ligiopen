@@ -8,6 +8,7 @@ public interface UserEntityDao {
     UserEntity createUser(UserEntity userEntity);
     UserEntity updateUser(UserEntity userEntity);
     UserEntity getUserById(Long id);
+    UserEntity getUserByIdOrThrow(Long id);
     Optional<UserEntity> getUserByEmail(String email);
     Optional<UserEntity> getUserByUsername(String username);
     Optional<UserEntity> getUserByGoogleId(String id);

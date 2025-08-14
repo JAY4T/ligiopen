@@ -87,6 +87,12 @@ public class ClubDaoImpl implements ClubDao {
     }
 
     @Override
+    public Club getClubByIdOrThrow(Long id) {
+        // This is an alias for getClubById since it already throws
+        return getClubById(id);
+    }
+
+    @Override
     public Optional<Club> findClubById(Long id) {
         try {
             logger.debug("Finding club by ID: {}", id);

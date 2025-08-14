@@ -67,6 +67,22 @@ public class PlayerTransfer {
 
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
+    
+    @Column(name = "contract_type")
+    @Enumerated(EnumType.STRING)
+    private ClubMembership.ContractType contractType;
+    
+    @Column(name = "proposed_salary")
+    private BigDecimal proposedSalary;
+    
+    @Column(name = "contract_duration_months")
+    private Integer contractDurationMonths;
+    
+    @Column(name = "created_at")
+    private java.time.LocalDateTime createdAt;
+    
+    @Column(name = "updated_at")
+    private java.time.LocalDateTime updatedAt;
 
     public enum TransferType {
         PERMANENT, LOAN, FREE_TRANSFER, MUTUAL_TERMINATION

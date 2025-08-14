@@ -16,6 +16,11 @@ public interface ClubDao {
     
     Club getClubById(Long id);
     
+    /**
+     * Get club by ID or throw exception
+     */
+    Club getClubByIdOrThrow(Long id);
+    
     Optional<Club> findClubById(Long id);
     
     Optional<Club> getClubByName(String name);

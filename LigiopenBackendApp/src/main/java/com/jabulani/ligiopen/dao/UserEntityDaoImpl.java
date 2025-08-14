@@ -86,6 +86,12 @@ public class UserEntityDaoImpl implements UserEntityDao {
     }
 
     @Override
+    public UserEntity getUserByIdOrThrow(Long id) {
+        // This is an alias for getUserById since it already throws
+        return getUserById(id);
+    }
+
+    @Override
     public Optional<UserEntity> getUserByEmail(String email) {
         try {
             TypedQuery<UserEntity> query = entityManager.createQuery(

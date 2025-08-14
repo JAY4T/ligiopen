@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "a1b2c3d4-e5f6-7890-ab12-cd3456ef7890",
-		"name": "LigiOpen API Collection v2.1",
-		"description": "# LigiOpen - Comprehensive Football League Management System for Kenya\n\nThis collection contains all API endpoints for the LigiOpen system, designed specifically for Kenya's diverse football ecosystem.\n\n## 📋 Collection Overview (Sprint 2 COMPLETED)\n\n### 🔐 Authentication & Authorization ✅\n- JWT authentication with refresh tokens\n- Google OAuth2 integration\n- Email verification system\n- Password reset functionality\n\n### 👤 User Profile Management ✅\n- Complete user profile CRUD operations\n- Profile picture upload with Digital Ocean Spaces\n- User preferences and settings management\n- Account management features\n\n### 🏛️ Club Management System ✅ (52+ Endpoints)\n- **Unified Registration**: Single endpoint supporting both grassroots and FKF clubs\n- **FKF Promotion**: Grassroots clubs can upgrade to official FKF status\n- **Club Profiles**: Complete CRUD operations with media management\n- **Staff Management**: Comprehensive invitation and role management system\n- **Club Relationships**: User-club favorites with popularity tracking\n- **Advanced Search**: Name, county, region, level, and proximity-based discovery\n- **Dual Verification**: LigiOpen internal + FKF official verification workflows\n- **Geographic Integration**: Kenya's 47-county system with regional organization\n\n### 🌍 Location & Infrastructure ✅\n- **Kenyan Counties**: All 47 counties with regional data integration\n- **Stadium Management**: Complete venue information system (interface ready)\n- **Geographic Search**: Location-based club and venue discovery with Haversine formula\n\n### 🎯 Sprint 2 Achievements (COMPLETED)\n- **4 Major Controller Areas**: Registration, Profile, Staff, Relationships\n- **52+ API Endpoints** across comprehensive club management\n- **Dual Verification Workflows**: Internal + external verification processes\n- **Professional Staff Management**: Owner/Manager hierarchy with invitations\n- **Advanced Club Search**: Multiple search criteria with pagination\n- **Media Management**: Club branding with Digital Ocean Spaces integration\n- **Permission System**: Owner/Manager/Admin role-based access control\n\n## 🚀 Getting Started\n\n### 1. Environment Setup\n- Set the `base_url` variable to your server URL (default: `http://localhost:8000`)\n- The `jwt_token` variable will be automatically set after login\n- `club_id` and other IDs are automatically captured from responses\n\n### 2. Authentication Flow\n1. **Register** a new account using the signup endpoint\n2. **Verify** your email (check console logs for verification link)\n3. **Login** to get JWT token (automatically saved to environment)\n4. Use **protected endpoints** with the JWT token\n\n### 3. Complete API Testing Workflow\n1. **Authentication**: Register → Verify Email → Login → Get JWT Token\n2. **Club Registration**: Create Club (Unified) → Verify → Promote to FKF (optional)\n3. **Club Management**: Update Profile → Upload Media → Manage Staff\n4. **Staff Operations**: Add Managers → Send Invitations → Transfer Ownership\n5. **User Relationships**: Favorite Clubs → View Owned/Managed Clubs\n6. **Discovery**: Search by Name/County/Region → Geographic Proximity Search\n7. **Admin Operations**: Verify Clubs → Manage Verification Workflows\n\n### 4. API Endpoint Categories (52+ Total)\n- **Club Registration & Verification**: 12 endpoints (unified registration, FKF promotion, verification workflows)\n- **Club Profile Management**: 14 endpoints (CRUD, search, media, statistics)\n- **Club Relationships**: 11 endpoints (favorites, popularity, recommendations)\n- **Club Staff Management**: 12 endpoints (managers, invitations, ownership transfer)\n- **Authentication & Users**: 5+ endpoints (signup, login, profile management)\n- **Location Services**: Stadium and county integration (interface ready)\n\n## 📱 Base URL Structure\nAll endpoints follow the pattern: `{{base_url}}/api/v1/...`\n\n## 🔒 Security & Permissions\n- JWT tokens are automatically included in protected requests\n- Tokens are stored securely in environment variables\n- All sensitive endpoints require authentication\n- **Three-tier Permission System**:\n  - **Club Owner**: Full club management rights\n  - **Club Manager**: Limited management permissions\n  - **Admin**: Platform-wide administrative access\n\n## 🌟 Key Features\n- **Kenyan Football Integration**: FKF registration numbers and official verification\n- **Geographic Search**: Kenya's 47-county system with proximity-based discovery\n- **Professional Media Management**: Club logos and photos with automatic URL generation\n- **Comprehensive Staff System**: From grassroots volunteer management to professional club hierarchies\n- **Dual Verification**: Internal quality control + external official verification\n\n---\n\n**Version**: 2.1.0 (Sprint 2 Complete)  \n**Updated**: August 2025  \n**Author**: LigiOpen Team  \n**Documentation**: https://docs.ligiopen.com  \n**Support**: support@ligiopen.com",
+		"name": "LigiOpen API Collection v3.2",
+		"description": "# LigiOpen - Comprehensive Football League Management System for Kenya\n\nThis collection contains all API endpoints for the LigiOpen system, designed specifically for Kenya's diverse football ecosystem.\n\n## 📋 Collection Overview (Sprint 2 COMPLETED)\n\n### 🔐 Authentication & Authorization ✅\n- JWT authentication with refresh tokens\n- Google OAuth2 integration\n- Email verification system\n- Password reset functionality\n\n### 👤 User Profile Management ✅\n- Complete user profile CRUD operations\n- Profile picture upload with Digital Ocean Spaces\n- User preferences and settings management\n- Account management features\n\n### 🏛️ Club Management System ✅ (52+ Endpoints)\n- **Unified Registration**: Single endpoint supporting both grassroots and FKF clubs\n- **FKF Promotion**: Grassroots clubs can upgrade to official FKF status\n- **Club Profiles**: Complete CRUD operations with media management\n- **Staff Management**: Comprehensive invitation and role management system\n- **Club Relationships**: User-club favorites with popularity tracking\n- **Advanced Search**: Name, county, region, level, and proximity-based discovery\n- **Dual Verification**: LigiOpen internal + FKF official verification workflows\n- **Geographic Integration**: Kenya's 47-county system with regional organization\n\n### 🌍 Location & Infrastructure ✅\n- **Kenyan Counties**: All 47 counties with regional data integration\n- **Stadium Management**: Complete venue information system (interface ready)\n- **Geographic Search**: Location-based club and venue discovery with Haversine formula\n\n### 🎯 Sprint 2 Achievements (COMPLETED)\n- **4 Major Controller Areas**: Registration, Profile, Staff, Relationships\n- **52+ API Endpoints** across comprehensive club management\n- **Dual Verification Workflows**: Internal + external verification processes\n- **Professional Staff Management**: Owner/Manager hierarchy with invitations\n- **Advanced Club Search**: Multiple search criteria with pagination\n- **Media Management**: Club branding with Digital Ocean Spaces integration\n- **Permission System**: Owner/Manager/Admin role-based access control\n\n## 🚀 Getting Started\n\n### 1. Environment Setup\n- Set the `base_url` variable to your server URL (default: `http://localhost:8000`)\n- The `jwt_token` variable will be automatically set after login\n- `club_id` and other IDs are automatically captured from responses\n\n### 2. Authentication Flow\n1. **Register** a new account using the signup endpoint\n2. **Verify** your email (check console logs for verification link)\n3. **Login** to get JWT token (automatically saved to environment)\n4. Use **protected endpoints** with the JWT token\n\n### 3. Complete API Testing Workflow\n1. **Authentication**: Register → Verify Email → Login → Get JWT Token\n2. **Club Registration**: Create Club (Unified) → Verify → Promote to FKF (optional)\n3. **Club Management**: Update Profile → Upload Media → Manage Staff\n4. **Staff Operations**: Add Managers → Send Invitations → Transfer Ownership\n5. **User Relationships**: Favorite Clubs → View Owned/Managed Clubs\n6. **Discovery**: Search by Name/County/Region → Geographic Proximity Search\n7. **Admin Operations**: Verify Clubs → Manage Verification Workflows\n\n### 4. API Endpoint Categories (52+ Total)\n- **Club Registration & Verification**: 12 endpoints (unified registration, FKF promotion, verification workflows)\n- **Club Profile Management**: 14 endpoints (CRUD, search, media, statistics)\n- **Club Relationships**: 11 endpoints (favorites, popularity, recommendations)\n- **Club Staff Management**: 12 endpoints (managers, invitations, ownership transfer)\n- **Authentication & Users**: 5+ endpoints (signup, login, profile management)\n- **Location Services**: Stadium and county integration (interface ready)\n\n## 📱 Base URL Structure\nAll endpoints follow the pattern: `{{base_url}}/api/v1/...`\n\n## 🔒 Security & Permissions\n- JWT tokens are automatically included in protected requests\n- Tokens are stored securely in environment variables\n- All sensitive endpoints require authentication\n- **Three-tier Permission System**:\n  - **Club Owner**: Full club management rights\n  - **Club Manager**: Limited management permissions\n  - **Admin**: Platform-wide administrative access\n\n## 🌟 Key Features\n- **Kenyan Football Integration**: FKF registration numbers and official verification\n- **Geographic Search**: Kenya's 47-county system with proximity-based discovery\n- **Professional Media Management**: Club logos and photos with automatic URL generation\n- **Comprehensive Staff System**: From grassroots volunteer management to professional club hierarchies\n- **Dual Verification**: Internal quality control + external official verification\n\n---\n\n**Version**: 3.0.0 (Sprint 3 Complete - Player Management)  \n**Updated**: August 2025  \n**Author**: LigiOpen Team  \n**Documentation**: https://docs.ligiopen.com  \n**Support**: support@ligiopen.com",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12345678"
 	},
@@ -333,6 +333,212 @@
 							]
 						},
 						"description": "Resend email verification link to user's email address.\n\n### Request Body\n- `email`: User's email address that needs verification\n\n### When to Use\n- When user didn't receive initial verification email\n- When verification token has expired\n- When user needs a new verification link\n\n### Response\n- Success message confirming email was sent\n- New verification token generated and sent\n\n### Rate Limiting\n- Limited to prevent spam\n- Wait a few minutes between requests if needed"
+					}
+				},
+				{
+					"name": "🔗 Google OAuth Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// This is a browser-redirect endpoint",
+									"// Cannot be tested directly in Postman",
+									"console.log('ℹ️ This endpoint redirects to Google OAuth.');",
+									"console.log('ℹ️ Use in browser: Copy the URL and paste in browser');",
+									"console.log('ℹ️ After Google auth, you will be redirected back with tokens');",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/oauth2/authorization/google",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"oauth2",
+								"authorization",
+								"google"
+							]
+						},
+						"description": "🌐 **Browser-Only Endpoint** - Initiates Google OAuth2 authentication flow.\n\n### ⚠️ Important Usage Notes\n- **Cannot be tested directly in Postman** - this is a browser redirect endpoint\n- **Copy the URL** from this request and **paste it in your browser**\n- **Manual browser testing required** for OAuth flow\n\n### OAuth Flow Process\n1. **User clicks this URL** in browser (or frontend redirects here)\n2. **Redirects to Google** for user authentication\n3. **User signs in with Google** account\n4. **Google redirects back** to our callback URL\n5. **Our server processes** the OAuth response\n6. **User gets redirected** to success/failure endpoint with tokens\n\n### What Happens After Google Auth\n- **Success**: Redirected to `/api/v1/auth/google/success?token=...&refreshToken=...`\n- **Failure**: Redirected to `/api/v1/auth/google/failure`\n\n### Frontend Integration\n```javascript\n// Redirect user to Google OAuth\nwindow.location.href = '{{base_url}}/api/v1/oauth2/authorization/google';\n\n// Or use in an anchor tag\n<a href=\"{{base_url}}/api/v1/oauth2/authorization/google\">\n  Sign in with Google\n</a>\n```\n\n### Server Configuration Required\n- `GOOGLE_CLIENT_ID` environment variable\n- `GOOGLE_SECRET` environment variable\n- Google OAuth2 configured with proper redirect URIs\n\n### Use Cases\n- **Single Sign-On (SSO)** with Google accounts\n- **Quick user registration** without manual form filling\n- **Seamless authentication** for users with Google accounts\n- **Social login** feature for mobile and web apps\n\n### Development Testing\n1. **Copy this URL**: `{{base_url}}/api/v1/oauth2/authorization/google`\n2. **Open in browser** (not Postman)\n3. **Complete Google sign-in**\n4. **Check the success/failure endpoints** for results\n5. **Extract JWT tokens** from success callback\n\n### Security Features\n- **OAuth2 standard compliance**\n- **State parameter** for CSRF protection\n- **Secure token exchange** with Google\n- **JWT token generation** after successful auth\n- **User profile creation/update** from Google data"
+					}
+				},
+				{
+					"name": "✅ Google OAuth Success Callback",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test response structure",
+									"pm.test(\"Response has required fields\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('success');",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"});",
+									"",
+									"// Test authentication success",
+									"pm.test(\"Google authentication successful\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"    pm.expect(jsonData.data).to.have.property('token');",
+									"});",
+									"",
+									"// Store JWT token automatically",
+									"pm.test(\"Store JWT token\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    if (jsonData.data && jsonData.data.token) {",
+									"        pm.environment.set('jwt_token', jsonData.data.token);",
+									"        console.log('✅ JWT token stored:', jsonData.data.token.substring(0, 20) + '...');",
+									"    }",
+									"});",
+									"",
+									"// Store refresh token if provided",
+									"pm.test(\"Store refresh token\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    if (jsonData.data && jsonData.data.refreshToken) {",
+									"        pm.environment.set('refresh_token', jsonData.data.refreshToken);",
+									"        console.log('✅ Refresh token stored');",
+									"    }",
+									"});",
+									"",
+									"// Log user information",
+									"const jsonData = pm.response.json();",
+									"if (jsonData.data) {",
+									"    console.log('👤 Google user authenticated successfully!');",
+									"    console.log('📧 Email:', pm.request.url.query.get('email') || 'Not provided');",
+									"    console.log('🆔 User ID:', pm.request.url.query.get('userId') || 'Not provided');",
+									"    console.log('🆕 New User:', pm.request.url.query.get('isNewUser') || 'false');",
+									"    console.log('⏰ Token expires in:', jsonData.data.expiresIn || 'Not specified', 'seconds');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/google/success?token=sample_jwt_token&refreshToken=sample_refresh_token&expiresIn=3600&userId=1&email=user@gmail.com&isNewUser=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"google",
+								"success"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "sample_jwt_token",
+									"description": "JWT access token"
+								},
+								{
+									"key": "refreshToken",
+									"value": "sample_refresh_token",
+									"description": "Refresh token for renewing access"
+								},
+								{
+									"key": "expiresIn",
+									"value": "3600",
+									"description": "Token expiration time in seconds"
+								},
+								{
+									"key": "userId",
+									"value": "1",
+									"description": "User's unique ID in the system"
+								},
+								{
+									"key": "email",
+									"value": "user@gmail.com",
+									"description": "User's email from Google"
+								},
+								{
+									"key": "isNewUser",
+									"value": "false",
+									"description": "Whether this is a newly created user"
+								}
+							]
+						},
+						"description": "✅ **OAuth Success Callback** - Handles successful Google authentication with JWT tokens.\n\n### How This Endpoint is Called\n- **Automatically called** by the OAuth2AuthenticationSuccessHandler\n- **Redirect destination** after successful Google authentication\n- **Not manually called** - part of OAuth flow\n\n### Query Parameters (Automatically Provided)\n- `token`: JWT access token for API authentication\n- `refreshToken`: Token for refreshing the access token\n- `expiresIn`: Token expiration time in seconds\n- `userId`: User's unique ID in the system\n- `email`: User's email address from Google\n- `isNewUser`: Boolean indicating if user was just created\n\n### User Data Processing\n**For New Users:**\n- Account automatically created from Google profile\n- Email, first name, last name extracted from Google\n- Profile picture URL saved from Google avatar\n- Google ID stored for future authentication\n\n**For Existing Users:**\n- Profile updated with latest Google information\n- Login timestamp updated\n- Existing data preserved\n\n### Response Format\n```json\n{\n  \"success\": true,\n  \"message\": \"Google authentication successful\",\n  \"data\": {\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n    \"message\": \"Google authentication successful\",\n    \"expiresIn\": 3600\n  }\n}\n```\n\n### Frontend Integration\n```javascript\n// Parse tokens from callback URL\nconst urlParams = new URLSearchParams(window.location.search);\nconst token = urlParams.get('token');\nconst refreshToken = urlParams.get('refreshToken');\nconst isNewUser = urlParams.get('isNewUser');\n\n// Store tokens and redirect to app\nif (token) {\n    localStorage.setItem('jwt_token', token);\n    localStorage.setItem('refresh_token', refreshToken);\n    \n    // Redirect to appropriate page\n    if (isNewUser === 'true') {\n        window.location.href = '/welcome';\n    } else {\n        window.location.href = '/dashboard';\n    }\n}\n```\n\n### What Happens After Success\n1. **JWT token stored** in environment (automatically in Postman)\n2. **User can access** protected API endpoints\n3. **Frontend redirects** user to appropriate page\n4. **Authentication state** established for the session\n\n### Use Cases\n- **Complete OAuth flow** testing\n- **Token extraction** for API testing\n- **New user onboarding** flow verification\n- **Existing user login** confirmation\n\n### Testing Notes\n- **Use sample values** in query params for testing\n- **Real values come** from OAuth flow\n- **JWT tokens automatically stored** in Postman environment\n- **Test protected endpoints** after successful auth"
+					}
+				},
+				{
+					"name": "❌ Google OAuth Failure Callback",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test response status",
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"// Test response structure",
+									"pm.test(\"Response has error information\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('success');",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"    pm.expect(jsonData).to.have.property('errors');",
+									"});",
+									"",
+									"// Test failure status",
+									"pm.test(\"Google authentication failed\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.false;",
+									"});",
+									"",
+									"// Log failure information",
+									"const jsonData = pm.response.json();",
+									"console.log('❌ Google authentication failed');",
+									"console.log('🔍 Error details:', jsonData.errors || 'No specific error provided');",
+									"console.log('💡 Possible causes:');",
+									"console.log('  - User denied Google permissions');",
+									"console.log('  - Invalid Google OAuth configuration');",
+									"console.log('  - Network connectivity issues');",
+									"console.log('  - Server-side processing error');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/google/failure",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"google",
+								"failure"
+							]
+						},
+						"description": "❌ **OAuth Failure Callback** - Handles failed Google authentication attempts.\n\n### How This Endpoint is Called\n- **Automatically called** when Google authentication fails\n- **Redirect destination** for authentication errors\n- **Not manually called** - part of OAuth error handling\n\n### Common Failure Scenarios\n1. **User denies permissions** to the application\n2. **Invalid Google OAuth configuration** (missing/wrong client ID/secret)\n3. **Network connectivity issues** during authentication\n4. **Server-side processing errors** (user creation failed, etc.)\n5. **Missing required user data** from Google (email, ID)\n6. **Database connection issues** during user creation/update\n\n### Response Format\n```json\n{\n  \"success\": false,\n  \"message\": \"failed\",\n  \"errors\": {\n    \"authentication\": \"Google authentication failed\"\n  }\n}\n```\n\n### Error Handling Flow\n1. **OAuth process fails** at any stage\n2. **User redirected** to this failure endpoint\n3. **Error information provided** in response\n4. **Frontend handles** the error appropriately\n5. **User shown** appropriate error message\n\n### Frontend Error Handling\n```javascript\n// Check if current URL is the failure callback\nif (window.location.pathname.includes('/api/v1/auth/google/failure')) {\n    // Show error message to user\n    showNotification('Google authentication failed. Please try again.', 'error');\n    \n    // Redirect back to login page\n    setTimeout(() => {\n        window.location.href = '/login';\n    }, 3000);\n}\n```\n\n### Debugging OAuth Issues\n1. **Check server logs** for detailed error messages\n2. **Verify Google OAuth configuration** in environment variables\n3. **Test Google Developer Console** settings\n4. **Confirm redirect URIs** match exactly\n5. **Check network connectivity** and firewall settings\n\n### Recovery Actions\n- **Retry authentication** with same Google account\n- **Try different Google account** if user has multiple\n- **Use alternative authentication** methods (email/password)\n- **Contact support** if problem persists\n\n### Security Considerations\n- **No sensitive data exposed** in error responses\n- **Generic error messages** to prevent information leakage\n- **Failure attempts logged** for security monitoring\n- **Rate limiting applied** to prevent abuse\n\n### Use Cases\n- **Error flow testing** in OAuth integration\n- **User experience validation** for failed authentication\n- **Debugging OAuth configuration** issues\n- **Security monitoring** and logging verification\n\n### Development Notes\n- **Check application logs** for detailed failure reasons\n- **Test with various failure scenarios** to ensure robust handling\n- **Implement user-friendly error messages** in frontend\n- **Provide clear recovery instructions** to users"
 					}
 				}
 			]
@@ -2182,6 +2388,625 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "⚽ Player Management",
+			"description": "Comprehensive player management system for the Kenyan football ecosystem including registration, transfers, and club relationships.",
+			"item": [
+				{
+					"name": "👤 Player Registration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"dateOfBirth\": \"1995-06-15\",\n    \"nationality\": \"Kenyan\",\n    \"primaryPosition\": \"MIDFIELDER\",\n    \"email\": \"john.doe@example.com\",\n    \"phoneNumber\": \"+254712345678\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/players/registration",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"registration"
+							]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Player registration successful\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"    ",
+									"    if (jsonData.data && jsonData.data.id) {",
+									"        pm.environment.set('player_id', jsonData.data.id);",
+									"        console.log('✅ Player ID stored:', jsonData.data.id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "🔍 Search Players by Name",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/players/search?query=John&page=0&size=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "John"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "🏃‍♂️ Get Players by Position",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/players/position/MIDFIELDER?page=0&size=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"position",
+								"MIDFIELDER"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "🌍 Get Players by Nationality",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/players/nationality/Kenyan?page=0&size=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"nationality",
+								"Kenyan"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "👦 Get Players by Age Range",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/players/age-range?minAge=18&maxAge=35&page=0&size=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"age-range"
+							],
+							"query": [
+								{
+									"key": "minAge",
+									"value": "18"
+								},
+								{
+									"key": "maxAge",
+									"value": "35"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "🦶 Get Players by Preferred Foot",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/players/preferred-foot/RIGHT?page=0&size=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"preferred-foot",
+								"RIGHT"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "📏 Get Players by Height Range",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/players/height-range?minHeight=165.0&maxHeight=190.0&page=0&size=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"height-range"
+							],
+							"query": [
+								{
+									"key": "minHeight",
+									"value": "165.0"
+								},
+								{
+									"key": "maxHeight",
+									"value": "190.0"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "🏛️ Get Players by Club",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/players/club/{{club_id}}?page=0&size=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"club",
+								"{{club_id}}"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "🆓 Get Free Agents",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/players/free-agents?page=0&size=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"free-agents"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "📸 Upload Player Main Photo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photoFile",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/players/{{player_id}}/main-photo",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"{{player_id}}",
+								"main-photo"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "🔄 Transfer Management",
+			"description": "Player transfer system managing requests, approvals, and completions between clubs.",
+			"item": [
+				{
+					"name": "📝 Create Transfer Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"playerId\": {{player_id}},\n    \"fromClubId\": {{club_id}},\n    \"toClubId\": {{fkf_club_id}},\n    \"transferType\": \"PERMANENT\",\n    \"contractType\": \"PROFESSIONAL\",\n    \"transferFee\": 500000.00,\n    \"proposedSalary\": 50000.00,\n    \"contractDuration\": 24,\n    \"notes\": \"Urgent transfer needed for upcoming season\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/transfers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"transfers"
+							]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Transfer request created\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"    ",
+									"    if (jsonData.data && jsonData.data.id) {",
+									"        pm.environment.set('transfer_id', jsonData.data.id);",
+									"        console.log('✅ Transfer ID stored:', jsonData.data.id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "✅ Approve Transfer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/transfers/{{transfer_id}}/approve",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"transfers",
+								"{{transfer_id}}",
+								"approve"
+							]
+						}
+					}
+				},
+				{
+					"name": "❌ Reject Transfer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/transfers/{{transfer_id}}/reject?reason=Player does not meet club requirements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"transfers",
+								"{{transfer_id}}",
+								"reject"
+							],
+							"query": [
+								{
+									"key": "reason",
+									"value": "Player does not meet club requirements"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "🏁 Complete Transfer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/transfers/{{transfer_id}}/complete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"transfers",
+								"{{transfer_id}}",
+								"complete"
+							]
+						}
+					}
+				},
+				{
+					"name": "📊 Get Club Transfer Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/transfers/club/{{club_id}}/statistics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"transfers",
+								"club",
+								"{{club_id}}",
+								"statistics"
+							]
+						}
+					}
+				},
+				{
+					"name": "🔥 Get Recent Transfers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/transfers/recent?limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"transfers",
+								"recent"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "💰 Get High-Value Transfers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/transfers/high-value?minimumValue=100000&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"transfers",
+								"high-value"
+							],
+							"query": [
+								{
+									"key": "minimumValue",
+									"value": "100000"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					}
+				}
+			]
 		}
 	],
 	"event": [
@@ -2302,6 +3127,18 @@
 			"value": "",
 			"type": "string",
 			"description": "FKF registration number for testing (auto-populated or manual)"
+		},
+		{
+			"key": "player_id",
+			"value": "",
+			"type": "string",
+			"description": "Player ID for testing (auto-populated after player registration)"
+		},
+		{
+			"key": "transfer_id",
+			"value": "",
+			"type": "string",
+			"description": "Transfer ID for testing (auto-populated after transfer request creation)"
 		}
 	]
 }

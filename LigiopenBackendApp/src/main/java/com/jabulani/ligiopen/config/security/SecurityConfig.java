@@ -77,6 +77,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/auth/**",
+                                "/api/v1/oauth2/**",
                                 "/login/oauth2/**",
                                 "/oauth2/**",
                                 "/debug/**", // Add debug endpoint
@@ -91,7 +92,7 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .authorizationEndpoint(auth -> auth
-                                .baseUri("/oauth2/authorization")
+                                .baseUri("/api/v1/oauth2/authorization")
                                 .authorizationRequestRepository(authorizationRequestRepository())
                         )
                         .redirectionEndpoint(redir -> redir
