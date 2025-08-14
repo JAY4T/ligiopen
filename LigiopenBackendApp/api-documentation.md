@@ -4,29 +4,32 @@
 LigiOpen is a comprehensive football league management system for Kenya designed specifically for the diverse Kenyan football ecosystem, from grassroots village teams to premier league clubs.
 
 **Base URL**: `http://localhost:8000` (or configured port)
-**Current Version**: v2.1.0 (Sprint 2 Complete)
+**Current Version**: v3.0.0 (Sprint 3 Complete)
 
-## 🎯 Current Status: Sprint 2 Complete ✅
-**Club Management System fully implemented with 52+ API endpoints**
+## 🎯 Current Status: Sprint 3 Complete ✅
+**Club & Player Management Systems fully implemented with 90+ API endpoints**
 
-### Sprint 2 Achievements (COMPLETED)
-- **52+ API Endpoints** across 4 major controller areas
-- **Unified Registration System** supporting both grassroots and FKF clubs in one endpoint
-- **FKF Promotion Workflow** allowing grassroots clubs to upgrade to official status
-- **Dual Verification System** with comprehensive LigiOpen + FKF workflows
-- **Professional Staff Management** with invitation and role management system
-- **Complete Kenyan Geographic Data** with all 47 counties and regional organization
-- **Advanced Search Capabilities** with name, county, region, level, and proximity-based discovery
-- **Role-based Permission System** with Owner/Manager/Admin hierarchy
-- **Media Management Integration** with Digital Ocean Spaces for professional branding
+### Sprint 3 Achievements (COMPLETED)
+- **40+ New API Endpoints** for comprehensive player management
+- **Complete Player Management System** with registration, search, and profiles
+- **Transfer Management Workflow** with 15+ dedicated transfer endpoints
+- **Club Membership Tracking** with contract details and history
+- **Player Invitation System** for club-to-player communications
+- **Enhanced Google OAuth2** with custom URL structure (`/api/v1/oauth2/authorization/google`)
+- **Advanced Player Search** by position, age, height, preferred foot, experience level
+- **Transfer Analytics** with high-value transfer queries and club statistics
+- **Professional DTO Layer** with comprehensive validation and mapping
+- **Database Layer Enhancements** with 40+ new DAO operations
 
-### API Endpoint Categories
+### API Endpoint Categories (90+ Total)
 1. **Club Registration & Verification**: 12 endpoints (unified registration, FKF promotion, verification workflows)
 2. **Club Profile Management**: 14 endpoints (CRUD, search, media, statistics)
 3. **Club Relationships**: 11 endpoints (favorites, popularity, recommendations)
 4. **Club Staff Management**: 12 endpoints (managers, invitations, ownership transfer)
-5. **Authentication & Users**: 5+ endpoints (signup, login, profile management)
-6. **Location Services**: Stadium and county integration (interface ready for Sprint 3)
+5. **Player Management**: 25+ endpoints (registration, search, profiles, photos, memberships) ✅ NEW
+6. **Transfer Management**: 15+ endpoints (complete transfer workflow, analytics, statistics) ✅ NEW
+7. **Authentication & Users**: 8+ endpoints (signup, login, profile management, Google OAuth2) ✅ Enhanced
+8. **Location Services**: Stadium and county integration
 
 ## Authentication Endpoints
 
@@ -184,42 +187,65 @@ POST /api/auth/v1/refresh
 }
 ```
 
-### Google OAuth2 Authentication
+### Google OAuth2 Authentication ✅ Enhanced (Sprint 3)
 
-#### 1. Google Auth Success Callback
+#### 1. Google OAuth Initiation (NEW)
 ```http
-GET /api/auth/google/success?token={jwt_token}&refreshToken={refresh_token}&expiresIn={seconds}
+GET /api/v1/oauth2/authorization/google
+```
+
+**Description**: Browser-only endpoint that initiates Google OAuth2 authentication flow.
+
+**Usage Notes**:
+- Cannot be tested directly in Postman - this is a browser redirect endpoint
+- Copy the URL and paste it in your browser
+- Manual browser testing required for OAuth flow
+
+**OAuth Flow Process**:
+1. User clicks this URL in browser (or frontend redirects here)
+2. Redirects to Google for user authentication
+3. User signs in with Google account
+4. Google redirects back to our callback URL
+5. Our server processes the OAuth response
+6. User gets redirected to success/failure endpoint with tokens
+
+#### 2. Google Auth Success Callback ✅ Enhanced
+```http
+GET /api/v1/auth/google/success?token={jwt_token}&refreshToken={refresh_token}&expiresIn={seconds}&userId={user_id}&email={email}&isNewUser={boolean}
 ```
 
 **Query Parameters**:
 - `token` (required): JWT access token
 - `refreshToken` (optional): JWT refresh token
 - `expiresIn` (optional): Token expiration time in seconds
+- `userId` (optional): User's unique ID in the system
+- `email` (optional): User's email from Google
+- `isNewUser` (optional): Whether this is a newly created user
 
 **Response Success (200)**:
 ```json
 {
   "status": "success",
-  "message": "success",
+  "message": "Google authentication successful",
   "data": {
-    "accessToken": "string",
-    "refreshToken": "string",
+    "token": "eyJhbGciOiJIUzUxMiJ9...",
+    "refreshToken": "eyJhbGciOiJIUzUxMiJ9...",
     "message": "Google authentication successful",
-    "tokenType": "Bearer",
-    "expiresIn": 3600
+    "expiresIn": 604800
   }
 }
 ```
 
-#### 2. Google Auth Failure Callback
+#### 3. Google Auth Failure Callback
 ```http
-GET /api/auth/google/failure
+GET /api/v1/auth/google/failure
 ```
 
 **Response Error (401)**:
 ```json
 {
   "status": "failed",
+  "message": "failed",
   "errors": {
     "authentication": "Google authentication failed"
   }
@@ -543,16 +569,239 @@ The application uses the following environment variables:
 - `S3_ENDPOINT`: S3 endpoint URL
 - `S3_BUCKET_NAME`: S3 bucket name
 
+## ⚽ Player Management Endpoints ✅ NEW (Sprint 3)
+
+### Player Registration & Profiles
+
+#### 1. Register Player
+```http
+POST /api/v1/players/registration
+Authorization: Bearer {jwt_token}
+Content-Type: application/json
+```
+
+**Request Body**:
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "dateOfBirth": "1995-06-15",
+  "primaryPosition": "MIDFIELDER",
+  "secondaryPosition": "ATTACKING_MIDFIELDER",
+  "preferredFoot": "RIGHT",
+  "height": 175.5,
+  "weight": 70.0,
+  "phoneNumber": "+254712345678",
+  "email": "john.player@example.com",
+  "nationalId": "12345678",
+  "fkfId": "FKF123456",
+  "experienceLevel": "PROFESSIONAL",
+  "emergencyContactName": "Jane Doe",
+  "emergencyContactPhone": "+254787654321",
+  "placeOfBirth": "Nairobi",
+  "nationality": "Kenyan"
+}
+```
+
+#### 2. Search Players with Advanced Filters
+```http
+GET /api/v1/players/search?position=MIDFIELDER&minAge=20&maxAge=30&minHeight=170&preferredFoot=RIGHT&experienceLevel=PROFESSIONAL&page=0&size=10
+Authorization: Bearer {jwt_token}
+```
+
+**Query Parameters**:
+- `position` (optional): Filter by primary position
+- `minAge`/`maxAge` (optional): Age range filter
+- `minHeight`/`maxHeight` (optional): Height range filter
+- `preferredFoot` (optional): LEFT, RIGHT, BOTH
+- `experienceLevel` (optional): BEGINNER, AMATEUR, SEMI_PROFESSIONAL, PROFESSIONAL
+- `page`/`size` (optional): Pagination parameters
+
+#### 3. Get Player Details
+```http
+GET /api/v1/players/{playerId}
+Authorization: Bearer {jwt_token}
+```
+
+#### 4. Update Player Profile
+```http
+PUT /api/v1/players/{playerId}
+Authorization: Bearer {jwt_token}
+Content-Type: application/json
+```
+
+#### 5. Upload Player Photo
+```http
+POST /api/v1/players/{playerId}/photo
+Authorization: Bearer {jwt_token}
+Content-Type: multipart/form-data
+
+Form Data:
+- file: [image_file] (JPG, PNG, max 10MB)
+```
+
+### Club Membership Management
+
+#### 1. Get Player Club Memberships
+```http
+GET /api/v1/players/{playerId}/club-memberships
+Authorization: Bearer {jwt_token}
+```
+
+#### 2. Get Active Club Membership
+```http
+GET /api/v1/players/{playerId}/club-memberships/active
+Authorization: Bearer {jwt_token}
+```
+
+#### 3. Get Club Membership History
+```http
+GET /api/v1/players/{playerId}/club-memberships/history
+Authorization: Bearer {jwt_token}
+```
+
+### Player Invitation System
+
+#### 1. Send Club Invitation
+```http
+POST /api/v1/players/invitations/{invitationId}/send
+Authorization: Bearer {jwt_token}
+Content-Type: application/json
+
+{
+  "playerId": 1,
+  "clubId": 2,
+  "message": "We would like to invite you to join our club",
+  "contractType": "PROFESSIONAL",
+  "proposedSalary": 50000.00,
+  "contractDuration": 24
+}
+```
+
+#### 2. Accept Invitation
+```http
+PUT /api/v1/players/invitations/{invitationId}/accept
+Authorization: Bearer {jwt_token}
+```
+
+#### 3. Reject Invitation
+```http
+PUT /api/v1/players/invitations/{invitationId}/reject
+Authorization: Bearer {jwt_token}
+```
+
+## 🔄 Transfer Management Endpoints ✅ NEW (Sprint 3)
+
+### Transfer Requests
+
+#### 1. Create Transfer Request
+```http
+POST /api/v1/transfers
+Authorization: Bearer {jwt_token}
+Content-Type: application/json
+
+{
+  "playerId": 1,
+  "fromClubId": 1,
+  "toClubId": 2,
+  "transferType": "PERMANENT",
+  "contractType": "PROFESSIONAL",
+  "transferFee": 500000.00,
+  "proposedSalary": 50000.00,
+  "contractDuration": 24,
+  "notes": "Urgent transfer needed for upcoming season"
+}
+```
+
+#### 2. Get Transfer by ID
+```http
+GET /api/v1/transfers/{transferId}
+Authorization: Bearer {jwt_token}
+```
+
+### Transfer Workflow
+
+#### 1. Approve Transfer
+```http
+PUT /api/v1/transfers/{transferId}/approve
+Authorization: Bearer {jwt_token}
+```
+
+#### 2. Reject Transfer
+```http
+PUT /api/v1/transfers/{transferId}/reject?reason=Budget constraints
+Authorization: Bearer {jwt_token}
+```
+
+#### 3. Complete Transfer
+```http
+PUT /api/v1/transfers/{transferId}/complete
+Authorization: Bearer {jwt_token}
+```
+
+#### 4. Cancel Transfer
+```http
+PUT /api/v1/transfers/{transferId}/cancel?reason=Player changed mind
+Authorization: Bearer {jwt_token}
+```
+
+### Transfer Analytics
+
+#### 1. Get High-Value Transfers
+```http
+GET /api/v1/transfers/high-value?minimumValue=1000000&limit=10
+Authorization: Bearer {jwt_token}
+```
+
+#### 2. Get Recent Transfers
+```http
+GET /api/v1/transfers/recent?limit=20
+Authorization: Bearer {jwt_token}
+```
+
+#### 3. Get Club Transfer Statistics
+```http
+GET /api/v1/transfers/clubs/{clubId}/statistics
+Authorization: Bearer {jwt_token}
+```
+
+#### 4. Get Transfers by Date Range
+```http
+GET /api/v1/transfers/date-range?startDate=2024-01-01&endDate=2024-12-31&page=0&size=10
+Authorization: Bearer {jwt_token}
+```
+
+### Club-Specific Transfer Management
+
+#### 1. Get Pending Transfers for Club
+```http
+GET /api/v1/transfers/clubs/{clubId}/pending?page=0&size=10
+Authorization: Bearer {jwt_token}
+```
+
+#### 2. Get Incoming Transfers
+```http
+GET /api/v1/transfers/clubs/{clubId}/incoming?page=0&size=10
+Authorization: Bearer {jwt_token}
+```
+
+#### 3. Get Outgoing Transfers
+```http
+GET /api/v1/transfers/clubs/{clubId}/outgoing?page=0&size=10
+Authorization: Bearer {jwt_token}
+```
+
 ## Features Overview
 
 The LigiOpen system includes:
-- **User Authentication**: Local signup/signin and Google OAuth2 ✅
+- **User Authentication**: Local signup/signin and Google OAuth2 ✅ Enhanced
 - **JWT Token Management**: Access and refresh token support ✅
-- **Club Management**: Football club creation and management ✅ (NEW - Sprint 2)
-- **Location & Infrastructure**: Kenya counties and stadium management ✅ (NEW - Sprint 2)
+- **Club Management**: Football club creation and management ✅ (Sprint 2)
+- **Player Management**: Player profiles, search, and club memberships ✅ (Sprint 3)
+- **Transfer Management**: Complete transfer workflow and analytics ✅ (Sprint 3)
+- **Location & Infrastructure**: Kenya counties and stadium management ✅ (Sprint 2)
 - **Match Tracking**: Match scheduling and live tracking (Sprint 5)
 - **Competition Structure**: Leagues, groups, knockout tournaments (Sprint 4)
-- **Player Management**: Player profiles and transfers (Sprint 3)
 - **Statistics**: Match and player performance tracking (Sprint 6)
 - **File Management**: Digital Ocean Spaces integration for media storage ✅
 

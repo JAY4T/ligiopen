@@ -78,13 +78,17 @@ To become the definitive digital platform for African football management, start
 - **Advanced Discovery**: Name, county, region, level, and location-based club search
 - **Role-based Permissions**: Owner/Manager/Admin access control system
 
-### ⚽ Player Management
-- **Detailed Player Profiles**: Complete biographical and physical data
+### ⚽ Player Management System ✅ (Sprint 3 COMPLETE - 40+ Endpoints)
+- **Complete Player Registration**: Comprehensive player profiles with photo management
+- **Advanced Search & Filtering**: Position, age, height, preferred foot, experience level
+- **Club Membership Tracking**: Player-club relationships with contract details and history
+- **Transfer Management Workflow**: Request, approval, completion, and analytics system
+- **Invitation System**: Club-to-player recruitment with status tracking
+- **Statistics & Analytics**: Player performance metrics and transfer statistics
+- **Media Integration**: Professional player photos with Digital Ocean Spaces
 - **Kenyan-specific Fields**: National ID, FKF registration, emergency contacts
-- **Position & Skills Tracking**: Primary/secondary positions, preferred foot
-- **Transfer System**: Complete transfer history and management
-- **Club Membership**: Multi-club relationships with roles and periods
-- **Invitation System**: Club-to-player recruitment workflow
+- **Contract Management**: Contract types, durations, and salary tracking
+- **Multi-club Support**: Track relationships across multiple clubs and time periods
 
 ### 🏆 Competition Structure
 - **Multi-format Competitions**: Leagues, cups, tournaments, friendlies
@@ -455,6 +459,97 @@ Authorization: Bearer your_jwt_token_here
 #### Delete Current User Profile
 ```http
 DELETE /api/v1/users/profile
+Authorization: Bearer your_jwt_token_here
+```
+
+### Player Management Endpoints ✅ NEW (Sprint 3)
+
+#### Register Player
+```http
+POST /api/v1/players/registration
+Authorization: Bearer your_jwt_token_here
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "dateOfBirth": "1995-06-15",
+  "primaryPosition": "MIDFIELDER",
+  "preferredFoot": "RIGHT",
+  "height": 175.5,
+  "weight": 70.0,
+  "phoneNumber": "+254712345678",
+  "email": "john.player@example.com",
+  "nationalId": "12345678",
+  "fkfId": "FKF123456",
+  "experienceLevel": "PROFESSIONAL"
+}
+```
+
+#### Search Players with Advanced Filters
+```http
+GET /api/v1/players/search?position=MIDFIELDER&minAge=20&maxAge=30&minHeight=170&preferredFoot=RIGHT&page=0&size=10
+Authorization: Bearer your_jwt_token_here
+```
+
+#### Get Player Details
+```http
+GET /api/v1/players/{playerId}
+Authorization: Bearer your_jwt_token_here
+```
+
+#### Upload Player Photo
+```http
+POST /api/v1/players/{playerId}/photo
+Authorization: Bearer your_jwt_token_here
+Content-Type: multipart/form-data
+
+Form Data:
+- file: [image_file] (JPG, PNG, max 10MB)
+```
+
+#### Get Player Club Memberships
+```http
+GET /api/v1/players/{playerId}/club-memberships
+Authorization: Bearer your_jwt_token_here
+```
+
+### Transfer Management Endpoints ✅ NEW (Sprint 3)
+
+#### Create Transfer Request
+```http
+POST /api/v1/transfers
+Authorization: Bearer your_jwt_token_here
+Content-Type: application/json
+
+{
+  "playerId": 1,
+  "fromClubId": 1,
+  "toClubId": 2,
+  "transferType": "PERMANENT",
+  "contractType": "PROFESSIONAL",
+  "transferFee": 500000.00,
+  "proposedSalary": 50000.00,
+  "contractDuration": 24,
+  "notes": "Urgent transfer for upcoming season"
+}
+```
+
+#### Approve Transfer
+```http
+PUT /api/v1/transfers/{transferId}/approve
+Authorization: Bearer your_jwt_token_here
+```
+
+#### Get High-Value Transfers
+```http
+GET /api/v1/transfers/high-value?minimumValue=1000000&limit=10
+Authorization: Bearer your_jwt_token_here
+```
+
+#### Get Club Transfer Statistics
+```http
+GET /api/v1/transfers/clubs/{clubId}/statistics
 Authorization: Bearer your_jwt_token_here
 ```
 
@@ -931,7 +1026,7 @@ Brief description of changes
 
 LigiOpen follows an agile development approach with planned sprints:
 
-### Current Status: Sprint 2 COMPLETE ✅ - Ready for Sprint 3
+### Current Status: Sprint 3 COMPLETE ✅ - Ready for Sprint 4
 - ✅ **Sprint 1 Completed**: Foundation & Core Authentication (JWT, OAuth2, User Profiles)
 - ✅ **Sprint 2 Completed**: Comprehensive Club Management System (52+ Endpoints)
   - ✅ **Unified Registration**: Single endpoint supporting both grassroots and FKF clubs
@@ -944,15 +1039,23 @@ LigiOpen follows an agile development approach with planned sprints:
   - ✅ **Media Integration**: Professional branding with Digital Ocean Spaces
   - ✅ **Advanced Search**: Name, county, region, level, and proximity-based discovery
   - ✅ **Role-based Permissions**: Owner/Manager/Admin access control system
-  - ✅ **52+ API Endpoints**: Across 4 major controller areas with comprehensive functionality
-  - ✅ **Database Migrations**: Fixed Flyway syntax issues (V2, V3)
-  - ✅ **Updated Documentation**: Swagger UI, Postman collections, and API docs
+- ✅ **Sprint 3 Completed**: Comprehensive Player Management System (40+ Endpoints)
+  - ✅ **Player Registration & Profiles**: Complete player management with photo support
+  - ✅ **Advanced Player Search**: Filter by position, age, height, preferred foot, experience
+  - ✅ **Transfer Management System**: Complete transfer workflow with 15+ dedicated endpoints
+  - ✅ **Club Membership Tracking**: Player-club relationships with contract details
+  - ✅ **Invitation System**: Club-to-player recruitment workflow with status tracking
+  - ✅ **Enhanced Google OAuth2**: Custom URL structure (`/api/v1/oauth2/authorization/google`)
+  - ✅ **Transfer Analytics**: High-value transfer queries and club statistics
+  - ✅ **Professional DTO Layer**: Comprehensive validation and mapping system
+  - ✅ **Database Layer Enhancement**: 40+ new DAO operations for player management
+  - ✅ **Postman Collection v3.2**: Updated with all 40+ new player and transfer endpoints
 
 ### Next Phases
-- **Sprint 3**: Player Management System (Next - Weeks 7-9)
-- **Sprint 4**: Competition Structure (Weeks 10-13)
+- **Sprint 4**: Competition Structure (Next - Weeks 10-13)
 - **Sprint 5**: Match Management & Scheduling (Weeks 14-17)
 - **Sprint 6**: Statistics & Performance Analytics (Weeks 18-20)
+- **Sprint 7**: Fan Engagement & Social Features (Weeks 21-24)
 
 For detailed sprint planning, see: [Sprint Plan](sprint-plan.md)
 

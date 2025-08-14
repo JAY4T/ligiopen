@@ -30,21 +30,21 @@ public class OpenApiConfig {
                         .description("Production Environment (main branch)"))
                 .info(new Info()
                         .title("LigiOpen API")
-                        .version("2.1.0")
+                        .version("3.0.0")
                         .description("""
                                 # LigiOpen - Comprehensive Football League Management System for Kenya
                                 
                                 A state-of-the-art football league management system designed specifically for Kenya's diverse football ecosystem.
                                 From village grassroots teams to premier league clubs, LigiOpen provides a comprehensive platform.
                                 
-                                ## 🎯 Current Status: Sprint 2 Complete ✅
-                                **Location & Club Management System fully implemented and operational**
+                                ## 🎯 Current Status: Sprint 3 Complete ✅
+                                **Club & Player Management Systems fully implemented and operational**
                                 
                                 ## API Sections
                                 
                                 ### 🔐 Authentication & Authorization ✅
                                 - JWT authentication with refresh tokens
-                                - Google OAuth2 integration
+                                - **Enhanced Google OAuth2** with custom `/api/v1/oauth2/authorization/google` endpoint
                                 - Email verification system
                                 - Password reset functionality
                                 
@@ -64,16 +64,27 @@ public class OpenApiConfig {
                                 - **Geographic Search**: County, region, and proximity-based discovery
                                 - **Media Management**: Professional branding with Digital Ocean Spaces
                                 
-                                ### 🌍 Location & Infrastructure ✅ (NEW - Sprint 2)
+                                ### 🌍 Location & Infrastructure ✅ (Sprint 2)
                                 - **Kenyan Counties**: All 47 counties with regional data
                                 - **Stadium Management**: Complete venue information system
                                 - **Geographic Search**: Location-based club and venue discovery
                                 - **Regional Organization**: Counties grouped by regions
                                 
-                                ### ⚽ Player Management (Sprint 3 - Coming Soon)
-                                - Player profiles and statistics
-                                - Transfer management system
-                                - Club membership tracking
+                                ### ⚽ Player Management System ✅ (Sprint 3 Complete - 40+ Endpoints)
+                                - **Player Registration**: Complete player profiles with photo management
+                                - **Advanced Search**: Filter by position, age, height, preferred foot, experience
+                                - **Club Membership**: Track player-club relationships with contract details
+                                - **Transfer Management**: Complete transfer workflow (request, approve, complete)
+                                - **Invitation System**: Club-to-player invitations with status tracking
+                                - **Statistics & Analytics**: Player performance and transfer statistics
+                                - **Media Integration**: Player photos with Digital Ocean Spaces
+                                
+                                ### 🔄 Transfer Management System ✅ (Sprint 3 Complete - 15+ Endpoints)
+                                - **Transfer Requests**: Create and manage transfer requests
+                                - **Approval Workflow**: Complete approval process with multiple stakeholders
+                                - **Transfer Statistics**: High-value transfers and club analytics
+                                - **Transfer History**: Complete audit trail of player movements
+                                - **Contract Management**: Contract types and duration tracking
                                 
                                 ### 🏆 Competition Structure (Sprint 4 - Coming Soon)
                                 - League and tournament creation
@@ -103,21 +114,30 @@ public class OpenApiConfig {
                                 5. **User Relations**: Favorite clubs via `/api/v1/clubs/{clubId}/favorite`
                                 6. **Verification**: Submit for verification via `/api/v1/clubs/registration/{clubId}/submit-verification`
                                 
-                                ### Step 3: Location Services (NEW)
+                                ### Step 3: Player Management (40+ Endpoints) ✅ NEW
+                                1. **Player Registration**: Register players via `/api/v1/players/registration`
+                                2. **Advanced Search**: Filter players by position, age, height via `/api/v1/players/search`
+                                3. **Photo Management**: Upload player photos via `/api/v1/players/{playerId}/photo`
+                                4. **Club Membership**: Track memberships via `/api/v1/players/{playerId}/club-memberships`
+                                5. **Invitations**: Send club invitations via `/api/v1/players/invitations/{invitationId}/send`
+                                6. **Transfers**: Create transfers via `/api/v1/transfers` (15+ transfer endpoints available)
+                                
+                                ### Step 4: Location Services
                                 1. **Browse Counties**: Get all counties via `/api/v1/counties`
                                 2. **Find Stadiums**: Get county stadiums via `/api/v1/counties/{countyId}/stadiums`
                                 3. **Geographic Search**: Search clubs by location and proximity
                                 
-                                ## 🌟 Sprint 2 Achievements (COMPLETED)
-                                - **52+ API Endpoints** across 4 major controller areas
-                                - **Unified Registration System** supporting grassroots and FKF clubs
-                                - **FKF Promotion Workflow** for club upgrades
-                                - **Dual Verification System** with comprehensive workflows
-                                - **Professional Staff Management** with invitation system
-                                - **Complete Kenyan Geographic Data** with all 47 counties
-                                - **Advanced Search Capabilities** with proximity-based discovery
-                                - **Role-based Permission System** (Owner/Manager/Admin hierarchy)
-                                - **Media Management Integration** with Digital Ocean Spaces
+                                ## 🌟 Sprint 3 Achievements (COMPLETED)
+                                - **40+ New API Endpoints** for comprehensive player management
+                                - **Complete Player Management System** with registration, search, and profiles
+                                - **Transfer Management Workflow** with request, approval, and completion
+                                - **Club Membership Tracking** with contract details and history
+                                - **Player Invitation System** for club-to-player communications
+                                - **Enhanced Google OAuth2** with custom URL structure (`/api/v1/oauth2/authorization/google`)
+                                - **Advanced Player Search** by position, age, height, preferred foot, experience level
+                                - **Transfer Analytics** with high-value transfer queries and club statistics
+                                - **Professional DTO Layer** with comprehensive validation and mapping
+                                - **Database Layer Enhancements** with 40+ new DAO operations
                                 
                                 ## Environment URLs
                                 - **Local Development**: http://localhost:8000 (your local machine)
