@@ -1,4 +1,4 @@
-# 📦 LigiOpen v2
+# 📦 LigiOpen - Every Match Matters
 
 **LigiOpen** is a grassroots football management platform built with **ReactJS** (frontend) and **Django REST Framework** (backend). It enables organizers, teams, and fans to actively engage with local football tournaments through real-time updates and data tracking.
 
